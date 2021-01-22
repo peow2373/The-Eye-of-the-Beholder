@@ -4,9 +4,9 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 
 This README will be a more structured overview of future goals and progress made throughout each week
 
-﻿# 1/19/2021 Update
+# 1/19/2021 Update
 
-# Goals
+Goals
 30%
 1. Standardize marker sizes and setup, design printout page
 2. Code gestures to cause unity inputs (simulate combat gestures and make sure they work)
