@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: To Be Determined
   productName: The Eye of the Beholder
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -616,6 +616,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Build: 1
     Collab: 1
     UNet: 1
   luminIcon:
