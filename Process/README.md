@@ -11,8 +11,13 @@ This README will be a more structured overview of future goals and progress made
 - Players can now choose both attacks to be made during one round of combat
 - Hand gestures are currently not working due to an error with the Electron detection app (Keyboard inputs can simulate hand gesture movement in the meantime)
 - Also updated sprites this week, implementing standard size for all sprites, and created standalone files for the walking + idle animations of the main characters
+- Cradle has been prototyped with a shorter Twine story, but the links need to be arranged in a horizontal layout. Right now, they are stuck to a vertical layout
+- Reached out to the creator or Cradle for implementing horizontal layout and text parsing questions
 - To Do Next Week: Enemy combatant AI, establishing a random selection system so the AI can choose its moves to make against the player
 - For playtesting: Two players can manually choose moves to verse each other in combat, while a third moderator records player and enemy health, damage dealt, time taken, and # of rounds to complete the battle
+- Have links react to button presses rather than clicks
+- Solve horizontal layout issue
+- Ensure that the body text always fits on the ui
 
 
 # 1/26/2021 Update
