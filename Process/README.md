@@ -4,6 +4,17 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 
 This README will be a more structured overview of future goals and progress made throughout each week
 
+# 2/2/2021 Update
+
+- Completed combat demo interaction in Unity
+- Players can now perform specific hand gestures to select a certain attack/action for their character to perform
+- Players can now choose both attacks to be made during one round of combat
+- Hand gestures are currently not working due to an error with the Electron detection app (Keyboard inputs can simulate hand gesture movement in the meantime)
+- Also updated sprites this week, implementing standard size for all sprites, and created standalone files for the walking + idle animations of the main characters
+- To Do Next Week: Enemy combatant AI, establishing a random selection system so the AI can choose its moves to make against the player
+- For playtesting: Two players can manually choose moves to verse each other in combat, while a third moderator records player and enemy health, damage dealt, time taken, and # of rounds to complete the battle
+
+
 # 1/26/2021 Update
 
 - Using the same parsing technique that we used in last semester's feasibility tests, we found lots of complications with keeping track of variables and triggering external   events/scenes. So, we are instead going to import our Twine story to Unity using a Plugin called Cradle
