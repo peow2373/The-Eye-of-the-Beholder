@@ -4,6 +4,14 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 
 This README will be a more structured overview of future goals and progress made throughout each week
 
+# 1/26/2021 Update
+
+- Using the same parsing technique that we used in last semester's feasibility tests, we found lots of complications with keeping track of variables and triggering external   events/scenes. So, we are instead going to import our Twine story to Unity using a Plugin called Cradle
+- Designed character moves in combat (how much damage they do, what gestures players will do to activate them, etc)
+- Completed gesture/hand mapping. Now, users can see a graphic of their hand reflected on Unity that depicts their hand's current postion (on a 9x9 grid), rotation, and distance from the camera
+- Unity script can now recognize a chain of gestures as a spell. Must apply same process to 8 other attacks for the combat scene. 
+- Paper prototyped a combat scene where we went back and forth making attacks on each other while keeping track of health
+
 # 1/19/2021 Update
 
 Goals
