@@ -1,0 +1,709 @@
+:: StoryTitle
+RPG draft 3
+
+:: UserScript[script]
+
+
+:: UserStylesheet[stylesheet]
+
+
+:: Intro[START]
+This is an alternative controller RPG. To make the controller for the game all you need is a printer, a webcam, popsicle sticks (or something similar), and tape!
+
+In this game, you will be able to play as three seperate characters- each of which are outlined in the character cut-outs! To select which character you want to play as in your party, just hold up the marker of that character cutout to your camera. Make sure your lighting is good and that you can clearly see the markers in your webcam
+
+To tell the character what to do, you will use the other, square cut-out. Apply it to your hand using tape. You will need to keep the marker flat, so to avoid it getting folded or wrinkled, use a cardboard backing and then tape the cardboard to your hand (or glove for easy re-application)
+
+Now, welcome to the Iron Region!
+
+[[The Iron Region intro]]
+
+:: The Iron Region intro[ironRegion]
+The Iron Region, formerly wealthy from a stable iron manufacturing economy, is now a shadow of its former self. While digging deeper and deeper to find iron, they discovered a mineral know as Beholderite.
+
+Beholderite was a novelty. It channeled old, good memories into those who touched it. People had visions of their loves when they were younger. Visions of family, now deceased. Sadly, the Beholderite's effect was fleeting. Its power did not last, and there was never enough of it. One can only speculate the power of a great supply of Beholderite.
+
+Because the effects of Beholderite are ephemeral, people went crazy to find more. To see those that they lost one more time. These desperate people did things that tore apart the fabric of society. Soon, not even the King and his army could hold things together. 
+
+[[Netrixi Character Intro]]
+
+:: Netrixi Character Intro[netrixiForest]
+Netrixi: Come on pirate, hand over the coil. It's not even yours! I mean, you're a pirate. We can do this the easy way or the hard way.
+
+Pirate: I rightfully stole this!
+
+Help: Use your action hand to select you preferred dialogue option
+
+Alright Pirate, time to die[[Netrixi attacks Pirate]]
+Last chance to hand it over[[Netrixi attacks Pirate]]
+
+:: Netrixi attacks Pirate[netrixiForest]
+Pirate: Gahhh bring it on, you hooded creep!
+
+Netrixi: So foolish...
+
+[[Netrixi fights Pirate]] 
+
+:: Netrixi fights Pirate[forestFight]
+win[[Netrixi's mansion]]
+lose[[Netrixi attacks Pirate]]
+
+:: Netrixi's mansion[netrixiMansion]
+Netrixi: Yes! I have finally crafted it! The compass that leads to the greatest supply of Beholderite!
+
+Folkvar: Please stop, Netrixi. We have been looking for you. You are under arrest for possession of Beholderite.
+
+Oh please, come at me[[Netrixi fights Folkvar]]
+Wait, I've made a breakthrough![[Netrixi convinces Folkvar]]
+
+:: Netrixi fights Folkvar[netrixiMansion]
+win[[Folkvar is defeated]]
+lose[[Netrixi's mansion]]
+
+:: Netrixi convinces Folkvar[netrixiMansion]
+Netrixi: This compass leads to the biggest supply of Beholderite in the Iron Region. 
+
+Folkvar: That could not be! My father, the King, has secured all known Beholderite in the castle, and that does not point to our castle. 
+
+Netrixi: Then we need to figure out what is going on. Someone might be hiding Beholderite.
+
+Folkvar: You have a point. However, I must return to the castle and ask my father for permission. But Netrixi?
+
+Netrixi: Yes, my Prince?
+
+Folkvar: You will get many more slaps on the wrist if you are attempting to fool me.
+
+Netrixi: I would never. But first, I need a drink. It's been a long day.
+
+[[Tavern]]
+
+:: Tavern[tavern]
+Netrixi: Ahhh that's the stuff. The only thing that takes me back to my childhood like Beholderite does is a nice cold brew.
+
+Folkvar: Your mind seems so tainted by Beholderite. How can you still function?
+
+Netrixi: You learn some things when you're alive for hundreds of years.
+
+Folkvar: Hmmm. Ok well we might need some extra help. Whoever has that Beholderite probably has it guarded. Shall we ask someone in the tavern to assist us?
+
+Netrixi: Ah yes, let's take a look around... Oooo those two look promising. Who should we ask to join our party?
+
+ask Brute[[ask Brute]]
+ask Iv[[ask Iv]]
+
+:: Folkvar is defeated[netrixiMansion]
+Netrixi: Haha! Kneel, you mild mannered Prince!
+
+Folkvar: I submit!
+
+Netrixi: Now, you're going to help me find the Beholderite. 
+
+Folkvar: Yes ma'am! However, I will need permission from my father. He will be very upset if I am not home by curfew. 
+
+Netrixi: Fine, but I'll need to stop and get a drink along the way. It's been a long day.
+
+[[Tavern]] 
+
+:: ask Brute[tavern]
+Netrixi: Good choice, Folkvar. Do you want to do the talking? I usually scare guys like him away.
+
+Approach with Folkvar[[Folkvar talks to Brute]]
+Approach with Netrixi[[Netrixi talks to Brute]]
+
+:: ask Iv[tavern]
+Netrixi: Interesting pick, Folkvar. But hey, don't judge a spellbook by its cover and all that. Do you want to talk to her or should I?
+
+Approach with Folkvar[[Folkvar talks to Iv]]
+Approach with Netrixi[[Netrixi talks to Iv]]
+
+:: Folkvar talks to Brute[tavern]
+Folkvar: Well hello there dear lad! I had a question for you...
+
+Brute: What do you want you preppy little man?
+
+Folkvar: Ahem... well...
+
+We need help finding Beholderite[[Brute flips]]
+We would like to hire your services[[Brute prostitute]]
+
+:: Netrixi talks to Brute[tavern]
+Netrixi: Alright cupcake, listen up.
+
+Brute: Huh?
+
+I can offer you power for help[[Brute flips at Netrixi]]
+Can you fight? Or are those just pretty muscles?[[Netrixi and Folkvar fight Brute]]
+
+:: Folkvar talks to Iv[tavern]
+Folkvar: Well hello there, little lady! I hope you do not mind me saying but you look oddly out of place here!
+
+Iv: I am a monk from the mountains to the East. I am looking for help in finding my brother. I believe he was taken as a slave to mine Beholderite.
+
+Folkvar: By God! Excuse my language. Where do you think your brother was taken? By whom?
+
+Iv: I hear rumors of a man named Moke. His only goal is Beholderite and he is accumulating much. The problem is, I have no idea where he was taken.
+
+We can help each other![[Folkvar offers Iv help]]
+Can you take care of yourself?[[Iv shows power]]
+
+:: Netrixi talks to Iv[tavern]
+Netrixi: Please don't waste my time.
+
+Iv: Can I help you?
+
+We are looking for a fighter[[Iv shows power]]
+Why are you here?[[Netrixi asks Iv why here]]
+
+:: Brute flips[tavern]
+Folkvar: We have a lead on a large stash of Beholderite. Will you help us find it? We may run into trouble.
+
+Brute: BEHOLDERITE?! I WILL DESTROY ANYONE WHO COMES BETWEEN ME AND BEHOLDERITE!!! WHERE IS IT?!
+
+Folkvar: Ooo my mistake, I said been-holding-right... Simple mis-communication! please excuse me.
+
+[[Resort to Iv]]
+
+:: Brute prostitute[tavern]
+Folkvar: I would like to purchase your services! With your size, and those muscles, I think we could really have some fun!
+
+Brute: You think I'm some kind of prostitute or something? Get 'em boys!
+
+[[Netrixi and Folkvar fight Brute]]
+
+:: Netrixi and Folkvar fight Brute[tavern]
+win[[Resort to Iv]] 
+lose[[Tavern]] 
+
+:: Resort to Iv[tavern]
+Netrixi: Well that guy was crazy. Let's try the girl?
+
+Approach with Folkvar[[Folkvar talks to Iv]] 
+Approach with Netrixi[[Netrixi talks to Iv]] 
+
+:: Brute flips at Netrixi[tavern]
+Netrixi: I am locating a huge supply of Beholderite. I have figured out how to control it, but I need your help aquiring it. Of course, with power like this? There's plenty to share.
+
+Brute: BEHOLDERITE?! I WILL DESTROY ANYONE WHO COMES BETWEEN ME AND BEHOLDERITE!!! WHERE IS IT?!
+
+Netrixi: You're a psycho. Bye.
+
+[[Resort to Iv]] 
+
+:: Folkvar offers Iv help[tavern]
+Folkvar: I think I know where your brother is. We are going to the same place.
+
+You're not obsessed with Beholderite are you?[[Iv explains past]]
+Can you take care of yourself?[[Iv shows power]]
+
+:: Iv shows power[tavern]
+Iv: Watch this...
+
+Netrixi: Wow I feel powerful!
+
+Netrixi: What? What have you done to me? I'm weak.
+
+Iv: I can do stuff like that.
+
+Netrixi: WE NEED HER IN THE GANG!
+
+[[Iv joins group]]
+
+:: Iv joins group[tavern]
+Netrixi: Alrighty, gang! Looks like we got everyone we need. Just one stop at the Castle because Folkvar has to ask daddy for permission.
+
+Folkvar: I do not think I like your tone.
+
+[[Ambush]]
+
+:: Iv explains past[tavern]
+Iv: I am a monk. I have trained my entire life to rid myself of worldly temptations. Beholderite simply does not phase me. 
+
+Folkvar: Well then welcome aboard!
+
+[[Iv joins group]]
+
+:: Netrixi asks Iv why here[tavern]
+Iv: I am a monk from the mountains to the East. I am looking for help in finding my brother. I believe he was taken as a slave to mine Beholderite.
+
+Netrixi: Oooo that's rough. Wait, I didn't think there were Beholderite mines anymore. I thought they were all outlawed.
+
+Iv: This man named Moke is running a secret operation. Still, it is very difficult to keep an operation that big a secret.
+
+Netrixi: I think I might be able to find your brother. I just developed a compass that is pointing to the source of that Beholderite. The problem is...
+
+How can I trust you?[[Iv explains past]]
+It doesn't look like you can fight[[Iv shows power]]
+
+:: Ambush[road]
+Folkvar: Please, folks. Let us hurry! I have to be home soon! It took Netrixi took too long drinking!
+
+Netrixi: I not did! Guys... Why are we pointing this way? The compass is going that way- 
+
+Netrixi: Hey! That's my compass!
+
+Iv: I know that mask! They are part of an underground group of assassins that will kill for Beholderite. I know where we can find them.
+
+Folkvar: Perhaps we can get help from my father, the King. But right now, we need to get to the castle. 
+
+[[Castle]]
+
+:: Castle[gate]
+GK: Stop right there! Identify yourselves!
+
+Approach with Netrixi[[Netrixi talks to GK]]
+Approach with Iv[[Iv talks to GK]]
+Apprach with Folkvar[[Folkvar talks to GK]]
+
+:: Netrixi talks to GK[gate]
+GK: Not a step closer! I can't see a darned thing out there.
+
+I am Netrixi![[Netrixi reveals herself]]
+Let us in or I'll turn you into a cat[[Netrixi scares GK]]
+
+:: Iv talks to GK[gate]
+GK: Not a step closer! I can't see a darned thing out there.
+
+I am a monk![[Iv reveals herself]]
+Folkvar is here![[Iv scares GK]]
+
+:: Folkvar talks to GK
+GK: Not a step closer! I can't see a darned thing out there.
+
+It is me! Folkvar![[Folkvar reveals himself]]
+*Continue walking*[[Folkvar scares GK]]
+
+:: Netrixi reveals herself[gate]
+Netrixi: I am Netrixi! Witch and alchemist of Beholderite!
+
+GK: Guards! She is a wanted criminal! Take her down!
+
+Netrixi: Wow I'm still a little drunk, aren't I?
+
+[[Fight GK]]
+
+:: Netrixi scares GK[gate]
+GK: I sure wish I was a cat... In that case, Guards! attack!
+
+[[Fight GK]]
+
+:: Iv reveals herself[gate]
+Iv: I am a peaceful monk! I would never directly harm anyone, We only wish to speak with the King.
+
+GK: Oh well then why didn't you just say so? Step right up and we will take you inside.
+
+[[Throne room]]
+
+:: Iv scares GK[gate]
+Iv: Relax, we have Folkvar.
+
+GK: The intruder have Folkvar! Guards! Rescue him!
+
+[[Fight GK]]
+
+:: Folkvar reveals himself[gate]
+Folkvar: Ahoy, GK! Fear not! It is I, Folkvar! Returning home for the night. So sorry to be out so late.
+
+GK: Folkvar? We were afraid you would never come back from your mission! Have you captured the witch?
+
+Folkvar: Uhhhh yes?
+
+GK: Brilliant! Your father will be so proud.
+
+[[Throne room]] 
+
+:: Folkvar scares GK[gate]
+GK: Intruder alert! It's a bunch of crazy Beholderite addicts storming the castle. We need reinforcements!
+
+[[Fight GK]]
+
+:: Fight GK[gate]
+win[[Throne room]] 
+lose[[Castle]] 
+
+:: Throne room[throneRoom]
+King: Well hello dear son! It sounds like you've caused quite a stir about the castle tonight!
+
+Folkvar: My most sincere of apologies, father. It took longer than expected. In better news, Netrixi has discovered an overwhelming quanity of Beholderite. She will help us secure it and bring it to safety.
+
+King: Brilliant! Do not delay. Go and bring that Beholderite back to me! I mean, the castle! So we can... uh store it in the vault? Yes, store it in the vault!
+
+Folkvar: Your wish is my command, father.
+
+Netrixi: You got a weird family, man
+
+Folkvar: Let's go get that compass.
+
+[[Tunnel entrance]]
+
+:: Tunnel entrance[tunnelEntrance]
+Iv: Here is the entrance to the underground tunnels full of assassins. Looks like there's only two guards, so getting in should be a breeze!
+
+Folkvar: I am having second thoughts about all this...
+
+Netrixi: Ahh don't be such a weenie. Let's just talk to em! They look cool!
+
+Approach with Iv[[Iv talks to assassins]]
+Approach with Folkvar[[Folkvar talks to assassins]]
+Approach with Netrixi[[Netrixi talks to assassins]]
+
+:: Iv talks to assassins[tunnelEntrance]
+Iv: Hello. Would it be possible for my friend and I to have a word with whomever keeps the stolen goods?
+
+Assassin: ...
+
+I will take that as a yes[[Fight Assassins]]
+I am looking for my brother[[Guards remain silent with Iv]]
+
+:: Folkvar talks to assassins[tunnelEntrance]
+Folkvar: Good day to you, gentlemen! I'm not sure if you realize this, but I believe you might have unintentionally taken something from me the last time that you snuck into my castle.
+
+Assassin: ...
+
+I am the Prince of the Iron Region![[Guards remain silent with Folkvar]]
+I know you folks aren't bad[[Folkvar pursuades Assassin]]
+
+:: Netrixi talks to assassins[tunnelEntrance]
+Netrixi: Alright boys, Your gang stole my compass. So here's how it's going to work: You let us in, and I won't turn you into little fishies. Deal?
+
+Guards remain motionless.
+
+Netrixi: hmmm that usually works.
+
+*Begin casting fish spell*[[Fight Assassins]]
+Look over there![[Netrixi makes cats]]
+
+:: Guards remain silent with Folkvar[tunnelEntrance]
+Folkvar: I am the Prince of the Iron Region! I have authority! It is your legal obligation to obey me.
+
+Assassin: ...
+
+Brilliant! I'll just show myself in then![[Fight Assassins]]
+I know you folks aren't bad[[Folkvar pursuades Assassin]]
+
+:: Folkvar pursuades Assassin[tunnelEntrance]
+Folkvar: I know you lot aren't bad folks! You're simply misunderstood! Work so hard, standing out here all day, but it's clear to see that you're both more emotionally repressed than a jar of pickles. You deserve more credit, which is why I'm offering you a position in my ranks?
+
+Netrixi: (whispering) Are you sure about this, Folkvar? 
+
+Folkvar: Trust me
+
+Folkvar: See?
+
+[[Kaz's inner sanctum]]
+
+:: Fight Assassins[tunnelEntrance]
+win[[Kaz's inner sanctum]] 
+lose[[Tunnel entrance]] 
+
+:: Guards remain silent with Iv[tunnelEntrance]
+Iv: I am looking for my brother, I come in peace. May I enter?
+
+Assassin: ...
+
+You feel very sleepy...[[Fight Assassins]]
+I'll take that as a yes[[Fight Assassins]]
+
+:: Netrixi makes cats[tunnelEntrance]
+Netrixi: Felifors!
+
+Netrixi: Alright guys, let's sneak passed.
+
+Assassin: Awww what cute kitty cats, come on in!
+
+[[Kaz's inner sanctum]]
+
+:: Kaz's inner sanctum[innerSanctum]
+Kaz: What do you mean the Beholderite wasn’t in their stomach?
+
+Assassin: We couldn’t find it, dear prince. 
+
+Kaz: Get out of my face. If you come back empty handed again, you’re going in the pit.
+
+Assassin: It looks like we have company.
+
+Kaz: Well well well, what have we got here? Lost people wandering my halls?
+
+Folkvar: He has my enchanted axe. It was a gift from my father... It is no wonder who is behind all this.
+
+Iv: And that is my family's amulet! It amplifies a monk's connection to all living things.
+
+Netrixi: Let's get our stuff back, then!
+
+Approach with Folkvar[[Folkvar speaks to Kaz]]
+Approach with Netrixi[[Netrixi speaks to Kaz]]
+Approach with Iv[[Iv speaks to Kaz]]
+
+:: Folkvar speaks to Kaz[innerSanctum]
+Folkvar: Well hello! We just happened to be in the neighborhood and figured that we could pick up what you borrowed from us!
+
+Kaz: Borrow? Bahaha! Assassins? Kill them.
+
+[[Fight Kaz]]
+
+:: Netrixi speaks to Kaz[innerSanctum]
+Netrixi: You took our compass. Either you give it back, or I'll do it for you.
+
+Kaz: Ooooo there's some fire in your soul! You don't see much of that anymore. What is your name?
+
+Netrixi[[My name is Netrixi]]
+Compass. Now.[[Not give compass]]
+
+:: Iv speaks to Kaz[innerSanctum]
+Iv: I am looking for my brother I know you all didn't take him. It's not in your business. Still, We need more power to take him back from the people that took him from us.
+
+Kaz: Why would I help you?
+
+Because you know what loss feels like[[Iv pursuades Kaz]]
+Because you are kind. I know you are[[Fight Kaz]]
+
+:: Fight Kaz[innerSanctum]
+Win[[Outside Tunnel]] 
+lose[[Kaz's inner sanctum]] 
+
+:: My name is Netrixi[innerSanctum]
+Netrixi: My name is Netrixi! Witch and alchemist of Beholderite. I have killed countless men in my lifetimes and discovered more secrets than you could ever hope to. One more man is nothing to me. 
+
+Kaz: You... Nobody has ever dared speak to me that way. I like you. Maybe we can arrange something. You work for me in my labs after your quest, and I will give you your sword
+
+OK![[Evade Kaz]]
+Never![[Fight Kaz]]
+
+:: Not give compass[innerSanctum]
+Netrixi: Give me the Compass or I'll turn you into a toad!
+
+Kaz: Too hot-headed for manners huh? So be it. Prepare to die. 
+
+[[Fight Kaz]]
+
+:: Evade Kaz[innerSanctum]
+Netrixi: Ok! Just give us the sword and I'll run some arrends and I'll be right back
+
+Assassin: Ay, I like her, too
+
+Kaz: Well, alright, here you are little lady.
+
+Netrixi: Thank you sir! I'll see you soon!
+
+Kaz: Follow them...
+
+[[Outside Tunnel]] 
+
+:: Iv pursuades Kaz[innerSanctum]
+Iv: I sense deep sorrow in your heart. I know you've lost before - much more than I could know.
+
+Kaz: You're right. I have lost. I assume this amulet is yours?
+
+I knew you were good deep down[[Fight Kaz]]
+Yes, that amulet came from my people[[Iv pursuades Kaz again]]
+
+:: Iv pursuades Kaz again[innerSanctum]
+Kaz: Very well, I hope you find your brother. Pray he is alive in this God-forsaken Region. And here are the rest of your things. Now leave.
+
+[[Outside Tunnel]]
+
+:: Outside Tunnel[tunnelEntrance]
+Netrixi: Alrighty, now that we got everything we need, let's go find that Beholderite. Oh and your brother, Iv.
+
+Iv: Good save.
+
+Folkvar: Kaz looked quite familiar... Did he not?
+
+Netrixi: Whatever, Folkvar. Let's head out.
+
+[[Outside cave]]
+
+:: Fight cave entrance[outsideCave]
+win[[Inside cave]] 
+lose[[Outside cave]]
+
+:: Outside cave[outsideCave]
+Netrixi: Ok guys, should we fight our way in, or think about it for a little longer?
+
+Fight our way in[[Fight cave entrance]] 
+Think about it[[Think about it]] 
+
+:: Folkvar approaches royal guards[insideCave]
+Dear friends! Over here![[Inside cave fight]]
+Remain hidden[[Royal guards spill beans]]
+
+:: Think about it[outsideCave]
+Netrixi: OK, so what do you think we should do Folkvar?
+
+Folkvar: Well, you know me. I do not yearn to fight. Therefore, I would rather be turned into a car and sneak passed the mercenaries.
+
+Iv: I concur. I would really appreciate avoiding any unnecessary conflict.
+
+Netrixi: I hear you guys, I really do. Here, let me cast the cat spell... Felifo- 
+
+Mercenary: HEY! WHAT ARE DOING OVER THERE!?
+
+Netrixi: Well, so much for that idea.
+
+[[Fight cave entrance]]
+
+:: Inside cave fight[insideCave]
+Royal Guard 1: Oy! Is that... Folkvar and his gang?! Protect the stone!
+
+Win[[Inside mine]]
+Lose[[Inside cave]]
+
+:: Royal guards spill beans[insideCave]
+Royal Guard 1: Agh, these slaves can be such a thorn in your side sometimes, man. 
+
+Royal Guard 2: Tell me about it. The berzerker is always killing other slaves and that monk is more slippery than a... a monkey!
+
+Royal Guard 1: Hahaha
+
+Iv: THAT'S MY BROTHER, YOU BASTARDS!!! 
+
+[[Inside cave fight]]
+
+:: Inside cave[insideCave]
+Folkvar: Those guards protect my royal family. What are they doing here?
+
+[[Folkvar approaches royal guards]]
+[[Iv approaches royal guards]]
+[[Netrixi approaches royal guards]]
+
+:: Inside mine[insideMine]
+Iv: Brother? Bo?
+
+Bo: What? Who are you? How do you know my name?
+
+Iv: It is me, your sister! Iv!
+
+Bo: Oh no... Iv! You have to get out of here! Moke will enslave you like he's done all of us. Or worse, the Berzerker will see you. Save yourself!
+
+Iv: Brother, be quiet, we cannot attract attention...
+
+Bo: SAVE YOURSELF! RUN!
+
+Netrixi: We have to get out of here before we're found!
+
+Iv: Stay here, Bo! I'm coming back for you.
+
+[[Volcano]]
+
+:: Iv approaches royal guards[insideCave]
+Hello[[Inside cave fight]]
+Remain hidden[[Royal guards spill beans]]
+
+:: Netrixi approaches royal guards[insideCave]
+Hey guys![[Inside cave fight]]
+Remain hidden[[Royal guards spill beans]]
+
+:: Volcano[volcano]
+Moke: Folkvar. I had so much hope for you.
+
+Folkvar: Father? What are you doing? How long have these people been enslaved?
+
+Moke: Hahaha since before your time, son. I've been building something truly magificent while you've been hiding in the castle.
+
+Folkvar: Gahh what have you done? Who are you?
+
+Approach with Folkvar[[Folkvar talks to Moke]]
+Approach with Iv[[Iv talks to Moke]]
+Approach with Netrixi[[Netrixi talks to Moke]]
+
+:: Folkvar talks to Moke[volcano]
+Folkvar: Father, all this secrecy. Have you been lying to me my entire life?
+
+Moke: I did this to protect the family. You could never understand. You weren't there to see the chaos. The danger.
+
+Wait... the family?[[family history]]
+You are not yourself[[Folkvar challenges Moke]]
+
+:: Iv talks to Moke[volcano]
+Iv: What have you done to my brother? You fueled your evil with his hardships.
+
+Moke: Oh, is he one of my slaves? Let me guess... The bald one! Truth be told I haven't seen him in months. I do not mingle with that nastly lot.
+
+We are peaceful! Why kidnap my brother?[[Moke explains to Iv]]
+You will serve justice![[Fight Moke]]
+
+:: Netrixi talks to Moke[volcano]
+Netrixi: You've been building the stone, haven't you?
+
+Moke: Yes, it has taken years to figure out how to consolidate this much Beholderite into a single orb. It's power will not fade.
+
+We're taking that stone[[Fight Moke]]
+Why are you doing this?[[Moke explains to Netrixi]]
+
+:: family history[volcano]
+Folkvar: Wait a minute... Family? I thought it was just you and me. You said that mother died when I was very young... I am not your only son, am I?
+
+Moke: Ah yes, I believe you had a run-in with your brother earlier. Did you two get along?
+
+Folkvar: You ruined Kaz's life! Only a monster could force their own son to live underground, killing people for Beholderite.
+
+Moke: You should be happy, you got a lavish life because of his sacrifice.
+
+This is not my father[[Folkvar challenges Moke]]
+Maybe we can knock some sense into you[[Fight Moke]]
+
+:: Folkvar challenges Moke[volcano]
+Folkvar: The father I know would rule the Region with benevolence.
+
+Moke: At this point, son, you need to recognize when it's time to take as much as you can for yourself. It's the only way to survive.
+
+Folkvar: Maybe a knock on the head will get you thinking again
+
+[[Fight Moke]]
+
+:: Fight Moke[volcano]
+Win[[Final decision]]
+Lose[[Volcano]] 
+
+:: Final decision[finalDecision]
+Netrixi takes stone[[Netrixi takes stone]]
+Iv takes stone[[Iv takes stone]]
+Folkvar takes stone[[Folkvar takes stone]]
+
+:: Netrixi takes stone[fadeText]
+Netrixi takes the Beholderite back to her lab where she runs experiments on it and eventually figures out how it can make her the most powerful witch in the Iron Region
+Iv goes back to find her brother, and although his trauma is great, he is relearning the way of the Monks
+Folkvar is crowned King and begins an anti-beholderite movement of people dedicated to cleansing the Region of its stain of Beholderite
+
+[[The end]]
+
+:: Iv takes stone[fadeText]
+Netrixi gives Beholderite to Iv, asking her to keep it safe with the enlightened monks. Netrixi goes back to her house and stares at the ceiling
+Iv takes the stone and keeps it in her mentally healthy community. Her brother is no longer entirely pure- he feels temptation
+Folkvar and his father return to the kingdom and his father remembers the his love for his Region. They begin to rebuild together
+
+[[The end]]
+
+:: Folkvar takes stone[fadeText]
+Folkvar takes the stone and uses it to bring order back to the Iron Region. His father's delusion fades, but the King still agrees to hand the crown over to his son. Folkvar eradicates all other Beholderite.
+Iv returns her brother back to the monk community in the mountains, where he undergoes mental and physical rehabilitation with the support of his loved ones. Even still, something nags at his heart. He still feels the Beholderite stone in the sceptor.
+Netrixi returns home. She has seen the evil that Beholderite can draw people into - including herself. She needs to get away. She destroys her lab equipment, and leaves her home to wander.
+
+[[The end]]
+
+:: Moke explains to Netrixi[volcano]
+Netrixi: Why are you doing this? I mean, I'm a witch. This is what I do. But you're a King! With responsibilities!
+
+Moke: My Kingdom has crumbled. I am no longer the king here, Beholderite is. Now that I've perfected this weapon, I am in control again. Finally.
+
+You are a slave to it, too[[Fight Moke]]
+The stone is mine[[Fight Moke]]
+
+:: Moke explains to Iv[volcano]
+Iv: He is peaceful! he has nothing to do with Beholderite.
+
+Moke: Exactly. I knew he wouldn't betray me. It's hard to find people who I can trust. 
+
+You have broken him[[Moke breaks Bo]]
+I'm breaking him out of here![[Fight Moke]]
+
+:: Moke breaks Bo[volcano]
+Iv: You have broken my brother. He is no longer the innocent boy I once knew.
+
+Moke: Maybe he isn't as pure as you thought he was.
+
+[[Fight Moke]]
+
+:: The end[fadeText]
+THE END
+
+play again to make new choices?[[Netrixi's mansion]]

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8195057812196624119}
   - component: {fileID: 8195057812196624116}
+  - component: {fileID: 2574618022633077545}
   m_Layer: 8
   m_Name: Palm Marker
   m_TagString: Palm Marker
@@ -81,3 +82,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2574618022633077545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8195057812196624117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c43683294c123e44a71a17e485e3bb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
