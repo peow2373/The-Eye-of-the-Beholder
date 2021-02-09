@@ -4,6 +4,19 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 
 This README will be a more structured overview of future goals and progress made throughout each week
 
+# 2/9/2021 Update
+
+- Beholder software now has a configuration option (Allows the player to flip the camera so the image is mirrored, creating better visual feedback for hand gestures)
+- There are still latency issues affecting the response time within the game, these need to be fixed to create a better gameplay experience
+- Combat demo now has the ability to change rounds once a player has locked in their choice for both of their attacks
+- Created a spreadsheet to plan out the order/type of scenes in the game (Outlines the basic structure that will be implemented into the GameManagerScript)
+- Implemented Cradle into Unity to iterate through the Twine story
+- Decided that Cradle's customization features are too limited for what we were planning 
+- Shifted focus towards trying Ink to implement the story (Hopefully will allow us to trigger events in the game when a certain point in the story is reached)
+- If Ink fails, we will shift to hard-coding the entire story (Least ideal solution, but it gives us the most control over variables and event triggers)
+- Enemy combat AI wasn't worked on this week, the main focus was fixing errors in Beholder-detection and dialogue parsing
+- Plans for next week include: Enemy combat AI, GameManagerScript, Ink+Unity Dialogue interaction, fixing latency issues with Beholder marker-detection
+
 # 2/2/2021 Update
 
 - Completed combat demo interaction in Unity
@@ -17,8 +30,7 @@ This README will be a more structured overview of future goals and progress made
 - For playtesting: Two players can manually choose moves to verse each other in combat, while a third moderator records player and enemy health, damage dealt, time taken, and # of rounds to complete the battle
 - Have links react to button presses rather than clicks
 - Solve horizontal layout issue
-- Ensure that the body text always fits on the ui
-
+- Ensure that the body text always fits on the UI
 
 # 1/26/2021 Update
 
@@ -43,7 +55,7 @@ Goals
 1. Link external events to dialogue and pair character graphics with each node
 2. Design basic sound effects
 3. Animate characters and attacks
-4. finish combat system with basic animations/feedback
+4. Finish combat system with basic animations/feedback
 5. Figure out webcam setup with Unity
 6. Test combat + story
 
