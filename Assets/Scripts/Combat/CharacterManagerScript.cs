@@ -17,9 +17,9 @@ public class CharacterManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("Netrixi Start: " + netrixiPosition);
-        print("Netrixi 1st: " + netrixi1st);
-        print("Netrixi 2nd: " + netrixi2nd);
+        //print("Netrixi Start: " + netrixiPosition);
+        //print("Netrixi 1st: " + netrixi1st);
+        //print("Netrixi 2nd: " + netrixi2nd);
         
         // print("Netrixi: " + netrixiPosition);
         // print("Folkvar: " + folkvarPosition);
