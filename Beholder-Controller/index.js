@@ -7,8 +7,8 @@ const Beholder = require('beholder-detection');
 // Attach listener in the main process with the given ID
 // keyboard.config.autoDelayMs = 0;
 
-// Delay after marker has been undetected before it can be detected again
-const BUTTON_TIMEOUT = 500;
+// Delay after marker has been undetected before it reports that the marker is missing
+const BUTTON_TIMEOUT = 1000;
 
 // Marker detection variables
 let palm, netrixi, folkvar, iv, undo, go;
