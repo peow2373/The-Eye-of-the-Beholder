@@ -10,21 +10,20 @@ public class MarkerManagerScript : MonoBehaviour
     public static bool netrixiMarker = false;
     public static bool folkvarMarker = false;
     public static bool ivMarker = false;
-    public static bool pauseMarker = false;
-    public static bool undoMarker = false;
-    public static bool extraMarker = false;
+    public static bool backMarker = false;
+    public static bool goMarker = false;
 
     public GameObject hand;
+    private SpriteRenderer sr;
+    
     public float[] xPos = new float[] { };
     public float[] yPos = new float[] { };
 
-    public float[] rotationR = new float[] { 90, 60, 30, 0, -30, -60 };
-    public float[] rotationL = new float[] { -90, -60, -30, 0, 30, 60 };
+    public float[] rotation = new float[] { 90, 60, 30, 0, -30, -60, -90 };
 
     public float scaleFactor = 2f;
     public bool wasLarger = false, wasSmaller = false;
-
-    public static bool rightHanded = true;
+    
     public static bool beingRotated = false;
 
     public static MarkerManagerScript S;
@@ -38,12 +37,24 @@ public class MarkerManagerScript : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+
+        sr = hand.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
         TestForMarkers();
+        
+        // Flip marker if player is left-handed
+        if (!GameManagerScript.rightHanded)
+        {
+            sr.flipX = false;
+        }
+        else
+        {
+            sr.flipX = true;
+        }
 
         // If Palm marker is visible
         if (palmMarker)
@@ -68,15 +79,12 @@ public class MarkerManagerScript : MonoBehaviour
         
         // check to see if Iv marker is visible
         if (Input.GetKeyDown(KeyCode.I)) ivMarker = !ivMarker;
-        
-        // check to see if Pause marker is visible
-        if (Input.GetKeyDown(KeyCode.P)) pauseMarker = !pauseMarker;
-        
+
         // check to see if Undo marker is visible
-        if (Input.GetKeyDown(KeyCode.U)) undoMarker = !undoMarker;
+        if (Input.GetKeyDown(KeyCode.U)) backMarker = !backMarker;
         
         // check to see if Extra marker is visible
-        if (Input.GetKeyDown(KeyCode.V)) extraMarker = !extraMarker;
+        if (Input.GetKeyDown(KeyCode.V)) goMarker = !goMarker;
     }
 
     void MarkerLocate()
@@ -147,120 +155,70 @@ public class MarkerManagerScript : MonoBehaviour
 
     void MarkerRotate()
     {
-        // if the player is right-handed
-        if (rightHanded)
+        if (!beingRotated)
         {
-            // check to see if Palm marker is being rotated
-            if (Input.GetKeyDown(KeyCode.K))
+            // Is the player right-handed?
+            if (GameManagerScript.rightHanded)
             {
-                beingRotated = true;
-                // put the hand into the starting position
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[0]);
-            }
-
-            if (Input.GetKeyDown(KeyCode.U) || Input.GetKeyDown(KeyCode.V))
-            {
-                beingRotated = false;
-                // return the hand to a vertical position
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[3]);
-            }
-
-            
-            if (beingRotated)
-            {
-                // check to see if Palm marker is in the first zone
-                if (Input.GetKeyDown(KeyCode.L))
+                // check to see if Palm marker is being rotated
+                if (Input.GetKeyDown(KeyCode.K))
                 {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[1]);
+                    beingRotated = true;
+                    // put the hand into the starting position
+                    hand.transform.rotation = Quaternion.Euler(0, 0, rotation[0]);
                 }
-            
-                // check to see if Palm marker is in the second zone
-                if (Input.GetKeyDown(KeyCode.G))
+            } 
+        
+            // Is the player left-handed?
+            else {
+                // check to see if Palm marker is being rotated
+                if (Input.GetKeyDown(KeyCode.J))
                 {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[2]);
-                }
-            
-                // check to see if Palm marker is in the third zone
-                if (Input.GetKeyDown(KeyCode.B))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[3]);
-                }
-            
-                // check to see if Palm marker is in the fourth zone
-                if (Input.GetKeyDown(KeyCode.T))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[4]);
-                }
-            
-                // check to see if Palm marker is in the fifth zone
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[5]);
+                    beingRotated = true;
+                    // put the hand into the starting position
+                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[6]);
                 }
             }
-            else
+            
+            
+        } else {
+            // check to see if Palm marker is in the first zone
+            if (Input.GetKeyDown(KeyCode.L))
             {
-                // return the hand to a vertical position
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[3]);
+                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[1]);
+            }
+            
+            // check to see if Palm marker is in the second zone
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[2]);
+            }
+            
+            // check to see if Palm marker is in the third zone
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[3]);
+            }
+            
+            // check to see if Palm marker is in the fourth zone
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[4]);
+            }
+            
+            // check to see if Palm marker is in the fifth zone
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[5]);
             }
         }
-
-        // if the player is left-handed
-        else
+        
+        // Reset rotation
+        if (Input.GetKeyDown(KeyCode.U) || Input.GetKeyDown(KeyCode.V))
         {
-            // check to see if Palm marker is being rotated
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                beingRotated = true;
-                // put the hand into the starting position
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[0]);
-            }
-
-            if (Input.GetKeyDown(KeyCode.U) || Input.GetKeyDown(KeyCode.V))
-            {
-                beingRotated = false;
-                // return the hand to a vertical position
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[3]);
-            }
-            
-            
-            if (beingRotated)
-            {
-                // check to see if Palm marker is in the first zone
-                if (Input.GetKeyDown(KeyCode.L))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationL[1]);
-                }
-            
-                // check to see if Palm marker is in the second zone
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationL[2]);
-                }
-            
-                // check to see if Palm marker is in the third zone
-                if (Input.GetKeyDown(KeyCode.B))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationL[3]);
-                }
-            
-                // check to see if Palm marker is in the fourth zone
-                if (Input.GetKeyDown(KeyCode.T))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationL[4]);
-                }
-            
-                // check to see if Palm marker is in the fifth zone
-                if (Input.GetKeyDown(KeyCode.R))
-                {
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationL[5]);
-                }
-            }
-            else
-            {
-                // return the hand to a vertical position
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotationR[3]);
-            }
+            beingRotated = false;
+            // return the hand to a vertical position
+            hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[3]);
         }
     }
 
@@ -317,6 +275,9 @@ public class MarkerManagerScript : MonoBehaviour
     
     private float[] xPosCombatDraft1 = new float[] { 1f, 4f, 7f };
     private float[] yPosCombatDraft1 = new float[] { 2.5f, 0, -2.5f };
+    
+    private float[] xPosCombatDraft2 = new float[] { 1f, 4f, 7f };
+    private float[] yPosCombatDraft2 = new float[] { 2.5f, 0, -2.5f };
 
     void ChangeMarkerLocation()
     {
@@ -337,6 +298,13 @@ public class MarkerManagerScript : MonoBehaviour
             yPos = yPosCombatDraft1;
         }
         
+        // if the player is in combat with an enemy
+        if (sceneName == "CombatDraft2")
+        {
+            xPos = xPosCombatDraft2;
+            yPos = yPosCombatDraft2;
+        }
+        
         // if the player is in dialogue
         if (sceneName == "StoryDraft3")
         {
@@ -352,17 +320,26 @@ public class MarkerManagerScript : MonoBehaviour
         // reset variables when a new level is loaded
         if (palmMarker) palmMarker = true;
         else palmMarker = false;
+
+        if (netrixiMarker) netrixiMarker = true;
+        else netrixiMarker = false;
+        
+        if (folkvarMarker) folkvarMarker = true;
+        else folkvarMarker = false;
+        
+        if (ivMarker) ivMarker = true;
+        else ivMarker = false;
+
+        if (backMarker) backMarker = true;
+        else backMarker = false;
+        
+        if (goMarker) goMarker = true;
+        else goMarker = false;
+        
         
         ChangeMarkerLocation();
         Vector2 loc = new Vector2(xPos[1], yPos[1]);
         hand.transform.position = loc;
-
-        netrixiMarker = false;
-        folkvarMarker = false;
-        ivMarker = false;
-        pauseMarker = false;
-        undoMarker = false;
-        extraMarker = false;
 
         wasLarger = false; 
         wasSmaller = false;

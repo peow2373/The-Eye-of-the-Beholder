@@ -190,30 +190,6 @@ MonoBehaviour:
   scaleFactor: 2
   wasLarger: 0
   wasSmaller: 0
-  xPosStoryDraft3:
-  - -10
-  - -10
-  - -10
-  yPosStoryDraft3:
-  - -10
-  - -10
-  - -10
-  xPosTutorial:
-  - -4.5
-  - 0
-  - 4.5
-  yPosTutorial:
-  - 2.5
-  - 0
-  - -2.5
-  xPosCombatDraft1:
-  - -2.5
-  - 2
-  - 6.5
-  yPosCombatDraft1:
-  - 2.5
-  - 0
-  - -2.5
 --- !u!1 &332262118
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 332262120}
   - component: {fileID: 332262119}
+  - component: {fileID: 332262121}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -257,6 +234,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &332262121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332262118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 786efba47fce2c54492dc14349ae9000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +338,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1010585714}
-  - component: {fileID: 1010585715}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -371,18 +359,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1010585715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1010585713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 786efba47fce2c54492dc14349ae9000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1428464468
 GameObject:
   m_ObjectHideFlags: 0

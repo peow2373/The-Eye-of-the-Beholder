@@ -8,6 +8,7 @@ public class FolkvarCombatScript : MonoBehaviour
     public static bool[] folkvarCondition1 = new bool[] {false, false};
     public static bool[] folkvarCondition2 = new bool[] {false, false};
     public static bool[] folkvarCondition3 = new bool[] {false, false, false};
+    public static bool[] folkvarCondition4 = new bool[] {false, false, false};
 
     public static int swing = 1;
     
@@ -41,7 +42,7 @@ public class FolkvarCombatScript : MonoBehaviour
                 // If player instead places their hand in any other corner
                 if (!folkvarCondition1[1])
                 {
-                    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.U))
+                    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X))
                     {
                         folkvarCondition1[0] = false;
                     } 
@@ -61,7 +62,7 @@ public class FolkvarCombatScript : MonoBehaviour
                 // If player instead moves hand to a different location or away from the webcam
                 if (!folkvarCondition2[1])
                 {
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.U))
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.M))
                     {
                         folkvarCondition2[0] = false;
                     } 
@@ -85,7 +86,7 @@ public class FolkvarCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!folkvarCondition3[1])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.X))
                         {
                             folkvarCondition3[0] = false;
                         } 
@@ -109,12 +110,58 @@ public class FolkvarCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!folkvarCondition3[2])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.X))
                         {
                             folkvarCondition3[0] = false;
                             folkvarCondition3[1] = false;
                         }
                     }
+                }
+                
+                
+                
+                // Check to see if the player decided to move for their turn instead
+                if (MarkerManagerScript.goMarker)
+                {
+                    if (Input.GetKeyDown(KeyCode.V)) folkvarCondition4[0] = true;
+                }
+            
+                if (folkvarCondition4[0])
+                {
+                    // If the player decides to move Folkvar to the left
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                    {
+                        if (CharacterManagerScript.MoveFolkvar(1) == 1)
+                        {
+                            folkvarCondition4[1] = true;
+                        }
+                        
+                        // If they cannot move in that direction
+                        if (CharacterManagerScript.MoveFolkvar(1) == 2)
+                        {
+                            folkvarCondition4[0] = false;
+                        }
+                    }
+                    
+                    // If the player decides to move Folkvar to the right
+                    if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                    {
+                        if (CharacterManagerScript.MoveFolkvar(2) == 1)
+                        {
+                            folkvarCondition4[2] = true;
+                        }
+                        
+                        // If they cannot move in that direction
+                        if (CharacterManagerScript.MoveFolkvar(2) == 2)
+                        {
+                            folkvarCondition4[0] = false;
+                        }
+                    }
+                }
+                else
+                {
+                    folkvarCondition4[1] = false;
+                    folkvarCondition4[2] = false;
                 }
 
 
@@ -122,10 +169,14 @@ public class FolkvarCombatScript : MonoBehaviour
             // check to see if Folkvar has made any attacks
             CombatManagerScript.FolkvarMeleeAttack();
             
-            // Reset variables if an attack is canceled or made
-            if (Input.GetKeyDown(KeyCode.U))
+            
+            // Reset variables if an attack is canceled
+            if (MarkerManagerScript.backMarker)
             {
-                ResetFolkvarVariables();
+                if (Input.GetKeyDown(KeyCode.U))
+                {
+                    ResetFolkvarVariables();
+                }
             }
         }
     }
@@ -143,5 +194,9 @@ public class FolkvarCombatScript : MonoBehaviour
         folkvarCondition3[0] = false;
         folkvarCondition3[1] = false;
         folkvarCondition3[2] = false;
+        
+        folkvarCondition4[0] = false;
+        folkvarCondition4[1] = false;
+        folkvarCondition4[2] = false;
     }
 }

@@ -5,7 +5,7 @@ using static DialogueObject;
 
 public class DialogueController : MonoBehaviour {
 
-    [SerializeField] TextAsset twineText;
+    [SerializeField] TextAsset twineText = null;
     Dialogue curDialogue;
     Node curNode;
 

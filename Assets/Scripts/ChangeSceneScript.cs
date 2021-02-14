@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TutorialSceneManagerScript : MonoBehaviour
+public class ChangeSceneScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -21,9 +21,15 @@ public class TutorialSceneManagerScript : MonoBehaviour
         }
         
         // change scene to combat testing
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown(KeyCode.Equals))
         {
             SceneManager.LoadScene("CombatDraft1");
+        }
+        
+        // change scene to combat and enemy testing
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            SceneManager.LoadScene("CombatDraft2");
         }
     }
 }

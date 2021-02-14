@@ -8,10 +8,10 @@ using System;
 using System.Runtime.InteropServices;
 
 public class DialogueViewer : MonoBehaviour {
-    [SerializeField] Transform parentOfResponses;
-    [SerializeField] Button prefab_btnResponse;
-    [SerializeField] UnityEngine.UI.Text txtNodeDisplay;
-    [SerializeField] DialogueController dialogueController;
+    [SerializeField] Transform parentOfResponses = null;
+    [SerializeField] Button prefab_btnResponse = null;
+    [SerializeField] UnityEngine.UI.Text txtNodeDisplay = null;
+    [SerializeField] DialogueController dialogueController = null;
     DialogueController controller;
 
     [DllImport( "__Internal" )]

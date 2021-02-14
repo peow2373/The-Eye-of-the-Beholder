@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class NetrixiCombatScript : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class NetrixiCombatScript : MonoBehaviour
     public static bool[] netrixiCondition1 = new bool[] {false, false};
     public static bool[] netrixiCondition2 = new bool[] {false, false};
     public static bool[] netrixiCondition3 = new bool[] {false, false, false, false, false};
+    public static bool[] netrixiCondition4 = new bool[] {false, false, false};
 
     public static int netrixiRotation = 0;
     
@@ -37,13 +39,21 @@ public class NetrixiCombatScript : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.N)) netrixiCondition1[1] = true;
 
                 // If player instead moves hand back to a resting position
-                else if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.U)) netrixiCondition1[0] = false;
+                else if (Input.GetKeyDown(KeyCode.M)) netrixiCondition1[0] = false;
             }
 
 
             // Second spell
             // If player starts to rotate their hand first
-            if (Input.GetKeyDown(KeyCode.K)) netrixiCondition2[0] = true;
+            if (GameManagerScript.rightHanded)
+            {
+                if (Input.GetKeyDown(KeyCode.K)) netrixiCondition2[0] = true;
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.J)) netrixiCondition2[0] = true;
+            }
+            
             
             if (netrixiCondition2[0])
             {
@@ -65,20 +75,12 @@ public class NetrixiCombatScript : MonoBehaviour
                 
                 // If player then rotates hand to the fifth zone
                 if (Input.GetKeyDown(KeyCode.R)) netrixiRotation = 5;
-                
-
-                // If player instead exits rotating mode
-                else if (Input.GetKeyDown(KeyCode.U))
-                {
-                    netrixiCondition2[0] = false;
-                    netrixiRotation = 0;
-                }
             }
             
             
             // Third spell
             // If the player is right-handed
-            if (MarkerManagerScript.rightHanded)
+            if (GameManagerScript.rightHanded)
             {
                 // If player starts by placing their hand in the middle-right corner
                 if (Input.GetKeyDown(KeyCode.D)) netrixiCondition3[0] = true;
@@ -93,7 +95,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!netrixiCondition3[1])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
                         {
                             netrixiCondition3[0] = false;
                         } 
@@ -111,7 +113,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!netrixiCondition3[2])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
                         {
                             netrixiCondition3[0] = false;
                             netrixiCondition3[1] = false;
@@ -130,7 +132,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!netrixiCondition3[3])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
                         {
                             netrixiCondition3[0] = false;
                             netrixiCondition3[1] = false;
@@ -164,7 +166,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!netrixiCondition3[1])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
                         {
                             netrixiCondition3[0] = false;
                         } 
@@ -182,7 +184,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!netrixiCondition3[2])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
                         {
                             netrixiCondition3[0] = false;
                             netrixiCondition3[1] = false;
@@ -201,7 +203,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!netrixiCondition3[3])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.U))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
                         {
                             netrixiCondition3[0] = false;
                             netrixiCondition3[1] = false;
@@ -221,13 +223,63 @@ public class NetrixiCombatScript : MonoBehaviour
 
 
             
-            // check to see if Netrixi can cast any spells
+            // Check to see if the player decided to move for their turn instead
+            if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V)) netrixiCondition4[0] = true;
+            }
+            
+            if (netrixiCondition4[0])
+            {
+                // If the player decides to move Netrixi to the left
+                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                {
+                    if (CharacterManagerScript.MoveNetrixi(1) == 1)
+                    {
+                        netrixiCondition4[1] = true;
+                    }
+                    
+                    // If they cannot move in that direction
+                    if (CharacterManagerScript.MoveNetrixi(1) == 2)
+                    {
+                        netrixiCondition4[0] = false;
+                    }
+                }
+                    
+                // If the player decides to move Netrixi to the right
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                {
+                    if (CharacterManagerScript.MoveNetrixi(2) == 1)
+                    {
+                        netrixiCondition4[2] = true;
+                    }
+                    
+                    // If they cannot move in that direction
+                    if (CharacterManagerScript.MoveNetrixi(2) == 2)
+                    {
+                        netrixiCondition4[0] = false;
+                    }
+                }
+            }
+            else
+            {
+                netrixiCondition4[1] = false;
+                netrixiCondition4[2] = false;
+            }
+
+
+            
+            // Check to see if Netrixi can cast any spells
             CombatManagerScript.NetrixiSpellCast();
             
-            // Reset variables if a spell is canceled or cast
-            if (Input.GetKeyDown(KeyCode.U))
+            
+            // Reset variables if a spell is canceled
+            if (MarkerManagerScript.backMarker)
             {
-                ResetNetrixiVariables();
+                if (Input.GetKeyDown(KeyCode.U))
+                {
+                    ResetNetrixiVariables();
+                }
             }
         }
     }
@@ -249,5 +301,10 @@ public class NetrixiCombatScript : MonoBehaviour
         netrixiCondition3[2] = false;
         netrixiCondition3[3] = false;
         netrixiCondition3[4] = false;
+        
+        
+        netrixiCondition4[0] = false;
+        netrixiCondition4[1] = false;
+        netrixiCondition4[2] = false;
     }
 }
