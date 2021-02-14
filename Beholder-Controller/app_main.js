@@ -64,7 +64,7 @@ app.on('activate', () => {
 
 // Example code for sending messages here from the main process to press keys
 const { keyboard, Key } = require('@nut-tree/nut-js');
-keyboard.config.autoDelayMs = 0.1;
+keyboard.config.autoDelayMs = 0;
 
 
 
@@ -87,21 +87,13 @@ ipcMain.on("O_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.O)});
 ipcMain.on("I_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.I)});
 ipcMain.on("I_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.I)});
 
-// Pause marker (P)
-ipcMain.on("P_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.P)});
-ipcMain.on("P_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.P)});
-
 // Undo marker (U)
 ipcMain.on("U_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.U)});
 ipcMain.on("U_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.U)});
 
-// Extra marker (V)
+// Go marker (V)
 ipcMain.on("V_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.V)});
 ipcMain.on("V_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.V)});
-
-// No marker (J)
-ipcMain.on("J_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.J)});
-ipcMain.on("J_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.J)});
 
 
 
@@ -151,7 +143,7 @@ ipcMain.on("9_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.C)});
 
 // Key presses based on rotation of palm marker
 
-// Starting position (K)
+// Starting position right (K)
 ipcMain.on("K_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.K)});
 ipcMain.on("K_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.K)});
 
@@ -174,6 +166,10 @@ ipcMain.on("T_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.T)});
 // Extreme right (R)
 ipcMain.on("R_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.R)});
 ipcMain.on("R_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.R)});
+
+// Starting position (J)
+ipcMain.on("J_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.J)});
+ipcMain.on("J_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.J)});
 
 
 
