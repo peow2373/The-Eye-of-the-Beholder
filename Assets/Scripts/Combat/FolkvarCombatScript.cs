@@ -6,7 +6,7 @@ public class FolkvarCombatScript : MonoBehaviour
 {
     // Conditions for each of Folkvar's attacks
     public static bool[] folkvarCondition1 = new bool[] {false, false};
-    public static bool[] folkvarCondition2 = new bool[] {false, false};
+    public static bool[] folkvarCondition2 = new bool[] {false, false, false};
     public static bool[] folkvarCondition3 = new bool[] {false, false, false};
     public static bool[] folkvarCondition4 = new bool[] {false, false, false};
 
@@ -59,13 +59,27 @@ public class FolkvarCombatScript : MonoBehaviour
                 // If player then moves hand closer to the webcam
                 if (Input.GetKeyDown(KeyCode.N)) folkvarCondition2[1] = true;
 
-                // If player instead moves hand to a different location or away from the webcam
-                if (!folkvarCondition2[1])
+                // If player then moves hand downwards
+                if (folkvarCondition2[1])
                 {
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.M))
+                    if (Input.GetKeyDown(KeyCode.X))
+                    {
+                        folkvarCondition2[2] = true;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
+                    {
+                        folkvarCondition2[1] = false;
+                        folkvarCondition2[0] = false;
+                    }
+                }
+                else
+                {
+                    // If player instead moves hand away from the webcam
+                    if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.F))
                     {
                         folkvarCondition2[0] = false;
-                    } 
+                    }
                 }
             }
 
@@ -190,6 +204,7 @@ public class FolkvarCombatScript : MonoBehaviour
 
         folkvarCondition2[0] = false;
         folkvarCondition2[1] = false;
+        folkvarCondition2[2] = false;
 
         folkvarCondition3[0] = false;
         folkvarCondition3[1] = false;

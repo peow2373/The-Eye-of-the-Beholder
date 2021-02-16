@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CombatDraft2.unity
     guid: c6d8059cee830bf4ea37f01263522195
+  - enabled: 1
+    path: Assets/Scenes/CombatDraft3.unity
+    guid: 51b7b33af9831f8449785c8682af81b8
+  - enabled: 1
+    path: Assets/Scenes/InkCastle.unity
+    guid: e0850ac9cb276734c96c089933a9d043
   m_configObjects: {}

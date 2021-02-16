@@ -284,7 +284,7 @@ public class CombatManagerScript : MonoBehaviour
         }
             
         // Folkvar uses his second melee attack
-        if (FolkvarCombatScript.folkvarCondition2[0] && FolkvarCombatScript.folkvarCondition2[1])
+        if (FolkvarCombatScript.folkvarCondition2[0] && FolkvarCombatScript.folkvarCondition2[1] && FolkvarCombatScript.folkvarCondition2[2])
         {
             print("Folkvar uses his second attack");
             

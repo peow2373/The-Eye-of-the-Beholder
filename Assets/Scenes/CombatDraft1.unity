@@ -1028,7 +1028,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928428112}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.85, y: 2.82, z: -1}
+  m_LocalPosition: {x: -8.07, y: 1.78, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1348081423}
@@ -1073,7 +1073,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1cf3139b29d8b7f4f88aefcb1d3a68a5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -1125,7 +1125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942895053}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.85, y: -2.32, z: -1}
+  m_LocalPosition: {x: -8.07, y: -3.3599997, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1348081423}
@@ -1170,7 +1170,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 513c239ec4e197a43bc35d7499d63dfe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -1848,6 +1848,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: 1
   attack2: 0
+  rounds: 0
+  roundNumber: 0
 --- !u!114 &1301831783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2063,7 +2065,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454148730}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.85, y: -0.08, z: -1}
+  m_LocalPosition: {x: -8.07, y: -1.1199999, z: -1}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1348081423}
@@ -2108,7 +2110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b25241847c3b071458550b192573d58b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b1d086d0379f1cf4ba645b76d472acd5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -2700,6 +2702,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: 0
   attack2: 1
+  rounds: 0
+  roundNumber: 0
 --- !u!114 &1797753608
 MonoBehaviour:
   m_ObjectHideFlags: 0
