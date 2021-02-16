@@ -140,7 +140,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move left with Netrixi
         if (CombatManagerScript.firstAttack == 10)
         {
-            playerChoice1.text = "{-Go";
+            playerChoice1.text = "Move Left";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = netrixi;
@@ -149,7 +149,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move right with Netrixi
         if (CombatManagerScript.firstAttack == 11)
         {
-            playerChoice1.text = "Go-}";
+            playerChoice1.text = "Move Right";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = netrixi;
@@ -160,7 +160,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move left with Folkvar
         if (CombatManagerScript.firstAttack == 12)
         {
-            playerChoice1.text = "{-Go";
+            playerChoice1.text = "Move Left";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = folkvar;
@@ -169,7 +169,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move right with Folkvar
         if (CombatManagerScript.firstAttack == 13)
         {
-            playerChoice1.text = "Go-}";
+            playerChoice1.text = "Move Right";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = folkvar;
@@ -180,7 +180,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move left with Iv
         if (CombatManagerScript.firstAttack == 14)
         {
-            playerChoice1.text = "{-Go";
+            playerChoice1.text = "Move Left";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
@@ -189,7 +189,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move right with Iv
         if (CombatManagerScript.firstAttack == 15)
         {
-            playerChoice1.text = "Go-}";
+            playerChoice1.text = "Move Right";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
@@ -301,7 +301,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move left with Netrixi
         if (CombatManagerScript.secondAttack == 10)
         {
-            playerChoice2.text = "{-Go";
+            playerChoice2.text = "Move Left";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = netrixi;
@@ -310,7 +310,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move right with Netrixi
         if (CombatManagerScript.secondAttack == 11)
         {
-            playerChoice2.text = "Go-}";
+            playerChoice2.text = "Move Right";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = netrixi;
@@ -321,7 +321,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move left with Folkvar
         if (CombatManagerScript.secondAttack == 12)
         {
-            playerChoice2.text = "{-Go";
+            playerChoice2.text = "Move Left";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = folkvar;
@@ -330,7 +330,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move right with Folkvar
         if (CombatManagerScript.secondAttack == 13)
         {
-            playerChoice2.text = "Go-}";
+            playerChoice2.text = "Move Right";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = folkvar;
@@ -341,7 +341,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move left with Iv
         if (CombatManagerScript.secondAttack == 14)
         {
-            playerChoice2.text = "{-Go";
+            playerChoice2.text = "Move Left";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
@@ -350,7 +350,7 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen to move right with Iv
         if (CombatManagerScript.secondAttack == 15)
         {
-            playerChoice2.text = "Go-}";
+            playerChoice2.text = "Move Right";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
