@@ -6,8 +6,8 @@ This README will be a more structured overview of future goals and progress made
 
 # 2/16/2021 Update
 
-- Dialogue system works and has been integrate with a game manager! Players can now go from tutorial to castle dialogue to combat scene
-- Combat updates: movement capabilities, divided characters, 10 movement squares(5 for player, 5 for enemy), combat demo with enemies set up
+- Dialogue system works and has been integrated with a Game Manager Script! Players can now change from a tutorial scene, to castle dialogue, to combat scene
+- Combat updates: Movement capabilities, divided characters so they can be attacked individually, 10 movement squares(5 for player, 5 for enemy), Combat demo including enemies
 - Controls will flip appropriately for right/left handed people
 - Standardized print-out marker PDF
 
