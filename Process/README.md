@@ -4,6 +4,13 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 
 This README will be a more structured overview of future goals and progress made throughout each week
 
+# 2/16/2021 Update
+
+- Dialogue system works and has been integrate with a game manager! Players can now go from tutorial to castle dialogue to combat scene
+- Combat updates: movement capabilities, divided characters, 10 movement squares(5 for player, 5 for enemy), combat demo with enemies set up
+- Controls will flip appropriately for right/left handed people
+- Standardized print-out marker PDF
+
 # 2/9/2021 Update
 
 - Beholder software now has a configuration option (Allows the player to flip the camera so the image is mirrored, creating better visual feedback for hand gestures)
