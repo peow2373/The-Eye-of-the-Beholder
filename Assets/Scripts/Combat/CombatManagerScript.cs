@@ -126,9 +126,9 @@ public class CombatManagerScript : MonoBehaviour
         
 
         // Determine whether the player has chosen a combat move
-        NetrixiCombatScript.NetrixiAttack();
-        FolkvarCombatScript.FolkvarAttack();
-        IvCombatScript.IvBlock();
+        if (GameManagerScript.netrixiInParty) NetrixiCombatScript.NetrixiAttack();
+        if (GameManagerScript.folkvarInParty) FolkvarCombatScript.FolkvarAttack();
+        if (GameManagerScript.ivInParty) IvCombatScript.IvAction();
 
         
         // Undo a chosen move or attack
@@ -383,13 +383,13 @@ public class CombatManagerScript : MonoBehaviour
 
             IvCombatScript.ResetIvVariables();
         }
-            
-        // Iv uses their first ability
-        if (IvCombatScript.ivCondition2[0] && IvCombatScript.ivCondition2[1])
+
+        // Iv uses their second ability
+        if (IvCombatScript.ivCondition2[0] && IvCombatScript.ivCondition2[1] && IvCombatScript.ivCondition2[2] && IvCombatScript.ivCondition2[3])
         {
-            print("Iv empowers both teams");
+            print("Iv heals the weakest party");
             
-            // Make Iv empower in game 
+            // Make Iv heal in game 
             if (firstAttack != 0)
             {
                 if (secondAttack == 0)
@@ -403,13 +403,13 @@ public class CombatManagerScript : MonoBehaviour
 
             IvCombatScript.ResetIvVariables();
         }
-            
-        // Iv uses their first ability
-        if (IvCombatScript.ivCondition3[0] && IvCombatScript.ivCondition3[1] && IvCombatScript.ivCondition3[2] && IvCombatScript.ivCondition3[3])
+        
+        // Iv uses their third ability
+        if (IvCombatScript.ivCondition3[0] && IvCombatScript.ivCondition3[1])
         {
-            print("Iv heals the weakest party");
+            print("Iv empowers both teams");
             
-            // Make Iv heal in game 
+            // Make Iv empower in game 
             if (firstAttack != 0)
             {
                 if (secondAttack == 0)

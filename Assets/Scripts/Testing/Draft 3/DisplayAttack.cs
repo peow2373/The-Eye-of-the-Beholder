@@ -117,19 +117,19 @@ public class DisplayAttack : MonoBehaviour
             sr.sprite = iv;
         }
         
-        // If player has chosen Iv's empower
+        // If player has chosen Iv's heal
         if (CombatManagerScript.firstAttack == 8)
         {
-            playerChoice1.text = "Empower";
+            playerChoice1.text = "Heal";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
         }
         
-        // If player has chosen Iv's heal
+        // If player has chosen Iv's empower
         if (CombatManagerScript.firstAttack == 9)
         {
-            playerChoice1.text = "Heal";
+            playerChoice1.text = "Empower";
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
@@ -278,19 +278,19 @@ public class DisplayAttack : MonoBehaviour
             sr.sprite = iv;
         }
         
-        // If player has chosen Iv's empower
+        // If player has chosen Iv's heal
         if (CombatManagerScript.secondAttack == 8)
         {
-            playerChoice2.text = "Empower";
+            playerChoice2.text = "Heal";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
         }
         
-        // If player has chosen Iv's heal
+        // If player has chosen Iv's empower
         if (CombatManagerScript.secondAttack == 9)
         {
-            playerChoice2.text = "Heal";
+            playerChoice2.text = "Empower";
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;

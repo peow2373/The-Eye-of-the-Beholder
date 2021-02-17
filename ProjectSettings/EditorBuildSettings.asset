@@ -9,18 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial.unity
     guid: 5d22e51e6166ee74283c3463dfe8cb5b
   - enabled: 1
-    path: Assets/Scenes/StoryDraft3.unity
-    guid: 1f5736c9a8019c845ad43cd492a7c36e
-  - enabled: 1
-    path: Assets/Scenes/CombatDraft1.unity
+    path: Assets/Scenes/Combat/CombatDraft1.unity
     guid: 986ee94c14530bf438acd0f149305724
   - enabled: 1
-    path: Assets/Scenes/CombatDraft2.unity
+    path: Assets/Scenes/Combat/CombatDraft2.unity
     guid: c6d8059cee830bf4ea37f01263522195
   - enabled: 1
-    path: Assets/Scenes/CombatDraft3.unity
+    path: Assets/Scenes/Combat/CombatDraft3.unity
     guid: 51b7b33af9831f8449785c8682af81b8
   - enabled: 1
-    path: Assets/Scenes/InkCastle.unity
+    path: Assets/Scenes/Dialogue/InkCastle.unity
     guid: e0850ac9cb276734c96c089933a9d043
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/InkThrone.unity
+    guid: c5bf264896936484daa4836e3542c077
   m_configObjects: {}

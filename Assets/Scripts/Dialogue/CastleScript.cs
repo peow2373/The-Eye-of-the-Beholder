@@ -15,8 +15,7 @@ public class CastleScript : MonoBehaviour
 
     public GameObject TextContainer;
 
-    bool fight = false;
-    bool sceneChange = false;
+    bool skipScene = false;
 
     // Start is called before the first frame update
     void Start()
@@ -132,18 +131,16 @@ public class CastleScript : MonoBehaviour
             {
                 if ((string)story.currentChoices[0].text == "Fight")
                 {
-                    fight = true;
-                    sceneChange = true;
                     eraseUI();
-                    
-                    // Loads in combat demo scene
-                    UnityEngine.SceneManagement.SceneManager.LoadScene("CombatDraft3");
+                    skipScene = false;
+                    GameManagerScript.NextScene(skipScene);
                 }
 
-                else 
+                else
                 {
-                    sceneChange = true;
                     eraseUI();
+                    skipScene = true;
+                    GameManagerScript.NextScene(skipScene);
                 }
             }
         }

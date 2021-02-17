@@ -14,12 +14,6 @@ public class ChangeSceneScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // change scene to dialogue testing
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SceneManager.LoadScene("StoryDraft3");
-        }
-        
         // change scene to combat testing
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
@@ -39,7 +33,7 @@ public class ChangeSceneScript : MonoBehaviour
         }
         
         // change scene to the scene outside the castle
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Equals))
         {
             SceneManager.LoadScene("InkCastle");
         }

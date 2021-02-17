@@ -6,8 +6,8 @@ public class IvCombatScript : MonoBehaviour
 {
     // Conditions for each of Iv's attacks
     public static bool[] ivCondition1 = new bool[] {false, false};
-    public static bool[] ivCondition2 = new bool[] {false, false};
-    public static bool[] ivCondition3 = new bool[] {false, false, false, false};
+    public static bool[] ivCondition2 = new bool[] {false, false, false, false};
+    public static bool[] ivCondition3 = new bool[] {false, false};
     public static bool[] ivCondition4 = new bool[] {false, false, false};
 
     public static int ivRotation = 0;
@@ -24,7 +24,7 @@ public class IvCombatScript : MonoBehaviour
         
     }
     
-    public static void IvBlock()
+    public static void IvAction()
     {
         if (CombatManagerScript.ivAttacks)
         {
@@ -40,24 +40,122 @@ public class IvCombatScript : MonoBehaviour
                 // If player instead moves hand back to a resting position
                 else if (Input.GetKeyDown(KeyCode.M)) ivCondition1[0] = false;
             }
-
-
+            
+            
             // Second spell
+            // If the player is right-handed
+            if (GameManagerScript.rightHanded)
+            {
+                // If player starts by placing their hand in the middle-right corner
+                if (Input.GetKeyDown(KeyCode.D)) ivCondition2[0] = true;
+
+                if (ivCondition2[0] && !ivCondition2[1])
+                {
+                    Debug.Log("Point 1");
+
+                    // If player then places their their hand in the middle-left corner
+                    if (Input.GetKeyDown(KeyCode.A)) ivCondition2[1] = true;
+
+                    // If player instead places their hand in any other corner
+                    if (!ivCondition2[1])
+                    {
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) ||
+                            Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
+                        {
+                            ivCondition2[0] = false;
+                        }
+                    }
+                }
+            }
+            
+            // If the player is left-handed
+            else
+            {
+                // If player starts by placing their hand in the middle-left corner
+                if (Input.GetKeyDown(KeyCode.A)) ivCondition2[0] = true;
+
+                if (ivCondition2[0] && !ivCondition2[1])
+                {
+                    Debug.Log("Point 1");
+                
+                    // If player then places their their hand in the middle-right corner
+                    if (Input.GetKeyDown(KeyCode.D)) ivCondition2[1] = true;
+
+                    // If player instead places their hand in any other corner
+                    if (!ivCondition2[1])
+                    {
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
+                        {
+                            ivCondition2[0] = false;
+                        } 
+                    }
+                }
+            }
+            
+            // If player has completed the first two moves
+            if (ivCondition2[1] && !ivCondition2[2])
+            {
+                Debug.Log("Point 2");
+
+                // If player then places their their hand in the top-middle corner
+                if (Input.GetKeyDown(KeyCode.W)) ivCondition2[2] = true;
+
+                // If player instead places their hand in any other corner
+                if (!ivCondition2[2])
+                {
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) ||
+                        Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
+                    {
+                        ivCondition2[0] = false;
+                        ivCondition2[1] = false;
+                    }
+                }
+            }
+
+            // If player has then placed hand in the top-middle corner
+            if (ivCondition2[2] && !ivCondition2[3])
+            {
+                Debug.Log("Point 3");
+                    
+                // If player then places their their hand in the bottom-middle corner
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    Debug.Log("Point 4");
+                        
+                    // The player has successfully made the pattern
+                    ivCondition2[3] = true;
+                }
+
+                // If player instead places their hand in any other corner
+                if (!ivCondition2[3])
+                {
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
+                    {
+                        ivCondition2[0] = false;
+                        ivCondition2[1] = false;
+                        ivCondition2[2] = false;
+                    }
+                }
+            }
+            
+
+
+            // Third spell
             // If player starts to rotate their hand first
             if (GameManagerScript.rightHanded)
             {
-                if (Input.GetKeyDown(KeyCode.K)) ivCondition2[0] = true;
+                if (Input.GetKeyDown(KeyCode.K)) ivCondition3[0] = true;
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.J)) ivCondition2[0] = true;
+                if (Input.GetKeyDown(KeyCode.J)) ivCondition3[0] = true;
             }
             
             
-            if (ivCondition2[0])
+            if (ivCondition3[0])
             {
                 // If player then rotates hand to desired location and locks in their choice
-                if (Input.GetKeyDown(KeyCode.V)) ivCondition2[1] = true;
+                if (Input.GetKeyDown(KeyCode.V)) ivCondition3[1] = true;
                 
                 
                 // If player then rotates hand to the first or second zone
@@ -72,147 +170,7 @@ public class IvCombatScript : MonoBehaviour
             }
 
 
-            // Third spell
-            // If the player is right-handed
-            if (GameManagerScript.rightHanded)
-            {
-                // If player starts by placing their hand in the middle-right corner
-                if (Input.GetKeyDown(KeyCode.D)) ivCondition3[0] = true;
 
-                if (ivCondition3[0] && !ivCondition3[1])
-                {
-                    Debug.Log("Point 1");
-                
-                    // If player then places their their hand in the middle-left corner
-                    if (Input.GetKeyDown(KeyCode.A)) ivCondition3[1] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition3[1])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition3[0] = false;
-                        } 
-                    }
-                }
-            
-                // If player has then placed hand in the middle-left corner
-                if (ivCondition3[1] && !ivCondition3[2])
-                {
-                    Debug.Log("Point 2");
-                
-                    // If player then places their their hand in the top-middle corner
-                    if (Input.GetKeyDown(KeyCode.W)) ivCondition3[2] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition3[2])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition3[0] = false;
-                            ivCondition3[1] = false;
-                        }
-                    }
-                }
-            
-                // If player has then placed hand in the top-middle corner
-                if (ivCondition3[2] && !ivCondition3[3])
-                {
-                    Debug.Log("Point 3");
-                    
-                    // If player then places their their hand in the bottom-middle corner
-                    if (Input.GetKeyDown(KeyCode.X))
-                    {
-                        Debug.Log("Point 4");
-                        
-                        // The player has successfully made the pattern
-                        ivCondition3[3] = true;
-                    }
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition3[3])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition3[0] = false;
-                            ivCondition3[1] = false;
-                            ivCondition3[2] = false;
-                        }
-                    }
-                }
-            }
-            
-            // if the player is left-handed
-            else
-            {
-                // If player starts by placing their hand in the middle-left corner
-                if (Input.GetKeyDown(KeyCode.A)) ivCondition3[0] = true;
-
-                if (ivCondition3[0] && !ivCondition3[1])
-                {
-                    Debug.Log("Point 1");
-                
-                    // If player then places their their hand in the middle-right corner
-                    if (Input.GetKeyDown(KeyCode.D)) ivCondition3[1] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition3[1])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition3[0] = false;
-                        } 
-                    }
-                }
-            
-                // If player has then placed hand in the middle-left corner
-                if (ivCondition3[1] && !ivCondition3[2])
-                {
-                    Debug.Log("Point 2");
-                
-                    // If player then places their their hand in the top-middle corner
-                    if (Input.GetKeyDown(KeyCode.W)) ivCondition3[2] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition3[2])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition3[0] = false;
-                            ivCondition3[1] = false;
-                        }
-                    }
-                }
-            
-                // If player has then placed hand in the top-middle corner
-                if (ivCondition3[2] && !ivCondition3[3])
-                {
-                    Debug.Log("Point 3");
-                    
-                    // If player then places their their hand in the bottom-middle corner
-                    if (Input.GetKeyDown(KeyCode.X))
-                    {
-                        Debug.Log("Point 4");
-                        
-                        // The player has successfully made the pattern
-                        ivCondition3[3] = true;
-                    }
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition3[3])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition3[0] = false;
-                            ivCondition3[1] = false;
-                            ivCondition3[2] = false;
-                        }
-                    }
-                }
-            }
-
-
-            
             // Check to see if the player decided to move for their turn instead
             if (MarkerManagerScript.goMarker)
             {
@@ -283,13 +241,13 @@ public class IvCombatScript : MonoBehaviour
 
         ivCondition2[0] = false;
         ivCondition2[1] = false;
-        
-        ivRotation = 0;
+        ivCondition2[2] = false;
+        ivCondition2[3] = false;
 
         ivCondition3[0] = false;
         ivCondition3[1] = false;
-        ivCondition3[2] = false;
-        ivCondition3[3] = false;
+
+        ivRotation = 0;
         
         ivCondition4[0] = false;
         ivCondition4[1] = false;

@@ -264,14 +264,48 @@ public class MarkerManagerScript : MonoBehaviour
             }
         }
     }
-    
-    
-    
-    private float[] xPosStoryDraft3 = new float[] { -10, -10, -10 };
-    private float[] yPosStoryDraft3 = new float[] { -10, -10, -10 };
-    
+
+
+
     private float[] xPosTutorial = new float[] { -4.5f, 0, 4.5f };
     private float[] yPosTutorial = new float[] { 2.5f, 0, -2.5f };
+    
+    private float[] xPosCombat = new float[] { -3f, 0f, 3f };
+    private float[] yPosCombat = new float[] { 6.5f, 4f, 1.5f };
+    
+    private float[] xPosDialogue = new float[] { 0f, 3f, 6f };
+    private float[] yPosDialogue = new float[] { 2.5f, 1f, -0.5f };
+    
+
+    void ChangeMarkerLocation()
+    {
+        int curScene = GameManagerScript.currentScene;
+        
+        // If the player is in a Tutorial Scene
+        if (curScene == 0)
+        {
+            xPos = xPosTutorial;
+            yPos = yPosTutorial;
+        }
+        
+        // If the player is in a Combat Scene
+        if (curScene == 1 || curScene == 3 || curScene == 5 || curScene == 6 || curScene == 8 || curScene == 9 || curScene == 11 || curScene == 13 || curScene == 14 || curScene == 16 || curScene == 18 || curScene == 19 || curScene == 21 || curScene == 22 || curScene == 24 || curScene == 26 || curScene == 28)
+        {
+            xPos = xPosDialogue;
+            yPos = yPosDialogue;
+        }
+        
+        // If the player is in a Dialogue Scene
+        if (curScene == 2 || curScene == 4 || curScene == 7 || curScene == 10 || curScene == 12 || curScene == 15 || curScene == 17 || curScene == 20 || curScene == 23 || curScene == 25 || curScene == 27)
+        {
+            xPos = xPosCombat;
+            yPos = yPosCombat;
+        }
+        
+        
+        //TestingChangeLoctation();
+    }
+
     
     private float[] xPosCombatDraft1 = new float[] { 1f, 4f, 7f };
     private float[] yPosCombatDraft1 = new float[] { 2.5f, 0, -2.5f };
@@ -285,18 +319,11 @@ public class MarkerManagerScript : MonoBehaviour
     private float[] xPosInkCastle = new float[] { 0f, 3f, 6f };
     private float[] yPosInkCastle = new float[] { 2.5f, 1f, -0.5f };
 
-    void ChangeMarkerLocation()
+    void TestingChangeLoctation()
     {
         Scene scene = SceneManager.GetActiveScene();
         string sceneName = scene.name;
-        
-        // if the player is taking the tutorial
-        if (sceneName == "Tutorial")
-        {
-            xPos = xPosTutorial;
-            yPos = yPosTutorial;
-        }
-        
+
         // if the player is in combat
         if (sceneName == "CombatDraft1")
         {
@@ -317,14 +344,7 @@ public class MarkerManagerScript : MonoBehaviour
             xPos = xPosCombatDraft3;
             yPos = yPosCombatDraft3;
         }
-        
-        // if the player is in dialogue
-        if (sceneName == "StoryDraft3")
-        {
-            xPos = xPosStoryDraft3;
-            yPos = yPosStoryDraft3;
-        }
-        
+
         // if the player is having dialogue outside the castle
         if (sceneName == "InkCastle")
         {

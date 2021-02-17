@@ -5,12 +5,13 @@ using Ink.Runtime;
 using UnityEngine.UI;
 using System.Linq;
 
-public class TavernScript : MonoBehaviour
+public class ThroneScript : MonoBehaviour
 {
     public TextAsset inkJSON;
     private Story story;
 
     public Text textPrefab;
+    public Text goMarkerToContinue;
     public Button buttonPrefab;
 
     private Vector3 button1 = new Vector3(100, 315f, -5f);
@@ -19,16 +20,16 @@ public class TavernScript : MonoBehaviour
 
     public GameObject TextContainer;
 
-    bool fight = false;
-    bool sceneChange = false;
+    bool skipScene = false;
 
     // Start is called before the first frame update
     void Start()
     {
         story = new Story(inkJSON.text);
-
+        
         refreshUI();
 
+        MarkerManagerScript.S.Reset();
     }
 
     void refreshUI()
@@ -91,71 +92,31 @@ public class TavernScript : MonoBehaviour
     void Update()
     {
 
-        if (this.transform.childCount > 2)
+        if (Input.GetKeyDown(KeyCode.V))
         {
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
-            }
-
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                story.ChooseChoiceIndex(1);
-                refreshUI();
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                story.ChooseChoiceIndex(2);
-                refreshUI();
-            }
+            refreshUI();
         }
 
-        else if (this.transform.childCount == 2)
+        if(this.transform.childCount == 1)
         {
-            
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
-            {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-            {
-                story.ChooseChoiceIndex(1);
-                refreshUI();
-            }
-
+            goMarkerToContinue.enabled = false;
         }
 
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                if ((string)story.currentChoices[0].text == "Fight")
-                {
-                    fight = true;
-                    sceneChange = true;
-                    eraseUI();
-                }
-
-                else 
-                {
-                    sceneChange = true;
-                    eraseUI();
-                }
-            }
-        }
     }
-
     string loadStoryChunk()
     {
         string text = "";
 
         if (story.canContinue) //if there is more content
         {
-            text = story.ContinueMaximally(); //continue until next options or no content. will return string
+            text = story.Continue(); //continue until next options or no content. will return string
+            return text;
+        }
+
+        else
+        {
+            skipScene = false;
+            GameManagerScript.NextScene(skipScene);
         }
 
         return text;

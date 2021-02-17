@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9ae30e49fcc1a348aff32a18e20bd23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkJSON: {fileID: 4900000, guid: f954ad411b72919499d153c83e8c620d, type: 3}
+  inkJSON: {fileID: 4900000, guid: 0808bdadac81f0e45bb84c976863984a, type: 3}
   textPrefab: {fileID: 1059471283448246295, guid: 225a6ffb0b70ba44690b76e62dc99050,
     type: 3}
   buttonPrefab: {fileID: 5734658473188474264, guid: f622a4a417d89814e8e9ea2abfd4c911,
