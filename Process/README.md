@@ -4,7 +4,7 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 
 This README will be a more structured overview of future goals and progress made throughout each week
 
-# 2/22/2021 Update
+# 2/23/2021 Update
 
 - Completed all content for dialogue system. All scenes are created and linked with GameManager.
 - Player sprites now visually move left/right in combat
@@ -13,6 +13,9 @@ This README will be a more structured overview of future goals and progress made
 
 - For Hunter next week: Make Barkeeper dialogue, make Jester dialogue, starting to work on game sound
 - For Perry next week: Health bar + damage system (Make combat winnable), make Brute sprite
+
+- Look into "Darkest Dungeon" as a good example of what the Combat Scene will end up looking like
+- Change dialogue scene text so it is more legible
 
 # 2/16/2021 Update
 
