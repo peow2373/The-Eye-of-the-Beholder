@@ -17,7 +17,27 @@ public class CharacterManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Check to see if characters are alive
+        if (!CombatManagerScript.netrixiAlive)
+        {
+            netrixiPosition = 0;
+            netrixi1st = 0;
+            netrixi2nd = 0;
+        }
         
+        if (!CombatManagerScript.folkvarAlive)
+        {
+            folkvarPosition = 0;
+            folkvar1st = 0;
+            folkvar2nd = 0;
+        }
+        
+        if (!CombatManagerScript.ivAlive)
+        {
+            ivPosition = 0;
+            iv1st = 0;
+            iv2nd = 0;
+        }
     }
 
     public static void StartCombat()

@@ -16,7 +16,7 @@ public class TavernScript : MonoBehaviour
 
     public GameObject TextContainer;
 
-    bool skipScene = true;
+    bool skipScene = false;
     bool max = false;
 
     // Start is called before the first frame update
@@ -113,7 +113,7 @@ public class TavernScript : MonoBehaviour
             goMarkerToContinue.enabled = false;
             if ((string)story.currentChoices[0].text == "Fight")
             {
-                skipScene = false;
+                skipScene = true;
 
                 if (Input.GetKeyDown(KeyCode.V))
                 {
@@ -134,16 +134,33 @@ public class TavernScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = false;
 
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+            if ((string)story.currentChoices[0].text == "Netrixi")
             {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
+                if (Input.GetKeyDown(KeyCode.Y))
+                {
+                    story.ChooseChoiceIndex(0);
+                    refreshUI();
+                }
+                if (Input.GetKeyDown(KeyCode.O))
+                {
+                    story.ChooseChoiceIndex(1);
+                    refreshUI();
+                }
             }
 
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-            {
-                story.ChooseChoiceIndex(1);
-                refreshUI();                
+            else 
+            { 
+                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                {
+                    story.ChooseChoiceIndex(0);
+                    refreshUI();
+                }
+
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                {
+                    story.ChooseChoiceIndex(1);
+                    refreshUI();
+                }
             }
         }
     }
@@ -172,6 +189,8 @@ public class TavernScript : MonoBehaviour
 
         else
         {
+            GameManagerScript.NextScene(skipScene);
+            skipScene = true;
             GameManagerScript.NextScene(skipScene);
         }
 

@@ -62,6 +62,29 @@ public class EnemyManagerScript : MonoBehaviour
         
         if (firstAttack != "null") Debug.Log(firstAttack);
         if (secondAttack != "null") Debug.Log(secondAttack);
+        
+        
+        // Check to see if enemies are alive
+        if (!CombatManagerScript.enemy1Alive)
+        {
+            enemy1Position = 0;
+            enemy1First = 0;
+            enemy1Second = 0;
+        }
+        
+        if (!CombatManagerScript.enemy2Alive)
+        {
+            enemy2Position = 0;
+            enemy2First = 0;
+            enemy2Second = 0;
+        }
+        
+        if (!CombatManagerScript.enemy3Alive)
+        {
+            enemy3Position = 0;
+            enemy3First = 0;
+            enemy3Second = 0;
+        }
     }
 
 

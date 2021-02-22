@@ -6,21 +6,57 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
-    guid: 5d22e51e6166ee74283c3463dfe8cb5b
-  - enabled: 1
-    path: Assets/Scenes/Combat/CombatDraft1.unity
-    guid: 986ee94c14530bf438acd0f149305724
-  - enabled: 1
-    path: Assets/Scenes/Combat/CombatDraft2.unity
-    guid: c6d8059cee830bf4ea37f01263522195
-  - enabled: 1
     path: Assets/Scenes/Combat/CombatDraft3.unity
     guid: 51b7b33af9831f8449785c8682af81b8
+  - enabled: 1
+    path: Assets/Scenes/StartGame.unity
+    guid: 5b617a155f132584a9bc168513ddbf6b
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/CutScenes/InkIntro.unity
+    guid: ed092b28ddb63f748b81b6e9ab1d465d
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkNetrixiPirate.unity
+    guid: 0bba4819891c4e74782b424441c83c21
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkNetrixiMansion.unity
+    guid: 1c00889120e6d394babe5c594da95a60
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/CutScenes/InkRoad.unity
+    guid: e1861baa9cebdb947a08ca848a77cc9f
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkTavern.unity
+    guid: 4d2b6016e9d91f945886dee99eccfa24
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkTavernAfterFight.unity
+    guid: 702e57864bac69f45a56a39b51f00dc2
   - enabled: 1
     path: Assets/Scenes/Dialogue/Interactions/InkCastle.unity
     guid: e0850ac9cb276734c96c089933a9d043
   - enabled: 1
     path: Assets/Scenes/Dialogue/CutScenes/InkThrone.unity
     guid: c5bf264896936484daa4836e3542c077
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Interactions/InkTunnelEntrance.unity
+    guid: e04cbb9d2a7d636469a5c2b59ea09692
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkKazBoss.unity
+    guid: 455a359ed4a872244b957fee26e7353d
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/CutScenes/InkTunnelExit.unity
+    guid: ec5e785decb02c942aabaab98c38a687
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkVolcanoEntrance.unity
+    guid: 73b3f5d7d35d6b0418c26727926228ae
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkInsideVolcano.unity
+    guid: 94281dc1bd2ca044a982cb18bc2dc891
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/CutScenes/InkMine.unity
+    guid: b270289785a3f8946a11694b6ecbf35a
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkMoke.unity
+    guid: a3e221010e9d18c43a857427555be51f
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/Hybrid/InkFinalDecision.unity
+    guid: 021d703e8055ec14eb1d19eedaa7af19
   m_configObjects: {}

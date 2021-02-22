@@ -1,10 +1,6 @@
-This is an alternative controller RPG. To make the controller for the game all you need is a printer, a webcam, popsicle sticks (or something similar), and tape!
+This is an alternative controller RPG. Put your glove on!
 
-In this game, you will be able to play as three seperate characters- each of which are outlined in the character cut-outs! To select which character you want to play as in your party, just hold up the marker of that character cutout to your camera. Make sure your lighting is good and that you can clearly see the markers in your webcam
-
-To tell the character what to do, you will use the other, square cut-out. Apply it to your hand using tape. You will need to keep the marker flat, so to avoid it getting folded or wrinkled, use a cardboard backing and then tape the cardboard to your hand (or glove for easy re-application)
-
-Now, welcome to the Iron Region!
+INSERT TUTORIAL STUFF HERE
 
 -> Iron_Region
 

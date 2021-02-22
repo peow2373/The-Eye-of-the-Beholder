@@ -284,8 +284,11 @@ public class MarkerManagerScript : MonoBehaviour
         // If the player is in a Tutorial Scene
         if (curScene == 0)
         {
-            xPos = xPosTutorial;
-            yPos = yPosTutorial;
+            //xPos = xPosTutorial;
+            //yPos = yPosTutorial;
+            
+            xPos = xPosDialogue;
+            yPos = yPosDialogue;
         }
         
         // If the player is in a Combat Scene
