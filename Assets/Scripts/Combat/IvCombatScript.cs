@@ -190,6 +190,7 @@ public class IvCombatScript : MonoBehaviour
                     // If they cannot move in that direction
                     if (CharacterManagerScript.MoveIv(1) == 2)
                     {
+                        print("Choose another direction to move in");
                         ivCondition4[0] = false;
                     }
                 }
@@ -205,6 +206,7 @@ public class IvCombatScript : MonoBehaviour
                     // If they cannot move in that direction
                     if (CharacterManagerScript.MoveIv(2) == 2)
                     {
+                        print("Choose another direction to move in");
                         ivCondition4[0] = false;
                     }
                 }

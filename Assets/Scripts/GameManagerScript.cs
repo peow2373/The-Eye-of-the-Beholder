@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,7 +15,9 @@ public class GameManagerScript : MonoBehaviour
 
 
     public static bool netrixiInParty = true, folkvarInParty = false, ivInParty = false;
-    
+
+    public static bool barkeeperMad = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,17 +39,158 @@ public class GameManagerScript : MonoBehaviour
         ChangeScene();
     }
 
-    public static void NextScene(bool skipScene)
+
+    public void Reset()
     {
-        if (!skipScene) currentScene++;
-        else currentScene += 2;
+        ChangeScene();
+        
+        netrixiInParty = false;
+        folkvarInParty = false;
+        ivInParty = false;
+
+        barkeeperMad = false;
+            
+        CharacterManagerScript.ResetVariables();
+        EnemyManagerScript.ClearMoves(1);
     }
-    
-    
+
+
     void SceneChangeAnimation()
     {
         
     }
+
+
+    void DetermineNextDialogue()
+    {
+        switch (currentScene + 1)
+        {
+            // Outside the castle
+            case 11:
+                dialogueScene = "InkCastle";
+                break;
+            
+            // Inside the throne room
+            case 13:
+                dialogueScene = "InkThrone";
+                break;
+        }
+    }
+
+
+
+    void DetermineNextCombat()
+    {
+        // Determine if the character has joined the party yet
+        if (currentScene >= 2) netrixiInParty = true;
+        if (currentScene >= 7) folkvarInParty = true;
+        if (currentScene >= 12) ivInParty = true;
+        
+        switch (currentScene)
+        {
+            // Fighting a Pirate
+            case 2:
+                EnemyManagerScript.enemy1 = "Pirate";
+                EnemyManagerScript.enemy2 = "null";
+                EnemyManagerScript.enemy3 = "null";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 7, 0, 0);
+                break;
+            
+            // Fighting Folkvar and his two Royal Knights
+            case 4:
+                EnemyManagerScript.enemy1 = "Royal Knight Melee";
+                EnemyManagerScript.enemy2 = "Folkvar";
+                EnemyManagerScript.enemy3 = "Royal Knight Ranged";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 7, 8, 10);
+                break;
+
+            // Fighting Kaz and his two Skull Grunts
+            case 7:
+                EnemyManagerScript.enemy1 = "Skull Grunt Melee";
+                EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
+                EnemyManagerScript.enemy3 = "Kaz";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
+                break;
+            
+            // Fighting the Tavern Brute
+            case 10:
+                EnemyManagerScript.enemy1 = "Tavern Brute";
+                if (barkeeperMad) EnemyManagerScript.enemy2 = "Barkeeper";
+                else EnemyManagerScript.enemy2 = "null";
+                EnemyManagerScript.enemy3 = "null";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 0);
+                break;
+
+            // Fighting the Gatekeeper
+            case 12:
+                EnemyManagerScript.enemy1 = "Royal Knight Melee";
+                EnemyManagerScript.enemy2 = "Gatekeeper";
+                EnemyManagerScript.enemy3 = "Royal Knight Ranged";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 6, 9, 10);
+                break;
+            
+            // Fighting two Skull Grunts
+            case 15:
+                EnemyManagerScript.enemy1 = "Skull Grunt Melee";
+                EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
+                EnemyManagerScript.enemy3 = "null";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0);
+                break;
+            
+            // Fighting Kaz and his two Skull Grunts
+            case 17:
+                EnemyManagerScript.enemy1 = "Skull Grunt Melee";
+                EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
+                EnemyManagerScript.enemy3 = "Kaz";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
+                break;
+            
+            // Fighting two Skull Grunts
+            case 20:
+                EnemyManagerScript.enemy1 = "Skull Grunt Melee";
+                EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
+                EnemyManagerScript.enemy3 = "null";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 6, 9, 0);
+                break;
+            
+            // Fighting two Royal Guards
+            case 23:
+                EnemyManagerScript.enemy1 = "Royal Guard 1";
+                EnemyManagerScript.enemy2 = "Royal Guard 2";
+                EnemyManagerScript.enemy3 = "null";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0);
+                break;
+            
+            // Fighting the Skull King and his two Skull Grunts
+            case 25:
+                EnemyManagerScript.enemy1 = "Skull Grunt Melee";
+                EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
+                EnemyManagerScript.enemy3 = "Skull King";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
+                break;
+            
+            // Fighting the Royal King and his two Royal Guards
+            case 27:
+                EnemyManagerScript.enemy1 = "Royal Guard 1";
+                EnemyManagerScript.enemy2 = "Royal Guard 2";
+                EnemyManagerScript.enemy3 = "Royal King";
+                
+                EnemyManagerScript.ChangeEnemyLocation( 6, 7, 9);
+                break;
+        }
+    }
+
+
 
     void ChangeScene()
     {
@@ -399,60 +543,38 @@ public class GameManagerScript : MonoBehaviour
             
             // End game
             case 29:
-                if (previousScene != 0)
+                if (previousScene != 29)
+                {
+                    SceneChangeAnimation();
+                    //SceneManager.LoadScene("Win");
+                    previousScene = 29;
+                    
+                    print("You Win!");
+                }
+                break;
+            
+            // Restart game
+            case 30:
+                if (previousScene != 30)
                 {
                     SceneChangeAnimation();
                     SceneManager.LoadScene("Tutorial");
-                    previousScene = 0;
+
+                    currentScene = 0;
+                    previousScene = 30;
+
+                    print("Restarting Game");
+                    
+                    Reset();
                 }
                 break;
         }
     }
     
     
-    
-    void DetermineNextDialogue()
+    public static void NextScene(bool skipScene)
     {
-        switch (currentScene + 1)
-        {
-            // Outside the castle
-            case 11:
-                dialogueScene = "InkCastle";
-                break;
-            
-            // Inside the throne room
-            case 13:
-                dialogueScene = "InkThrone";
-                break;
-        }
-    }
-
-
-
-    void DetermineNextCombat()
-    {
-        switch (currentScene + 1)
-        {
-            // Fighting a Pirate
-            case 2:
-                netrixiInParty = true;
-                folkvarInParty = false;
-                ivInParty = false;
-                break;
-
-            // Fighting Kaz
-            case 7:
-                netrixiInParty = true;
-                folkvarInParty = true;
-                ivInParty = false;
-                break;
-
-            // Fighting the Gatekeeper
-            case 12:
-                netrixiInParty = true;
-                folkvarInParty = true;
-                ivInParty = true;
-                break;
-        }
+        if (!skipScene) currentScene++;
+        else currentScene += 2;
     }
 }

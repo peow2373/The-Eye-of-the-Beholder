@@ -18,9 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Combat/CombatDraft3.unity
     guid: 51b7b33af9831f8449785c8682af81b8
   - enabled: 1
-    path: Assets/Scenes/Dialogue/InkCastle.unity
+    path: Assets/Scenes/Dialogue/Interactions/InkCastle.unity
     guid: e0850ac9cb276734c96c089933a9d043
   - enabled: 1
-    path: Assets/Scenes/Dialogue/InkThrone.unity
+    path: Assets/Scenes/Dialogue/CutScenes/InkThrone.unity
     guid: c5bf264896936484daa4836e3542c077
   m_configObjects: {}

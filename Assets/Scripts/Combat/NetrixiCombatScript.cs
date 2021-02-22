@@ -242,6 +242,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If they cannot move in that direction
                     if (CharacterManagerScript.MoveNetrixi(1) == 2)
                     {
+                        print("Choose another direction to move in");
                         netrixiCondition4[0] = false;
                     }
                 }
@@ -257,6 +258,7 @@ public class NetrixiCombatScript : MonoBehaviour
                     // If they cannot move in that direction
                     if (CharacterManagerScript.MoveNetrixi(2) == 2)
                     {
+                        print("Choose another direction to move in");
                         netrixiCondition4[0] = false;
                     }
                 }

@@ -153,6 +153,7 @@ public class FolkvarCombatScript : MonoBehaviour
                         // If they cannot move in that direction
                         if (CharacterManagerScript.MoveFolkvar(1) == 2)
                         {
+                            print("Choose another direction to move in");
                             folkvarCondition4[0] = false;
                         }
                     }
@@ -168,6 +169,7 @@ public class FolkvarCombatScript : MonoBehaviour
                         // If they cannot move in that direction
                         if (CharacterManagerScript.MoveFolkvar(2) == 2)
                         {
+                            print("Choose another direction to move in");
                             folkvarCondition4[0] = false;
                         }
                     }

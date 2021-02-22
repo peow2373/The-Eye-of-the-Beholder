@@ -5,28 +5,25 @@ using Ink.Runtime;
 using UnityEngine.UI;
 using System.Linq;
 
-public class ThroneScript : MonoBehaviour
+public class TavernScript : MonoBehaviour
 {
     public TextAsset inkJSON;
     private Story story;
 
     public Text textPrefab;
-    public Text goMarkerToContinue;
     public Button buttonPrefab;
-
-    private Vector3 button1 = new Vector3(100, 315f, -5f);
-    private Vector3 button2 = new Vector3(400, 315f, -5f);
-    private Vector3 button3 = new Vector3(700, 315f, -5f);
+    public Text goMarkerToContinue;
 
     public GameObject TextContainer;
 
-    bool skipScene = false;
+    bool skipScene = true;
+    bool max = false;
 
     // Start is called before the first frame update
     void Start()
     {
         story = new Story(inkJSON.text);
-        
+
         refreshUI();
 
         MarkerManagerScript.S.Reset();
@@ -39,7 +36,16 @@ public class ThroneScript : MonoBehaviour
 
         Text storyText = Instantiate(textPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Text;
 
-        string text = loadStoryChunk();
+        string text = "";
+
+        if (max == true)
+        {
+            text = loadStoryChunkMax();
+        }
+        else
+        {
+            text = loadStoryChunk();
+        }
 
         List<string> tags = story.currentTags;
 
@@ -89,20 +95,72 @@ public class ThroneScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() //skip scene = true unless you fight the brute
     {
 
-        if (Input.GetKeyDown(KeyCode.V))
+        if (this.transform.childCount == 0)
         {
-            refreshUI();
+            goMarkerToContinue.enabled = true;
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                refreshUI();
+            }
         }
 
-        if(this.transform.childCount == 1)
+        else if (this.transform.childCount == 1)
         {
             goMarkerToContinue.enabled = false;
+            if ((string)story.currentChoices[0].text == "Fight")
+            {
+                skipScene = false;
+
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    eraseUI();
+                    GameManagerScript.NextScene(skipScene);
+                }
+            }
+
+            else if (Input.GetKeyDown(KeyCode.V))
+            {
+                story.ChooseChoiceIndex(0);
+                refreshUI();
+            }
         }
 
+
+        else if (this.transform.childCount == 2)
+        {
+            goMarkerToContinue.enabled = false;
+
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+            {
+                story.ChooseChoiceIndex(0);
+                refreshUI();
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+            {
+                story.ChooseChoiceIndex(1);
+                refreshUI();                
+            }
+        }
     }
+
+    string loadStoryChunkMax()
+    {
+        string text = "";
+
+        if (story.canContinue) //if there is more content
+        {
+            text = story.ContinueMaximally(); //continue until next options or no content. will return string
+        }
+
+        max = true;
+        return text;
+    }
+
     string loadStoryChunk()
     {
         string text = "";
@@ -110,12 +168,10 @@ public class ThroneScript : MonoBehaviour
         if (story.canContinue) //if there is more content
         {
             text = story.Continue(); //continue until next options or no content. will return string
-            return text;
         }
 
         else
         {
-            skipScene = false;
             GameManagerScript.NextScene(skipScene);
         }
 

@@ -17,13 +17,7 @@ public class CharacterManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print("Netrixi Start: " + netrixiPosition);
-        //print("Netrixi 1st: " + netrixi1st);
-        //print("Netrixi 2nd: " + netrixi2nd);
         
-        // print("Netrixi: " + netrixiPosition);
-        // print("Folkvar: " + folkvarPosition);
-        // print("Iv: " + ivPosition);
     }
 
     public static void StartCombat()
@@ -42,34 +36,70 @@ public class CharacterManagerScript : MonoBehaviour
             // If it is the first move
             if (CombatManagerScript.firstAttack == 0)
             {
-                if (netrixiPosition - 1 != ivPosition)
+                // If Iv is in the way
+                if (GameManagerScript.ivInParty && CombatManagerScript.ivAlive)
                 {
-                    netrixi1st = netrixiPosition - 1;
-                    UpdateVariables();
-                    return 1;
+                    if (netrixiPosition - 1 != ivPosition)
+                    {
+                        netrixi1st = netrixiPosition - 1;
+                        UpdateVariables();
+                        return 1;
+                    }
+                    else
+                    {
+                        print("Can't move Netrixi past Iv!");
+                        UpdateVariables();
+                        return 2;
+                    }
                 }
                 else
                 {
-                    print("Can't move Netrixi past Iv!");
-                    UpdateVariables();
-                    return 2;
+                    if (netrixiPosition - 1 != 0)
+                    {
+                        netrixi1st = netrixiPosition - 1;
+                        UpdateVariables();
+                        return 1;
+                    }
+                    else
+                    {
+                        print("Can't move Netrixi out of bounds!");
+                        UpdateVariables();
+                        return 2;
+                    }
                 }
             }
             
             // If it is the second move
             else
             {
+                // If Iv is in the way
                 if (CombatManagerScript.secondAttack == 0)
                 {
-                    if (netrixi1st - 1 != iv2nd)
+                    if (GameManagerScript.ivInParty && CombatManagerScript.ivAlive)
                     {
-                        netrixi2nd = netrixi1st - 1;
-                        return 1;
+                        if (netrixi1st - 1 != iv2nd)
+                        {
+                            netrixi2nd = netrixi1st - 1;
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Netrixi past Iv!");
+                            return 2;
+                        }
                     }
                     else
                     {
-                        print("Can't move Netrixi past Iv!");
-                        return 2;
+                        if (netrixi1st - 1 != 0)
+                        {
+                            netrixi2nd = netrixi1st - 1;
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Netrixi out of bounds!");
+                            return 2;
+                        }
                     }
                 }
             }
@@ -82,34 +112,70 @@ public class CharacterManagerScript : MonoBehaviour
             // If it is the first move
             if (CombatManagerScript.firstAttack == 0)
             {
-                if (netrixiPosition + 1 != folkvarPosition)
+                // If Folkvar is in the way
+                if (GameManagerScript.folkvarInParty && CombatManagerScript.folkvarAlive)
                 {
-                    netrixi1st = netrixiPosition + 1;
-                    UpdateVariables();
-                    return 1;
+                    if (netrixiPosition + 1 != folkvarPosition)
+                    {
+                        netrixi1st = netrixiPosition + 1;
+                        UpdateVariables();
+                        return 1;
+                    }
+                    else
+                    {
+                        print("Can't move Netrixi past Folkvar!");
+                        UpdateVariables();
+                        return 2;
+                    }
                 }
                 else
                 {
-                    print("Can't move Netrixi past Folkvar!");
-                    UpdateVariables();
-                    return 2;
+                    if (netrixiPosition + 1 != 6)
+                    {
+                        netrixi1st = netrixiPosition + 1;
+                        UpdateVariables();
+                        return 1;
+                    }
+                    else
+                    {
+                        print("Can't move Netrixi into enemy territory!");
+                        UpdateVariables();
+                        return 2;
+                    }
                 }
             }
             
             // If it is the second move
             else
             {
+                // If Folkvar is in the way
                 if (CombatManagerScript.secondAttack == 0)
                 {
-                    if (netrixi1st + 1 != folkvar2nd)
+                    if (GameManagerScript.folkvarInParty && CombatManagerScript.folkvarAlive)
                     {
-                        netrixi2nd = netrixi1st + 1;
-                        return 1;
+                        if (netrixi1st + 1 != folkvar2nd)
+                        {
+                            netrixi2nd = netrixi1st + 1;
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Netrixi past Folkvar!");
+                            return 2;
+                        }
                     }
                     else
                     {
-                        print("Can't move Netrixi past Folkvar!");
-                        return 2;
+                        if (netrixi1st + 1 != 6)
+                        {
+                            netrixi2nd = netrixi1st + 1;
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Netrixi into enemy territory!");
+                            return 2;
+                        }
                     }
                 }
             }
@@ -127,17 +193,55 @@ public class CharacterManagerScript : MonoBehaviour
             // If it is the first move
             if (CombatManagerScript.firstAttack == 0)
             {
-                if (folkvarPosition - 1 != netrixiPosition)
+                // If Netrixi is in the way
+                if (GameManagerScript.netrixiInParty && CombatManagerScript.netrixiAlive)
                 {
-                    folkvar1st = folkvarPosition - 1;
-                    UpdateVariables();
-                    return 1;
+                    if (folkvarPosition - 1 != netrixiPosition)
+                    {
+                        folkvar1st = folkvarPosition - 1;
+                        UpdateVariables();
+                        return 1;
+                    }
+                    else
+                    {
+                        print("Can't move Folkvar past Netrixi!");
+                        UpdateVariables();
+                        return 2;
+                    }
                 }
                 else
                 {
-                    print("Can't move Folkvar past Netrixi!");
-                    UpdateVariables();
-                    return 2;
+                    // If Iv is in the way
+                    if (GameManagerScript.ivInParty && CombatManagerScript.ivAlive)
+                    {
+                        if (folkvarPosition - 1 != ivPosition)
+                        {
+                            folkvar1st = folkvarPosition - 1;
+                            UpdateVariables();
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Folkvar past Iv!");
+                            UpdateVariables();
+                            return 2;
+                        }
+                    }
+                    else
+                    {
+                        if (folkvarPosition - 1 != 0)
+                        {
+                            folkvar1st = folkvarPosition - 1;
+                            UpdateVariables();
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Folkvar out of bounds!");
+                            UpdateVariables();
+                            return 2;
+                        }
+                    }
                 }
             }
             
@@ -146,15 +250,50 @@ public class CharacterManagerScript : MonoBehaviour
             {
                 if (CombatManagerScript.secondAttack == 0)
                 {
-                    if (folkvar1st - 1 != netrixi2nd)
+                    if (GameManagerScript.netrixiInParty && CombatManagerScript.netrixiAlive)
                     {
-                        folkvar2nd = folkvar1st - 1;
-                        return 1;
+                        if (folkvar1st - 1 != netrixi2nd)
+                        {
+                            folkvar2nd = folkvar1st - 1;
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Folkvar past Netrixi!");
+                            return 2;
+                        }
                     }
                     else
                     {
-                        print("Can't move Folkvar past Netrixi!");
-                        return 2;
+                        // If Iv is in the way
+                        if (GameManagerScript.ivInParty && CombatManagerScript.ivAlive)
+                        {
+                            if (folkvar1st - 1 != iv2nd)
+                            {
+                                folkvar2nd = folkvar1st - 1;
+                                return 1;
+                            }
+                            else
+                            {
+                                print("Can't move Folkvar past Iv!");
+                                UpdateVariables();
+                                return 2;
+                            }
+                        }
+                        else
+                        {
+                            if (folkvar1st - 1 != 0)
+                            {
+                                folkvar2nd = folkvar1st - 1;
+                                return 1;
+                            }
+                            else
+                            {
+                                print("Can't move Folkvar out of bounds!");
+                                UpdateVariables();
+                                return 2;
+                            }
+                        }
                     }
                 }
             }
@@ -250,34 +389,112 @@ public class CharacterManagerScript : MonoBehaviour
             // If it is the first move
             if (CombatManagerScript.firstAttack == 0)
             {
-                if (ivPosition + 1 != netrixiPosition)
+                // If Netrixi is in the way
+                if (GameManagerScript.netrixiInParty && GameManagerScript.folkvarInParty)
                 {
-                    iv1st = ivPosition + 1;
-                    UpdateVariables();
-                    return 1;
+                    if (ivPosition + 1 != netrixiPosition)
+                    {
+                        iv1st = ivPosition + 1;
+                        UpdateVariables();
+                        return 1;
+                    }
+                    else
+                    {
+                        print("Can't move Iv past Netrixi!");
+                        UpdateVariables();
+                        return 2;
+                    }
                 }
                 else
                 {
-                    print("Can't move Iv past Netrixi!");
-                    UpdateVariables();
-                    return 2;
+                    // If Folkvar is in the way
+                    if (GameManagerScript.folkvarInParty && CombatManagerScript.folkvarAlive)
+                    {
+                        if (ivPosition + 1 != folkvarPosition)
+                        {
+                            iv1st = ivPosition + 1;
+                            UpdateVariables();
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Iv past Folkvar!");
+                            UpdateVariables();
+                            return 2;
+                        }
+                    }
+                    else
+                    {
+                        if (ivPosition + 1 != 6)
+                        {
+                            iv1st = ivPosition + 1;
+                            UpdateVariables();
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Iv into enemy territory!");
+                            UpdateVariables();
+                            return 2;
+                        }
+                    }
                 }
             }
             
             // If it is the second move
             else
             {
-                if (CombatManagerScript.secondAttack == 0)
+                // If Netrixi is in the way
+                if (GameManagerScript.netrixiInParty && CombatManagerScript.netrixiAlive)
                 {
-                    if (iv1st + 1 != netrixi2nd)
+                    if (CombatManagerScript.secondAttack == 0)
                     {
-                        iv2nd = iv1st + 1;
-                        return 1;
+                        if (iv1st + 1 != netrixi2nd)
+                        {
+                            iv2nd = iv1st + 1;
+                            return 1;
+                        }
+                        else
+                        {
+                            print("Can't move Iv past Netrixi!");
+                            return 2;
+                        }
+                    }
+                }
+                else
+                {
+                    // If Folkvar is in the way
+                    if (GameManagerScript.folkvarInParty && CombatManagerScript.folkvarAlive)
+                    {
+                        if (CombatManagerScript.secondAttack == 0)
+                        {
+                            if (iv1st + 1 != folkvar2nd)
+                            {
+                                iv2nd = iv1st + 1;
+                                return 1;
+                            }
+                            else
+                            {
+                                print("Can't move Iv past Folkvar!");
+                                return 2;
+                            }
+                        }
                     }
                     else
                     {
-                        print("Can't move Iv past Netrixi!");
-                        return 2;
+                        if (CombatManagerScript.secondAttack == 0)
+                        {
+                            if (iv1st + 1 != 6)
+                            {
+                                iv2nd = iv1st + 1;
+                                return 1;
+                            }
+                            else
+                            {
+                                print("Can't move Iv into enemy territory!");
+                                return 2;
+                            }
+                        }
                     }
                 }
             }

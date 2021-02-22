@@ -10,8 +10,8 @@ public class CharacterSelected : MonoBehaviour
     private Vector3 deselectedSize = new Vector3(1.75f, 1.75f, 1.75f);
     private Vector3 selectedSize = new Vector3(2.5f, 2.5f, 2.5f);
 
-    private float deselectedPosition = -2.95f;
-    private float selectedPosition = -0.5f;
+    private float deselectedPosition = -2.75f;
+    private float selectedPosition = -0.3f;
     
     // Start is called before the first frame update
     void Start()
@@ -24,19 +24,28 @@ public class CharacterSelected : MonoBehaviour
     {
         if (netrixi)
         {
+            // If Netrixi is in the party yet
             if (GameManagerScript.netrixiInParty)
             {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                
-                if (CombatManagerScript.netrixiAttacks)
+                // If Netrixi is alive
+                if (CombatManagerScript.netrixiAlive)
                 {
-                    this.transform.localScale = selectedSize;
-                    this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                
+                    if (CombatManagerScript.netrixiAttacks)
+                    {
+                        this.transform.localScale = selectedSize;
+                        this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                    }
+                    else
+                    {
+                        this.transform.localScale = deselectedSize;
+                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition, this.transform.position.z);
+                    }
                 }
                 else
                 {
-                    this.transform.localScale = deselectedSize;
-                    this.transform.position = new Vector3( this.transform.position.x, deselectedPosition + 0.2f, this.transform.position.z);
+                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
                 }
             }
             else
@@ -47,19 +56,28 @@ public class CharacterSelected : MonoBehaviour
 
         if (folkvar)
         {
+            // If Folkvar is in the party yet
             if (GameManagerScript.folkvarInParty)
             {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                
-                if (CombatManagerScript.folkvarAttacks)
+                // If Folkvar is alive
+                if (CombatManagerScript.folkvarAlive)
                 {
-                    this.transform.localScale = selectedSize;
-                    this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                
+                    if (CombatManagerScript.folkvarAttacks)
+                    {
+                        this.transform.localScale = selectedSize;
+                        this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                    }
+                    else
+                    {
+                        this.transform.localScale = new Vector3(deselectedSize.x + 0.25f, deselectedSize.y + 0.25f, deselectedSize.z);
+                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition + 0.15f, this.transform.position.z);
+                    }
                 }
                 else
                 {
-                    this.transform.localScale = new Vector3(deselectedSize.x + 0.25f, deselectedSize.y + 0.25f, deselectedSize.z);
-                    this.transform.position = new Vector3( this.transform.position.x, deselectedPosition + 0.35f, this.transform.position.z);
+                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
                 }
             }
             else
@@ -70,19 +88,28 @@ public class CharacterSelected : MonoBehaviour
 
         if (iv)
         {
+            // If Iv is in the party yet
             if (GameManagerScript.ivInParty)
             {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                
-                if (CombatManagerScript.ivAttacks)
+                // If Iv is alive
+                if (CombatManagerScript.ivAlive)
                 {
-                    this.transform.localScale = selectedSize;
-                    this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                
+                    if (CombatManagerScript.ivAttacks)
+                    {
+                        this.transform.localScale = selectedSize;
+                        this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                    }
+                    else
+                    {
+                        this.transform.localScale = deselectedSize;
+                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition, this.transform.position.z);
+                    }
                 }
                 else
                 {
-                    this.transform.localScale = deselectedSize;
-                    this.transform.position = new Vector3( this.transform.position.x, deselectedPosition + 0.2f, this.transform.position.z);
+                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
                 }
             }
             else

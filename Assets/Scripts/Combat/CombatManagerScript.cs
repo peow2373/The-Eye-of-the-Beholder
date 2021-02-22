@@ -15,6 +15,10 @@ public class CombatManagerScript : MonoBehaviour
     private bool isNetrixi = true, isFolkvar = true, isIv = true;
     
     public static int roundNumber = 1;
+    
+    public static bool netrixiAlive = true, folkvarAlive = true, ivAlive = true;
+    
+    public static bool enemy1Alive = true, enemy2Alive = true, enemy3Alive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +40,15 @@ public class CombatManagerScript : MonoBehaviour
         isNetrixi = true;
         isFolkvar = true; 
         isIv = true;
+
+        
+        netrixiAlive = true;
+        folkvarAlive = true;
+        ivAlive = true;
+        
+        enemy1Alive = true;
+        enemy2Alive = true;
+        enemy3Alive = true;
     }
 
     // Update is called once per frame
@@ -106,31 +119,57 @@ public class CombatManagerScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
-                    firstAttack = 0;
-                    secondAttack = 0;
+                    if (!NetrixiCombatScript.netrixiCondition4[0])
+                    {
+                        if (!FolkvarCombatScript.folkvarCondition4[0])
+                        {
+                            if (!IvCombatScript.ivCondition4[0])
+                            {
+                                firstAttack = 0;
+                                secondAttack = 0;
                 
-                    netrixiAttacks = false;
-                    folkvarAttacks = false;
-                    ivAttacks = false;
+                                netrixiAttacks = false;
+                                folkvarAttacks = false;
+                                ivAttacks = false;
             
-                    NetrixiCombatScript.ResetNetrixiVariables();
-                    FolkvarCombatScript.ResetFolkvarVariables();
-                    IvCombatScript.ResetIvVariables();
+                                NetrixiCombatScript.ResetNetrixiVariables();
+                                FolkvarCombatScript.ResetFolkvarVariables();
+                                IvCombatScript.ResetIvVariables();
                 
-                    roundNumber += 1;
+                                roundNumber += 1;
                     
-                    CharacterManagerScript.ResetVariables();
+                                CharacterManagerScript.ResetVariables();
+                                EnemyManagerScript.ClearMoves(2);
+                            }
+                        }
+                    }
                 }
             }
         }
         
 
         // Determine whether the player has chosen a combat move
-        if (GameManagerScript.netrixiInParty) NetrixiCombatScript.NetrixiAttack();
-        if (GameManagerScript.folkvarInParty) FolkvarCombatScript.FolkvarAttack();
-        if (GameManagerScript.ivInParty) IvCombatScript.IvAction();
+        
+        // If Netrixi is still alive
+        if (netrixiAlive)
+        {
+            if (GameManagerScript.netrixiInParty) NetrixiCombatScript.NetrixiAttack();
+        }
+
+        // If Folkvar is still alive
+        if (folkvarAlive)
+        {
+            if (GameManagerScript.folkvarInParty) FolkvarCombatScript.FolkvarAttack();
+        }
+
+        // If Iv is still alive
+        if (ivAlive)
+        {
+            if (GameManagerScript.ivInParty) IvCombatScript.IvAction();
+        }
 
         
+
         // Undo a chosen move or attack
         if (MarkerManagerScript.backMarker)
         {

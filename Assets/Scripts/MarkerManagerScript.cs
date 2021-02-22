@@ -301,60 +301,10 @@ public class MarkerManagerScript : MonoBehaviour
             xPos = xPosCombat;
             yPos = yPosCombat;
         }
-        
-        
-        //TestingChangeLoctation();
     }
 
-    
-    private float[] xPosCombatDraft1 = new float[] { 1f, 4f, 7f };
-    private float[] yPosCombatDraft1 = new float[] { 2.5f, 0, -2.5f };
-    
-    private float[] xPosCombatDraft2 = new float[] { 1f, 4f, 7f };
-    private float[] yPosCombatDraft2 = new float[] { 2.5f, 0, -2.5f };
-    
-    private float[] xPosCombatDraft3 = new float[] { -3f, 0f, 3f };
-    private float[] yPosCombatDraft3 = new float[] { 6.5f, 4f, 1.5f };
-    
-    private float[] xPosInkCastle = new float[] { 0f, 3f, 6f };
-    private float[] yPosInkCastle = new float[] { 2.5f, 1f, -0.5f };
 
-    void TestingChangeLoctation()
-    {
-        Scene scene = SceneManager.GetActiveScene();
-        string sceneName = scene.name;
 
-        // if the player is in combat
-        if (sceneName == "CombatDraft1")
-        {
-            xPos = xPosCombatDraft1;
-            yPos = yPosCombatDraft1;
-        }
-        
-        // if the player is in combat and decides to move
-        if (sceneName == "CombatDraft2")
-        {
-            xPos = xPosCombatDraft2;
-            yPos = yPosCombatDraft2;
-        }
-        
-        // if the player is in combat with an enemy
-        if (sceneName == "CombatDraft3")
-        {
-            xPos = xPosCombatDraft3;
-            yPos = yPosCombatDraft3;
-        }
-
-        // if the player is having dialogue outside the castle
-        if (sceneName == "InkCastle")
-        {
-            xPos = xPosInkCastle;
-            yPos = yPosInkCastle;
-        }
-    }
-
-    
-    
     public void Reset()
     {
         // reset variables when a new level is loaded
