@@ -11,11 +11,14 @@ This README will be a more structured overview of future goals and progress made
 - Enemy AI chooses moves randomly from list of options
 - If Enemy AI already chooses a duplicate move, choose a different move
 
+
 - For Hunter next week: Make Barkeeper dialogue, make Jester dialogue, starting to work on game sound
 - For Perry next week: Health bar + damage system (Make combat winnable), make Brute sprite
 
+
 - Look into "Darkest Dungeon" as a good example of what the Combat Scene will end up looking like
 - Change dialogue scene text so it is more legible
+- Replace Input.GetKeyDown with Input.GetKeyPress
 
 # 2/16/2021 Update
 
