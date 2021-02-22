@@ -4,6 +4,12 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 
 This README will be a more structured overview of future goals and progress made throughout each week
 
+# 2/22/2021 Update
+
+- Completed all content for dialogue system. All scenes are created and linked with GameManager.
+- Player sprites now visually move left/right in combat
+- Enemy AI chooses moves randomly from list of options
+
 # 2/16/2021 Update
 
 - Dialogue system works and has been integrated with a Game Manager Script! Players can now change from a tutorial scene, to castle dialogue, to combat scene
