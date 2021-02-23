@@ -16,6 +16,7 @@ This README will be a more structured overview of future goals and progress made
 
 - Look into "Darkest Dungeon" as a good example of what the Combat Scene will end up looking like
 - Change dialogue scene text so it is more legible
+- Replace Input.GetKeyDown with Input.GetKeyPress
 
 # 2/16/2021 Update
 
