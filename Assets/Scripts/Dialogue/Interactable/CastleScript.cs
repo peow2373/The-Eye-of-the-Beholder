@@ -16,7 +16,7 @@ public class CastleScript : MonoBehaviour
 
     public GameObject TextContainer;
 
-    bool skipScene = false;
+    bool skipScene = true;
     bool max = false;
 
     // Start is called before the first frame update
