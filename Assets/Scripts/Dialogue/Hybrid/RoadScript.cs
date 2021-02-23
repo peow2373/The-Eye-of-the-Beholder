@@ -102,18 +102,24 @@ public class RoadScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = true;
 
-            if (Input.GetKeyDown(KeyCode.V))
+            if (MarkerManagerScript.goMarker)
             {
-                refreshUI();
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                }
             }
         }
 
         else if (this.transform.childCount == 1)
         {
             goMarkerToContinue.enabled = false;
-            if (Input.GetKeyDown(KeyCode.V))
+            if (MarkerManagerScript.goMarker)
             {
-                refreshUI();
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                }
             }
         }
 
@@ -122,17 +128,21 @@ public class RoadScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = false;
 
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+            switch (MarkerManagerScript.currentLocation)
             {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-            {
-                story.ChooseChoiceIndex(1);
-                refreshUI();
-                skipScene = true;
+                case 1:
+                case 4:
+                case 7:
+                    story.ChooseChoiceIndex(0);
+                    refreshUI();
+                    break;
+                case 3:
+                case 6:
+                case 9:
+                    story.ChooseChoiceIndex(1);
+                    refreshUI();
+                    skipScene = true;
+                    break;
             }
 
         }

@@ -953,6 +953,7 @@ GameObject:
   - component: {fileID: 400236885}
   - component: {fileID: 400236887}
   - component: {fileID: 400236886}
+  - component: {fileID: 400236888}
   m_Layer: 9
   m_Name: Enemy Melee
   m_TagString: Player
@@ -1037,12 +1038,40 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.8, y: 4.8}
+  m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &400236888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400236884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 677a7322dc9fe764396a829c6ad94151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy1: 1
+  enemy2: 0
+  enemy3: 0
+  knightMelee: {fileID: 21300000, guid: 1161309e388562d42b55c32e79626f1b, type: 3}
+  knightRanged: {fileID: 21300000, guid: 2d19811de57bcca43a314a0840841b70, type: 3}
+  gatekeeper: {fileID: 21300000, guid: 4a17a1ee9e043494a8deddf336ab1376, type: 3}
+  royalGuard: {fileID: 21300000, guid: e770c19dfed502b428e8cf72243d3bd1, type: 3}
+  folkvar: {fileID: 21300000, guid: dda17a6042ec19a498d6cdc02c2ca75f, type: 3}
+  skullMelee: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
+  skullRanged: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
+  kaz: {fileID: 21300000, guid: 5a32d511bd31db14da04176e9ee0b34f, type: 3}
+  skullKing: {fileID: 21300000, guid: f4960f759af5c524ca194dc8b386e036, type: 3}
+  evilKing: {fileID: 21300000, guid: cbeac254f76fe8148bff958d92aa7828, type: 3}
+  pirate: {fileID: 21300000, guid: 3fcff3bc92e8d7147bd38086d04361c2, type: 3}
+  brute: {fileID: 21300000, guid: 64937180ce29a3047a698806f2d30da6, type: 3}
+  barkeeper: {fileID: 21300000, guid: 6d66023acd03ca54b936e953ddea140d, type: 3}
 --- !u!1 &541314397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1106,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 73, y: 39}
+  m_AnchoredPosition: {x: 89, y: 39}
   m_SizeDelta: {x: 145.76663, y: 31.449738}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &541314399
@@ -1214,6 +1243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 590333272}
   - component: {fileID: 590333273}
+  - component: {fileID: 590333274}
   m_Layer: 0
   m_Name: '#2'
   m_TagString: Untagged
@@ -1286,6 +1316,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &590333274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590333271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e119caae0671e4ebbb9392d0962ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack1: 0
+  attack2: 1
+  knightMelee: {fileID: 21300000, guid: 1b3c29e5349d1d145aa07bf3d134401a, type: 3}
+  knightRanged: {fileID: 21300000, guid: 430dcd178328c414a9d886e1145267a8, type: 3}
+  gatekeeper: {fileID: 21300000, guid: 20bd2b268fa335a46b4602d51da029d2, type: 3}
+  royalGuard: {fileID: 21300000, guid: a40e3a21c7f85634ba53e6197b1da7ba, type: 3}
+  folkvar: {fileID: 21300000, guid: eb041c864d2b08540a49717f4c6ecb8f, type: 3}
+  skullMelee: {fileID: 21300000, guid: f6c8c68ccc3c74342a877e75bb912dc9, type: 3}
+  skullRanged: {fileID: 21300000, guid: 634b489e96b512845b51094d72fc18c9, type: 3}
+  kaz: {fileID: 21300000, guid: 7c443a6378196724f916b70a0b36df68, type: 3}
+  skullKing: {fileID: 21300000, guid: 7db7ecb26a557f24398a6e19249690aa, type: 3}
+  evilKing: {fileID: 21300000, guid: e1a4700be5a62c641a420a09d7a00b8b, type: 3}
+  pirate: {fileID: 21300000, guid: 74affcdbe5d06cd44b33bdf87c94e5c4, type: 3}
+  brute: {fileID: 21300000, guid: 64937180ce29a3047a698806f2d30da6, type: 3}
+  barkeeper: {fileID: 21300000, guid: ec9b0b59dc29e6d47b151101c14b2acb, type: 3}
+  firstAttack: {fileID: 93254949}
+  secondAttack: {fileID: 541314399}
 --- !u!1 &596311321
 GameObject:
   m_ObjectHideFlags: 0
@@ -1489,6 +1548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743099716}
   - component: {fileID: 743099717}
+  - component: {fileID: 743099718}
   m_Layer: 0
   m_Name: '#1'
   m_TagString: Untagged
@@ -1561,6 +1621,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &743099718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743099715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e119caae0671e4ebbb9392d0962ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack1: 1
+  attack2: 0
+  knightMelee: {fileID: 21300000, guid: 1b3c29e5349d1d145aa07bf3d134401a, type: 3}
+  knightRanged: {fileID: 21300000, guid: 430dcd178328c414a9d886e1145267a8, type: 3}
+  gatekeeper: {fileID: 21300000, guid: 20bd2b268fa335a46b4602d51da029d2, type: 3}
+  royalGuard: {fileID: 21300000, guid: a40e3a21c7f85634ba53e6197b1da7ba, type: 3}
+  folkvar: {fileID: 21300000, guid: eb041c864d2b08540a49717f4c6ecb8f, type: 3}
+  skullMelee: {fileID: 21300000, guid: f6c8c68ccc3c74342a877e75bb912dc9, type: 3}
+  skullRanged: {fileID: 21300000, guid: 634b489e96b512845b51094d72fc18c9, type: 3}
+  kaz: {fileID: 21300000, guid: 7c443a6378196724f916b70a0b36df68, type: 3}
+  skullKing: {fileID: 21300000, guid: 7db7ecb26a557f24398a6e19249690aa, type: 3}
+  evilKing: {fileID: 21300000, guid: e1a4700be5a62c641a420a09d7a00b8b, type: 3}
+  pirate: {fileID: 21300000, guid: 74affcdbe5d06cd44b33bdf87c94e5c4, type: 3}
+  brute: {fileID: 21300000, guid: 64937180ce29a3047a698806f2d30da6, type: 3}
+  barkeeper: {fileID: 21300000, guid: ec9b0b59dc29e6d47b151101c14b2acb, type: 3}
+  firstAttack: {fileID: 93254949}
+  secondAttack: {fileID: 541314399}
 --- !u!1 &906117095
 GameObject:
   m_ObjectHideFlags: 0
@@ -1702,8 +1791,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 928428112}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: -2.75, z: -1}
-  m_LocalScale: {x: 1.75, y: 1.75, z: 1.5}
+  m_LocalPosition: {x: -8, y: -2.6, z: -1}
+  m_LocalScale: {x: 2, y: 2, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1348081423}
   m_RootOrder: 0
@@ -1819,8 +1908,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942895053}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.95, y: -2.75, z: -1}
-  m_LocalScale: {x: 1.75, y: 1.75, z: 1.5}
+  m_LocalPosition: {x: -13.95, y: -2.6, z: -1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 1348081423}
   m_RootOrder: 2
@@ -2064,6 +2153,7 @@ GameObject:
   - component: {fileID: 1155050519}
   - component: {fileID: 1155050521}
   - component: {fileID: 1155050520}
+  - component: {fileID: 1155050522}
   m_Layer: 9
   m_Name: Enemy Leader
   m_TagString: Player
@@ -2148,12 +2238,40 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.8, y: 4.8}
+  m_Size: {x: 3.2, y: 3.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1155050522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155050518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 677a7322dc9fe764396a829c6ad94151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy1: 0
+  enemy2: 0
+  enemy3: 1
+  knightMelee: {fileID: 21300000, guid: 1161309e388562d42b55c32e79626f1b, type: 3}
+  knightRanged: {fileID: 21300000, guid: 2d19811de57bcca43a314a0840841b70, type: 3}
+  gatekeeper: {fileID: 21300000, guid: 4a17a1ee9e043494a8deddf336ab1376, type: 3}
+  royalGuard: {fileID: 21300000, guid: e770c19dfed502b428e8cf72243d3bd1, type: 3}
+  folkvar: {fileID: 21300000, guid: dda17a6042ec19a498d6cdc02c2ca75f, type: 3}
+  skullMelee: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
+  skullRanged: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
+  kaz: {fileID: 21300000, guid: 5a32d511bd31db14da04176e9ee0b34f, type: 3}
+  skullKing: {fileID: 21300000, guid: f4960f759af5c524ca194dc8b386e036, type: 3}
+  evilKing: {fileID: 21300000, guid: cbeac254f76fe8148bff958d92aa7828, type: 3}
+  pirate: {fileID: 21300000, guid: 3fcff3bc92e8d7147bd38086d04361c2, type: 3}
+  brute: {fileID: 21300000, guid: 64937180ce29a3047a698806f2d30da6, type: 3}
+  barkeeper: {fileID: 21300000, guid: 6d66023acd03ca54b936e953ddea140d, type: 3}
 --- !u!1 &1260559672
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,8 +2867,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1454148730}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.2999997, y: -2.6, z: -1}
-  m_LocalScale: {x: 2, y: 2, z: 1.5}
+  m_LocalPosition: {x: -2.2999997, y: -2.4, z: -1}
+  m_LocalScale: {x: 2.25, y: 2.25, z: 1.5}
   m_Children: []
   m_Father: {fileID: 1348081423}
   m_RootOrder: 1
@@ -2850,6 +2968,7 @@ GameObject:
   - component: {fileID: 1463007794}
   - component: {fileID: 1463007796}
   - component: {fileID: 1463007795}
+  - component: {fileID: 1463007797}
   m_Layer: 9
   m_Name: Enemy Ranged
   m_TagString: Player
@@ -2940,6 +3059,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1463007797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463007793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 677a7322dc9fe764396a829c6ad94151, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy1: 0
+  enemy2: 1
+  enemy3: 0
+  knightMelee: {fileID: 21300000, guid: 1161309e388562d42b55c32e79626f1b, type: 3}
+  knightRanged: {fileID: 21300000, guid: 2d19811de57bcca43a314a0840841b70, type: 3}
+  gatekeeper: {fileID: 21300000, guid: 4a17a1ee9e043494a8deddf336ab1376, type: 3}
+  royalGuard: {fileID: 21300000, guid: e770c19dfed502b428e8cf72243d3bd1, type: 3}
+  folkvar: {fileID: 21300000, guid: dda17a6042ec19a498d6cdc02c2ca75f, type: 3}
+  skullMelee: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
+  skullRanged: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
+  kaz: {fileID: 21300000, guid: 5a32d511bd31db14da04176e9ee0b34f, type: 3}
+  skullKing: {fileID: 21300000, guid: f4960f759af5c524ca194dc8b386e036, type: 3}
+  evilKing: {fileID: 21300000, guid: cbeac254f76fe8148bff958d92aa7828, type: 3}
+  pirate: {fileID: 21300000, guid: 3fcff3bc92e8d7147bd38086d04361c2, type: 3}
+  brute: {fileID: 21300000, guid: 64937180ce29a3047a698806f2d30da6, type: 3}
+  barkeeper: {fileID: 21300000, guid: 6d66023acd03ca54b936e953ddea140d, type: 3}
 --- !u!1 &1463871138
 GameObject:
   m_ObjectHideFlags: 0

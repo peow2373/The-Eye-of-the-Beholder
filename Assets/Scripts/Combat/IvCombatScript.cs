@@ -224,7 +224,7 @@ public class IvCombatScript : MonoBehaviour
             
             
             // Reset variables if an action is canceled
-            if (MarkerManagerScript.backMarker)
+            if (MarkerManagerScript.undoMarker)
             {
                 if (Input.GetKeyDown(KeyCode.U))
                 {

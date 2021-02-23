@@ -10,7 +10,7 @@ public class MarkerManagerScript : MonoBehaviour
     public static bool netrixiMarker = false;
     public static bool folkvarMarker = false;
     public static bool ivMarker = false;
-    public static bool backMarker = false;
+    public static bool undoMarker = false;
     public static bool goMarker = false;
 
     public GameObject hand;
@@ -27,6 +27,8 @@ public class MarkerManagerScript : MonoBehaviour
     public static bool beingRotated = false;
 
     public static MarkerManagerScript S;
+
+    public static int currentLocation = 0;
 
     void Awake()
     {
@@ -81,7 +83,7 @@ public class MarkerManagerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)) ivMarker = !ivMarker;
 
         // check to see if Undo marker is visible
-        if (Input.GetKeyDown(KeyCode.U)) backMarker = !backMarker;
+        if (Input.GetKeyDown(KeyCode.U)) undoMarker = !undoMarker;
         
         // check to see if Extra marker is visible
         if (Input.GetKeyDown(KeyCode.V)) goMarker = !goMarker;
@@ -94,6 +96,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[0], yPos[0]);
             hand.transform.position = loc;
+            currentLocation = 1;
         }
         
         // check to see if Palm marker is in the top-middle corner
@@ -101,6 +104,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[1], yPos[0]);
             hand.transform.position = loc;
+            currentLocation = 2;
         }
         
         // check to see if Palm marker is in the top-right corner
@@ -108,6 +112,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[2], yPos[0]);
             hand.transform.position = loc;
+            currentLocation = 3;
         }
         
         // check to see if Palm marker is in the middle-left corner
@@ -115,6 +120,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[0], yPos[1]);
             hand.transform.position = loc;
+            currentLocation = 4;
         }
         
         // check to see if Palm marker is in the center corner
@@ -122,6 +128,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[1], yPos[1]);
             hand.transform.position = loc;
+            currentLocation = 5;
         }
         
         // check to see if Palm marker is in the middle-right corner
@@ -129,6 +136,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[2], yPos[1]);
             hand.transform.position = loc;
+            currentLocation = 6;
         }
         
         // check to see if Palm marker is in the bottom-left corner
@@ -136,6 +144,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[0], yPos[2]);
             hand.transform.position = loc;
+            currentLocation = 7;
         }
         
         // check to see if Palm marker is in the bottom-middle corner
@@ -143,6 +152,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[1], yPos[2]);
             hand.transform.position = loc;
+            currentLocation = 8;
         }
         
         // check to see if Palm marker is in the bottom-right corner
@@ -150,6 +160,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[2], yPos[2]);
             hand.transform.position = loc;
+            currentLocation = 9;
         }
     }
 
@@ -289,6 +300,8 @@ public class MarkerManagerScript : MonoBehaviour
             
             xPos = xPosDialogue;
             yPos = yPosDialogue;
+            
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
         
         // If the player is in a Combat Scene
@@ -296,6 +309,8 @@ public class MarkerManagerScript : MonoBehaviour
         {
             xPos = xPosDialogue;
             yPos = yPosDialogue;
+            
+            transform.localScale = new Vector3(1, 1, 1);
         }
         
         // If the player is in a Dialogue Scene
@@ -303,6 +318,8 @@ public class MarkerManagerScript : MonoBehaviour
         {
             xPos = xPosCombat;
             yPos = yPosCombat;
+            
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 
@@ -323,8 +340,8 @@ public class MarkerManagerScript : MonoBehaviour
         if (ivMarker) ivMarker = true;
         else ivMarker = false;
 
-        if (backMarker) backMarker = true;
-        else backMarker = false;
+        if (undoMarker) undoMarker = true;
+        else undoMarker = false;
         
         if (goMarker) goMarker = true;
         else goMarker = false;
@@ -333,10 +350,6 @@ public class MarkerManagerScript : MonoBehaviour
         ChangeMarkerLocation();
         Vector2 loc = new Vector2(xPos[1], yPos[1]);
         hand.transform.position = loc;
-
-        wasLarger = false; 
-        wasSmaller = false;
-        beingRotated = false;
     }
 }
 

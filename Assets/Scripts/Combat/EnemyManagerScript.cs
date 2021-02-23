@@ -17,12 +17,16 @@ public class EnemyManagerScript : MonoBehaviour
 
     public static bool hasChangedScene = false;
 
+    private bool barkeeperMadNextRound = false;
+
     // Start is called before the first frame update
     void Start()
     {
         ClearMoves(1);
 
         hasChangedScene = false;
+        barkeeperMadNextRound = false;
+        
         
         // Determine enemies present within the scene
         DetermineEnemyType(enemy1);
@@ -36,13 +40,18 @@ public class EnemyManagerScript : MonoBehaviour
         // If the Tavern Brute angers the Barkeeper and causes him to join the fight
         if (firstAttack == "Tavern Brute Throws Chair" || secondAttack == "Tavern Brute Throws Chair")
         {
-            GameManagerScript.barkeeperMad = true;
+            barkeeperMadNextRound = true;
 
             print("Barkeeper Joins the Fight!");
             
             DetermineEnemyType(enemy1);
             DetermineEnemyType(enemy2);
             DetermineEnemyType(enemy3);
+        }
+
+        if (barkeeperMadNextRound)
+        {
+            if (firstAttack == "null" && secondAttack == "null") GameManagerScript.barkeeperMad = true;
         }
         
         
@@ -184,7 +193,6 @@ public class EnemyManagerScript : MonoBehaviour
             }
 
             
-            
             // If Enemy 2 is present in the scene
             if (enemy2 != "null")
             {
@@ -200,8 +208,7 @@ public class EnemyManagerScript : MonoBehaviour
                     availableMoves.Add("Enemy 2 Moves Right");
                 }
             }
-
-
+            
             
             // If Enemy 3 is present in the scene
             if (enemy3 != "null")
@@ -235,7 +242,6 @@ public class EnemyManagerScript : MonoBehaviour
             }
             
             
-            
             // If Enemy 2 is present in the scene
             if (enemy2 != "null")
             {
@@ -251,7 +257,6 @@ public class EnemyManagerScript : MonoBehaviour
                     availableMoves.Add("Enemy 2 Moves Right");
                 }
             }
-
 
             
             // If Enemy 3 is present in the scene

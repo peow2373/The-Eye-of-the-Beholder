@@ -102,9 +102,12 @@ public class TavernScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = true;
 
-            if (Input.GetKeyDown(KeyCode.V))
+            if (MarkerManagerScript.goMarker)
             {
-                refreshUI();
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                }
             }
         }
 
@@ -115,17 +118,23 @@ public class TavernScript : MonoBehaviour
             {
                 skipScene = true;
 
-                if (Input.GetKeyDown(KeyCode.V))
+                if (MarkerManagerScript.goMarker)
                 {
-                    eraseUI();
-                    GameManagerScript.NextScene(skipScene);
+                    if (Input.GetKeyDown(KeyCode.V))
+                    {
+                        eraseUI();
+                        GameManagerScript.NextScene(skipScene);
+                    }
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.V))
+            else if (MarkerManagerScript.goMarker)
             {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    story.ChooseChoiceIndex(0);
+                    refreshUI();
+                }
             }
         }
 
@@ -149,17 +158,21 @@ public class TavernScript : MonoBehaviour
             }
 
             else 
-            { 
-                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+            {
+                switch (MarkerManagerScript.currentLocation)
                 {
-                    story.ChooseChoiceIndex(0);
-                    refreshUI();
-                }
-
-                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-                {
-                    story.ChooseChoiceIndex(1);
-                    refreshUI();
+                    case 1:
+                    case 4:
+                    case 7:
+                        story.ChooseChoiceIndex(0);
+                        refreshUI();
+                        break;
+                    case 3:
+                    case 6:
+                    case 9:
+                        story.ChooseChoiceIndex(1);
+                        refreshUI();
+                        break;
                 }
             }
         }

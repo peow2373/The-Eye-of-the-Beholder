@@ -7,10 +7,10 @@ public class CharacterSelected : MonoBehaviour
 {
     public bool netrixi, folkvar, iv;
     
-    private Vector3 deselectedSize = new Vector3(1.75f, 1.75f, 1.75f);
+    private Vector3 deselectedSize = new Vector3(2f, 2f, 2f);
     private Vector3 selectedSize = new Vector3(2.5f, 2.5f, 2.5f);
 
-    private float deselectedPosition = -2.75f;
+    private float deselectedPosition = -2.6f;
     private float selectedPosition = -0.3f;
     
     // Start is called before the first frame update
@@ -54,6 +54,8 @@ public class CharacterSelected : MonoBehaviour
             }
         }
 
+        
+        
         if (folkvar)
         {
             // If Folkvar is in the party yet
@@ -72,7 +74,7 @@ public class CharacterSelected : MonoBehaviour
                     else
                     {
                         this.transform.localScale = new Vector3(deselectedSize.x + 0.25f, deselectedSize.y + 0.25f, deselectedSize.z);
-                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition + 0.15f, this.transform.position.z);
+                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition + 0.2f, this.transform.position.z);
                     }
                 }
                 else
@@ -86,6 +88,8 @@ public class CharacterSelected : MonoBehaviour
             }
         }
 
+        
+        
         if (iv)
         {
             // If Iv is in the party yet

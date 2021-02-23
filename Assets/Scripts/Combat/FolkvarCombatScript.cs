@@ -187,7 +187,7 @@ public class FolkvarCombatScript : MonoBehaviour
             
             
             // Reset variables if an attack is canceled
-            if (MarkerManagerScript.backMarker)
+            if (MarkerManagerScript.undoMarker)
             {
                 if (Input.GetKeyDown(KeyCode.U))
                 {

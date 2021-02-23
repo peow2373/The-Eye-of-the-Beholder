@@ -91,20 +91,36 @@ public class NetrixiPirateScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.V))
+        if (this.transform.childCount <= 1)
         {
-            refreshUI();
+            if (this.transform.childCount == 0)
+            {
+                goMarkerToContinue.enabled = true;
+            }
+                if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                }
+            }
         }
 
-        if (this.transform.childCount > 0)
+        if (this.transform.childCount > 1)
         {
             goMarkerToContinue.enabled = false;
 
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.A))
+            switch (MarkerManagerScript.currentLocation)
             {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
+                case 1:
+                case 4:
+                case 7:
+                case 3:
+                case 6:
+                case 9:
+                    story.ChooseChoiceIndex(1);
+                    refreshUI();
+                    break;
             }
         }
 

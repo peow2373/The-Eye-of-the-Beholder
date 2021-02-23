@@ -171,7 +171,7 @@ public class CombatManagerScript : MonoBehaviour
         
 
         // Undo a chosen move or attack
-        if (MarkerManagerScript.backMarker)
+        if (MarkerManagerScript.undoMarker)
         {
             if (Input.GetKeyDown(KeyCode.U))
             {

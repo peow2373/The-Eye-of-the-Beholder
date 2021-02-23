@@ -485,7 +485,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
                 EnemyManagerScript.enemy3 = "Kaz";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 9);
                 break;
             
             // Fighting the Tavern Brute
@@ -503,10 +503,10 @@ public class GameManagerScript : MonoBehaviour
             // Fighting the Gatekeeper
             case 12:
                 EnemyManagerScript.enemy1 = "Royal Knight Melee";
-                EnemyManagerScript.enemy2 = "Gatekeeper";
-                EnemyManagerScript.enemy3 = "Royal Knight Ranged";
+                EnemyManagerScript.enemy2 = "Royal Knight Ranged";
+                EnemyManagerScript.enemy3 = "Gatekeeper";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 9, 10);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
                 break;
             
             // Fighting two Skull Grunts
@@ -551,7 +551,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
                 EnemyManagerScript.enemy3 = "Skull King";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
+                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 10);
                 break;
             
             // Fighting the Royal King and his two Royal Guards

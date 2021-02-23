@@ -276,7 +276,7 @@ public class NetrixiCombatScript : MonoBehaviour
             
             
             // Reset variables if a spell is canceled
-            if (MarkerManagerScript.backMarker)
+            if (MarkerManagerScript.undoMarker)
             {
                 if (Input.GetKeyDown(KeyCode.U))
                 {

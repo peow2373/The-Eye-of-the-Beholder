@@ -12,10 +12,12 @@ public class CastleScript : MonoBehaviour
 
     public Text textPrefab;
     public Button buttonPrefab;
+    public Text goMarkerToContinue;
 
     public GameObject TextContainer;
 
     bool skipScene = false;
+    bool max = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class CastleScript : MonoBehaviour
         story = new Story(inkJSON.text);
 
         refreshUI();
-        
+
         MarkerManagerScript.S.Reset();
     }
 
@@ -34,7 +36,16 @@ public class CastleScript : MonoBehaviour
 
         Text storyText = Instantiate(textPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Text;
 
-        string text = loadStoryChunk();
+        string text = "";
+
+        if (max == false)
+        {
+            text = loadStoryChunkMax();
+        }
+        else
+        {
+            text = loadStoryChunk();
+        }
 
         List<string> tags = story.currentTags;
 
@@ -87,7 +98,59 @@ public class CastleScript : MonoBehaviour
     void Update()
     {
 
-        if (this.transform.childCount > 2)
+        if (this.transform.childCount == 0)
+        {
+            goMarkerToContinue.enabled = true;
+
+            if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                }
+            }
+        }
+
+        else if (this.transform.childCount == 1)
+        {
+            goMarkerToContinue.enabled = false;
+            if (MarkerManagerScript.goMarker)
+            {
+                if ((string)story.currentChoices[0].text == "Fight")
+                {
+                    skipScene = false;
+                }
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                    GameManagerScript.NextScene(skipScene);
+                }
+            }
+        }
+
+
+        else if (this.transform.childCount == 2)
+        {
+            goMarkerToContinue.enabled = false;
+
+            switch (MarkerManagerScript.currentLocation)
+            {
+                case 1:
+                case 4:
+                case 7:
+                    story.ChooseChoiceIndex(0);
+                    refreshUI();
+                    break;
+                case 3:
+                case 6:
+                case 9:
+                    story.ChooseChoiceIndex(1);
+                    refreshUI();
+                    break;
+            }
+        }
+
+        else
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
@@ -108,45 +171,9 @@ public class CastleScript : MonoBehaviour
             }
         }
 
-        else if (this.transform.childCount == 2)
-        {
-            
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
-            {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-            {
-                story.ChooseChoiceIndex(1);
-                refreshUI();
-            }
-
-        }
-
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                if ((string)story.currentChoices[0].text == "Fight")
-                {
-                    eraseUI();
-                    skipScene = false;
-                    GameManagerScript.NextScene(skipScene);
-                }
-
-                else
-                {
-                    eraseUI();
-                    skipScene = true;
-                    GameManagerScript.NextScene(skipScene);
-                }
-            }
-        }
     }
 
-    string loadStoryChunk()
+    string loadStoryChunkMax()
     {
         string text = "";
 
@@ -155,6 +182,20 @@ public class CastleScript : MonoBehaviour
             text = story.ContinueMaximally(); //continue until next options or no content. will return string
         }
 
+        max = true;
+        return text;
+    }
+
+    string loadStoryChunk()
+    {
+        string text = "";
+
+        if (story.canContinue) //if there is more content
+        {
+            text = story.Continue(); //continue until next options or no content. will return string
+        }
+
         return text;
     }
 }
+
