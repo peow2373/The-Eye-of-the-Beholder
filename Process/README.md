@@ -10,6 +10,7 @@ This README will be a more structured overview of future goals and progress made
 - Player sprites now visually move left/right in combat
 - Enemy AI chooses moves randomly from list of options
 - If Enemy AI already chooses a duplicate move, choose a different move
+- Redesigned marker printout page to reflect new markers
 
 - For Hunter next week: Make Barkeeper dialogue, make Jester dialogue, starting to work on game sound
 - For Perry next week: Health bar + damage system (Make combat winnable), make Brute sprite
