@@ -14,6 +14,7 @@ public class AttackScript : MonoBehaviour
         {
             if (!CombatManagerScript.netrixiAlive)
             {
+                // Skip the attack
                 if (attackNumber == 1) CombatSimulationScript.attack1Delay = 1f;
                 else CombatSimulationScript.attack2Delay = 1f;
                 return;
@@ -25,6 +26,7 @@ public class AttackScript : MonoBehaviour
         {
             if (!CombatManagerScript.folkvarAlive)
             {
+                // Skip the attack
                 if (attackNumber == 1) CombatSimulationScript.attack1Delay = 1f;
                 else CombatSimulationScript.attack2Delay = 1f;
                 return;
@@ -36,6 +38,7 @@ public class AttackScript : MonoBehaviour
         {
             if (!CombatManagerScript.ivAlive)
             {
+                // Skip the attack
                 if (attackNumber == 1) CombatSimulationScript.attack1Delay = 1f;
                 else CombatSimulationScript.attack2Delay = 1f;
                 return;
@@ -43,12 +46,11 @@ public class AttackScript : MonoBehaviour
         }
         
         
+        
         float original;
         float burnRate;
         float delayRate = 1f;
-        
-        
-        
+
         // Netrixi's Fireball attack
         if (playerAttack == 1)
         {
