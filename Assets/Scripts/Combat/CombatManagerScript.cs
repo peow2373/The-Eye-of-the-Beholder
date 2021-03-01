@@ -30,6 +30,8 @@ public class CombatManagerScript : MonoBehaviour
     public static bool hasWon = false, hasLost = false;
     public static bool hasRunSimulation = false;
 
+    public static int target1Location, target2Location;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -269,11 +271,19 @@ public class CombatManagerScript : MonoBehaviour
                 
                 if (secondAttack == 0)
                 {
-                    if (firstAttack != 2) secondAttack = 2;
+                    if (firstAttack != 2)
+                    {
+                        target2Location = NetrixiCombatScript.netrixiRotation;
+                        secondAttack = 2;
+                    }
                     else print("Can't choose the same move twice");
                 }
             }
-            else firstAttack = 2;
+            else
+            {
+                target1Location = NetrixiCombatScript.netrixiRotation;
+                firstAttack = 2;
+            }
             
 
             NetrixiCombatScript.ResetNetrixiVariables();
@@ -513,11 +523,19 @@ public class CombatManagerScript : MonoBehaviour
                 
                 if (secondAttack == 0)
                 {
-                    if (firstAttack != 9) secondAttack = 9;
+                    if (firstAttack != 9)
+                    {
+                        target2Location = IvCombatScript.targetLocation;
+                        secondAttack = 9;
+                    }
                     else print("Can't choose the same move twice");
                 }
             }
-            else firstAttack = 9;
+            else
+            {
+                target1Location = IvCombatScript.targetLocation;
+                firstAttack = 9;
+            }
             
 
             IvCombatScript.ResetIvVariables();

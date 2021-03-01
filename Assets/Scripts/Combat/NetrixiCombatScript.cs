@@ -12,17 +12,23 @@ public class NetrixiCombatScript : MonoBehaviour
     public static bool[] netrixiCondition4 = new bool[] {false, false, false};
 
     public static int netrixiRotation = 0;
-    
+
+    public static int targetLocation = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         netrixiRotation = 0;
+        targetLocation = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (netrixiRotation != 0)
+        {
+            targetLocation = netrixiRotation;
+        }
     }
     
     public static void NetrixiAttack()

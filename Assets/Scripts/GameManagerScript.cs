@@ -295,29 +295,35 @@ public class GameManagerScript : MonoBehaviour
             case 19:
                 
                 // Potentially skip this dialogue + combat scene
-                //if (currentScene == 19)
-                //{
-                //    currentScene = 21;
-                //}
-                
-                if (previousScene != 19)
+                if (currentScene == 19)
                 {
-                    SceneChangeAnimation();
-                    SceneManager.LoadScene("InkVolcanoEntrance");
-                    previousScene = 19;
-                    print("Dialogue with Skull Grunts");
+                    currentScene = 21;
                 }
+                
+                //if (previousScene != 19)
+                //{
+                //    SceneChangeAnimation();
+                //    SceneManager.LoadScene("InkVolcanoEntrance");
+                //    previousScene = 19;
+                //    print("Dialogue with Skull Grunts");
+                //}
                 break;
             
             // Combat with Skull Grunts
             case 20:
-                if (previousScene != 20)
+                if (currentScene == 20)
                 {
-                    SceneChangeAnimation();
-                    SceneManager.LoadScene(combatScene);
-                    previousScene = 20;
-                    print("Combat with Skull Grunts");
+                    currentScene = 21;
                 }
+                
+                
+                //if (previousScene != 20)
+                //{
+                //    SceneChangeAnimation();
+                //    SceneManager.LoadScene(combatScene);
+                //    previousScene = 20;
+                //    print("Combat with Skull Grunts");
+                //}
                 break;
             
                                                             // Narrow tunnel inside the Beholderite cave
@@ -417,10 +423,10 @@ public class GameManagerScript : MonoBehaviour
                 if (previousScene != 29)
                 {
                     SceneChangeAnimation();
-                    //SceneManager.LoadScene("Win");
+                    SceneManager.LoadScene("InkEpilogue");
                     previousScene = 29;
                     
-                    print("You Win!");
+                    print("Epilogue");
                 }
                 break;
             

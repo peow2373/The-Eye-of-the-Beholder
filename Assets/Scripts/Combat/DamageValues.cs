@@ -11,7 +11,7 @@ public class DamageValues : MonoBehaviour
     public static float fireballBurn = 0.1f;    // How long does the attack take to do 1 HP in damage?
     public static float fireballDelay = 4f;    // How long before the next attack is started?
     
-    public static int lightning = 40;
+    public static int lightning = 35;
     public static float lightningBurn = 0f;
     public static float lightningDelay = 1f;
     

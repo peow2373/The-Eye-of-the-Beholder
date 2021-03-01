@@ -7,137 +7,27 @@ public class AttackScript : MonoBehaviour
 {
     public static float damageModifier = 1f;
     
+    public static float delayRate = 1f;
+    
     public static void PlayerAttack(int playerAttack, int attackNumber)
     {
-        // Check if Netrixi is still alive
+       // Check if Netrixi attacks
         if (playerAttack == 1 || playerAttack == 2 || playerAttack == 3)
         {
-            if (!CombatManagerScript.netrixiAlive)
-            {
-                // Skip the attack
-                if (attackNumber == 1) CombatSimulationScript.attack1Delay = 1f;
-                else CombatSimulationScript.attack2Delay = 1f;
-                return;
-            }
+            NetrixiAttackScript.DoesNetrixiAttack( playerAttack, attackNumber);
         }
         
-        // Check if Folkvar is still alive
+        // Check if Folkvar attacks
         if (playerAttack == 4 || playerAttack == 5 || playerAttack == 6)
         {
-            if (!CombatManagerScript.folkvarAlive)
-            {
-                // Skip the attack
-                if (attackNumber == 1) CombatSimulationScript.attack1Delay = 1f;
-                else CombatSimulationScript.attack2Delay = 1f;
-                return;
-            }
+            FolkvarAttackScript.DoesFolkvarAttack( playerAttack, attackNumber);
         }
         
-        // Check if Iv is still alive
+        // Check if Iv attacks
         if (playerAttack == 7 || playerAttack == 8 || playerAttack == 9)
         {
-            if (!CombatManagerScript.ivAlive)
-            {
-                // Skip the attack
-                if (attackNumber == 1) CombatSimulationScript.attack1Delay = 1f;
-                else CombatSimulationScript.attack2Delay = 1f;
-                return;
-            }
+            IvAttackScript.DoesIvAttack( playerAttack, attackNumber);
         }
-        
-        
-        
-        float original;
-        float burnRate;
-        float delayRate = 1f;
-
-        // Netrixi's Fireball attack
-        if (playerAttack == 1)
-        {
-            original = DamageValues.fireball * damageModifier;
-            burnRate = DamageValues.fireballBurn;
-            delayRate = DamageValues.fireballDelay;
-            int damageValue = (int) original;
-            
-            if (CombatManagerScript.enemy1Alive)
-            {
-                if (CombatManagerScript.enemy2Alive && EnemyManagerScript.enemy2 != "null")
-                {
-                    // If Enemies 1 + 2 + 3 are alive
-                    if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
-                    {
-                        // TODO: Play Netrixi fireball animation
-                        HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
-                        HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
-                        HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
-                    }
-                    // If Enemies 1 + 2 are alive
-                    else
-                    {
-                        // TODO: Play Netrixi fireball animation
-                        HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 1, burnRate);
-                        HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
-                    }
-                }
-                else
-                {
-                    // If Enemies 1 + 3 are alive
-                    if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
-                    {
-                        // TODO: Play Netrixi fireball animation
-                        HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 1, burnRate);
-                        HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
-                    }
-                    // If only Enemy 1 is alive
-                    else
-                    {
-                        // TODO: Play Netrixi fireball animation
-                        HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 3, burnRate);
-                    }
-                }
-            }
-            else
-            {
-                if (CombatManagerScript.enemy2Alive && EnemyManagerScript.enemy2 != "null")
-                {
-                    // If Enemies 2 + 3 are alive
-                    if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
-                    {
-                        // TODO: Play Netrixi fireball animation
-                        HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 1, burnRate);
-                        HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
-                    }
-                    // If only Enemy 2 is alive
-                    else
-                    {
-                        // TODO: Play Netrixi fireball animation
-                        HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 3, burnRate);
-                    }
-                }
-                else
-                {
-                    // If only Enemy 3 is alive
-                    if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
-                    {
-                        // TODO: Play Netrixi fireball animation
-                        HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 3, burnRate);
-                    }
-                }
-            }
-        }
-        
-        
-        // Netrixi's Lightning attack
-        if (playerAttack == 2)
-        {
-            original = DamageValues.lightning * damageModifier;
-            burnRate = DamageValues.lightningBurn;
-            delayRate = DamageValues.lightningDelay;
-            int damageValue = (int) original;
-            
-            // TODO: Get target location data from CombatManagerScript
-        }
-        
         
         
         if (attackNumber == 1) CombatSimulationScript.attack1Delay = delayRate;
@@ -152,8 +42,8 @@ public class AttackScript : MonoBehaviour
         
 
 
-        float original;
-        float burnRate;
+        //float original;
+        //float burnRate;
         float delayRate = 1f;
         
         

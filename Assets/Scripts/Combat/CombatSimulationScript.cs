@@ -107,6 +107,9 @@ public class CombatSimulationScript : MonoBehaviour
         CombatManagerScript.enemyAttacking1 = false;
         CombatManagerScript.enemyAttacking2 = false;
 
+        CombatManagerScript.target1Location = 0;
+        CombatManagerScript.target2Location = 0;
+
         CharacterManagerScript.ResetVariables();
         EnemyManagerScript.ClearMoves();
 

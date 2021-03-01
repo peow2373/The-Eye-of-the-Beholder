@@ -108,56 +108,28 @@ public class FinalDecisionScript : MonoBehaviour
             }
         }
 
-        else if (this.transform.childCount == 1)
-        {
-            goMarkerToContinue.enabled = false;
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                refreshUI();
-                skipScene = false;
-                GameManagerScript.NextScene(skipScene);
-            }
-        }
-
-
-        else if (this.transform.childCount == 2)
-        {
-            goMarkerToContinue.enabled = false;
-
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
-            {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-            {
-                story.ChooseChoiceIndex(1);
-                refreshUI();
-            }
-
-        }
-
         else
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
+                eraseUI();
+                GameManagerScript.NextScene(skipScene);
+                Epilogue.storyTicker = 1;
+
             }
 
             if (Input.GetKeyDown(KeyCode.O))
             {
-                story.ChooseChoiceIndex(1);
-                refreshUI();
+                eraseUI();
+                GameManagerScript.NextScene(skipScene);
+                Epilogue.storyTicker = 4;
             }
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                story.ChooseChoiceIndex(2);
-                refreshUI();
-
-                max = false;
+                eraseUI();
+                GameManagerScript.NextScene(skipScene);
+                Epilogue.storyTicker = 7;
             }
         }
 

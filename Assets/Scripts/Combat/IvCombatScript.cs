@@ -11,17 +11,23 @@ public class IvCombatScript : MonoBehaviour
     public static bool[] ivCondition4 = new bool[] {false, false, false};
 
     public static int ivRotation = 0;
+
+    public static int targetLocation = 0;
     
     // Start is called before the first frame update
     void Start()
     {
         ivRotation = 0;
+        targetLocation = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (ivRotation != 0)
+        {
+            targetLocation = ivRotation;
+        }
     }
     
     public static void IvAction()

@@ -59,4 +59,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dialogue/Hybrid/InkFinalDecision.unity
     guid: 021d703e8055ec14eb1d19eedaa7af19
+  - enabled: 1
+    path: Assets/Scenes/Dialogue/CutScenes/InkEpilogue.unity
+    guid: aec1f2cd487ab72418ca61866163ff44
   m_configObjects: {}
