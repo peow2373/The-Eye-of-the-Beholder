@@ -47,7 +47,7 @@ public class IvCombatScript : MonoBehaviour
             if (GameManagerScript.rightHanded)
             {
                 // If player starts by placing their hand in the middle-right corner
-                if (Input.GetKeyDown(KeyCode.D)) ivCondition2[0] = true;
+                if (MarkerManagerScript.currentLocation == 6) ivCondition2[0] = true;
 
                 if (ivCondition2[0] && !ivCondition2[1])
                 {
@@ -72,7 +72,7 @@ public class IvCombatScript : MonoBehaviour
             else
             {
                 // If player starts by placing their hand in the middle-left corner
-                if (Input.GetKeyDown(KeyCode.A)) ivCondition2[0] = true;
+                if (MarkerManagerScript.currentLocation == 4) ivCondition2[0] = true;
 
                 if (ivCondition2[0] && !ivCondition2[1])
                 {

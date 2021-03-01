@@ -83,7 +83,7 @@ public class NetrixiCombatScript : MonoBehaviour
             if (GameManagerScript.rightHanded)
             {
                 // If player starts by placing their hand in the middle-right corner
-                if (Input.GetKeyDown(KeyCode.D)) netrixiCondition3[0] = true;
+                if (MarkerManagerScript.currentLocation == 6) netrixiCondition3[0] = true;
 
                 if (netrixiCondition3[0] && !netrixiCondition3[1])
                 {
@@ -154,7 +154,7 @@ public class NetrixiCombatScript : MonoBehaviour
             else
             {
                 // If player starts by placing their hand in the middle-left corner
-                if (Input.GetKeyDown(KeyCode.A)) netrixiCondition3[0] = true;
+                if (MarkerManagerScript.currentLocation == 4) netrixiCondition3[0] = true;
 
                 if (netrixiCondition3[0] && !netrixiCondition3[1])
                 {

@@ -49,14 +49,14 @@ public class GameManagerScript : MonoBehaviour
         }
 
         DetermineNextCombat();
-        
+
         ChangeScene();
     }
 
 
     void SceneChangeAnimation()
     {
-        
+        // TODO: Play scene change animation
     }
     
 
@@ -293,6 +293,13 @@ public class GameManagerScript : MonoBehaviour
             
             // Dialogue with Skull Grunts
             case 19:
+                
+                // Potentially skip this dialogue + combat scene
+                //if (currentScene == 19)
+                //{
+                //    currentScene = 21;
+                //}
+                
                 if (previousScene != 19)
                 {
                     SceneChangeAnimation();
@@ -453,7 +460,8 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "null";
                 EnemyManagerScript.enemy3 = "null";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 7, 0, 0);
+                EnemyManagerScript.ChangeEnemyLocation( 7, 0, 0 );
+                HealthManagerScript.StartingHealth(HealthValues.pirateHP, 0, 0);
                 break;
             
             // Fighting Folkvar and his two Royal Knights
@@ -465,7 +473,8 @@ public class GameManagerScript : MonoBehaviour
                     EnemyManagerScript.enemy2 = "Royal Knight Melee";
                     EnemyManagerScript.enemy3 = "null";
                     
-                    EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0);
+                    EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0 );
+                    HealthManagerScript.StartingHealth(HealthValues.folkvarHP, HealthValues.knightMeleeHP, 0);
                 }
                 else if (randomIndex == 1 || randomIndex == 2)
                 {
@@ -473,19 +482,19 @@ public class GameManagerScript : MonoBehaviour
                     EnemyManagerScript.enemy2 = "Royal Knight Ranged";
                     EnemyManagerScript.enemy3 = "null";
                     
-                    EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0);
+                    EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0 );
+                    HealthManagerScript.StartingHealth(HealthValues.folkvarHP, HealthValues.knightRangedHP, 0);
                 }
-
-
                 break;
 
             // Fighting Kaz and his two Skull Grunts
             case 7:
                 EnemyManagerScript.enemy1 = "Skull Grunt Melee";
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
-                EnemyManagerScript.enemy3 = "Kaz";
+                EnemyManagerScript.enemy3 = "Kaz 1";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 9);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 9 );
+                HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, HealthValues.kazHP);
                 break;
             
             // Fighting the Tavern Brute
@@ -497,7 +506,8 @@ public class GameManagerScript : MonoBehaviour
                 
                 EnemyManagerScript.enemy3 = "null";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 0);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 0 );
+                HealthManagerScript.StartingHealth(HealthValues.bruteHP, HealthValues.barkeeperHP, 0);
                 break;
 
             // Fighting the Gatekeeper
@@ -506,7 +516,8 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Royal Knight Ranged";
                 EnemyManagerScript.enemy3 = "Gatekeeper";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 7, 10 );
+                HealthManagerScript.StartingHealth(HealthValues.knightMeleeHP, HealthValues.knightRangedHP, HealthValues.gatekeeperHP);
                 break;
             
             // Fighting two Skull Grunts
@@ -515,16 +526,18 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
                 EnemyManagerScript.enemy3 = "null";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0);
+                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0 );
+                HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, 0);
                 break;
             
             // Fighting Kaz and his two Skull Grunts
             case 17:
                 EnemyManagerScript.enemy1 = "Skull Grunt Melee";
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
-                EnemyManagerScript.enemy3 = "Kaz";
+                EnemyManagerScript.enemy3 = "Kaz 2";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10 );
+                HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, HealthValues.kazHP);
                 break;
             
             // Fighting two Skull Grunts
@@ -533,7 +546,11 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
                 EnemyManagerScript.enemy3 = "null";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 9, 0);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 9, 0 );
+                
+                CombatManagerScript.enemy1HP = HealthValues.skullMeleeHP;
+                CombatManagerScript.enemy2HP = HealthValues.skullRangedHP;
+                HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, 0);
                 break;
             
             // Fighting two Royal Guards
@@ -542,7 +559,11 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Royal Guard 2";
                 EnemyManagerScript.enemy3 = "null";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0);
+                EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0 );
+                
+                CombatManagerScript.enemy1HP = HealthValues.royalGuardHP;
+                CombatManagerScript.enemy2HP = HealthValues.royalGuardHP;
+                HealthManagerScript.StartingHealth(HealthValues.royalGuardHP, HealthValues.royalGuardHP, 0);
                 break;
             
             // Fighting the Skull King and his two Skull Grunts
@@ -551,7 +572,12 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
                 EnemyManagerScript.enemy3 = "Skull King";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 10);
+                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 10 );
+                
+                CombatManagerScript.enemy1HP = HealthValues.skullMeleeHP;
+                CombatManagerScript.enemy2HP = HealthValues.skullRangedHP;
+                CombatManagerScript.enemy3HP = HealthValues.skullKingHP;
+                HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, HealthValues.skullKingHP);
                 break;
             
             // Fighting the Royal King and his two Royal Guards
@@ -560,7 +586,12 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Royal Guard 2";
                 EnemyManagerScript.enemy3 = "Royal King";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 7, 9);
+                EnemyManagerScript.ChangeEnemyLocation( 6, 7, 9 );
+                
+                CombatManagerScript.enemy1HP = HealthValues.royalGuardHP;
+                CombatManagerScript.enemy2HP = HealthValues.royalGuardHP;
+                CombatManagerScript.enemy3HP = HealthValues.royalKingHP;
+                HealthManagerScript.StartingHealth(HealthValues.royalGuardHP, HealthValues.royalGuardHP, HealthValues.royalKingHP);
                 break;
         }
     }
@@ -585,6 +616,6 @@ public class GameManagerScript : MonoBehaviour
         barkeeperMad = false;
             
         CharacterManagerScript.ResetVariables();
-        EnemyManagerScript.ClearMoves(1);
+        EnemyManagerScript.ClearMoves();
     }
 }

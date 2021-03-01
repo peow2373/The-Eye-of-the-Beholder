@@ -20,12 +20,21 @@ public class CombatManagerScript : MonoBehaviour
     
     public static bool enemy1Alive = true, enemy2Alive = true, enemy3Alive = true;
 
+    public static int netrixiHP, folkvarHP, ivHP;
+    public static int enemy1HP, enemy2HP, enemy3HP;
+
+    public static bool playerAttacking1 = false, playerAttacking2 = false, enemyAttacking1 = false, enemyAttacking2 = false;
+
+    public static bool win = false, lose = false;
+
+    public static bool hasWon = false, hasLost = false;
+
     // Start is called before the first frame update
     void Start()
     {
         MarkerManagerScript.S.Reset();
         CharacterManagerScript.StartCombat();
-        
+
         firstAttack = 0;
         secondAttack = 0;
         
@@ -41,7 +50,8 @@ public class CombatManagerScript : MonoBehaviour
         isFolkvar = true; 
         isIv = true;
 
-        
+        roundNumber = 1;
+
         netrixiAlive = true;
         folkvarAlive = true;
         ivAlive = true;
@@ -49,23 +59,65 @@ public class CombatManagerScript : MonoBehaviour
         enemy1Alive = true;
         enemy2Alive = true;
         enemy3Alive = true;
+
+        playerAttacking1 = false;
+        playerAttacking2 = false;
+        enemyAttacking1 = false;
+        enemyAttacking2 = false;
+        
+        win = false;
+        lose = false;
+
+        hasWon = false;
+        hasLost = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        CharactersAlive();
+        EndOfCombat();
+        
+        if (hasWon) win = false;
+        if (hasLost) lose = false;
+
+        if (win) hasWon = true;
+        if (lose) hasLost = true;
+
+        
+        if (win)
+        {
+            // TODO: Play won-battle animation
+            GameManagerScript.NextScene(false);
+            print("You won!...that battle");
+            win = false;
+        }
+        else
+        {
+            if (lose)
+            {
+                // TODO: Play lost-battle animation
+                GameManagerScript.NextScene(false);
+                print("You Lose");
+                lose = false;
+            }
+        }
+
         // If the Netrixi marker is visible
         if (MarkerManagerScript.netrixiMarker)
         {
             if (isNetrixi)
             {
-                netrixiAttacks = true;
-                folkvarAttacks = false;
-                ivAttacks = false;
+                if (netrixiAlive && GameManagerScript.netrixiInParty)
+                {
+                    netrixiAttacks = true;
+                    folkvarAttacks = false;
+                    ivAttacks = false;
 
-                isNetrixi = false; 
+                    isNetrixi = false; 
                 
-                print("Netrixi will attack with a spell");
+                    print("Netrixi will attack with a spell");
+                }
             }
         }
         else
@@ -78,13 +130,16 @@ public class CombatManagerScript : MonoBehaviour
         {
             if (isFolkvar)
             {
-                folkvarAttacks = true;
-                netrixiAttacks = false;
-                ivAttacks = false;
+                if (folkvarAlive && GameManagerScript.folkvarInParty)
+                {
+                    folkvarAttacks = true;
+                    netrixiAttacks = false;
+                    ivAttacks = false;
             
-                isFolkvar = false;
+                    isFolkvar = false;
                 
-                print("Folkvar will attack with his mighty weapons");
+                    print("Folkvar will attack with his mighty weapons");
+                }
             }
         } 
         else
@@ -97,13 +152,16 @@ public class CombatManagerScript : MonoBehaviour
         {
             if (isIv)
             {
-                ivAttacks = true;
-                netrixiAttacks = false;
-                folkvarAttacks = false;
+                if (ivAlive && GameManagerScript.ivInParty)
+                {
+                    ivAttacks = true;
+                    netrixiAttacks = false;
+                    folkvarAttacks = false;
             
-                isIv = false;
+                    isIv = false;
                 
-                print("Iv will block with her force powers");
+                    print("Iv will block with her force powers");
+                }
             }
         }
         else
@@ -119,56 +177,41 @@ public class CombatManagerScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
-                    if (!NetrixiCombatScript.netrixiCondition4[0])
+                    if (!NetrixiCombatScript.netrixiCondition4[0] || !FolkvarCombatScript.folkvarCondition4[0] || !IvCombatScript.ivCondition4[0])
                     {
-                        if (!FolkvarCombatScript.folkvarCondition4[0])
-                        {
-                            if (!IvCombatScript.ivCondition4[0])
-                            {
-                                firstAttack = 0;
-                                secondAttack = 0;
+                        // Run combat simulation
+                        var go = new GameObject("runner");
+                        var runner = go.AddComponent<CombatSimulationScript>();
+                        runner.StartCoroutine(runner.RunSimulation(firstAttack, secondAttack, EnemyManagerScript.firstAttack, EnemyManagerScript.secondAttack, go));
+
+                        //firstAttack = 0;
+                        //secondAttack = 0;
                 
-                                netrixiAttacks = false;
-                                folkvarAttacks = false;
-                                ivAttacks = false;
+                        //netrixiAttacks = false;
+                        //folkvarAttacks = false;
+                        //ivAttacks = false;
             
-                                NetrixiCombatScript.ResetNetrixiVariables();
-                                FolkvarCombatScript.ResetFolkvarVariables();
-                                IvCombatScript.ResetIvVariables();
+                        //NetrixiCombatScript.ResetNetrixiVariables();
+                        //FolkvarCombatScript.ResetFolkvarVariables();
+                        //IvCombatScript.ResetIvVariables();
                 
-                                roundNumber += 1;
+                        //roundNumber += 1;
                     
-                                CharacterManagerScript.ResetVariables();
-                                EnemyManagerScript.ClearMoves(2);
-                            }
-                        }
+                        //CharacterManagerScript.ResetVariables();
+                        //EnemyManagerScript.ClearMoves();
                     }
                 }
             }
         }
-        
 
+
+        
         // Determine whether the player has chosen a combat move
-        
-        // If Netrixi is still alive
-        if (netrixiAlive)
-        {
-            if (GameManagerScript.netrixiInParty) NetrixiCombatScript.NetrixiAttack();
-        }
+        if (netrixiAttacks) NetrixiCombatScript.NetrixiAttack();
+        if (folkvarAttacks) FolkvarCombatScript.FolkvarAttack();
+        if (ivAttacks) IvCombatScript.IvAction();
 
-        // If Folkvar is still alive
-        if (folkvarAlive)
-        {
-            if (GameManagerScript.folkvarInParty) FolkvarCombatScript.FolkvarAttack();
-        }
 
-        // If Iv is still alive
-        if (ivAlive)
-        {
-            if (GameManagerScript.ivInParty) IvCombatScript.IvAction();
-        }
-
-        
 
         // Undo a chosen move or attack
         if (MarkerManagerScript.undoMarker)
@@ -496,6 +539,115 @@ public class CombatManagerScript : MonoBehaviour
             
                 IvCombatScript.ResetIvVariables();
             }
+        }
+    }
+
+    
+    
+    
+    
+    public static void CharactersAlive()
+    {
+        // Determine whether the Main Characters are still alive
+        if (netrixiHP <= 0)
+        {
+            // Play death animation
+            netrixiAlive = false;
+        }
+        else netrixiAlive = true;
+
+        if (folkvarHP <= 0)
+        {
+            // Play death animation
+            folkvarAlive = false;
+        }
+        else folkvarAlive = true;
+
+        if (ivHP <= 0)
+        {
+            // Play death animation
+            ivAlive = false;
+        }
+        else ivAlive = true;
+
+        
+        // Determine whether the Enemy Characters are still alive
+        if (enemy1HP <= 0)
+        {
+            // Play death animation
+            enemy1Alive = false;
+        }
+        else enemy1Alive = true;
+
+        if (enemy2HP <= 0)
+        {
+            // Play death animation
+            enemy2Alive = false;
+        }
+        else enemy2Alive = true;
+
+        if (enemy3HP <= 0)
+        {
+            // Play death animation
+            enemy3Alive = false;
+        }
+        else enemy3Alive = true;
+    }
+
+
+    public static void EndOfCombat()
+    {
+        // WIN CONDITION
+        if (!enemy1Alive)
+        {
+            if (EnemyManagerScript.enemy2 != "null")
+            {
+                if (!enemy2Alive)
+                {
+                    if (EnemyManagerScript.enemy3 != "null")
+                    {
+                        // If all enemies 1 + 2 + 3 are dead
+                        if (!enemy3Alive) win = true;
+                    }
+                    
+                    // If enemies 1 + 2 are dead
+                    else win = true;
+                }
+            }
+            
+            // If enemy 1 is dead
+            else win = true;
+        }
+        else
+        {
+            win = false;
+        }
+        
+        
+        // LOSE CONDITION
+        if (!netrixiAlive)
+        {
+            if (GameManagerScript.folkvarInParty)
+            {
+                if (!folkvarAlive)
+                {
+                    if (GameManagerScript.ivInParty)
+                    {
+                        // If Netrixi, Folkvar, and Iv are dead
+                        if (!ivAlive) lose = true;
+                    }
+                    
+                    // If Netrixi and Folkvar are dead
+                    else lose = true;
+                }
+            }
+            
+            // If Netrixi is dead
+            else lose = true;
+        }
+        else
+        {
+            lose = false;
         }
     }
 }

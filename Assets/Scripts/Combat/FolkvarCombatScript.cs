@@ -11,6 +11,8 @@ public class FolkvarCombatScript : MonoBehaviour
     public static bool[] folkvarCondition4 = new bool[] {false, false, false};
 
     public static int swing = 1;
+
+    public static int upStart;
     
     // Start is called before the first frame update
     void Start()
@@ -30,7 +32,7 @@ public class FolkvarCombatScript : MonoBehaviour
         {
             // First attack
             // If player first puts their hand in the top-left corner
-            if (Input.GetKeyDown(KeyCode.Q)) folkvarCondition1[0] = true;
+            if (MarkerManagerScript.currentLocation == 1) folkvarCondition1[0] = true;
 
             if (folkvarCondition1[0] && !folkvarCondition1[1])
             {
@@ -51,25 +53,64 @@ public class FolkvarCombatScript : MonoBehaviour
 
 
             // Second attack
-            // If player moves their hand to the top-middle corner first
-            if (Input.GetKeyDown(KeyCode.W)) folkvarCondition2[0] = true;
+            // If player moves their hand closer to the webcam first
+            if (Input.GetKeyDown(KeyCode.N)) folkvarCondition2[0] = true;
             
             if (folkvarCondition2[0])
             {
-                // If player then moves hand closer to the webcam
-                if (Input.GetKeyDown(KeyCode.N)) folkvarCondition2[1] = true;
+                // If player then moves hand to the upper section
+                if (MarkerManagerScript.currentLocation == 1)
+                {
+                    // If player moved hand to the the upper-left section
+                    folkvarCondition2[1] = true;
+                    upStart = 1;
+                } 
+                else if (MarkerManagerScript.currentLocation == 2)
+                {
+                    // If player moved hand to the the middle-left section
+                    folkvarCondition2[1] = true;
+                    upStart = 2;
+                } 
+                else if (MarkerManagerScript.currentLocation == 3)
+                {
+                    // If player moved hand to the the middle-left section
+                    folkvarCondition2[1] = true;
+                    upStart = 3;
+                }
 
                 // If player then moves hand downwards
                 if (folkvarCondition2[1])
                 {
-                    if (Input.GetKeyDown(KeyCode.X))
+                    print("Sword ready to strike from the heavens");
+                    
+                    if (upStart == 1)
                     {
-                        folkvarCondition2[2] = true;
+                        // If player then moves hand to the bottom-left section
+                        if (Input.GetKeyDown(KeyCode.Z)) folkvarCondition2[2] = true;
+                        print("z");
+                    } 
+                    else if (upStart == 2)
+                    {
+                        // If player then moves hand to the bottom-middle section
+                        if (Input.GetKeyDown(KeyCode.X)) folkvarCondition2[2] = true;
+                        print("x");
+                    } 
+                    else if (upStart == 3)
+                    {
+                        // If player then moves hand to the bottom-middle section
+                        if (Input.GetKeyDown(KeyCode.C)) folkvarCondition2[2] = true;
+                        print("c");
                     }
 
-                    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
+                    // If player instead moves hand to the middle section or instead moves hand away from the webcam
+                    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
                     {
                         folkvarCondition2[1] = false;
+                    }
+
+                    // If player instead moves hand away from the webcam
+                    if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.F))
+                    {
                         folkvarCondition2[0] = false;
                     }
                 }
@@ -86,7 +127,7 @@ public class FolkvarCombatScript : MonoBehaviour
 
             // Third attack
             // If player starts by placing their hand in the bottom-left corner
-            if (Input.GetKeyDown(KeyCode.Z)) folkvarCondition3[0] = true;
+            if (MarkerManagerScript.currentLocation == 7) folkvarCondition3[0] = true;
 
                 if (folkvarCondition3[0] && !folkvarCondition3[1])
                 {

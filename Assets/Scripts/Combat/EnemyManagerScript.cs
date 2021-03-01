@@ -22,7 +22,7 @@ public class EnemyManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ClearMoves(1);
+        ClearMoves();
 
         hasChangedScene = false;
         barkeeperMadNextRound = false;
@@ -42,8 +42,6 @@ public class EnemyManagerScript : MonoBehaviour
         {
             barkeeperMadNextRound = true;
 
-            print("Barkeeper Joins the Fight!");
-            
             DetermineEnemyType(enemy1);
             DetermineEnemyType(enemy2);
             DetermineEnemyType(enemy3);
@@ -51,7 +49,11 @@ public class EnemyManagerScript : MonoBehaviour
 
         if (barkeeperMadNextRound)
         {
-            if (firstAttack == "null" && secondAttack == "null") GameManagerScript.barkeeperMad = true;
+            if (firstAttack == "null" && secondAttack == "null")
+            {
+                GameManagerScript.barkeeperMad = true;
+                print("Barkeeper Joins the Fight!");
+            }
         }
         
         
@@ -403,15 +405,17 @@ public class EnemyManagerScript : MonoBehaviour
                 availableMoves.Add("Skull Grunt Throws Bomb");
                 break;
             
-            case "Kaz":
-                // Stage 1
-                availableMoves.Add("Kaz Shoots Arrow");
-                // Stage 2
-                availableMoves.Add("Kaz Swings Battle Axe");
-                availableMoves.Add("Kaz Performs a Grand Slam");
-                // Stage 3
-                availableMoves.Add("Kaz Empowers both Teams");
-                availableMoves.Add("Kaz Blocks");
+            case "Kaz 1":
+                availableMoves.Add("Kaz 1 Shoots Arrow");
+                availableMoves.Add("Kaz 1 Swings Battle Axe");
+                availableMoves.Add("Kaz 1 Performs a Grand Slam");
+                break;
+            
+            case "Kaz 2":
+                availableMoves.Add("Kaz 2 Swings Battle Axe");
+                availableMoves.Add("Kaz 2 Performs a Grand Slam");
+                availableMoves.Add("Kaz 2 Empowers both Teams");
+                availableMoves.Add("Kaz 2 Blocks");
                 break;
             
             
@@ -515,18 +519,11 @@ public class EnemyManagerScript : MonoBehaviour
     
     
     
-    public static void ClearMoves(int resetSceneType)
+    public static void ClearMoves()
     {
         availableMoves.Clear();
         firstAttack = "null";
         secondAttack = "null";
-
-        if (resetSceneType == 2)
-        {
-            enemy1Position = enemy1Second;
-            enemy2Position = enemy2Second;
-            enemy3Position = enemy3Second;
-        }
 
         enemy1First = enemy1Position;
         enemy2First = enemy2Position;

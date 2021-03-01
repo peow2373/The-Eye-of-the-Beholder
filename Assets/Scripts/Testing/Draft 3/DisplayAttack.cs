@@ -29,12 +29,36 @@ public class DisplayAttack : MonoBehaviour
         if (playerText1)
         {
             PlayerChoice1();
+
+            if (CombatManagerScript.playerAttacking1)
+            {
+                sr.color = Color.gray;
+                playerAttack1.color = Color.gray;
+                playerChoice1.color = Color.gray;
+            }
+            else
+            {
+                sr.color = Color.white;
+                playerChoice1.color = Color.white;
+            }
         }
         
         // Display the player's second choice
         if (playerText2)
         {
             PlayerChoice2();
+            
+            if (CombatManagerScript.playerAttacking2)
+            {
+                sr.color = Color.gray;
+                playerAttack2.color = Color.gray;
+                playerChoice2.color = Color.gray;
+            }
+            else
+            {
+                sr.color = Color.white;
+                playerChoice2.color = Color.white;
+            }
         }
     }
 

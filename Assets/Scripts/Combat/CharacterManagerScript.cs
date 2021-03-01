@@ -42,9 +42,15 @@ public class CharacterManagerScript : MonoBehaviour
 
     public static void StartCombat()
     {
+        // Reset character position
         netrixiPosition = 3;
         folkvarPosition = 5;
         ivPosition = 1;
+
+        // Reset character HP
+        CombatManagerScript.netrixiHP = HealthValues.netrixiHP;
+        CombatManagerScript.folkvarHP = HealthValues.folkvarHP;
+        CombatManagerScript.ivHP = HealthValues.ivHP;
     }
 
     
@@ -559,15 +565,12 @@ public class CharacterManagerScript : MonoBehaviour
 
     public static void ResetVariables()
     {
-        netrixiPosition = netrixi2nd;
         netrixi1st = netrixiPosition;
         netrixi2nd = netrixiPosition;
         
-        folkvarPosition = folkvar2nd;
         folkvar1st = folkvarPosition;
         folkvar2nd = folkvarPosition;
         
-        ivPosition = iv2nd;
         iv1st = ivPosition;
         iv2nd = ivPosition;
     }

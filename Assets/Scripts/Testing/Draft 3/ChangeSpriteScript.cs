@@ -9,7 +9,7 @@ public class ChangeSpriteScript : MonoBehaviour
     private SpriteRenderer sr;
     
     public Sprite knightMelee, knightRanged, gatekeeper, royalGuard, folkvar;
-    public Sprite skullMelee, skullRanged, kaz, skullKing, evilKing;
+    public Sprite skullMelee, skullRanged, kaz1, kaz2, skullKing, evilKing;
     public Sprite pirate, brute, barkeeper;
     
     // Start is called before the first frame update
@@ -64,15 +64,20 @@ public class ChangeSpriteScript : MonoBehaviour
                 sr.sprite = skullRanged;
                 break;
             
-            case "Kaz":
+            case "Kaz 1":
                 ResizeCharacter(3);
-                sr.sprite = kaz;
+                sr.sprite = kaz1;
+                break;
+            
+            case "Kaz 2":
+                ResizeCharacter(3);
+                sr.sprite = kaz2;
                 break;
             
             
             
             case "Tavern Brute":
-                ResizeCharacter(4);
+                ResizeCharacter(5);
                 sr.sprite = brute;
                 break;
             
@@ -136,6 +141,12 @@ public class ChangeSpriteScript : MonoBehaviour
             case 4: 
                 this.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
                 transform.position = new Vector3(transform.position.x, -2.2f, transform.position.z);
+                break;
+            
+            // Tavern Brute size
+            case 5: 
+                this.transform.localScale = new Vector3(2.75f, 2.75f, 2.75f);
+                transform.position = new Vector3(transform.position.x, -2.05f, transform.position.z);
                 break;
         }
     }

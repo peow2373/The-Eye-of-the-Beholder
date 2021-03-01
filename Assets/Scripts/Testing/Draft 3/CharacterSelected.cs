@@ -11,7 +11,7 @@ public class CharacterSelected : MonoBehaviour
     private Vector3 selectedSize = new Vector3(2.5f, 2.5f, 2.5f);
 
     private float deselectedPosition = -2.6f;
-    private float selectedPosition = -0.3f;
+    private float selectedPosition = -1.0f;
     
     // Start is called before the first frame update
     void Start()

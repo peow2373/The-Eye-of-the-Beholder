@@ -8,12 +8,14 @@ public class DisplayEnemyAttack : MonoBehaviour
     public bool attack1, attack2;
 
     public Sprite knightMelee, knightRanged, gatekeeper, royalGuard, folkvar;
-    public Sprite skullMelee, skullRanged, kaz, skullKing, evilKing;
+    public Sprite skullMelee, skullRanged, kaz1, kaz2, skullKing, evilKing;
     public Sprite pirate, brute, barkeeper;
 
     private SpriteRenderer sr;
 
     public Text firstAttack, secondAttack;
+
+    public Text attackText1, attackText2;
 
     private string firstAttackText, secondAttackText;
     
@@ -32,6 +34,20 @@ public class DisplayEnemyAttack : MonoBehaviour
             DetermineMove(1);
 
             firstAttack.text = firstAttackText;
+            
+            
+            if (CombatManagerScript.enemyAttacking1)
+            {
+                sr.color = Color.gray;
+                attackText1.color = Color.gray;
+                firstAttack.color = Color.gray;
+            }
+            else
+            {
+                sr.color = Color.white;
+                attackText1.color = Color.white;
+                firstAttack.color = Color.white;
+            }
         }
 
         if (attack2)
@@ -40,6 +56,20 @@ public class DisplayEnemyAttack : MonoBehaviour
             DetermineMove(2);
 
             secondAttack.text = secondAttackText;
+            
+            
+            if (CombatManagerScript.enemyAttacking2)
+            {
+                sr.color = Color.gray;
+                attackText2.color = Color.gray;
+                secondAttack.color = Color.gray;
+            }
+            else
+            {
+                sr.color = Color.white;
+                attackText2.color = Color.white;
+                secondAttack.color = Color.white;
+            }
         }
     }
 
@@ -148,25 +178,34 @@ public class DisplayEnemyAttack : MonoBehaviour
              
              
              // Kaz
-             case "Kaz Shoots Arrow":
+             case "Kaz 1 Shoots Arrow":
                  attackText = "Shoot Arrow";
-                 sr.sprite = kaz;
+                 sr.sprite = kaz1;
                  break;
-             case "Kaz Swings Battle Axe":
+             case "Kaz 1 Swings Battle Axe":
                  attackText = "Swing Axe";
-                 sr.sprite = kaz;
+                 sr.sprite = kaz1;
                  break;
-             case "Kaz Performs a Grand Slam":
+             case "Kaz 1 Performs a Grand Slam":
                  attackText = "Grand Slam";
-                 sr.sprite = kaz;
+                 sr.sprite = kaz1;
                  break;
-             case "Kaz Empowers both Teams":
+             
+            case "Kaz 2 Swings Battle Axe":
+                attackText = "Swing Axe";
+                sr.sprite = kaz2;
+                break;
+            case "Kaz 2 Performs a Grand Slam":
+                attackText = "Grand Slam";
+                sr.sprite = kaz2;
+                break;
+            case "Kaz 2 Empowers both Teams":
                  attackText = "Empower";
-                 sr.sprite = kaz;
+                 sr.sprite = kaz2;
                  break;
-             case "Kaz Blocks":
+             case "Kaz 2 Blocks":
                  attackText = "Block";
-                 sr.sprite = kaz;
+                 sr.sprite = kaz2;
                  break;
              
              
@@ -351,8 +390,12 @@ public class DisplayEnemyAttack : MonoBehaviour
                 sr.sprite = skullRanged;
                 break;
             
-            case "Kaz":
-                sr.sprite = kaz;
+            case "Kaz 1":
+                sr.sprite = kaz1;
+                break;
+            
+            case "Kaz 2":
+                sr.sprite = kaz2;
                 break;
             
             
