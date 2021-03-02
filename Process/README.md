@@ -5,10 +5,15 @@ https://drive.google.com/drive/folders/1OxZEvi-7nbnCbyYGuNcMXI67CbYC7kKu?usp=sha
 This README will be a more structured overview of future goals and progress made throughout each week
 
 # 2/28/2021 Update
-- The game is now fully playabe!!!! 
+![image](https://user-images.githubusercontent.com/60019866/109727546-c580b700-7b71-11eb-8cfb-3bbde4fa7213.png)
+
+- The game is now fully playable!!!! 
 - The only move that does damage is Netrixi's Fireball, but using it will launch 3 magic fireballs at the enemies. 
 - Defeating all the enemies will cause the combat scene to end, and the next dialogue scene will begin
-- Enemies can't do damage yet, so there is no way to lose thsi game... yet
+- Enemies can't do damage yet, so there is no way to lose this game... yet
+- dialogue tested and approved with markers
+- soundtrack found: https://docs.google.com/document/d/1nCCmqMT77tCKhuOU5-K9B56m4qrgIFjoK6BZgRzxyi0/edit?usp=sharing
+- background inspirations gathered and primitive sketches where appropriate: https://docs.google.com/document/d/1nCCmqMT77tCKhuOU5-K9B56m4qrgIFjoK6BZgRzxyi0/edit?usp=sharing 
 
 # 2/23/2021 Update
 
