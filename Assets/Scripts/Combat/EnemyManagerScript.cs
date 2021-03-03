@@ -29,9 +29,9 @@ public class EnemyManagerScript : MonoBehaviour
         
         
         // Determine enemies present within the scene
-        DetermineEnemyType(enemy1);
-        DetermineEnemyType(enemy2);
-        DetermineEnemyType(enemy3);
+        if (CombatManagerScript.enemy1Alive) DetermineEnemyType(enemy1);
+        if (CombatManagerScript.enemy2Alive) DetermineEnemyType(enemy2);
+        if (CombatManagerScript.enemy3Alive) DetermineEnemyType(enemy3);
     }
 
     // Update is called once per frame
@@ -41,10 +41,8 @@ public class EnemyManagerScript : MonoBehaviour
         if (firstAttack == "Tavern Brute Throws Chair" || secondAttack == "Tavern Brute Throws Chair")
         {
             barkeeperMadNextRound = true;
-
-            DetermineEnemyType(enemy1);
-            DetermineEnemyType(enemy2);
-            DetermineEnemyType(enemy3);
+            CombatManagerScript.enemy2Alive = true;
+            CombatManagerScript.canEnemy2Attack = true;
         }
 
         if (barkeeperMadNextRound)
@@ -104,6 +102,13 @@ public class EnemyManagerScript : MonoBehaviour
         // Choose the first attack
         if (attackNumber == 1)
         {
+            availableMoves.Clear();
+            
+            // Determine enemies present within the scene
+            if (CombatManagerScript.enemy1Alive && CombatManagerScript.canEnemy1Attack) DetermineEnemyType(enemy1);
+            if (CombatManagerScript.enemy2Alive && CombatManagerScript.canEnemy2Attack) DetermineEnemyType(enemy2);
+            if (CombatManagerScript.enemy3Alive && CombatManagerScript.canEnemy3Attack) DetermineEnemyType(enemy3);
+            
             DetermineAvailableMoves(1);
             
             // Choose a random move for the enemy to make
@@ -111,19 +116,19 @@ public class EnemyManagerScript : MonoBehaviour
             
             // Lock in the enemy's choice for their first attack
             firstAttack = availableMoves[randomIndex];
-            
-            availableMoves.Clear();
-            
+
             UpdateVariables(1);
         }
         
         // Choose the second attack
         if (attackNumber == 2)
         {
+            availableMoves.Clear();
+            
             // Determine enemies present within the scene again
-            DetermineEnemyType(enemy1);
-            DetermineEnemyType(enemy2);
-            DetermineEnemyType(enemy3);
+            if (CombatManagerScript.enemy1Alive && CombatManagerScript.canEnemy1Attack) DetermineEnemyType(enemy1);
+            if (CombatManagerScript.enemy2Alive && CombatManagerScript.canEnemy2Attack) DetermineEnemyType(enemy2);
+            if (CombatManagerScript.enemy3Alive && CombatManagerScript.canEnemy3Attack) DetermineEnemyType(enemy3);
             
             DetermineAvailableMoves(2);
             
@@ -156,20 +161,25 @@ public class EnemyManagerScript : MonoBehaviour
                     return repeatTest;
                 }
             }
-            
-            // If the first move the enemy made was an attack
-            if (firstAttack == "Enemy 1 Moves Left" || firstAttack == "Enemy 1 Moves Right" || firstAttack == "Enemy 2 Moves Left" || firstAttack == "Enemy 2 Moves Right" || firstAttack == "Enemy 3 Moves Left" || firstAttack == "Enemy 3 Moves Right")
-            {
-                // If the chosen second attack was also decided to be a move
-                if (availableMoves[chosenSecondAttack] == "Enemy 1 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 1 Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 2 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 2 Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 3 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 3 Moves Right")
-                {
-                    // Choose a new random move for the enemy to make
-                    int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
-                    print("New second attack chosen");
 
-                    // Call recursive function again to check if the new chosen attack meets the same conditions
-                    int repeatTest = FindDuplicateActions(randomIndex);
-                    return repeatTest;
+            
+            // Check to see if duplicate moves need to be accounted for
+            if (CombatManagerScript.canEnemy1Attack)
+            {
+                // If the first move the enemy made was an attack
+                if (firstAttack == "Enemy 1 Moves Left" || firstAttack == "Enemy 1 Moves Right" || firstAttack == "Enemy 2 Moves Left" || firstAttack == "Enemy 2 Moves Right" || firstAttack == "Enemy 3 Moves Left" || firstAttack == "Enemy 3 Moves Right")
+                {
+                    // If the chosen second attack was also decided to be a move
+                    if (availableMoves[chosenSecondAttack] == "Enemy 1 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 1 Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 2 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 2 Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 3 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 3 Moves Right")
+                    {
+                        // Choose a new random move for the enemy to make
+                        int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
+                        print("New second attack chosen");
+
+                        // Call recursive function again to check if the new chosen attack meets the same conditions
+                        int repeatTest = FindDuplicateActions(randomIndex);
+                        return repeatTest;
+                    }
                 }
             }
         }
@@ -183,97 +193,117 @@ public class EnemyManagerScript : MonoBehaviour
         if (attackNumber == 1)
         {
             // If Enemy 1 can move left
-            if (CanEnemyMoveLeft(enemy1Position))
+            if (CombatManagerScript.enemy1Alive)
             {
-                availableMoves.Add("Enemy 1 Moves Left");
-            }
+                if (CanEnemyMoveLeft(enemy1Position))
+                {
+                    availableMoves.Add("Enemy 1 Moves Left");
+                }
             
-            // If Enemy 1 can move right
-            if (CanEnemyMoveRight(enemy1Position))
-            {
-                availableMoves.Add("Enemy 1 Moves Right");
+                // If Enemy 1 can move right
+                if (CanEnemyMoveRight(enemy1Position))
+                {
+                    availableMoves.Add("Enemy 1 Moves Right");
+                }
             }
 
-            
+
             // If Enemy 2 is present in the scene
-            if (enemy2 != "null")
+            if (CombatManagerScript.enemy2Alive)
             {
-                // If Enemy 2 can move left
-                if (CanEnemyMoveLeft(enemy2Position))
+                if (enemy2 != "null")
                 {
-                    availableMoves.Add("Enemy 2 Moves Left");
-                }
+                    // If Enemy 2 can move left
+                    if (CanEnemyMoveLeft(enemy2Position))
+                    {
+                        availableMoves.Add("Enemy 2 Moves Left");
+                    }
             
-                // If Enemy 2 can move right
-                if (CanEnemyMoveRight(enemy2Position))
-                {
-                    availableMoves.Add("Enemy 2 Moves Right");
+                    // If Enemy 2 can move right
+                    if (CanEnemyMoveRight(enemy2Position))
+                    {
+                        availableMoves.Add("Enemy 2 Moves Right");
+                    }
                 }
             }
-            
-            
+
+
             // If Enemy 3 is present in the scene
-            if (enemy3 != "null")
+            if (CombatManagerScript.enemy3Alive)
             {
-                // If Enemy 3 can move left
-                if (CanEnemyMoveLeft(enemy3Position))
+                if (enemy3 != "null")
                 {
-                    availableMoves.Add("Enemy 3 Moves Left");
-                }
+                    // If Enemy 3 can move left
+                    if (CanEnemyMoveLeft(enemy3Position))
+                    {
+                        availableMoves.Add("Enemy 3 Moves Left");
+                    }
             
-                // If Enemy 3 can move right
-                if (CanEnemyMoveRight(enemy3Position))
-                {
-                    availableMoves.Add("Enemy 3 Moves Right");
+                    // If Enemy 3 can move right
+                    if (CanEnemyMoveRight(enemy3Position))
+                    {
+                        availableMoves.Add("Enemy 3 Moves Right");
+                    }
                 }
             }
         }
        
+        
+        
         if (attackNumber == 2)
         {
             // If Enemy 1 can move left
-            if (CanEnemyMoveLeft(enemy1First))
+            if (CombatManagerScript.enemy1Alive)
             {
-                availableMoves.Add("Enemy 1 Moves Left");
-            }
-            
-            // If Enemy 1 can move right
-            if (CanEnemyMoveRight(enemy1First))
-            {
-                availableMoves.Add("Enemy 1 Moves Right");
-            }
-            
-            
-            // If Enemy 2 is present in the scene
-            if (enemy2 != "null")
-            {
-                // If Enemy 2 can move left
-                if (CanEnemyMoveLeft(enemy2First))
+                if (CanEnemyMoveLeft(enemy1First))
                 {
-                    availableMoves.Add("Enemy 2 Moves Left");
+                    availableMoves.Add("Enemy 1 Moves Left");
                 }
             
-                // If Enemy 2 can move right
-                if (CanEnemyMoveRight(enemy2First))
+                // If Enemy 1 can move right
+                if (CanEnemyMoveRight(enemy1First))
                 {
-                    availableMoves.Add("Enemy 2 Moves Right");
+                    availableMoves.Add("Enemy 1 Moves Right");
                 }
             }
 
-            
-            // If Enemy 3 is present in the scene
-            if (enemy3 != "null")
+
+            // If Enemy 2 is present in the scene
+            if (CombatManagerScript.enemy2Alive)
             {
-                // If Enemy 3 can move left
-                if (CanEnemyMoveLeft(enemy3First))
+                if (enemy2 != "null")
                 {
-                    availableMoves.Add("Enemy 3 Moves Left");
-                }
+                    // If Enemy 2 can move left
+                    if (CanEnemyMoveLeft(enemy2First))
+                    {
+                        availableMoves.Add("Enemy 2 Moves Left");
+                    }
             
-                // If Enemy 3 can move right
-                if (CanEnemyMoveRight(enemy3First))
+                    // If Enemy 2 can move right
+                    if (CanEnemyMoveRight(enemy2First))
+                    {
+                        availableMoves.Add("Enemy 2 Moves Right");
+                    }
+                }
+            }
+
+
+            // If Enemy 3 is present in the scene
+            if (CombatManagerScript.enemy3Alive)
+            {
+                if (enemy3 != "null")
                 {
-                    availableMoves.Add("Enemy 3 Moves Right");
+                    // If Enemy 3 can move left
+                    if (CanEnemyMoveLeft(enemy3First))
+                    {
+                        availableMoves.Add("Enemy 3 Moves Left");
+                    }
+            
+                    // If Enemy 3 can move right
+                    if (CanEnemyMoveRight(enemy3First))
+                    {
+                        availableMoves.Add("Enemy 3 Moves Right");
+                    }
                 }
             }
         }

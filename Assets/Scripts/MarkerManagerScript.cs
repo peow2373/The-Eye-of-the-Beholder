@@ -278,8 +278,11 @@ public class MarkerManagerScript : MonoBehaviour
 
 
 
-    private float[] xPosTutorial = new float[] { -4.5f, 0, 4.5f };
-    private float[] yPosTutorial = new float[] { 2.5f, 0, -2.5f };
+    private float[] xPosStartGame = new float[] { -4.5f, 0, 4.5f };
+    private float[] yPosStartGame = new float[] { 2.5f, 0, -2.5f };
+    
+    private float[] xPosEndGame = new float[] { 50f, 50, 50f };
+    private float[] yPosEndGame = new float[] { 50f, 50, 50f };
     
     private float[] xPosCombat = new float[] { -3f, 0f, 3f };
     private float[] yPosCombat = new float[] { 6.5f, 4f, 1.5f };
@@ -292,11 +295,11 @@ public class MarkerManagerScript : MonoBehaviour
     {
         int curScene = GameManagerScript.currentScene;
         
-        // If the player is in a Tutorial Scene
+        // If the player is in the Start Game Scene
         if (curScene == 0)
         {
-            //xPos = xPosTutorial;
-            //yPos = yPosTutorial;
+            //xPos = xPosStartGame;
+            //yPos = yPosStartGame;
             
             xPos = xPosDialogue;
             yPos = yPosDialogue;
@@ -321,35 +324,26 @@ public class MarkerManagerScript : MonoBehaviour
             
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
+        
+        // If the player is in the End Game Scene
+        if (curScene == 29)
+        {
+            xPos = xPosEndGame;
+            yPos = yPosEndGame;
+            
+            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
     }
 
 
 
     public void Reset()
     {
-        // reset variables when a new level is loaded
-        if (palmMarker) palmMarker = true;
-        else palmMarker = false;
-
-        if (netrixiMarker) netrixiMarker = true;
-        else netrixiMarker = false;
-        
-        if (folkvarMarker) folkvarMarker = true;
-        else folkvarMarker = false;
-        
-        if (ivMarker) ivMarker = true;
-        else ivMarker = false;
-
-        if (undoMarker) undoMarker = true;
-        else undoMarker = false;
-        
-        if (goMarker) goMarker = true;
-        else goMarker = false;
-        
-        
         ChangeMarkerLocation();
         Vector2 loc = new Vector2(xPos[1], yPos[1]);
         hand.transform.position = loc;
+
+        currentLocation = 0;
     }
 }
 

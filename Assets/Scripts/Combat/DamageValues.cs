@@ -14,9 +14,11 @@ public class DamageValues : MonoBehaviour
     public static int lightning = 35;
     public static float lightningBurn = 0f;
     public static float lightningDelay = 1f;
-    
-    
-    
-    
+
+    public static int roundsTransformed = 2;
+    public static float transmutateDelay = 1f;
+    public static int choices = 4;
+
+
     //TODO: Folkvar and the rest of the character's attacks
 }

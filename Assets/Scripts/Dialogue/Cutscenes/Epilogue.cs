@@ -17,7 +17,9 @@ public class Epilogue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MarkerManagerScript.S.Reset();
         
+        refreshUI();
     }
 
     void refreshUI()
@@ -108,10 +110,18 @@ public class Epilogue : MonoBehaviour
             case 10:
 
 
-                text = "Thank you for playing!";
+                text = "THE END \n \n Thank you for playing!";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);
 
+                // Resize font 
+                storyText.fontSize += 10;
+
+                break;
+            
+            case 11:
+                
+                GameManagerScript.NextScene(false);
                 break;
         }
 
@@ -139,13 +149,14 @@ public class Epilogue : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
-                refreshUI();
                 storyTicker += 1;
 
                 if (storyTicker == 3 || storyTicker == 7 || storyTicker == 9)
                 {
                     storyTicker = 10;
                 }
+                
+                refreshUI();
             }
         }
     }

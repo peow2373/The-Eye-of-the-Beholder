@@ -111,11 +111,14 @@ public class MokeScript : MonoBehaviour
         else if (this.transform.childCount == 1)
         {
             goMarkerToContinue.enabled = false;
-            if (Input.GetKeyDown(KeyCode.V))
+            if (MarkerManagerScript.goMarker)
             {
-                refreshUI();
-                skipScene = false;
-                GameManagerScript.NextScene(skipScene);
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                    skipScene = false;
+                    GameManagerScript.NextScene(skipScene);
+                }
             }
         }
 
@@ -124,16 +127,20 @@ public class MokeScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = false;
 
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+            switch (MarkerManagerScript.currentLocation)
             {
-                story.ChooseChoiceIndex(0);
-                refreshUI();
-            }
-
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-            {
-                story.ChooseChoiceIndex(1);
-                refreshUI();
+                case 1:
+                case 4:
+                case 7:
+                    story.ChooseChoiceIndex(0);
+                    refreshUI();
+                    break;
+                case 3:
+                case 6:
+                case 9:
+                    story.ChooseChoiceIndex(1);
+                    refreshUI();
+                    break;
             }
 
         }

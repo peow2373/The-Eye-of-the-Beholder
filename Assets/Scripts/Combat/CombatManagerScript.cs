@@ -32,6 +32,8 @@ public class CombatManagerScript : MonoBehaviour
 
     public static int target1Location, target2Location;
 
+    public static bool canEnemy1Attack = true, canEnemy2Attack = true, canEnemy3Attack = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,18 +57,50 @@ public class CombatManagerScript : MonoBehaviour
 
         roundNumber = 1;
 
-        netrixiAlive = true;
-        folkvarAlive = true;
-        ivAlive = true;
         
+        // Determine which characters are in the scene
+        netrixiAlive = true;
+        if (GameManagerScript.folkvarInParty) folkvarAlive = true;
+        else folkvarAlive = false;
+        if (GameManagerScript.ivInParty) ivAlive = true;
+        else ivAlive = false;
+
+        // Determine which enemies are in the scene
         enemy1Alive = true;
-        enemy2Alive = true;
-        enemy3Alive = true;
+        if (EnemyManagerScript.enemy2 == "null")
+        {
+            enemy2Alive = false;
+            canEnemy2Attack = false;
+        }
+        else enemy2Alive = true;
+
+        if (EnemyManagerScript.enemy3 == "null")
+        {
+            enemy3Alive = false;
+            canEnemy3Attack = false;
+        }
+        else enemy3Alive = true;
+        
 
         playerAttacking1 = false;
         playerAttacking2 = false;
         enemyAttacking1 = false;
         enemyAttacking2 = false;
+
+        
+        // Reset any transformed enemies
+        if (!canEnemy1Attack) NetrixiAttackScript.enemy1Transformed = false;
+        if (!canEnemy2Attack) NetrixiAttackScript.enemy2Transformed = false;
+        if (!canEnemy3Attack) NetrixiAttackScript.enemy3Transformed = false;
+        
+        canEnemy1Attack = true;
+        canEnemy2Attack = true;
+        canEnemy3Attack = true;
+        
+        
+        // If only Netrixi is present in the scene
+        //if (netrixiAlive && !folkvarAlive && !ivAlive) netrixiAttacks = true;
+
         
         win = false;
         lose = false;
@@ -113,7 +147,7 @@ public class CombatManagerScript : MonoBehaviour
         {
             if (isNetrixi)
             {
-                if (netrixiAlive && GameManagerScript.netrixiInParty)
+                if (netrixiAlive)
                 {
                     netrixiAttacks = true;
                     folkvarAttacks = false;
@@ -135,7 +169,7 @@ public class CombatManagerScript : MonoBehaviour
         {
             if (isFolkvar)
             {
-                if (folkvarAlive && GameManagerScript.folkvarInParty)
+                if (folkvarAlive)
                 {
                     folkvarAttacks = true;
                     netrixiAttacks = false;
@@ -157,7 +191,7 @@ public class CombatManagerScript : MonoBehaviour
         {
             if (isIv)
             {
-                if (ivAlive && GameManagerScript.ivInParty)
+                if (ivAlive)
                 {
                     ivAttacks = true;
                     netrixiAttacks = false;
@@ -200,9 +234,9 @@ public class CombatManagerScript : MonoBehaviour
 
         
         // Determine whether the player has chosen a combat move
-        if (netrixiAttacks) NetrixiCombatScript.NetrixiAttack();
-        if (folkvarAttacks) FolkvarCombatScript.FolkvarAttack();
-        if (ivAttacks) IvCombatScript.IvAction();
+        if (netrixiAttacks) if (CombatManagerScript.netrixiAlive) NetrixiCombatScript.NetrixiAttack();
+        if (folkvarAttacks) if (CombatManagerScript.folkvarAlive) FolkvarCombatScript.FolkvarAttack();
+        if (ivAttacks) if (CombatManagerScript.ivAlive) IvCombatScript.IvAction();
 
 
 
@@ -593,44 +627,38 @@ public class CombatManagerScript : MonoBehaviour
             // Play death animation
             netrixiAlive = false;
         }
-        else netrixiAlive = true;
 
         if (folkvarHP <= 0)
         {
             // Play death animation
             folkvarAlive = false;
         }
-        else folkvarAlive = true;
 
         if (ivHP <= 0)
         {
             // Play death animation
             ivAlive = false;
         }
-        else ivAlive = true;
 
-        
+
         // Determine whether the Enemy Characters are still alive
         if (enemy1HP <= 0)
         {
             // Play death animation
             enemy1Alive = false;
         }
-        else enemy1Alive = true;
 
         if (enemy2HP <= 0)
         {
             // Play death animation
             enemy2Alive = false;
         }
-        else enemy2Alive = true;
 
         if (enemy3HP <= 0)
         {
             // Play death animation
             enemy3Alive = false;
         }
-        else enemy3Alive = true;
     }
 
 

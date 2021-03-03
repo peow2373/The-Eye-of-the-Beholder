@@ -5,7 +5,7 @@ Those guards protect my royal family. What are they doing here? #Folkvar
 +   [Iv] -> Iv_approaches_royal_guards
 
 === Netrixi_approaches_royal_guards ===
-Those are the royal guards from the castle!
+Those are the royal guards from the castle! #Netrixi
 +   [Hey guys!] -> Inside_cave_fight
 +   [Remain hidden] -> Royal_guards_spill_beans
 

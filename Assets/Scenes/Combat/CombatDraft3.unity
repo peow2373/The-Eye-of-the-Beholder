@@ -1037,7 +1037,7 @@ GameObject:
   - component: {fileID: 400236889}
   m_Layer: 9
   m_Name: Enemy Melee
-  m_TagString: Player
+  m_TagString: Enemy 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2056,7 +2056,7 @@ GameObject:
   - component: {fileID: 928428117}
   m_Layer: 9
   m_Name: Netrixi
-  m_TagString: Player
+  m_TagString: Netrixi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2192,7 +2192,7 @@ GameObject:
   - component: {fileID: 942895058}
   m_Layer: 9
   m_Name: Iv
-  m_TagString: Player
+  m_TagString: Iv
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2551,7 +2551,7 @@ GameObject:
   - component: {fileID: 1155050523}
   m_Layer: 9
   m_Name: Enemy Leader
-  m_TagString: Player
+  m_TagString: Enemy 3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3136,6 +3136,10 @@ GameObject:
   - component: {fileID: 1389649839}
   - component: {fileID: 1389649841}
   - component: {fileID: 1389649840}
+  - component: {fileID: 1389649845}
+  - component: {fileID: 1389649844}
+  - component: {fileID: 1389649843}
+  - component: {fileID: 1389649842}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -3203,6 +3207,63 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1e86f31485a6fe4e8d16c5a4cd73d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1389649842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389649836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca467aa31970b7545b0ea7b20cb2a4b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1389649843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389649836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be5d010743a46e4bb5d668636b8fa51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1389649844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389649836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0eb80c152768ee4ebae8d34f7350821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cat: {fileID: 21300000, guid: 90316a1fa989cfd4e83b4298efa37c25, type: 3}
+  catSK: {fileID: 21300000, guid: 140ef33337187274f9a58b79427b0b6c, type: 3}
+  catRK: {fileID: 21300000, guid: cef1bb3187246154ba252fee1bab5f0e, type: 3}
+  dog: {fileID: 21300000, guid: 7d96d3eb7f118bd499e127459bc57c84, type: 3}
+  dogSK: {fileID: 21300000, guid: b82058eeba26c9242b7beb8bf61d009c, type: 3}
+  dogRK: {fileID: 21300000, guid: 57e8b1f6355ec4f42a8b1dfd7aeb5cf7, type: 3}
+  frog: {fileID: 21300000, guid: e294af58930d79043845a42956c099ef, type: 3}
+  frogSK: {fileID: 21300000, guid: dc0b940d8b9151d4daaeddf3597d8325, type: 3}
+  frogRK: {fileID: 21300000, guid: 80f33a4fa7b833949a23d0de2ac7fd99, type: 3}
+--- !u!114 &1389649845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389649836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e3ebb8a2433cc4c831361145a00b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1403782998
@@ -3348,7 +3409,7 @@ GameObject:
   - component: {fileID: 1454148735}
   m_Layer: 9
   m_Name: Folkvar
-  m_TagString: Player
+  m_TagString: Folkvar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3484,7 +3545,7 @@ GameObject:
   - component: {fileID: 1463007798}
   m_Layer: 9
   m_Name: Enemy Ranged
-  m_TagString: Player
+  m_TagString: Enemy 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

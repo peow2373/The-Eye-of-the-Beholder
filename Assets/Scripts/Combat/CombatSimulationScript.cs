@@ -117,7 +117,14 @@ public class CombatSimulationScript : MonoBehaviour
         didPlayerMove2 = false;
         didEnemyMove1 = false;
         didEnemyMove2 = false;
+        
+        
+        // If only one character is alive
+        //if (CombatManagerScript.netrixiAlive && !CombatManagerScript.folkvarAlive && !CombatManagerScript.ivAlive) CombatManagerScript.netrixiAttacks = true;
+        //if (!CombatManagerScript.netrixiAlive && CombatManagerScript.folkvarAlive && !CombatManagerScript.ivAlive) CombatManagerScript.folkvarAttacks = true;
+        //if (!CombatManagerScript.netrixiAlive && !CombatManagerScript.folkvarAlive && CombatManagerScript.ivAlive) CombatManagerScript.ivAttacks = true;
 
+        
         Destroy(runner);
     }
 

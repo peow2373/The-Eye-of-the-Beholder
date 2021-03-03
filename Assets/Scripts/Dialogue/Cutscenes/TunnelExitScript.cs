@@ -92,9 +92,12 @@ public class TunnelExitScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.V))
+        if (MarkerManagerScript.goMarker)
         {
-            refreshUI();
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                refreshUI();
+            }
         }
 
         if (this.transform.childCount == 1)
