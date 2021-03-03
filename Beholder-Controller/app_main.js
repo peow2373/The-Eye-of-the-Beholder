@@ -10,12 +10,14 @@ let mainWindow;
 function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    //alwaysOnTop: true,
-    x : 5,
-    y : 5,
     
-    width: 1200, // Set these to whatever is convenient
-    height: 600,
+    //alwaysOnTop: true,
+    
+    x : 5, // xOffset from where the window is loaded
+    y : 5, // yOffset from where the window is loaded
+    
+    width: 680, // Set these to whatever is convenient to change window size
+    height: 525,
 
     // Needed to include communication between render and main processes
     webPreferences: {
@@ -23,8 +25,10 @@ function createWindow() {
     },
   });
 
-  // mainWindow.setMenu(null);
-  mainWindow.webContents.openDevTools(); // Uncomment to open the DevTools automatically
+  mainWindow.setMenu(null);
+  //mainWindow.webContents.openDevTools(); // Uncomment to open the DevTools automatically
+  
+  
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({

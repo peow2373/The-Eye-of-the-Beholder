@@ -38,22 +38,15 @@ let buttonTimer = [BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOU
 // code written in here will be executed once when the page loads
 function init() {
   // Initialize beholder
-  Beholder.init('#beholder-root', { feed_params: { flip: true } }, [11, 0, 9, 4, 18, 25, 341, 84, 357, 849, 74, 955]);
+  Beholder.init('#beholder-root', { feed_params: { flip: true } }, [855, 787, 907, 357, 683, 84]);
 
-  // Change these values depending on what markers are being used 
-  //markerButton[0] = Beholder.getMarker(341);
-  //markerButton[1] = Beholder.getMarker(84);
-  //markerButton[2] = Beholder.getMarker(357);
-  //markerButton[4] = Beholder.getMarker(74);
-  //markerButton[5] = Beholder.getMarker(955);
-  
-  markerButton[0] = Beholder.getMarker(11);
-  markerButton[1] = Beholder.getMarker(0);
-  markerButton[2] = Beholder.getMarker(9);
-  markerButton[3] = Beholder.getMarker(4);
-  markerButton[4] = Beholder.getMarker(18);
-  markerButton[5] = Beholder.getMarker(25);
-  
+  // Change these values depending on what markers are being used
+  markerButton[0] = Beholder.getMarker(855);
+  markerButton[1] = Beholder.getMarker(787);
+  markerButton[2] = Beholder.getMarker(907);
+  markerButton[3] = Beholder.getMarker(357);
+  markerButton[4] = Beholder.getMarker(683);
+  markerButton[5] = Beholder.getMarker(84);
   
 
   requestAnimationFrame(update);
@@ -70,7 +63,6 @@ function update() {
   // Limits delta to 50 to account for latency
   if (delta > 50) {
     delta = 50;
-    console.log(delta);
   }
   
 
@@ -93,6 +85,7 @@ function update() {
         // Tells the main process that the marker is present
         ipcRenderer.send(keyInput1);
         ipcRenderer.send(keyInput2);
+          //setTimeout(() => ipcRenderer.send(keyInput2), 5);
       }
     } else {
       // Start timer countdown once marker disappears
@@ -105,7 +98,9 @@ function update() {
       // Tells the main process that the marker is no longer present
       ipcRenderer.send(keyInput1);
       ipcRenderer.send(keyInput2);
-      return;
+        //setTimeout(() => ipcRenderer.send(keyInput2), 5);
+
+        return;
     }
   }
 
