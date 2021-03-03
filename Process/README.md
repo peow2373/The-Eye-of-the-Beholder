@@ -19,17 +19,16 @@
 ![image](https://user-images.githubusercontent.com/60019866/109728251-0f1dd180-7b73-11eb-8e4e-e50f86d2c6f7.png)
 
 - Completed all content for dialogue system. All scenes are created and linked with GameManager.
-![image](https://user-images.githubusercontent.com/60019866/109728657-dfbb9480-7b73-11eb-87f9-101e6ca00e54.png)
 - Player sprites now visually move left/right in combat
-![image](https://user-images.githubusercontent.com/60019866/109729255-d54dca80-7b74-11eb-8dc5-0b75005e27bf.png)
-
+![image](https://user-images.githubusercontent.com/60019866/109728657-dfbb9480-7b73-11eb-87f9-101e6ca00e54.png)
 - Enemy AI chooses moves randomly from list of options
+![image](https://user-images.githubusercontent.com/60019866/109729255-d54dca80-7b74-11eb-8dc5-0b75005e27bf.png)
 - If Enemy AI already chooses a duplicate move, choose a different move
 - Redesigned marker printout page to reflect new markers: https://drive.google.com/drive/folders/1SIz68FW5xq0bCJWl5rs_eMeXahPN3B43?usp=sharing
-![image](https://user-images.githubusercontent.com/60019866/109729529-3a092500-7b75-11eb-984a-0bd231c4b39b.png)
 - Look into "Darkest Dungeon" as a good example of what the Combat Scene will end up looking like
-![image](https://user-images.githubusercontent.com/60019866/109729574-5311d600-7b75-11eb-89d7-ce4a67778bc0.png)
+![image](https://user-images.githubusercontent.com/60019866/109729529-3a092500-7b75-11eb-984a-0bd231c4b39b.png)
 - Change dialogue scene text so it is more legible
+![image](https://user-images.githubusercontent.com/60019866/109729574-5311d600-7b75-11eb-89d7-ce4a67778bc0.png)
 - Replace Input.GetKeyDown with Input.GetKeyPress
 
 # 2/16/2021 Update
@@ -41,16 +40,16 @@
 
 # 2/9/2021 Update
 
-![image](https://user-images.githubusercontent.com/60019866/109729856-c3b8f280-7b75-11eb-972e-12200d8cdd57.png)
 - Beholder software now has a configuration option (Allows the player to flip the camera so the image is mirrored, creating better visual feedback for hand gestures)
+![image](https://user-images.githubusercontent.com/60019866/109729856-c3b8f280-7b75-11eb-972e-12200d8cdd57.png)
 - There are still latency issues affecting the response time within the game, these need to be fixed to create a better gameplay experience
 - Combat demo now has the ability to change rounds once a player has locked in their choice for both of their attacks
 - Created a spreadsheet to plan out the order/type of scenes in the game (Outlines the basic structure that will be implemented into the GameManagerScript): https://docs.google.com/spreadsheets/d/1gGO90Z7nVsfxbTBVSGlvyBs1h0YtziQ9XXu4tjLjLpc/edit?usp=sharing
 - Implemented Cradle into Unity to iterate through the Twine story
+- Decided that Cradle's customization features are too limited for what we were planning
 ![image](https://user-images.githubusercontent.com/60019866/109730149-42159480-7b76-11eb-9ac8-d439610b93db.png)
-- Decided that Cradle's customization features are too limited for what we were planning 
-![image](https://user-images.githubusercontent.com/60019866/109730204-5f4a6300-7b76-11eb-8fa5-b6ab288ffe8e.png)
 - Shifted focus towards trying Ink to implement the story (Hopefully will allow us to trigger events in the game when a certain point in the story is reached)
+![image](https://user-images.githubusercontent.com/60019866/109730204-5f4a6300-7b76-11eb-8fa5-b6ab288ffe8e.png)
 - If Ink fails, we will shift to hard-coding the entire story (Least ideal solution, but it gives us the most control over variables and event triggers)
 - Enemy combat AI wasn't worked on this week, the main focus was fixing errors in Beholder-detection and dialogue parsing
 - Plans for next week include: Enemy combat AI, GameManagerScript, Ink+Unity Dialogue interaction, fixing latency issues with Beholder marker-detection
