@@ -22,6 +22,8 @@ public class CombatManagerScript : MonoBehaviour
 
     public static int netrixiHP, folkvarHP, ivHP;
     public static int enemy1HP, enemy2HP, enemy3HP;
+    
+    public static int enemy1StartingHP, enemy2StartingHP, enemy3StartingHP;
 
     public static bool playerAttacking1 = false, playerAttacking2 = false, enemyAttacking1 = false, enemyAttacking2 = false;
 
@@ -107,6 +109,10 @@ public class CombatManagerScript : MonoBehaviour
 
         hasWon = false;
         hasLost = false;
+
+        enemy1StartingHP = enemy1HP;
+        enemy2StartingHP = enemy2HP;
+        enemy3StartingHP = enemy3HP;
     }
 
     
@@ -324,7 +330,7 @@ public class CombatManagerScript : MonoBehaviour
         }
             
         // Netrixi casts her third spell
-        if (NetrixiCombatScript.netrixiCondition3[0] && NetrixiCombatScript.netrixiCondition3[1] && NetrixiCombatScript.netrixiCondition3[2] && NetrixiCombatScript.netrixiCondition3[3] && NetrixiCombatScript.netrixiCondition3[4])
+        if (NetrixiCombatScript.netrixiCondition3[0] && NetrixiCombatScript.netrixiCondition3[1] && NetrixiCombatScript.netrixiCondition3[2] && NetrixiCombatScript.netrixiCondition3[3])
         {
             print("Netrixi casts her third spell");
             

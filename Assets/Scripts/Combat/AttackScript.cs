@@ -6,8 +6,12 @@ using UnityEngine;
 public class AttackScript : MonoBehaviour
 {
     public static float damageModifier = 1f;
+    public static float enemyDamageModifier = 1f;
     
-    public static float delayRate = 1f;
+    public static float delayRate = DamageValues.standardDelay;
+
+    public static bool enemyAttack = true;
+    public static bool playerAttack = true;
     
     public static void PlayerAttack(int playerAttack, int attackNumber)
     {
@@ -42,9 +46,10 @@ public class AttackScript : MonoBehaviour
         
 
 
-        //float original;
-        //float burnRate;
-        float delayRate = 1f;
+        float original;
+        float burnRate;
+        float delayRate = DamageValues.standardDelay;
+        //int damageValue = (int) (original * enemyDamageModifier);
         
         
         
@@ -54,5 +59,8 @@ public class AttackScript : MonoBehaviour
         
         if (attackNumber == 1) CombatSimulationScript.attack1Delay = delayRate;
         else CombatSimulationScript.attack2Delay = delayRate;
+        
+        
+        // Determines whether this is attack 1 or 2
     }
 }

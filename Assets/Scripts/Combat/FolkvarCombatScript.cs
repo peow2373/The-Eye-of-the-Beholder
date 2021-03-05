@@ -54,70 +54,33 @@ public class FolkvarCombatScript : MonoBehaviour
 
             // Second attack
             // If player moves their hand closer to the webcam first
-            if (Input.GetKeyDown(KeyCode.N)) folkvarCondition2[0] = true;
+            if (MarkerManagerScript.currentLocation == 2) folkvarCondition2[0] = true;
             
             if (folkvarCondition2[0])
             {
-                // If player then moves hand to the upper section
-                if (MarkerManagerScript.currentLocation == 1)
-                {
-                    // If player moved hand to the the upper-left section
-                    folkvarCondition2[1] = true;
-                    upStart = 1;
-                } 
-                else if (MarkerManagerScript.currentLocation == 2)
-                {
-                    // If player moved hand to the the middle-left section
-                    folkvarCondition2[1] = true;
-                    upStart = 2;
-                } 
-                else if (MarkerManagerScript.currentLocation == 3)
-                {
-                    // If player moved hand to the the middle-left section
-                    folkvarCondition2[1] = true;
-                    upStart = 3;
-                }
+                // If player then moves hand to the upper-left section
+                if (Input.GetKeyDown(KeyCode.E)) folkvarCondition2[1] = true;
+
 
                 // If player then moves hand downwards
                 if (folkvarCondition2[1])
                 {
                     print("Sword ready to strike from the heavens");
                     
-                    if (upStart == 1)
-                    {
-                        // If player then moves hand to the bottom-left section
-                        if (Input.GetKeyDown(KeyCode.Z)) folkvarCondition2[2] = true;
-                        print("z");
-                    } 
-                    else if (upStart == 2)
-                    {
-                        // If player then moves hand to the bottom-middle section
-                        if (Input.GetKeyDown(KeyCode.X)) folkvarCondition2[2] = true;
-                        print("x");
-                    } 
-                    else if (upStart == 3)
-                    {
-                        // If player then moves hand to the bottom-middle section
-                        if (Input.GetKeyDown(KeyCode.C)) folkvarCondition2[2] = true;
-                        print("c");
-                    }
+                    // If player then moves hand to the bottom-middle section
+                    if (Input.GetKeyDown(KeyCode.C)) folkvarCondition2[2] = true;
 
-                    // If player instead moves hand to the middle section or instead moves hand away from the webcam
-                    if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+                    // If player instead moves hand to a different location
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.D))
                     {
                         folkvarCondition2[1] = false;
-                    }
-
-                    // If player instead moves hand away from the webcam
-                    if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.F))
-                    {
                         folkvarCondition2[0] = false;
                     }
                 }
                 else
                 {
-                    // If player instead moves hand away from the webcam
-                    if (Input.GetKeyDown(KeyCode.M) || Input.GetKeyDown(KeyCode.F))
+                    // If player instead moves hand to a different location
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.D))
                     {
                         folkvarCondition2[0] = false;
                     }

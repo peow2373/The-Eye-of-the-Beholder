@@ -8,7 +8,7 @@ public class NetrixiCombatScript : MonoBehaviour
     // Conditions for each of Netrixi's attacks
     public static bool[] netrixiCondition1 = new bool[] {false, false};
     public static bool[] netrixiCondition2 = new bool[] {false, false};
-    public static bool[] netrixiCondition3 = new bool[] {false, false, false, false, false};
+    public static bool[] netrixiCondition3 = new bool[] {false, false, false, false};
     public static bool[] netrixiCondition4 = new bool[] {false, false, false};
 
     public static int netrixiRotation = 0;
@@ -37,7 +37,7 @@ public class NetrixiCombatScript : MonoBehaviour
         {
             // First spell
             // If player pulls their hand back first
-            if (Input.GetKeyDown(KeyCode.F)) netrixiCondition1[0] = true;
+            if (MarkerManagerScript.wasSmaller) netrixiCondition1[0] = true;
 
             if (netrixiCondition1[0])
             {
@@ -223,7 +223,7 @@ public class NetrixiCombatScript : MonoBehaviour
                 {
                     Debug.Log("Point 4");
                     
-                    if (Input.GetKeyDown(KeyCode.V)) netrixiCondition3[4] = true;
+                    netrixiCondition3[4] = true;
                 }
             }
 
@@ -308,9 +308,8 @@ public class NetrixiCombatScript : MonoBehaviour
         netrixiCondition3[1] = false;
         netrixiCondition3[2] = false;
         netrixiCondition3[3] = false;
-        netrixiCondition3[4] = false;
-        
-        
+
+
         netrixiCondition4[0] = false;
         netrixiCondition4[1] = false;
         netrixiCondition4[2] = false;

@@ -24,12 +24,12 @@ public class CombatSimulationScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(moveDelay);
         
         // Check to see if any Main Characters move for their first attack
-        CombatSimulationScript.CheckForPlayerMovement(playerFirstAttack, 1);
+        CheckForPlayerMovement(playerFirstAttack, 1);
         // If any Main Characters did move for their first attack
         if (didPlayerMove1) yield return new WaitForSecondsRealtime(moveDelay);
 
         // Check to see if any Enemy Characters move for their first attack
-        CombatSimulationScript.CheckForEnemyMovement(enemyFirstAttack, 1);
+        CheckForEnemyMovement(enemyFirstAttack, 1);
         // If any Enemy Characters did move for their first attack
         if (didEnemyMove1) yield return new WaitForSecondsRealtime(moveDelay);
         
@@ -40,6 +40,9 @@ public class CombatSimulationScript : MonoBehaviour
         {
             AttackScript.PlayerAttack(playerFirstAttack, 1);
             CombatManagerScript.playerAttacking1 = true;
+            
+            AttackScript.enemyAttack = !AttackScript.enemyAttack;
+
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack1Delay);
         }
@@ -49,6 +52,9 @@ public class CombatSimulationScript : MonoBehaviour
         {
             AttackScript.EnemyAttack(enemyFirstAttack, 1, enemyAttacker1);
             CombatManagerScript.enemyAttacking1 = true;
+            
+            AttackScript.playerAttack = !AttackScript.playerAttack;
+            
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack1Delay);
         }
@@ -59,12 +65,12 @@ public class CombatSimulationScript : MonoBehaviour
         // SECOND ATTACK
 
         // Check to see if any Main Characters move for their second attack
-        CombatSimulationScript.CheckForPlayerMovement(playerSecondAttack, 2);
+        CheckForPlayerMovement(playerSecondAttack, 2);
         // If any Main Characters did move for their second attack
         if (didPlayerMove2) yield return new WaitForSecondsRealtime(moveDelay);
 
         // Check to see if any Enemy Characters move for their second attack
-        CombatSimulationScript.CheckForEnemyMovement(enemySecondAttack, 2);
+        CheckForEnemyMovement(enemySecondAttack, 2);
         // If any Enemy Characters did move for their second attack
         if (didEnemyMove2) yield return new WaitForSecondsRealtime(moveDelay);
         
@@ -75,6 +81,9 @@ public class CombatSimulationScript : MonoBehaviour
         {
             AttackScript.PlayerAttack(playerSecondAttack, 2);
             CombatManagerScript.playerAttacking2 = true;
+            
+            AttackScript.enemyAttack = !AttackScript.enemyAttack;
+
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack2Delay);
         }
@@ -84,6 +93,9 @@ public class CombatSimulationScript : MonoBehaviour
         {
             AttackScript.EnemyAttack(enemySecondAttack, 2, enemyAttacker2);
             CombatManagerScript.enemyAttacking2 = true;
+
+            AttackScript.playerAttack = !AttackScript.playerAttack;
+            
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack2Delay);
         }
@@ -117,8 +129,8 @@ public class CombatSimulationScript : MonoBehaviour
         didPlayerMove2 = false;
         didEnemyMove1 = false;
         didEnemyMove2 = false;
-        
-        
+
+
         // If only one character is alive
         //if (CombatManagerScript.netrixiAlive && !CombatManagerScript.folkvarAlive && !CombatManagerScript.ivAlive) CombatManagerScript.netrixiAttacks = true;
         //if (!CombatManagerScript.netrixiAlive && CombatManagerScript.folkvarAlive && !CombatManagerScript.ivAlive) CombatManagerScript.folkvarAttacks = true;
@@ -150,6 +162,8 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
+                
+                AttackScript.enemyAttack = !AttackScript.enemyAttack;
             }
         }
         
@@ -169,6 +183,8 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
+                
+                AttackScript.enemyAttack = !AttackScript.enemyAttack;
             }
         }
         
@@ -188,6 +204,8 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
+                
+                AttackScript.enemyAttack = !AttackScript.enemyAttack;
             }
         }
     }
@@ -212,6 +230,8 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
+                
+                AttackScript.playerAttack = !AttackScript.playerAttack;
             }
         }
         
@@ -231,6 +251,8 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
+                
+                AttackScript.playerAttack = !AttackScript.playerAttack;
             }
         }
         
@@ -250,6 +272,8 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
+                
+                AttackScript.playerAttack = !AttackScript.playerAttack;
             }
         }
     }

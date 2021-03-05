@@ -22,7 +22,7 @@ public class MarkerManagerScript : MonoBehaviour
     public float[] rotation = new float[] { 90, 60, 30, 0, -30, -60, -90 };
 
     public float scaleFactor = 2f;
-    public bool wasLarger = false, wasSmaller = false;
+    public static bool wasLarger = false, wasSmaller = false;
     
     public static bool beingRotated = false;
 

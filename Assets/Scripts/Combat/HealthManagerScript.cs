@@ -130,23 +130,29 @@ public class CoroutineRunner : MonoBehaviour
     {
         switch (character)
         {
-            case "Netrixi": CombatManagerScript.netrixiHP++;
+            case "Netrixi": 
+                if (CombatManagerScript.netrixiHP < HealthValues.netrixiHP) CombatManagerScript.netrixiHP++;
                 break;
             
-            case "Folkvar": CombatManagerScript.folkvarHP++;
+            case "Folkvar": 
+                if (CombatManagerScript.folkvarHP < HealthValues.folkvarHP) CombatManagerScript.folkvarHP++;
                 break;
             
-            case "Iv": CombatManagerScript.ivHP++;
+            case "Iv": 
+                if (CombatManagerScript.ivHP < HealthValues.ivHP) CombatManagerScript.ivHP++;
                 break;
             
             
-            case "Enemy 1": CombatManagerScript.enemy1HP++;
+            case "Enemy 1": 
+                if (CombatManagerScript.enemy1HP < CombatManagerScript.enemy1StartingHP) CombatManagerScript.enemy1HP++;
                 break;
             
-            case "Enemy 2": CombatManagerScript.enemy2HP++;
+            case "Enemy 2": 
+                if (CombatManagerScript.enemy2HP < CombatManagerScript.enemy2StartingHP) CombatManagerScript.enemy2HP++;
                 break;
             
-            case "Enemy 3": CombatManagerScript.enemy3HP++;
+            case "Enemy 3": 
+                if (CombatManagerScript.enemy3HP < CombatManagerScript.enemy3StartingHP) CombatManagerScript.enemy3HP++;
                 break;
         }
     }

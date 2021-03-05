@@ -17,7 +17,7 @@ public class EnemyManagerScript : MonoBehaviour
 
     public static bool hasChangedScene = false;
 
-    private bool barkeeperMadNextRound = false;
+    public static bool barkeeperMadNextRound = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +26,7 @@ public class EnemyManagerScript : MonoBehaviour
 
         hasChangedScene = false;
         barkeeperMadNextRound = false;
+        GameManagerScript.barkeeperMad = false;
         
         
         // Determine enemies present within the scene
@@ -41,8 +42,15 @@ public class EnemyManagerScript : MonoBehaviour
         if (firstAttack == "Tavern Brute Throws Chair" || secondAttack == "Tavern Brute Throws Chair")
         {
             barkeeperMadNextRound = true;
+            
             CombatManagerScript.enemy2Alive = true;
             CombatManagerScript.canEnemy2Attack = true;
+            
+            DetermineEnemyType(enemy2);
+            
+            enemy2Position = 8;
+            enemy2First = 8;
+            enemy2Second = 8;
         }
 
         if (barkeeperMadNextRound)
@@ -456,6 +464,9 @@ public class EnemyManagerScript : MonoBehaviour
                 break;
             
             case "Barkeeper":
+                
+                // TODO: Add a higher chance for Barkeeper to punch Brute if the Brute keeps throwing chairs
+                
                 availableMoves.Add("Barkeeper Punches You");
                 availableMoves.Add("Barkeeper Punches Tavern Brute");
                 break;

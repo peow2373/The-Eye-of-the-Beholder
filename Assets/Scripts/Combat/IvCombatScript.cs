@@ -36,7 +36,7 @@ public class IvCombatScript : MonoBehaviour
         {
             // First spell
             // If player pulls their hand back first
-            if (Input.GetKeyDown(KeyCode.F)) ivCondition1[0] = true;
+            if (MarkerManagerScript.wasSmaller) ivCondition1[0] = true;
 
             if (ivCondition1[0])
             {

@@ -291,39 +291,23 @@ public class GameManagerScript : MonoBehaviour
             
                                                             // At the entrance to the Beholderite cave
             
-            // Dialogue with Skull Grunts
+            // DELETED: Dialogue with Skull Grunts
             case 19:
                 
-                // Potentially skip this dialogue + combat scene
                 if (currentScene == 19)
                 {
-                    currentScene = 21;
+                    // Skip this scene because it was removed from the game
+                    currentScene = 22;
                 }
-                
-                //if (previousScene != 19)
-                //{
-                //    SceneChangeAnimation();
-                //    SceneManager.LoadScene("InkVolcanoEntrance");
-                //    previousScene = 19;
-                //    print("Dialogue with Skull Grunts");
-                //}
                 break;
             
-            // Combat with Skull Grunts
+            // DELETED" Combat with Skull Grunts
             case 20:
                 if (currentScene == 20)
                 {
-                    currentScene = 21;
+                    // Skip this scene because it was removed from the game
+                    currentScene = 22;
                 }
-                
-                
-                //if (previousScene != 20)
-                //{
-                //    SceneChangeAnimation();
-                //    SceneManager.LoadScene(combatScene);
-                //    previousScene = 20;
-                //    print("Combat with Skull Grunts");
-                //}
                 break;
             
                                                             // Narrow tunnel inside the Beholderite cave
@@ -545,20 +529,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10 );
                 HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, HealthValues.kazHP);
                 break;
-            
-            // Fighting two Skull Grunts
-            case 20:
-                EnemyManagerScript.enemy1 = "Skull Grunt Melee";
-                EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
-                EnemyManagerScript.enemy3 = "null";
-                
-                EnemyManagerScript.ChangeEnemyLocation( 6, 9, 0 );
-                
-                CombatManagerScript.enemy1HP = HealthValues.skullMeleeHP;
-                CombatManagerScript.enemy2HP = HealthValues.skullRangedHP;
-                HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, 0);
-                break;
-            
+
             // Fighting two Royal Guards
             case 23:
                 EnemyManagerScript.enemy1 = "Royal Guard 1";
@@ -566,9 +537,6 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy3 = "null";
                 
                 EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0 );
-                
-                CombatManagerScript.enemy1HP = HealthValues.royalGuardHP;
-                CombatManagerScript.enemy2HP = HealthValues.royalGuardHP;
                 HealthManagerScript.StartingHealth(HealthValues.royalGuardHP, HealthValues.royalGuardHP, 0);
                 break;
             
@@ -579,10 +547,6 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy3 = "Skull King";
                 
                 EnemyManagerScript.ChangeEnemyLocation( 7, 9, 10 );
-                
-                CombatManagerScript.enemy1HP = HealthValues.skullMeleeHP;
-                CombatManagerScript.enemy2HP = HealthValues.skullRangedHP;
-                CombatManagerScript.enemy3HP = HealthValues.skullKingHP;
                 HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, HealthValues.skullKingHP);
                 break;
             
@@ -593,10 +557,6 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy3 = "Royal King";
                 
                 EnemyManagerScript.ChangeEnemyLocation( 6, 7, 9 );
-                
-                CombatManagerScript.enemy1HP = HealthValues.royalGuardHP;
-                CombatManagerScript.enemy2HP = HealthValues.royalGuardHP;
-                CombatManagerScript.enemy3HP = HealthValues.royalKingHP;
                 HealthManagerScript.StartingHealth(HealthValues.royalGuardHP, HealthValues.royalGuardHP, HealthValues.royalKingHP);
                 break;
         }
@@ -620,7 +580,8 @@ public class GameManagerScript : MonoBehaviour
         ivInParty = false;
 
         barkeeperMad = false;
-            
+        EnemyManagerScript.barkeeperMadNextRound = false;
+
         CharacterManagerScript.ResetVariables();
         EnemyManagerScript.ClearMoves();
     }
