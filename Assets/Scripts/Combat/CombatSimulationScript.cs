@@ -41,7 +41,7 @@ public class CombatSimulationScript : MonoBehaviour
             AttackScript.PlayerAttack(playerFirstAttack, 1);
             CombatManagerScript.playerAttacking1 = true;
             
-            AttackScript.enemyAttack = !AttackScript.enemyAttack;
+                AttackScript.enemyAttack = !AttackScript.enemyAttack;
 
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack1Delay);
@@ -53,7 +53,7 @@ public class CombatSimulationScript : MonoBehaviour
             AttackScript.EnemyAttack(enemyFirstAttack, 1, enemyAttacker1);
             CombatManagerScript.enemyAttacking1 = true;
             
-            AttackScript.playerAttack = !AttackScript.playerAttack;
+                AttackScript.playerAttack = !AttackScript.playerAttack;
             
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack1Delay);
@@ -82,7 +82,7 @@ public class CombatSimulationScript : MonoBehaviour
             AttackScript.PlayerAttack(playerSecondAttack, 2);
             CombatManagerScript.playerAttacking2 = true;
             
-            AttackScript.enemyAttack = !AttackScript.enemyAttack;
+                AttackScript.enemyAttack = !AttackScript.enemyAttack;
 
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack2Delay);
@@ -94,7 +94,7 @@ public class CombatSimulationScript : MonoBehaviour
             AttackScript.EnemyAttack(enemySecondAttack, 2, enemyAttacker2);
             CombatManagerScript.enemyAttacking2 = true;
 
-            AttackScript.playerAttack = !AttackScript.playerAttack;
+                AttackScript.playerAttack = !AttackScript.playerAttack;
             
             // Wait for attack animation to play
             yield return new WaitForSecondsRealtime(attack2Delay);

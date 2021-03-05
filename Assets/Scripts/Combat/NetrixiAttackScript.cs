@@ -250,8 +250,8 @@ public class NetrixiAttackScript : MonoBehaviour
                 
                 if (attackNumber == 1) DetermineEnemyPosition(CombatManagerScript.target1Location);
                 else DetermineEnemyPosition(CombatManagerScript.target2Location);
-                
-                
+
+
                 void DetermineEnemyPosition(int targetLocation)
                 {
                     switch (targetLocation)
@@ -260,16 +260,19 @@ public class NetrixiAttackScript : MonoBehaviour
                         case 1:
                             if (EnemyManagerScript.enemy1Position == 6)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 6)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 6)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -278,16 +281,19 @@ public class NetrixiAttackScript : MonoBehaviour
                         case 2:
                             if (EnemyManagerScript.enemy1Position == 7)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 7)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 7)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -296,16 +302,19 @@ public class NetrixiAttackScript : MonoBehaviour
                         case 3:
                             if (EnemyManagerScript.enemy1Position == 8)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 8)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 8)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -314,16 +323,19 @@ public class NetrixiAttackScript : MonoBehaviour
                         case 4:
                             if (EnemyManagerScript.enemy1Position == 9)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 9)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 0)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -332,16 +344,19 @@ public class NetrixiAttackScript : MonoBehaviour
                         case 5:
                             if (EnemyManagerScript.enemy1Position == 10)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 10)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 10)
                             {
+                                // TODO: Play Netrixi Lightning animation
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -413,7 +428,7 @@ public class NetrixiAttackScript : MonoBehaviour
         {
             enemy1Sprite = sr1.sprite;
             
-            // Play transformation animation
+            // TODO: Play Netrixi Transmutate animation
 
             enemy1Transform = transformAnimal;
             enemy1Transformed = true;
@@ -425,7 +440,7 @@ public class NetrixiAttackScript : MonoBehaviour
         {
             enemy2Sprite = sr2.sprite;
             
-            // Play transformation animation
+            // TODO: Play Netrixi Transmutate animation
 
             enemy2Transform = transformAnimal;
             enemy2Transformed = true;
@@ -437,7 +452,7 @@ public class NetrixiAttackScript : MonoBehaviour
         {
             enemy3Sprite = sr3.sprite;
             
-            // Play transformation animation
+            // TODO: Play Netrixi Transmutate animation
 
             enemy3Transform = transformAnimal;
             enemy3Transformed = true;

@@ -93,12 +93,12 @@ public class IvAttackScript : MonoBehaviour
             // Iv's Block
             if (playerAttack == 7)
             {
+                // TODO: Play Iv Block animation
+                
                 AttackScript.delayRate = DamageValues.blockDelay;
 
                 blocking = true;
                 tempBlock = AttackScript.enemyAttack;
-                
-                // TODO: Play Iv block animation
             }
             
             
@@ -140,7 +140,7 @@ public class IvAttackScript : MonoBehaviour
                         // If Netrixi is below her starting HP
                         if (CombatManagerScript.netrixiHP < HealthValues.netrixiHP)
                         {
-                            // TODO: Play Iv heal animation
+                            // TODO: Play Iv Heal animation
                             int temp = CalculateMissingHealth(CombatManagerScript.netrixiHP, HealthValues.netrixiHP, damageValue);
                             DamageValues.ChangeHealDelay(temp, 0);
                             
@@ -159,7 +159,7 @@ public class IvAttackScript : MonoBehaviour
                         // If Folkvar is below his starting HP
                         if (CombatManagerScript.folkvarHP < HealthValues.folkvarHP)
                         {
-                            // TODO: Play Iv heal animation
+                            // TODO: Play Iv Heal animation
                             int temp = CalculateMissingHealth(CombatManagerScript.folkvarHP, HealthValues.folkvarHP, damageValue);
                             DamageValues.ChangeHealDelay(temp, 0);
                             
@@ -178,7 +178,7 @@ public class IvAttackScript : MonoBehaviour
                         // If Iv is below her starting HP
                         if (CombatManagerScript.ivHP < HealthValues.ivHP)
                         {
-                            // TODO: Play Iv heal animation
+                            // TODO: Play Iv Heal animation
                             int temp = CalculateMissingHealth(CombatManagerScript.ivHP, HealthValues.ivHP, damageValue);
                             DamageValues.ChangeHealDelay(temp, 0);
 
@@ -201,6 +201,8 @@ public class IvAttackScript : MonoBehaviour
             // Iv's Empower
             if (playerAttack == 9)
             {
+                // TODO: Play Iv Empower animation
+                
                 AttackScript.delayRate = DamageValues.empowerDelay;
                 
                 empowered = true;
@@ -211,8 +213,7 @@ public class IvAttackScript : MonoBehaviour
                 else DetermineDamageBoost(CombatManagerScript.target2Location);
                 
                 
-                // TODO: Fix Empower-Counter interaction
-                // TODO: Play Iv empower animation
+                // TODO: Finish Empower-Counter interaction
             }
         }
     }
