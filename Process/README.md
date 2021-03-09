@@ -12,7 +12,7 @@
 - A future addition to the game could be an “Editor” mode, where players can adjust whatever stats they like (within reason) to tweak the game’s difficulty to their preferences
 - Speaking of difficulty, another future addition could be the option to change the difficulty of the game, amping up Enemy health and damage, and decreasing all of your character’s health in a “Legendary Quest” mode.
 - Here's an image of my "To-Do List" while I was working on Combat. To keep track of everything that needed to be done while developing this Combat system over a couple weeks, I would jot down a quick note with keywords to spark my memory.
-![to-do list](PXL_20210309_144957556 (2).jpg)
+![to-do list](./directory_1/directory_2/.../directory_n/PXL_20210309_144957556(2).jpg)
 
 
 # 3/02/2021 Update
