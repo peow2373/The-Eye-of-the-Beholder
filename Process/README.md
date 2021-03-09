@@ -1,6 +1,13 @@
+# 3/08/2021 Update
+![image](https://user-images.githubusercontent.com/60019866/110398298-d1b4ba80-8030-11eb-8b0e-cce8c7e02eb0.png)
+- First attempt at background images - good try
+![road](https://user-images.githubusercontent.com/60019866/110398874-007f6080-8032-11eb-9835-f2c7cd7b1d33.jpg)
+- Temporary playtest instructions completed
+- music implemented
+- combat mechanics complete
+
 # 3/02/2021 Update
 ![image](https://user-images.githubusercontent.com/60019866/109730432-b2bcb100-7b76-11eb-99b3-d459349cb2a8.png)
-
 
 # 2/28/2021 Update
 ![image](https://user-images.githubusercontent.com/60019866/109727546-c580b700-7b71-11eb-8cfb-3bbde4fa7213.png)
