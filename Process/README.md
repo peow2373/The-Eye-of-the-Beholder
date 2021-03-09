@@ -4,7 +4,14 @@
 ![road](https://user-images.githubusercontent.com/60019866/110398874-007f6080-8032-11eb-9835-f2c7cd7b1d33.jpg)
 - Temporary playtest instructions completed
 - music implemented
-- combat mechanics complete
+
+- All Enemy Attacks are now completed! Combat mechanics are complete! (Except for the inevitable unforseen bug and additional changes made after feedback from playtests)
+- There are 19 different Enemy Attacks in total, each with their own programmed logic to determine which Enemy # is attacking, which Main Character is being attacked, how much damage is being dealt, over how long of a period of time, and how long this whole operation will take.
+- Iv has a counter ability, so I also had to program in the logic for every Enemy Attack being countered and reflected back at the attacking Enemy.
+- The variables for all character HPs, along with the damages very each of their attacks are stored in separate scripts to make it easy to change the values. 
+- A future addition to the game could be an “Editor” mode, where players can adjust whatever stats they like (within reason) to tweak the game’s difficulty to their preferences
+- Speaking of difficulty, another future addition could be the option to change the difficulty of the game, amping up Enemy health and damage, and decreasing all of your character’s health in a “Legendary Quest” mode.
+
 
 # 3/02/2021 Update
 ![image](https://user-images.githubusercontent.com/60019866/109730432-b2bcb100-7b76-11eb-99b3-d459349cb2a8.png)
