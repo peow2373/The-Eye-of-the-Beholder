@@ -11,6 +11,8 @@
 - The variables for all character HPs, along with the damages very each of their attacks are stored in separate scripts to make it easy to change the values. 
 - A future addition to the game could be an “Editor” mode, where players can adjust whatever stats they like (within reason) to tweak the game’s difficulty to their preferences
 - Speaking of difficulty, another future addition could be the option to change the difficulty of the game, amping up Enemy health and damage, and decreasing all of your character’s health in a “Legendary Quest” mode.
+- Here's an image of my "To-Do List" while I was working on Combat. To keep track of everything that needed to be done while developing this Combat system over a couple weeks, I would jot down a quick note with keywords to spark my memory.
+- ![to-do list](https://drive.google.com/file/d/19nV-5w6VWaV4UtHTlc3PJCMGsjdKhbGu/view?usp=sharing)
 
 
 # 3/02/2021 Update
