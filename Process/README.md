@@ -1,8 +1,8 @@
 # 3/16/2021 Update
 Progress
 ![image](https://user-images.githubusercontent.com/69484934/111389996-9856fd00-8677-11eb-9ff4-69fa5cbf7bb9.png)
-- 9/12 backgrounds complete
 ![image](https://user-images.githubusercontent.com/69484934/111390128-d3593080-8677-11eb-809d-0b29fef3ede3.png)
+- 9/12 backgrounds complete
 - Recruited a sound designer - Chandra Xu. She has a prototype song.
 - UI mockup. Some progress made
 
