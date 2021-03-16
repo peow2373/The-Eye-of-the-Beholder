@@ -10,29 +10,30 @@ Current glitches
 - Empty dialogue at the end of a scene- must use Go marker to go to next scene
 - End of pirate scene (Also throws object error)
 - End of castle scene
+- Some Choice options are deleted before being detected (Does not affect gameplay)
 
 TODO (Hunter)
 - Write Jester dialogue
 - Starting Joke: Well Hello! I am the King’s new jester! I’m the old jester’s replacement after he made a bad joke… His execution was terrible!
 - Netrixi Joke: What do you learn in witch school? Spelling!
 - Folkvar Joke: Which one of Lord Arthur’s knights invented the round table- Sir Cumference.
-- Iv Joke: “Why are monks bad at trigonometry?... They don’t sin”
+- Iv Joke: “Why are monks bad at trigonometry?... They don’t sin.”
 
-- Fix backgrounds
+TODO (Perry)
+- Finish UI
+- Start making attack Animations
+
+Fix backgrounds
   - Overlapping tree on foreground
-  - Ground of tavern 
-  - Change “Beer Mugs” in Tavern
   - Castle
   - Change “Mona Lisa” in Throne Room
   - Left column is just floating in the “Tunnel Entrance” scene
   - Split “Cell” background into two layers so Bo can be locked behind bars (One with cage, one without)
+  - 
 - If Possible, animate:
   - torches in Cell scene 
   - Lava in volcano scene
   - Water in the Tunnel Entrance scene
-
-TODO (Perry)
-- Finish UI
 
 
 
