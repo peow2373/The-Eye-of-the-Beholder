@@ -1,3 +1,41 @@
+# 3/16/2021 Update
+Progress
+![image](https://user-images.githubusercontent.com/69484934/111389996-9856fd00-8677-11eb-9ff4-69fa5cbf7bb9.png)
+- 9/12 backgrounds complete
+![image](https://user-images.githubusercontent.com/69484934/111390128-d3593080-8677-11eb-809d-0b29fef3ede3.png)
+- Recruited a sound designer - Chandra Xu. She has a prototype song.
+- UI mockup. Some progress made
+
+Current glitches
+- Empty dialogue at the end of a scene- must use Go marker to go to next scene
+- End of pirate scene (Also throws object error)
+- End of castle scene
+
+TODO (Hunter)
+- Write Jester dialogue
+- Starting Joke: Well Hello! I am the King’s new jester! I’m the old jester’s replacement after he made a bad joke… His execution was terrible!
+- Netrixi Joke: What do you learn in witch school? Spelling!
+- Folkvar Joke: Which one of Lord Arthur’s knights invented the round table- Sir Cumference.
+- Iv Joke: “Why are monks bad at trigonometry?... They don’t sin”
+
+- Fix backgrounds
+  - Overlapping tree on foreground
+  - Ground of tavern 
+  - Change “Beer Mugs” in Tavern
+  - Castle
+  - Change “Mona Lisa” in Throne Room
+  - Left column is just floating in the “Tunnel Entrance” scene
+  - Split “Cell” background into two layers so Bo can be locked behind bars (One with cage, one without)
+- If Possible, animate:
+  - torches in Cell scene 
+  - Lava in volcano scene
+  - Water in the Tunnel Entrance scene
+
+TODO (Perry)
+- Finish UI
+
+
+
 # 3/08/2021 Update
 ![image](https://user-images.githubusercontent.com/60019866/110398298-d1b4ba80-8030-11eb-8b0e-cce8c7e02eb0.png)
 - First attempt at background images - good try
@@ -12,6 +50,13 @@
 - A future addition to the game could be an “Editor” mode, where players can adjust whatever stats they like (within reason) to tweak the game’s difficulty to their preferences
 - Speaking of difficulty, another future addition could be the option to change the difficulty of the game, amping up Enemy health and damage, and decreasing all of your character’s health in a “Legendary Quest” mode.
 
+Sponsor Meeting Notes
+- Finally at the point where the core of the game is built so we can see much more progress quickly.
+- Peter thinks that having enemy moves show will be a more pleasurable gameplay experience.
+- Use itch.io as a platform to host the game.
+- For the backgrounds, use a limited color pallet. Trace over existing pics and make it look 8-bit so character sprites to clash with backgrounds.
+- We have to establish and standardize the size of the cam window (as well as everything else is the UI).
+- Peter recommended building an unfinished version of the game to see if the Beholder software “Always On Top” was compatible with a built version of the game. Turns out, it is, so we do not have to worry about this issue beyond the developmental stages. 
 
 # 3/02/2021 Update
 ![image](https://user-images.githubusercontent.com/60019866/109730432-b2bcb100-7b76-11eb-99b3-d459349cb2a8.png)
@@ -51,6 +96,14 @@
 - Combat updates: Movement capabilities, divided characters so they can be attacked individually, 10 movement squares(5 for player, 5 for enemy), Combat demo including enemies
 - Controls will flip appropriately for right/left handed people
 - Standardized print-out marker PDF: https://drive.google.com/file/d/1cue_JRZ3DOzhVpq44rmmakOAL3Wf-c8K/view?usp=sharing
+
+Sponsor Meeting Notes
+- Peter can help out with Inky.
+- Unity and Beholder are probably going to be independently downloaded from each other. 2 programs will be running at once. We will leave space for the window in the UI.
+- We discovered that making certain hand gestures felt unintuitive because the webcam was acting as a mirror that swapped the left and right directions. To fix this, we asked Peter to implement a “Flip Webcam” feature.
+- Tested having the Beholder game window “Always On Top”. This caused issues with the Unity editor, as it was unable to detect keyboard inputs with the Beholder software always loading as the topmost screen.
+- Decided that Peter would look into solutions for this before the next meeting.
+
 
 # 2/9/2021 Update
 
