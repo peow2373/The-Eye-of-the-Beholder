@@ -14,9 +14,9 @@ Current glitches
 
 TODO (Hunter)
 - Write Jester dialogue
-- Starting Joke: Well Hello! I am the King’s new jester! I’m the old jester’s replacement after he made a bad joke… His execution was terrible!
-- Netrixi Joke: What do you learn in witch school? Spelling!
-- Folkvar Joke: Which one of Lord Arthur’s knights invented the round table- Sir Cumference.
+- Starting Joke: Well Hello! I am the King’s new jester! I’m the old jester’s replacement after he made a bad joke... His execution was terrible!
+- Netrixi Joke: What do you learn in witch school?... Spelling!
+- Folkvar Joke: Which one of Lord Arthur’s knights invented the round table?... Sir Cumference.
 - Iv Joke: “Why are monks bad at trigonometry?... They don’t sin.”
 
 TODO (Perry)
