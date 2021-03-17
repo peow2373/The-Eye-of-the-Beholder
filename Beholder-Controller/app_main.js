@@ -11,7 +11,7 @@ function createWindow() {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     
-    //alwaysOnTop: true,
+    alwaysOnTop: true,
     
     x : 5, // xOffset from where the window is loaded
     y : 5, // yOffset from where the window is loaded
@@ -147,13 +147,9 @@ ipcMain.on("9_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.C)});
 
 // Key presses based on rotation of palm marker
 
-// Starting position right (K)
+// Starting position rightHanded (K)
 ipcMain.on("K_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.K)});
 ipcMain.on("K_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.K)});
-
-// Extreme left (L)
-ipcMain.on("L_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.L)});
-ipcMain.on("L_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.L)});
 
 // Left (G)
 ipcMain.on("G_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.G)});
@@ -167,11 +163,11 @@ ipcMain.on("B_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.B)});
 ipcMain.on("T_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.T)});
 ipcMain.on("T_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.T)});
 
-// Extreme right (R)
+// End (R)
 ipcMain.on("R_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.R)});
 ipcMain.on("R_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.R)});
 
-// Starting position (J)
+// Starting position leftHanded (J)
 ipcMain.on("J_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.J)});
 ipcMain.on("J_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.J)});
 
