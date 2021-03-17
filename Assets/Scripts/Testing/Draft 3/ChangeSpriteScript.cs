@@ -55,22 +55,22 @@ public class ChangeSpriteScript : MonoBehaviour
             
             
             case "Skull Grunt Melee":
-                ResizeCharacter(2);
+                ResizeCharacter(3);
                 sr.sprite = skullMelee;
                 break;
             
             case "Skull Grunt Ranged":
-                ResizeCharacter(1);
+                ResizeCharacter(2);
                 sr.sprite = skullRanged;
                 break;
             
             case "Kaz 1":
-                ResizeCharacter(3);
+                ResizeCharacter(4);
                 sr.sprite = kaz1;
                 break;
             
             case "Kaz 2":
-                ResizeCharacter(3);
+                ResizeCharacter(4);
                 sr.sprite = kaz2;
                 break;
             
@@ -106,12 +106,12 @@ public class ChangeSpriteScript : MonoBehaviour
             
             
             case "Skull King":
-                ResizeCharacter(4);
+                ResizeCharacter(5);
                 sr.sprite = skullKing;
                 break;
             
             case "Royal King":
-                ResizeCharacter(4);
+                ResizeCharacter(5);
                 sr.sprite = evilKing;
                 break;
         }

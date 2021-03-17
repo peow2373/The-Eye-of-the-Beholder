@@ -5,13 +5,19 @@ using UnityEngine;
 
 public class CombatSimulationScript : MonoBehaviour
 {
-    private static float moveDelay = 1f;
+    private static float moveDelay = DamageValues.standardDelay;
     public static float attack1Delay, attack2Delay;
 
     public static bool didPlayerMove1 = false, didPlayerMove2 = false;
     public static bool didEnemyMove1 = false, didEnemyMove2 = false;
 
+    public static string playerAttacker1, playerAttacker2;
     public static int enemyAttacker1 = 0, enemyAttacker2 = 0;
+
+    public static int playerAttack1Target = 0, playerAttack2Target = 0;
+    public static string enemyAttack1Target, enemyAttack2Target;
+
+    public static string enemy1stAttack, enemy2ndAttack;
 
     public IEnumerator RunSimulation(int playerFirstAttack, int playerSecondAttack, string enemyFirstAttack, string enemySecondAttack, GameObject runner)
     {
@@ -41,23 +47,44 @@ public class CombatSimulationScript : MonoBehaviour
             AttackScript.PlayerAttack(playerFirstAttack, 1);
             CombatManagerScript.playerAttacking1 = true;
             
-                AttackScript.enemyAttack = !AttackScript.enemyAttack;
+                // TODO: Play Player attack 1 animation
+                PlayerAttackAnimation(playerAttacker1, playerAttack1Target);
 
-            // Wait for attack animation to play
-            yield return new WaitForSecondsRealtime(attack1Delay);
+                //print(playerAttacker1 + ", " + playerAttack1Target);
         }
+        else attack1Delay = 0;
+
+        AttackScript.enemyAttack = !AttackScript.enemyAttack;
+
+        CombatManagerScript.netrixiTarget1Location = 0;
+        CombatManagerScript.folkvarTarget1Location = 0;
         
+        // Wait for attack animation to play
+        yield return new WaitForSecondsRealtime(attack1Delay);
+        
+            
         // Check to see what the enemy's first attack is
         if (!didEnemyMove1)
         {
-            AttackScript.EnemyAttack(enemyFirstAttack, 1, enemyAttacker1);
+            DetermineEnemy(enemyFirstAttack, 1);
+
+            AttackScript.EnemyAttack(enemy1stAttack, 1, enemyAttacker1);
             CombatManagerScript.enemyAttacking1 = true;
             
-                AttackScript.playerAttack = !AttackScript.playerAttack;
-            
-            // Wait for attack animation to play
-            yield return new WaitForSecondsRealtime(attack1Delay);
+                // TODO: Play Enemy attack 1 animation
+                EnemyAttackAnimation(enemyAttacker1, enemyAttack1Target);
+
+                //print(enemyAttacker1 + ", " + enemyAttack1Target);
         }
+        else attack1Delay = 0;
+        
+        AttackScript.playerAttack = !AttackScript.playerAttack;
+
+        EnemyManagerScript.attack1Location = 0;
+        EnemyManagerScript.attack1Location2 = 0;
+
+        // Wait for attack animation to play
+        yield return new WaitForSecondsRealtime(attack1Delay);
 
 
         
@@ -82,23 +109,44 @@ public class CombatSimulationScript : MonoBehaviour
             AttackScript.PlayerAttack(playerSecondAttack, 2);
             CombatManagerScript.playerAttacking2 = true;
             
-                AttackScript.enemyAttack = !AttackScript.enemyAttack;
-
-            // Wait for attack animation to play
-            yield return new WaitForSecondsRealtime(attack2Delay);
+                // TODO: Play Player attack 2 animation
+                PlayerAttackAnimation(playerAttacker2, playerAttack2Target);
+            
+                //print(playerAttacker2 + ", " + playerAttack2Target);
         }
+        else attack2Delay = 0;
+        
+        AttackScript.enemyAttack = !AttackScript.enemyAttack;
+        
+        CombatManagerScript.netrixiTarget2Location = 0;
+        CombatManagerScript.folkvarTarget2Location = 0;
 
+        // Wait for attack animation to play
+        yield return new WaitForSecondsRealtime(attack2Delay);
+
+            
         // Check to see what the enemy's second attack is
         if (!didEnemyMove2)
         {
-            AttackScript.EnemyAttack(enemySecondAttack, 2, enemyAttacker2);
-            CombatManagerScript.enemyAttacking2 = true;
+            DetermineEnemy(enemySecondAttack, 2);
 
-                AttackScript.playerAttack = !AttackScript.playerAttack;
+            AttackScript.EnemyAttack(enemy2ndAttack, 2, enemyAttacker2);
+            CombatManagerScript.enemyAttacking2 = true;
             
-            // Wait for attack animation to play
-            yield return new WaitForSecondsRealtime(attack2Delay);
+                // TODO: Play Enemy attack 2 animation
+                EnemyAttackAnimation(enemyAttacker2, enemyAttack2Target);
+
+                //print(enemyAttacker2 + ", " + enemyAttack2Target);
         }
+        else attack2Delay = 0;
+
+        AttackScript.playerAttack = !AttackScript.playerAttack;
+        
+        EnemyManagerScript.attack2Location = 0;
+        EnemyManagerScript.attack2Location2 = 0;
+
+        // Wait for attack animation to play
+        yield return new WaitForSecondsRealtime(attack2Delay);
 
 
         
@@ -107,6 +155,9 @@ public class CombatSimulationScript : MonoBehaviour
         // Reset variables once simulation is finished
         CombatManagerScript.firstAttack = 0;
         CombatManagerScript.secondAttack = 0;
+
+        EnemyManagerScript.previousFirstAttack = enemyFirstAttack;
+        EnemyManagerScript.previousSecondAttack = enemySecondAttack;
 
         NetrixiCombatScript.ResetNetrixiVariables();
         FolkvarCombatScript.ResetFolkvarVariables();
@@ -162,8 +213,6 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
-                
-                AttackScript.enemyAttack = !AttackScript.enemyAttack;
             }
         }
         
@@ -183,8 +232,6 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
-                
-                AttackScript.enemyAttack = !AttackScript.enemyAttack;
             }
         }
         
@@ -204,8 +251,6 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
-                
-                AttackScript.enemyAttack = !AttackScript.enemyAttack;
             }
         }
     }
@@ -214,7 +259,7 @@ public class CombatSimulationScript : MonoBehaviour
     public static void CheckForEnemyMovement(string enemyAttack, int attackNumber)
     {
         // Enemy Characters
-        if (enemyAttack == "Enemy 1 Moves Left" || enemyAttack == "Enemy 1 Moves Right")
+        if (enemyAttack == "Enemy 1-Moves Left" || enemyAttack == "Enemy 1-Moves Right")
         {
             if (CombatManagerScript.enemy1Alive)
             {
@@ -230,12 +275,10 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
-                
-                AttackScript.playerAttack = !AttackScript.playerAttack;
             }
         }
         
-        if (enemyAttack == "Enemy 2 Moves Left" || enemyAttack == "Enemy 2 Moves Right")
+        if (enemyAttack == "Enemy 2-Moves Left" || enemyAttack == "Enemy 2-Moves Right")
         {
             if (CombatManagerScript.enemy2Alive)
             {
@@ -251,12 +294,10 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
-                
-                AttackScript.playerAttack = !AttackScript.playerAttack;
             }
         }
         
-        if (enemyAttack == "Enemy 3 Moves Left" || enemyAttack == "Enemy 3 Moves Right")
+        if (enemyAttack == "Enemy 3-Moves Left" || enemyAttack == "Enemy 3-Moves Right")
         {
             if (CombatManagerScript.enemy3Alive)
             {
@@ -272,16 +313,278 @@ public class CombatSimulationScript : MonoBehaviour
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
-                
-                AttackScript.playerAttack = !AttackScript.playerAttack;
+            }
+        }
+        
+        string enemyChoice;
+
+        string[] splitArray =  enemyAttack.Split(char.Parse("-"));
+        enemyChoice = splitArray[1];
+        
+
+        // If the enemy blocks the player's incoming attack
+        if (enemyChoice == "Blocks")
+        {
+            if (attackNumber == 1)
+            {
+                DetermineEnemy(enemyAttack, 1);
+
+                AttackScript.EnemyAttack(enemy1stAttack, 1, enemyAttacker1);
+                CombatManagerScript.enemyAttacking1 = true;
+            
+                    // TODO: Play Enemy attack 1 animation
+                    EnemyAttackAnimation(enemyAttacker1, enemyAttack1Target);
+
+                //print(enemyAttacker1 + ", " + enemyAttack1Target);
+
+                didEnemyMove1 = true;
+            }
+            else
+            {
+                DetermineEnemy(enemyAttack, 2);
+
+                AttackScript.EnemyAttack(enemy2ndAttack, 2, enemyAttacker2);
+                CombatManagerScript.enemyAttacking2 = true;
+            
+                // TODO: Play Enemy attack 2 animation
+                EnemyAttackAnimation(enemyAttacker2, enemyAttack2Target);
+
+                //print(enemyAttacker2 + ", " + enemyAttack2Target);
+
+                didEnemyMove2 = true;
             }
         }
     }
 
 
 
-    public static void DetermineEnemy()
+    public static void DetermineEnemy(string attack, int attackNumber)
     {
-        // TODO: Determine enemy name from attack1 and attack2
+        string enemyName, enemyAttack;
+        
+        string[] splitArray =  attack.Split(char.Parse("-"));
+        enemyName = splitArray[0];
+        enemyAttack = splitArray[1];
+        
+        
+        // Determine position of the enemy based on their name 
+        switch (enemyName)
+        {
+            case "Pirate":
+                if (attackNumber == 1) enemyAttacker1 = 1;
+                else enemyAttacker2 = 1;
+                break;
+            
+            case "Folkvar":
+                if (attackNumber == 1) enemyAttacker1 = 1;
+                else enemyAttacker2 = 1;
+                break;
+            
+            case "Royal Knight Melee":
+                if (GameManagerScript.currentScene == 4)
+                {
+                    if (attackNumber == 1) enemyAttacker1 = 2;
+                    else enemyAttacker2 = 2;
+                }
+                else
+                {
+                    if (attackNumber == 1) enemyAttacker1 = 1;
+                    else enemyAttacker2 = 1;
+                }
+                break;
+            
+            case "Royal Knight Ranged":
+                if (attackNumber == 1) enemyAttacker1 = 2;
+                else enemyAttacker2 = 2;
+                break;
+            
+            case "Skull Grunt Melee":
+                if (attackNumber == 1) enemyAttacker1 = 1;
+                else enemyAttacker2 = 1;
+                break;
+            
+            case "Skull Grunt Ranged":
+                if (attackNumber == 1) enemyAttacker1 = 2;
+                else enemyAttacker2 = 2;
+                break;
+            
+            case "Tavern Brute":
+                if (attackNumber == 1) enemyAttacker1 = 1;
+                else enemyAttacker2 = 1;
+                break;
+            
+            case "Barkeeper":
+                if (attackNumber == 1) enemyAttacker1 = 2;
+                else enemyAttacker2 = 2;
+                break;
+            
+            case "Gatekeeper":
+                if (attackNumber == 1) enemyAttacker1 = 3;
+                else enemyAttacker2 = 3;
+                break;
+            
+            case "Kaz 1":
+                if (attackNumber == 1) enemyAttacker1 = 3;
+                else enemyAttacker2 = 3;
+                break;
+            
+            case "Kaz 2":
+                if (attackNumber == 1) enemyAttacker1 = 3;
+                else enemyAttacker2 = 3;
+                break;
+            
+            case "Royal Guard 1":
+                if (attackNumber == 1) enemyAttacker1 = 1;
+                else enemyAttacker2 = 1;
+                break;
+            
+            case "Royal Guard 2":
+                if (attackNumber == 1) enemyAttacker1 = 2;
+                else enemyAttacker2 = 2;
+                break;
+            
+            case "Skull King":
+                if (attackNumber == 1) enemyAttacker1 = 3;
+                else enemyAttacker2 = 3;
+                break;
+            
+            case "Royal King":
+                if (attackNumber == 1) enemyAttacker1 = 3;
+                else enemyAttacker2 = 3;
+                break;
+        }
+
+        if (attackNumber == 1) enemy1stAttack = enemyAttack;
+        else enemy2ndAttack = enemyAttack;
+    }
+
+
+    public static void PlayerAttackAnimation(string character, int targetEnemy)
+    {
+        // TODO: Animate Player attacks
+        
+        switch (targetEnemy)
+        {
+            case 0:
+                // Attack no enemies
+                break;
+            
+            case 1:
+                // Attack Enemy 1
+                break;
+            
+            case 2:
+                // Attack Enemy 2
+                break;
+            
+            case 3:
+                // Attack Enemy 3
+                break;
+            
+            case 4:
+                // Attack Enemies 1 + 2
+                break;
+            
+            case 5:
+                // Attack Enemies 2 + 3
+                break;
+            
+            case 6:
+                // Attack Enemies 1 + 3
+                break;
+            
+            case 7:
+                // Attack All Enemies
+                break;
+            
+            case 8:
+                // Affect Netrixi
+                break;
+            
+            case 9:
+                // Affect Folkvar
+                break;
+            
+            case 10:
+                // Affect Iv
+                break;
+            
+            case 11: 
+                // Affect Everyone
+                break;
+        }
+    }
+
+
+    public static void EnemyAttackAnimation(int enemyNumber, string targetOfEnemy)
+    {
+        // TODO: Animate Enemy attacks
+        
+        switch (targetOfEnemy)
+        {
+            case "Netrixi":
+                // Attack Netrixi
+                break;
+            
+            case "Folkvar":
+                // Attack Folkvar
+                break;
+            
+            case "Iv":
+                // Attack Iv
+                break;
+            
+            case "All":
+                // Attack everyone
+                break;
+            
+            case "None":
+                // Attack no one
+                break;
+            
+            case "Folkvar + Iv":
+                // Attack Folkvar + Iv
+                break;
+            
+            case "Netrixi + Iv":
+                // Attack Netrixi + Iv
+                break;
+            
+            case "Folkvar + Netrixi":
+                // Attack Folkvar + Netrixi
+                break;
+            
+            case "Brute":
+                // Attack Brute
+                break;
+            
+            case "Enemy 1":
+                // Affect Enemy 1
+                break;
+            
+            case "Enemy 2":
+                // Affect Enemy 2
+                break;
+            
+            case "Enemy 3":
+                // Affect Enemy 3
+                break;
+            
+            case "All Enemies":
+                // Affect all Enemies
+                break;
+            
+            case "Everyone":
+                // Affect everyone
+                break;
+        }
+        
+        
+        // TODO: Animate countered Enemy attacks
+
+        if (AttackScript.countered)
+        {
+            
+        }
     }
 }

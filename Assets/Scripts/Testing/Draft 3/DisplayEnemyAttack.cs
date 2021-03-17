@@ -84,72 +84,72 @@ public class DisplayEnemyAttack : MonoBehaviour
         switch (tempMove)
         {
             // Royal Knight Melee
-            case "Royal Knight Swings Sword":
+            case "Royal Knight Melee-Swings Sword":
                 attackText = "Swing Sword";
                 sr.sprite = knightMelee;
                 break;
-            case "Royal Knight Blocks":
+            case "Royal Knight Melee-Blocks":
                 attackText = "Block";
                 sr.sprite = knightMelee;
                 break;
             
             // Folkvar
-             case "Folkvar Swings Sword":
+             case "Folkvar-Swings Sword":
                  attackText = "Swing Sword";
                  sr.sprite = folkvar;
                  break;
-             case "Folkvar Smites":
+             case "Folkvar-Smites":
                  attackText = "Smite";
                  sr.sprite = folkvar;
                  break;
              
              // Royal Knight Ranged
-             case "Royal Knight Shoots Arrow":
+             case "Royal Knight Ranged-Shoots Arrow":
                  attackText = "Shoot Arrow";
                  sr.sprite = knightRanged;
                  break;
-             case "Royal Knight Heals Team":
+             case "Royal Knight Ranged-Heals Team":
                  attackText = "Heal Team";
                  sr.sprite = knightRanged;
                  break;
 
             // Royal Gatekeeper
-             case "Gatekeeper's Dog Barks":
+             case "Gatekeeper-Dog Barks":
                  attackText = "Dog Barks";
                  sr.sprite = gatekeeper;
                  break;
-             case "Gatekeeper's Dog Bites": 
+             case "Gatekeeper-Dog Bites": 
                  attackText = "Dog Bites";
                  sr.sprite = gatekeeper;
                  break;
-             case "Gatekeeper Blocks":
+             case "Gatekeeper-Blocks":
                  attackText = "Block";
                  sr.sprite = gatekeeper;
                  break;
              
              
              // Royal Guards
-             case "Royal Guard 1 Swings Battle Axe":
+             case "Royal Guard 1-Swings Battle Axe":
                  attackText = "Swing Axe";
                  sr.sprite = royalGuard;
                  break;
-             case "Royal Guard 1 Performs a Grand Slam":
+             case "Royal Guard 1-Performs a Grand Slam":
                  attackText = "Grand Slam";
                  sr.sprite = royalGuard;
                  break;
-             case "Royal Guard 1 Blocks":
+             case "Royal Guard 1-Blocks":
                  attackText = "Block";
                  sr.sprite = royalGuard;
                  break;
-             case "Royal Guard 2 Swings Battle Axe":
+             case "Royal Guard 2-Swings Battle Axe":
                  attackText = "Swing Axe";
                  sr.sprite = royalGuard;
                  break;
-             case "Royal Guard 2 Performs a Grand Slam":
+             case "Royal Guard 2-Performs a Grand Slam":
                  attackText = "Grand Slam";
                  sr.sprite = royalGuard;
                  break;
-             case "Royal Guard 2 Blocks":
+             case "Royal Guard 2-Blocks":
                  attackText = "Block";
                  sr.sprite = royalGuard;
                  break;
@@ -157,90 +157,90 @@ public class DisplayEnemyAttack : MonoBehaviour
 
              
              // Enemy Skull Melee
-             case "Skull Grunt Slashes":
+             case "Skull Grunt Melee-Slashes":
                  attackText = "Swing Sword";
                  sr.sprite = skullMelee;
                  break;
-             case "Skull Grunt Blocks":
+             case "Skull Grunt Melee-Blocks":
                  attackText = "Block";
                  sr.sprite = skullMelee;
                  break;
              
              // Enemy Skull Ranged
-             case "Skull Grunt Shoots Arrow":
+             case "Skull Grunt Ranged-Shoots Arrow":
                  attackText = "Shoot Arrow";
                  sr.sprite = skullRanged;
                  break;
-             case "Skull Grunt Throws Bomb":
+             case "Skull Grunt Ranged-Throws Bomb":
                  attackText = "Throw Bomb";
                  sr.sprite = skullRanged;
                  break;
              
              
              // Kaz
-             case "Kaz 1 Shoots Arrow":
+             case "Kaz 1-Shoots Arrow":
                  attackText = "Shoot Arrow";
                  sr.sprite = kaz1;
                  break;
-             case "Kaz 1 Swings Battle Axe":
+             case "Kaz 1-Swings Battle Axe":
                  attackText = "Swing Axe";
                  sr.sprite = kaz1;
                  break;
-             case "Kaz 1 Performs a Grand Slam":
+             case "Kaz 1-Performs a Grand Slam":
                  attackText = "Grand Slam";
                  sr.sprite = kaz1;
                  break;
              
-            case "Kaz 2 Swings Battle Axe":
+            case "Kaz 2-Swings Battle Axe":
                 attackText = "Swing Axe";
                 sr.sprite = kaz2;
                 break;
-            case "Kaz 2 Performs a Grand Slam":
+            case "Kaz 2-Performs a Grand Slam":
                 attackText = "Grand Slam";
                 sr.sprite = kaz2;
                 break;
-            case "Kaz 2 Empowers both Teams":
+            case "Kaz 2-Empowers Both Teams":
                  attackText = "Empower";
                  sr.sprite = kaz2;
                  break;
-             case "Kaz 2 Blocks":
+             case "Kaz 2-Blocks":
                  attackText = "Block";
                  sr.sprite = kaz2;
                  break;
              
              
              // Skull King
-             case "Skull King Swings Mace":
+             case "Skull King-Swings Mace":
                  attackText = "Swing Mace";
                  sr.sprite = skullKing;
                  break;
-             case "Skull King Performs a Grand Slam":
+             case "Skull King-Performs a Grand Slam":
                  attackText = "Grand Slam";
                  sr.sprite = skullKing;
                  break;
-             case "Skull King Throws Bomb":
+             case "Skull King-Throws Bomb":
                  attackText = "Throw Bomb";
                  sr.sprite = skullKing;
                  break;
              
              // Royal King
-             case "Royal King Swings Mace":
+             case "Royal King-Swings Mace":
                  attackText = "Swing Mace";
                  sr.sprite = evilKing;
                  break;
-             case "Royal King Performs a Grand Slam":
+             case "Royal King-Performs a Grand Slam":
                  attackText = "Grand Slam";
                  sr.sprite = evilKing;
                  break;
-             case "Royal King Empowers his Team":
+             case "Royal King-Empowers His Team":
                  attackText = "Empower";
                  sr.sprite = evilKing;
                  break;
-             case "Royal King Heals his Team":
+             case "Royal King-Heals Team":
                  attackText = "Heal Team";
                  sr.sprite = evilKing;
                  break;
-             case "Royal King Casts a Shield":
+             case "Royal King-Blocks":
                  attackText = "Block";
                  sr.sprite = evilKing;
                  break;
@@ -248,33 +248,33 @@ public class DisplayEnemyAttack : MonoBehaviour
              
              
             // Pirate
-            case "Pirate Slashes":
+            case "Pirate-Slashes":
                 attackText = "Swing Sword";
                 sr.sprite = pirate;
                 break;
-            case "Pirate Throws Knife":
+            case "Pirate-Throws Knife":
                 attackText = "Throw Knife";
                 sr.sprite = pirate;
                 break;
             
             
             // Tavern Brute
-            case "Tavern Brute Smash":
+            case "Tavern Brute-Smashes":
                 attackText = "Smash";
                 sr.sprite = brute;
                 break;
-            case "Tavern Brute Throws Chair":
+            case "Tavern Brute-Throws Chair":
                 attackText = "Throw Chair";
                 sr.sprite = brute;
                 break;
             
             
             // Barkeeper
-            case "Barkeeper Punches You":
+            case "Barkeeper-Punches You":
                 attackText = "Punch You";
                 sr.sprite = barkeeper;
                 break;
-            case "Barkeeper Punches Tavern Brute": 
+            case "Barkeeper-Punches Tavern Brute": 
                 attackText = "Punch Brute";
                 sr.sprite = barkeeper;
                 break;
@@ -288,22 +288,22 @@ public class DisplayEnemyAttack : MonoBehaviour
     {
         if (attackNumber == 1)
         {
-            if (EnemyManagerScript.firstAttack == "Enemy 1 Moves Left" ||
-                EnemyManagerScript.firstAttack == "Enemy 1 Moves Right")
+            if (EnemyManagerScript.firstAttack == "Enemy 1-Moves Left" ||
+                EnemyManagerScript.firstAttack == "Enemy 1-Moves Right")
             {
                 DetermineEnemy(1);
                 firstAttackText = "Move";
             }
             
-            if (EnemyManagerScript.firstAttack == "Enemy 2 Moves Left" ||
-                EnemyManagerScript.firstAttack == "Enemy 2 Moves Right")
+            if (EnemyManagerScript.firstAttack == "Enemy 2-Moves Left" ||
+                EnemyManagerScript.firstAttack == "Enemy 2-Moves Right")
             {
                 DetermineEnemy(2);
                 firstAttackText = "Move";
             }
             
-            if (EnemyManagerScript.firstAttack == "Enemy 3 Moves Left" ||
-                EnemyManagerScript.firstAttack == "Enemy 3 Moves Right")
+            if (EnemyManagerScript.firstAttack == "Enemy 3-Moves Left" ||
+                EnemyManagerScript.firstAttack == "Enemy 3-Moves Right")
             {
                 DetermineEnemy(3);
                 firstAttackText = "Move";
@@ -312,22 +312,22 @@ public class DisplayEnemyAttack : MonoBehaviour
         
         if (attackNumber == 2)
         {
-            if (EnemyManagerScript.secondAttack == "Enemy 1 Moves Left" ||
-                EnemyManagerScript.secondAttack == "Enemy 1 Moves Right")
+            if (EnemyManagerScript.secondAttack == "Enemy 1-Moves Left" ||
+                EnemyManagerScript.secondAttack == "Enemy 1-Moves Right")
             {
                 DetermineEnemy(1);
                 secondAttackText = "Move";
             }
             
-            if (EnemyManagerScript.secondAttack == "Enemy 2 Moves Left" ||
-                EnemyManagerScript.secondAttack == "Enemy 2 Moves Right")
+            if (EnemyManagerScript.secondAttack == "Enemy 2-Moves Left" ||
+                EnemyManagerScript.secondAttack == "Enemy 2-Moves Right")
             {
                 DetermineEnemy(2);
                 secondAttackText = "Move";
             }
             
-            if (EnemyManagerScript.secondAttack == "Enemy 3 Moves Left" ||
-                EnemyManagerScript.secondAttack == "Enemy 3 Moves Right")
+            if (EnemyManagerScript.secondAttack == "Enemy 3-Moves Left" ||
+                EnemyManagerScript.secondAttack == "Enemy 3-Moves Right")
             {
                 DetermineEnemy(3);
                 secondAttackText = "Move";

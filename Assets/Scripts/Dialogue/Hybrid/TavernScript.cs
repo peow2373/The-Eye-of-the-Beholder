@@ -19,6 +19,10 @@ public class TavernScript : MonoBehaviour
     bool skipScene = false;
     bool max = false;
 
+    private int pastLocation;
+
+    private bool didMarkerDisappear;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +35,8 @@ public class TavernScript : MonoBehaviour
 
     void refreshUI()
     {
-
+        MarkerManagerScript.pastLocation = MarkerManagerScript.currentLocation;
+        
         eraseUI();
 
         Text storyText = Instantiate(textPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Text;
@@ -148,30 +153,63 @@ public class TavernScript : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Y))
                 {
                     story.ChooseChoiceIndex(0);
+                    GameWindowManager.metBrute = false;
                     refreshUI();
                 }
                 if (Input.GetKeyDown(KeyCode.O))
                 {
                     story.ChooseChoiceIndex(1);
+                    GameWindowManager.metBrute = false;
                     refreshUI();
                 }
             }
 
-            else 
+            else
             {
                 switch (MarkerManagerScript.currentLocation)
                 {
                     case 1:
                     case 4:
                     case 7:
-                        story.ChooseChoiceIndex(0);
-                        refreshUI();
+                        if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
+                        {
+                            story.ChooseChoiceIndex(0);
+                            GameWindowManager.metBrute = true;
+                            refreshUI();
+                        }
+                        else
+                        {
+                            if (MarkerManagerScript.palmMarker && didMarkerDisappear)
+                            {
+                                story.ChooseChoiceIndex(0);
+                                GameWindowManager.metBrute = true;
+                                refreshUI();
+                            }
+                        
+                            if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
+                        }
                         break;
+                
                     case 3:
                     case 6:
                     case 9:
-                        story.ChooseChoiceIndex(1);
-                        refreshUI();
+                        if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
+                        {
+                            story.ChooseChoiceIndex(1);
+                            GameWindowManager.metBrute = true;
+                            refreshUI();
+                        }
+                        else
+                        {
+                            if (MarkerManagerScript.palmMarker && didMarkerDisappear)
+                            {
+                                story.ChooseChoiceIndex(1);
+                                GameWindowManager.metBrute = true;
+                                refreshUI();
+                            }
+                        
+                            if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
+                        }
                         break;
                 }
             }

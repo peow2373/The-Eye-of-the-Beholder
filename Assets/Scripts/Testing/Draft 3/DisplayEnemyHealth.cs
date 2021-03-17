@@ -11,6 +11,8 @@ public class DisplayEnemyHealth : MonoBehaviour
 
     private Vector3 locationBefore, locationAfter;
 
+    private int[] heightDifference = new int[5] {125, 150, 175, 200, 225};
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,17 +74,17 @@ public class DisplayEnemyHealth : MonoBehaviour
     {
         if (enemyName == "Pirate")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 150f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[1], locationBefore.z);
         }
         
         if (enemyName == "Tavern Brute")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 200f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[3], locationBefore.z);
         }
         
         if (enemyName == "Barkeeper")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 150f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[2], locationBefore.z);
         }
         
         
@@ -90,27 +92,27 @@ public class DisplayEnemyHealth : MonoBehaviour
         
         if (enemyName == "Folkvar")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 200f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[3], locationBefore.z);
         }
         
         if (enemyName == "Royal Knight Melee")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 175f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[2], locationBefore.z);
         }
         
         if (enemyName == "Royal Knight Ranged")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 150f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[1], locationBefore.z);
         }
         
         if (enemyName == "Gatekeeper")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 175f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[2], locationBefore.z);
         }
         
         if (enemyName == "Royal Guard 1" || enemyName == "Royal Guard 2")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 175f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[3], locationBefore.z);
         }
         
         
@@ -118,22 +120,22 @@ public class DisplayEnemyHealth : MonoBehaviour
         
         if (enemyName == "Skull Grunt Melee")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 150f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[2], locationBefore.z);
         }
         
         if (enemyName == "Skull Grunt Ranged")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 125f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[1], locationBefore.z);
         }
         
         if (enemyName == "Kaz 1")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 150f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[3], locationBefore.z);
         }
         
         if (enemyName == "Kaz 2")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 175f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[3], locationBefore.z);
         }
         
         
@@ -141,12 +143,12 @@ public class DisplayEnemyHealth : MonoBehaviour
         
         if (enemyName == "Skull King")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 200f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[4], locationBefore.z);
         }
         
         if (enemyName == "Royal King")
         {
-            locationAfter = new Vector3(locationBefore.x, locationBefore.y + 200f, locationBefore.z);
+            locationAfter = new Vector3(locationBefore.x, locationBefore.y + heightDifference[4], locationBefore.z);
         }
     }
 }

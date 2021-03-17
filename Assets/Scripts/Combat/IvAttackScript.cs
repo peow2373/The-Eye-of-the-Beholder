@@ -12,7 +12,11 @@ public class IvAttackScript : MonoBehaviour
 
     public static float damageBoost = 1f;
 
-    public static bool canChangeBlock = true;
+    public static int playerTarget;
+
+    public static bool isBlocking, isEmpowering, isCountering;
+
+    public static bool attackedSinceEmpower = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,51 +27,98 @@ public class IvAttackScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If Iv is blocking
         if (blocking)
         {
             if (AttackScript.enemyAttack != tempBlock)
             {
-                if (canChangeBlock) AttackScript.enemyDamageModifier = DamageValues.blockedDamage;
+                if (!AttackScript.countered)
+                {
+                    if (!isBlocking)
+                    {
+                        AttackScript.enemyDamageModifier = DamageValues.blockedDamage;
+                        isBlocking = true;
+
+                        AttackScript.playerBlocking = true;
+                    }
+                }
             }
             else
             {
-                // Reset damage modifier
-                AttackScript.enemyDamageModifier = 1f;
+                AttackScript.playerBlocking = false;
                 blocking = false;
-                canChangeBlock = true;
-            }
-        }
-
-        if (!empowered)
-        {
-            if (AttackScript.playerAttack == tempEmpower)
-            {
-                if (!blocking)
+                
+                if (!AttackScript.enemyBlocking && !AttackScript.enemyEmpowering)
                 {
                     // Reset damage modifier
                     AttackScript.enemyDamageModifier = 1f;
-                    AttackScript.damageModifier = 1f;
                 }
             }
+        }
+        else
+        {
+            isBlocking = false;
+        }
+
+        // If Iv empowered an ability
+        if (!empowered)
+        {
+            if (AttackScript.playerAttack != tempEmpower)
+            {
+                if (attackedSinceEmpower)
+                {
+                    if (blocking)
+                    {
+                        if (!isCountering)
+                        {
+                            // Reflect attack back at enemy
+                            AttackScript.enemyDamageModifier = 1f;
+                            isCountering = true;
+                        
+                            AttackScript.countered = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (attackedSinceEmpower)
+                {
+                    AttackScript.countered = false;
+                    AttackScript.playerEmpowering = false;
+
+                    isCountering = false;
+
+                    attackedSinceEmpower = false;
+
+                    if (!AttackScript.enemyBlocking && !AttackScript.enemyEmpowering)
+                    {
+                        // Reset damage modifier
+                        AttackScript.enemyDamageModifier = 1f;
+                        AttackScript.damageModifier = 1f;
+                    }
+                }
+            }
+
+            isEmpowering = false;
         } 
         else 
         {
             if (AttackScript.playerAttack == tempEmpower)
             {
-                if (blocking)
-                {
-                    // Reflect attack back at enemy
-                    AttackScript.enemyDamageModifier = 0f;
-                    canChangeBlock = false;
-                }
-                else
+                if (!isEmpowering)
                 {
                     AttackScript.enemyDamageModifier = damageBoost;
                     AttackScript.damageModifier = damageBoost;
+                    
+                    isEmpowering = true;
+                    
+                    AttackScript.playerEmpowering = true;
                 }
             }
             else
             {
+                attackedSinceEmpower = true;
                 empowered = false;
             }
         }
@@ -76,7 +127,7 @@ public class IvAttackScript : MonoBehaviour
     
     public static void DoesIvAttack(int playerAttack, int attackNumber)
     {
-        if (!CombatManagerScript.ivAlive)
+        if (!CombatManagerScript.ivAlive || !CombatManagerScript.canIvAttack)
         {
             // Skip the attack
             if (attackNumber == 1) CombatSimulationScript.attack1Delay = DamageValues.standardDelay;
@@ -94,6 +145,7 @@ public class IvAttackScript : MonoBehaviour
             if (playerAttack == 7)
             {
                 // TODO: Play Iv Block animation
+                playerTarget = 0;
                 
                 AttackScript.delayRate = DamageValues.blockDelay;
 
@@ -109,27 +161,36 @@ public class IvAttackScript : MonoBehaviour
                 original = DamageValues.heal * AttackScript.damageModifier;
                 burnRate = DamageValues.healBurn;
                 int damageValue = (int) original;
-                
+
                 int lowestHP = 500;
                 int targetCharacter = 0;
 
                 // Determine which character has the lowest HP;
                 if (CombatManagerScript.netrixiAlive)
                 {
-                    targetCharacter = 1;
-                    lowestHP = CombatManagerScript.netrixiHP;
+                    if (CombatManagerScript.netrixiHP < HealthValues.netrixiHP)
+                    {
+                        targetCharacter = 1;
+                        lowestHP = CombatManagerScript.netrixiHP;
+                    }
                 }
                 if (CombatManagerScript.folkvarAlive)
                     if (CombatManagerScript.folkvarHP < lowestHP)
                     {
-                        targetCharacter = 2;
-                        lowestHP = CombatManagerScript.folkvarHP;
+                        if (CombatManagerScript.folkvarHP < HealthValues.folkvarHP)
+                        {
+                            targetCharacter = 2;
+                            lowestHP = CombatManagerScript.folkvarHP;
+                        }
                     }
                 if (CombatManagerScript.ivAlive)
                     if (CombatManagerScript.ivHP < lowestHP)
                     {
-                        targetCharacter = 3;
-                        lowestHP = CombatManagerScript.ivHP;
+                        if (CombatManagerScript.ivHP < HealthValues.ivHP)
+                        {
+                            targetCharacter = 3;
+                            lowestHP = CombatManagerScript.ivHP;
+                        }
                     }
 
 
@@ -141,8 +202,10 @@ public class IvAttackScript : MonoBehaviour
                         if (CombatManagerScript.netrixiHP < HealthValues.netrixiHP)
                         {
                             // TODO: Play Iv Heal animation
+                            playerTarget = 8;
+                            
                             int temp = CalculateMissingHealth(CombatManagerScript.netrixiHP, HealthValues.netrixiHP, damageValue);
-                            DamageValues.ChangeHealDelay(temp, 0);
+                            AttackScript.delayRate = (temp * burnRate) + DamageValues.standardDelay;
                             
                             HealthManagerScript.ChangeHealth("Netrixi", -temp, burnRate);
                             print("Heal Netrixi");
@@ -150,7 +213,7 @@ public class IvAttackScript : MonoBehaviour
                         else
                         {
                             print("Netrixi is already at full health!");
-                            DamageValues.healDelay = DamageValues.standardDelay;
+                            AttackScript.delayRate = DamageValues.standardDelay;
                         }
                         break;
                     
@@ -160,8 +223,10 @@ public class IvAttackScript : MonoBehaviour
                         if (CombatManagerScript.folkvarHP < HealthValues.folkvarHP)
                         {
                             // TODO: Play Iv Heal animation
+                            playerTarget = 9;
+                            
                             int temp = CalculateMissingHealth(CombatManagerScript.folkvarHP, HealthValues.folkvarHP, damageValue);
-                            DamageValues.ChangeHealDelay(temp, 0);
+                            AttackScript.delayRate = (temp * burnRate) + DamageValues.standardDelay;
                             
                             HealthManagerScript.ChangeHealth("Folkvar", -temp, burnRate);
                             print("Heal Folkvar");
@@ -169,7 +234,7 @@ public class IvAttackScript : MonoBehaviour
                         else
                         {
                             print("Folkvar is already at full health!");
-                            DamageValues.healDelay = DamageValues.standardDelay;
+                            AttackScript.delayRate = DamageValues.standardDelay;
                         }
                         break;
                     
@@ -179,8 +244,10 @@ public class IvAttackScript : MonoBehaviour
                         if (CombatManagerScript.ivHP < HealthValues.ivHP)
                         {
                             // TODO: Play Iv Heal animation
+                            playerTarget = 10;
+                            
                             int temp = CalculateMissingHealth(CombatManagerScript.ivHP, HealthValues.ivHP, damageValue);
-                            DamageValues.ChangeHealDelay(temp, 0);
+                            AttackScript.delayRate = (temp * burnRate) + DamageValues.standardDelay;
 
                             HealthManagerScript.ChangeHealth("Iv", -temp, burnRate);
                             print("Heal Iv");
@@ -188,12 +255,10 @@ public class IvAttackScript : MonoBehaviour
                         else
                         {
                             print("Iv is already at full health!");
-                            DamageValues.healDelay = DamageValues.standardDelay;
+                            AttackScript.delayRate = DamageValues.standardDelay;
                         }
                         break;
                 }
-                
-                AttackScript.delayRate = DamageValues.healDelay;
             }
 
 
@@ -202,6 +267,7 @@ public class IvAttackScript : MonoBehaviour
             if (playerAttack == 9)
             {
                 // TODO: Play Iv Empower animation
+                playerTarget = 11;
                 
                 AttackScript.delayRate = DamageValues.empowerDelay;
                 
@@ -211,10 +277,10 @@ public class IvAttackScript : MonoBehaviour
                 // Determine how much to increase the damage of the next attack by
                 if (attackNumber == 1) DetermineDamageBoost(CombatManagerScript.target1Location);
                 else DetermineDamageBoost(CombatManagerScript.target2Location);
-                
-                
-                // TODO: Finish Empower-Counter interaction
             }
+            
+            if (attackNumber == 1) CombatSimulationScript.playerAttack1Target = playerTarget;
+            else CombatSimulationScript.playerAttack2Target = playerTarget;
         }
     }
     
@@ -242,7 +308,7 @@ public class IvAttackScript : MonoBehaviour
     public static int CalculateMissingHealth(int currHP, int maxHP, float maxGainedHP)
     {
         int diffHP = maxHP - currHP;
-        int maxRecoveredHP = -(int) maxGainedHP;
+        int maxRecoveredHP = (int) maxGainedHP;
 
         
         

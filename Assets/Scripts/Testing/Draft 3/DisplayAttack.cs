@@ -135,7 +135,14 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen Iv's block
         if (CombatManagerScript.firstAttack == 7)
         {
-            playerChoice1.text = "Block";
+            if (AttackScript.countered)
+            {
+                playerChoice1.text = "Counter";
+            }
+            else
+            {
+                playerChoice1.text = "Block";
+            }
             playerAttack1.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;
@@ -296,7 +303,22 @@ public class DisplayAttack : MonoBehaviour
         // If player has chosen Iv's block
         if (CombatManagerScript.secondAttack == 7)
         {
-            playerChoice2.text = "Block";
+            if (AttackScript.countered)
+            {
+                playerChoice2.text = "Counter";
+            }
+            else
+            {
+                if (CombatManagerScript.firstAttack == 9)
+                {
+                    playerChoice2.text = "Counter";
+                }
+                else
+                {
+                    playerChoice2.text = "Block";
+                }
+            }
+            
             playerAttack2.color = Color.white;
             sr.enabled = true;
             sr.sprite = iv;

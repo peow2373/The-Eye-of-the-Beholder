@@ -68,6 +68,10 @@ public class HealthManagerScript : MonoBehaviour
             CombatManagerScript.enemy1HP = enemy1;
             CombatManagerScript.enemy2HP = enemy2;
             CombatManagerScript.enemy3HP = enemy3;
+            
+            CombatManagerScript.enemy1StartingHP = enemy1;
+            CombatManagerScript.enemy2StartingHP = enemy2;
+            CombatManagerScript.enemy3StartingHP = enemy3;
 
             hasChangedHealth = true;
         }

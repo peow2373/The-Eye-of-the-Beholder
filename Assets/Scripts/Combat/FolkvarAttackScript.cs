@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FolkvarAttackScript : MonoBehaviour
 {
+    public static int playerTarget;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,7 @@ public class FolkvarAttackScript : MonoBehaviour
     public static void DoesFolkvarAttack(int playerAttack, int attackNumber)
     {
         // Check if Folkvar is still alive
-        if (!CombatManagerScript.folkvarAlive)
+        if (!CombatManagerScript.folkvarAlive || !CombatManagerScript.canFolkvarAttack)
         {
             // Skip the attack
             if (attackNumber == 1) CombatSimulationScript.attack1Delay = DamageValues.standardDelay;
@@ -38,8 +40,8 @@ public class FolkvarAttackScript : MonoBehaviour
             {
                 original = DamageValues.swingSword * AttackScript.damageModifier;
                 burnRate = DamageValues.swingSwordBurn;
-                AttackScript.delayRate = DamageValues.swingSwordDelay;
                 int damageValue = (int) original;
+                AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
 
                 // Chance of a Critical Strike
                 int randomValue = UnityEngine.Random.Range(0, DamageValues.critChance);
@@ -48,6 +50,7 @@ public class FolkvarAttackScript : MonoBehaviour
                 if (CombatManagerScript.enemy1Alive)
                 {
                     // TODO: Play Folkvar Swing Sword animation
+                    playerTarget = 1;
                     
                     if (randomValue <= 1)
                     {
@@ -68,6 +71,7 @@ public class FolkvarAttackScript : MonoBehaviour
                     if (CombatManagerScript.enemy2Alive)
                     {
                         // TODO: Play Folkvar Swing Sword animation
+                        playerTarget = 2;
                         
                         if (randomValue <= 1)
                         {
@@ -88,6 +92,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         if (CombatManagerScript.enemy3Alive)
                         {
                             // TODO: Play Folkvar Swing Sword animation
+                            playerTarget = 3;
                             
                             if (randomValue <= 1)
                             {
@@ -113,13 +118,13 @@ public class FolkvarAttackScript : MonoBehaviour
             {
                 original = DamageValues.smite * AttackScript.damageModifier;
                 burnRate = DamageValues.smiteBurn;
-                AttackScript.delayRate = DamageValues.smiteDelay;
                 int damageValue = (int) original;
+                AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
 
                 int lowestEnemyHP = 500;
                 int targetEnemy = 0;
 
-                // Determine which enemy has the lowest HP;
+                // Determine which enemy has the lowest HP
                 if (CombatManagerScript.enemy1Alive)
                 {
                     targetEnemy = 1;
@@ -146,6 +151,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         if (lowestEnemyHP <= CombatManagerScript.enemy1StartingHP * DamageValues.executeThreshold)
                         {
                             // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 1;
                             
                             // Enemy is below the threshold for Execution
                             HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 2, burnRate);
@@ -155,6 +161,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         else
                         {
                             // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 1;
                             
                             // Enemy is not below the threshold for Execution
                             HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
@@ -166,6 +173,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         if (lowestEnemyHP <= CombatManagerScript.enemy2StartingHP * DamageValues.executeThreshold)
                         {
                             // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 2;
                             
                             // Enemy is below the threshold for Execution
                             HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
@@ -175,6 +183,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         else
                         {
                             // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 2;
                             
                             // Enemy is not below the threshold for Execution
                             HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
@@ -186,6 +195,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         if (lowestEnemyHP <= CombatManagerScript.enemy3StartingHP * DamageValues.executeThreshold)
                         {
                             // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 3;
                             
                             // Enemy is below the threshold for Execution
                             HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
@@ -195,6 +205,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         else
                         {
                             // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 3;
                             
                             // Enemy is not below the threshold for Execution
                             HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
@@ -210,8 +221,8 @@ public class FolkvarAttackScript : MonoBehaviour
             {
                 original = DamageValues.grandSlam * AttackScript.damageModifier;
                 burnRate = DamageValues.grandSlamBurn;
-                AttackScript.delayRate = DamageValues.grandSlamDelay;
                 int damageValue = (int) original;
+                AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
 
                 // If Enemy 1 is alive
                 if (CombatManagerScript.enemy1Alive)
@@ -229,6 +240,7 @@ public class FolkvarAttackScript : MonoBehaviour
                                 if (EnemyManagerScript.enemy2Position + 1 == EnemyManagerScript.enemy3Position)
                                 {
                                     // TODO: Play Folkvar Grand Slam animation
+                                    playerTarget = 7;
                                     
                                     // Attack Enemy 2 and deal splash damage to Enemies 1 + 3
                                     HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
@@ -238,6 +250,7 @@ public class FolkvarAttackScript : MonoBehaviour
                                 else
                                 {
                                     // TODO: Play Folkvar Grand Slam animation
+                                    playerTarget = 4;
                                     
                                     // Attack Enemy 1 and deal splash damage to Enemy 2
                                     HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
@@ -247,6 +260,7 @@ public class FolkvarAttackScript : MonoBehaviour
                             else
                             {
                                 // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 4;
                                     
                                 // Attack Enemy 1 and deal splash damage to Enemy 2
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
@@ -259,6 +273,7 @@ public class FolkvarAttackScript : MonoBehaviour
                             if (EnemyManagerScript.enemy2Position + 1 == EnemyManagerScript.enemy3Position)
                             {
                                 // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 5;
                                     
                                 // Attack Enemy 2 and deal splash damage to Enemy 3
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
@@ -267,6 +282,7 @@ public class FolkvarAttackScript : MonoBehaviour
                             else
                             {
                                 // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 1;
                                     
                                 // Attack Enemy 1 and deal no splash damage to other enemies
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
@@ -282,6 +298,7 @@ public class FolkvarAttackScript : MonoBehaviour
                             if (EnemyManagerScript.enemy1Position + 1 == EnemyManagerScript.enemy3Position)
                             {
                                 // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 6;
                                     
                                 // Attack Enemy 1 and deal splash damage to Enemy 3
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
@@ -290,6 +307,7 @@ public class FolkvarAttackScript : MonoBehaviour
                             else
                             {
                                 // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 1;
                                     
                                 // Attack Enemy 1 and deal no splash damage to other enemies
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
@@ -298,6 +316,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         else
                         {
                             // TODO: Play Folkvar Grand Slam animation
+                            playerTarget = 1;
                                     
                             // Attack Enemy 1 and deal no splash damage to other enemies
                             HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
@@ -315,6 +334,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         if (EnemyManagerScript.enemy2Position + 1 == EnemyManagerScript.enemy3Position)
                         {
                             // TODO: Play Folkvar Grand Slam animation
+                            playerTarget = 5;
                                     
                             // Attack Enemy 2 and deal splash damage to Enemy 3
                             HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
@@ -323,6 +343,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         else
                         {
                             // TODO: Play Folkvar Grand Slam animation
+                            playerTarget = 2;
                                     
                             // Attack Enemy 2 and deal no splash damage to other enemies
                             HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
@@ -331,12 +352,16 @@ public class FolkvarAttackScript : MonoBehaviour
                     else
                     {
                         // TODO: Play Folkvar Grand Slam animation
+                        playerTarget = 3;
                                     
                         // Attack Enemy 3 and deal no splash damage to other enemies
                         HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                     }
                 }
             }
+            
+            if (attackNumber == 1) CombatSimulationScript.playerAttack1Target = playerTarget;
+            else CombatSimulationScript.playerAttack2Target = playerTarget;
         }
     }
 }

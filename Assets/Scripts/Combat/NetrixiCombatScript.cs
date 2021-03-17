@@ -43,9 +43,6 @@ public class NetrixiCombatScript : MonoBehaviour
             {
                 // If player then moves hand close to the webcam
                 if (Input.GetKeyDown(KeyCode.N)) netrixiCondition1[1] = true;
-
-                // If player instead moves hand back to a resting position
-                else if (Input.GetKeyDown(KeyCode.M)) netrixiCondition1[0] = false;
             }
 
 
@@ -53,11 +50,19 @@ public class NetrixiCombatScript : MonoBehaviour
             // If player starts to rotate their hand first
             if (GameManagerScript.rightHanded)
             {
-                if (Input.GetKeyDown(KeyCode.K)) netrixiCondition2[0] = true;
+                if (Input.GetKeyDown(KeyCode.K))
+                {
+                    netrixiRotation = 1;
+                    netrixiCondition2[0] = true;
+                }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.J)) netrixiCondition2[0] = true;
+                if (Input.GetKeyDown(KeyCode.J))
+                {
+                    netrixiRotation = 1;
+                    netrixiCondition2[0] = true;
+                }
             }
             
             
@@ -66,9 +71,6 @@ public class NetrixiCombatScript : MonoBehaviour
                 // If player then rotates hand to desired location and locks in their choice
                 if (Input.GetKeyDown(KeyCode.V)) netrixiCondition2[1] = true;
                 
-                
-                // If player then rotates hand to the first zone
-                if (Input.GetKeyDown(KeyCode.L)) netrixiRotation = 1;
                 
                 // If player then rotates hand to the second zone
                 if (Input.GetKeyDown(KeyCode.G)) netrixiRotation = 2;
@@ -81,6 +83,9 @@ public class NetrixiCombatScript : MonoBehaviour
                 
                 // If player then rotates hand to the fifth zone
                 if (Input.GetKeyDown(KeyCode.R)) netrixiRotation = 5;
+                
+                if (CombatManagerScript.firstAttack == 0) CombatManagerScript.netrixiTarget1Location = 5 + netrixiRotation;
+                else CombatManagerScript.netrixiTarget2Location = 5 + netrixiRotation;
             }
             
             
@@ -97,15 +102,6 @@ public class NetrixiCombatScript : MonoBehaviour
                 
                     // If player then places their their hand in the bottom-middle corner
                     if (Input.GetKeyDown(KeyCode.X)) netrixiCondition3[1] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!netrixiCondition3[1])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            netrixiCondition3[0] = false;
-                        } 
-                    }
                 }
             
                 // If player has then placed hand in the bottom-middle corner
@@ -115,16 +111,6 @@ public class NetrixiCombatScript : MonoBehaviour
                 
                     // If player then places their their hand in the middle-left corner
                     if (Input.GetKeyDown(KeyCode.A)) netrixiCondition3[2] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!netrixiCondition3[2])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            netrixiCondition3[0] = false;
-                            netrixiCondition3[1] = false;
-                        }
-                    }
                 }
             
                 // If player has then placed hand in the middle-left corner
@@ -134,25 +120,12 @@ public class NetrixiCombatScript : MonoBehaviour
                     
                     // If player then places their their hand in the top-middle corner
                     if (Input.GetKeyDown(KeyCode.W)) netrixiCondition3[3] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!netrixiCondition3[3])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            netrixiCondition3[0] = false;
-                            netrixiCondition3[1] = false;
-                            netrixiCondition3[2] = false;
-                        }
-                    }
                 }
 
                 // If the player has successfully made the pattern
                 if (netrixiCondition3[3])
                 {
                     Debug.Log("Point 4");
-                    
-                    if (Input.GetKeyDown(KeyCode.V)) netrixiCondition3[4] = true;
                 }
             }
             
@@ -168,15 +141,6 @@ public class NetrixiCombatScript : MonoBehaviour
                 
                     // If player then places their their hand in the bottom-middle corner
                     if (Input.GetKeyDown(KeyCode.X)) netrixiCondition3[1] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!netrixiCondition3[1])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            netrixiCondition3[0] = false;
-                        } 
-                    }
                 }
             
                 // If player has then placed hand in the bottom-middle corner
@@ -186,16 +150,6 @@ public class NetrixiCombatScript : MonoBehaviour
                 
                     // If player then places their their hand in the middle-right corner
                     if (Input.GetKeyDown(KeyCode.D)) netrixiCondition3[2] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!netrixiCondition3[2])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            netrixiCondition3[0] = false;
-                            netrixiCondition3[1] = false;
-                        }
-                    }
                 }
             
                 // If player has then placed hand in the middle-right corner
@@ -205,25 +159,12 @@ public class NetrixiCombatScript : MonoBehaviour
                     
                     // If player then places their their hand in the top-middle corner
                     if (Input.GetKeyDown(KeyCode.W)) netrixiCondition3[3] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!netrixiCondition3[3])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            netrixiCondition3[0] = false;
-                            netrixiCondition3[1] = false;
-                            netrixiCondition3[2] = false;
-                        }
-                    }
                 }
 
                 // If the player has successfully made the pattern
                 if (netrixiCondition3[3])
                 {
                     Debug.Log("Point 4");
-                    
-                    netrixiCondition3[4] = true;
                 }
             }
 

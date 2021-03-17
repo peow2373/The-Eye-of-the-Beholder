@@ -10,6 +10,7 @@ public class EnemyManagerScript : MonoBehaviour
     public static List<String> availableMoves = new List<String>();
 
     public static string firstAttack, secondAttack;
+    public static string previousFirstAttack, previousSecondAttack;
 
     public static int enemy1Position, enemy2Position, enemy3Position;
     public static int enemy1First, enemy2First, enemy3First;
@@ -18,6 +19,9 @@ public class EnemyManagerScript : MonoBehaviour
     public static bool hasChangedScene = false;
 
     public static bool barkeeperMadNextRound = false;
+
+    public static int attack1Location, attack2Location;
+    public static int attack1Location2, attack2Location2;
 
     // Start is called before the first frame update
     void Start()
@@ -39,26 +43,27 @@ public class EnemyManagerScript : MonoBehaviour
     void Update()
     {
         // If the Tavern Brute angers the Barkeeper and causes him to join the fight
-        if (firstAttack == "Tavern Brute Throws Chair" || secondAttack == "Tavern Brute Throws Chair")
+        if (AttackScript.chairsThrown >= 1)
         {
             barkeeperMadNextRound = true;
-            
-            CombatManagerScript.enemy2Alive = true;
-            CombatManagerScript.canEnemy2Attack = true;
-            
-            DetermineEnemyType(enemy2);
-            
-            enemy2Position = 8;
-            enemy2First = 8;
-            enemy2Second = 8;
         }
 
         if (barkeeperMadNextRound)
         {
             if (firstAttack == "null" && secondAttack == "null")
             {
-                GameManagerScript.barkeeperMad = true;
-                print("Barkeeper Joins the Fight!");
+                if (!GameManagerScript.barkeeperMad)
+                {
+                    GameManagerScript.barkeeperMad = true;
+                    print("Barkeeper Joins the Fight!");
+                
+                    CombatManagerScript.enemy2Alive = true;
+                    CombatManagerScript.canEnemy2Attack = true;
+            
+                    DetermineEnemyType(enemy2);
+                    
+                    enemy2Position = 9;
+                }
             }
         }
         
@@ -77,8 +82,8 @@ public class EnemyManagerScript : MonoBehaviour
         }
 
         
-        if (firstAttack != "null") Debug.Log(firstAttack);
-        if (secondAttack != "null") Debug.Log(secondAttack);
+        //if (firstAttack != "null") Debug.Log(firstAttack);
+        //if (secondAttack != "null") Debug.Log(secondAttack);
         
         
         // Check to see if enemies are alive
@@ -107,6 +112,31 @@ public class EnemyManagerScript : MonoBehaviour
 
     void DetermineEnemyChoice(int attackNumber)
     {
+        int CheckPreviousAttacks(int randomIndex, int doubleChecked, int attackNumber)
+        {
+            if (doubleChecked <= 5)
+            {
+                if (attackNumber == 1)
+                {
+                    // If the move was the same as one of the moves made last round
+                    if (availableMoves[randomIndex] == previousFirstAttack)
+                    {
+                        return CheckPreviousAttacks(randomIndex, doubleChecked + 1, 1);
+                    }
+                }
+                else
+                {
+                    // If the move was the same as one of the moves made last round
+                    if (availableMoves[randomIndex] == previousSecondAttack)
+                    {
+                        return CheckPreviousAttacks(randomIndex, doubleChecked + 1, 2);
+                    }
+                }
+            }
+            
+            return randomIndex;
+        }
+        
         // Choose the first attack
         if (attackNumber == 1)
         {
@@ -120,11 +150,15 @@ public class EnemyManagerScript : MonoBehaviour
             DetermineAvailableMoves(1);
             
             // Choose a random move for the enemy to make
-            var randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
+            int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
             
+            // Check the move to see if it is the same as one of the moves made last round
+            randomIndex = CheckPreviousAttacks(randomIndex, 0, 1);
+
             // Lock in the enemy's choice for their first attack
             firstAttack = availableMoves[randomIndex];
-
+            
+            EnemyAttackScript.DetermineTargetLocation(firstAttack, 1);
             UpdateVariables(1);
         }
         
@@ -141,12 +175,18 @@ public class EnemyManagerScript : MonoBehaviour
             DetermineAvailableMoves(2);
             
             // Choose a random move for the enemy to make
-            var randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
+            int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
+            
+            // Check the move to see if it is the same as one of the moves made last round
+            randomIndex = CheckPreviousAttacks(randomIndex, 0, 2);
 
             // Lock in the enemy's choice for their second attack
             secondAttack = availableMoves[FindDuplicateActions(randomIndex)];
-                
+
+            EnemyAttackScript.DetermineTargetLocation(secondAttack, 2);
             UpdateVariables(2);
+
+            //print(attack1Location + ", " + attack2Location);
         }
     }
 
@@ -162,7 +202,7 @@ public class EnemyManagerScript : MonoBehaviour
                 {
                     // Choose a new random move for the enemy to make
                     int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
-                    print("New second attack chosen");
+                    //print("New second attack chosen");
 
                     // Call recursive function again to check if the new chosen attack meets the same conditions
                     int repeatTest = FindDuplicateActions(randomIndex);
@@ -170,23 +210,65 @@ public class EnemyManagerScript : MonoBehaviour
                 }
             }
 
-            
+
             // Check to see if duplicate moves need to be accounted for
             if (CombatManagerScript.canEnemy1Attack)
             {
                 // If the first move the enemy made was an attack
-                if (firstAttack == "Enemy 1 Moves Left" || firstAttack == "Enemy 1 Moves Right" || firstAttack == "Enemy 2 Moves Left" || firstAttack == "Enemy 2 Moves Right" || firstAttack == "Enemy 3 Moves Left" || firstAttack == "Enemy 3 Moves Right")
+                if (firstAttack == "Enemy 1-Moves Left" || firstAttack == "Enemy 1-Moves Right" || firstAttack == "Enemy 2-Moves Left" || firstAttack == "Enemy 2-Moves Right" || firstAttack == "Enemy 3-Moves Left" || firstAttack == "Enemy 3-Moves Right")
                 {
                     // If the chosen second attack was also decided to be a move
-                    if (availableMoves[chosenSecondAttack] == "Enemy 1 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 1 Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 2 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 2 Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 3 Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 3 Moves Right")
+                    if (availableMoves[chosenSecondAttack] == "Enemy 1-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 1-Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 2-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 2-Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 3-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 3-Moves Right")
                     {
                         // Choose a new random move for the enemy to make
                         int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
-                        print("New second attack chosen");
+                        //print("New second attack chosen");
 
                         // Call recursive function again to check if the new chosen attack meets the same conditions
                         int repeatTest = FindDuplicateActions(randomIndex);
                         return repeatTest;
+                    }
+                }
+            }
+            else
+            {
+                if (CombatManagerScript.canEnemy2Attack)
+                {
+                    // If the first move the enemy made was an attack
+                    if (firstAttack == "Enemy 1-Moves Left" || firstAttack == "Enemy 1-Moves Right" || firstAttack == "Enemy 2-Moves Left" || firstAttack == "Enemy 2-Moves Right" || firstAttack == "Enemy 3-Moves Left" || firstAttack == "Enemy 3-Moves Right")
+                    {
+                        // If the chosen second attack was also decided to be a move
+                        if (availableMoves[chosenSecondAttack] == "Enemy 1-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 1-Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 2-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 2-Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 3-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 3-Moves Right")
+                        {
+                            // Choose a new random move for the enemy to make
+                            int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
+                            //print("New second attack chosen");
+
+                            // Call recursive function again to check if the new chosen attack meets the same conditions
+                            int repeatTest = FindDuplicateActions(randomIndex);
+                            return repeatTest;
+                        }
+                    }
+                }
+                else
+                {
+                    if (CombatManagerScript.canEnemy3Attack)
+                    {
+                        // If the first move the enemy made was an attack
+                        if (firstAttack == "Enemy 1-Moves Left" || firstAttack == "Enemy 1-Moves Right" || firstAttack == "Enemy 2-Moves Left" || firstAttack == "Enemy 2-Moves Right" || firstAttack == "Enemy 3-Moves Left" || firstAttack == "Enemy 3-Moves Right")
+                        {
+                            // If the chosen second attack was also decided to be a move
+                            if (availableMoves[chosenSecondAttack] == "Enemy 1-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 1-Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 2-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 2-Moves Right" || availableMoves[chosenSecondAttack] == "Enemy 3-Moves Left" || availableMoves[chosenSecondAttack] == "Enemy 3-Moves Right")
+                            {
+                                // Choose a new random move for the enemy to make
+                                int randomIndex = UnityEngine.Random.Range(0,(availableMoves.Count));
+                                //print("New second attack chosen");
+
+                                // Call recursive function again to check if the new chosen attack meets the same conditions
+                                int repeatTest = FindDuplicateActions(randomIndex);
+                                return repeatTest;
+                            }
+                        }
                     }
                 }
             }
@@ -205,13 +287,15 @@ public class EnemyManagerScript : MonoBehaviour
             {
                 if (CanEnemyMoveLeft(enemy1Position))
                 {
-                    availableMoves.Add("Enemy 1 Moves Left");
+                    // The Tavern Brute doesn't need to dodge attacks
+                    if (GameManagerScript.currentScene != 10) availableMoves.Add("Enemy 1-Moves Left");
                 }
             
                 // If Enemy 1 can move right
                 if (CanEnemyMoveRight(enemy1Position))
                 {
-                    availableMoves.Add("Enemy 1 Moves Right");
+                    // The Tavern Brute doesn't need to dodge attacks
+                    if (GameManagerScript.currentScene != 10) availableMoves.Add("Enemy 1-Moves Right");
                 }
             }
 
@@ -224,13 +308,13 @@ public class EnemyManagerScript : MonoBehaviour
                     // If Enemy 2 can move left
                     if (CanEnemyMoveLeft(enemy2Position))
                     {
-                        availableMoves.Add("Enemy 2 Moves Left");
+                        availableMoves.Add("Enemy 2-Moves Left");
                     }
             
                     // If Enemy 2 can move right
                     if (CanEnemyMoveRight(enemy2Position))
                     {
-                        availableMoves.Add("Enemy 2 Moves Right");
+                        availableMoves.Add("Enemy 2-Moves Right");
                     }
                 }
             }
@@ -244,13 +328,13 @@ public class EnemyManagerScript : MonoBehaviour
                     // If Enemy 3 can move left
                     if (CanEnemyMoveLeft(enemy3Position))
                     {
-                        availableMoves.Add("Enemy 3 Moves Left");
+                        availableMoves.Add("Enemy 3-Moves Left");
                     }
             
                     // If Enemy 3 can move right
                     if (CanEnemyMoveRight(enemy3Position))
                     {
-                        availableMoves.Add("Enemy 3 Moves Right");
+                        availableMoves.Add("Enemy 3-Moves Right");
                     }
                 }
             }
@@ -265,13 +349,15 @@ public class EnemyManagerScript : MonoBehaviour
             {
                 if (CanEnemyMoveLeft(enemy1First))
                 {
-                    availableMoves.Add("Enemy 1 Moves Left");
+                    // The Tavern Brute doesn't need to dodge attacks
+                    if (GameManagerScript.currentScene != 10) availableMoves.Add("Enemy 1-Moves Left");
                 }
             
                 // If Enemy 1 can move right
                 if (CanEnemyMoveRight(enemy1First))
                 {
-                    availableMoves.Add("Enemy 1 Moves Right");
+                    // The Tavern Brute doesn't need to dodge attacks
+                    if (GameManagerScript.currentScene != 10) availableMoves.Add("Enemy 1-Moves Right");
                 }
             }
 
@@ -284,13 +370,13 @@ public class EnemyManagerScript : MonoBehaviour
                     // If Enemy 2 can move left
                     if (CanEnemyMoveLeft(enemy2First))
                     {
-                        availableMoves.Add("Enemy 2 Moves Left");
+                        availableMoves.Add("Enemy 2-Moves Left");
                     }
             
                     // If Enemy 2 can move right
                     if (CanEnemyMoveRight(enemy2First))
                     {
-                        availableMoves.Add("Enemy 2 Moves Right");
+                        availableMoves.Add("Enemy 2-Moves Right");
                     }
                 }
             }
@@ -304,13 +390,13 @@ public class EnemyManagerScript : MonoBehaviour
                     // If Enemy 3 can move left
                     if (CanEnemyMoveLeft(enemy3First))
                     {
-                        availableMoves.Add("Enemy 3 Moves Left");
+                        availableMoves.Add("Enemy 3-Moves Left");
                     }
             
                     // If Enemy 3 can move right
                     if (CanEnemyMoveRight(enemy3First))
                     {
-                        availableMoves.Add("Enemy 3 Moves Right");
+                        availableMoves.Add("Enemy 3-Moves Right");
                     }
                 }
             }
@@ -410,105 +496,135 @@ public class EnemyManagerScript : MonoBehaviour
         switch (enemyName)
         {
             case "Pirate":
-                availableMoves.Add("Pirate Slashes");
-                availableMoves.Add("Pirate Throws Knife");
+                availableMoves.Add("Pirate-Slashes");
+                availableMoves.Add("Pirate-Throws Knife");
                 break;
             
             
             
             case "Royal Knight Melee":
-                availableMoves.Add("Royal Knight Swings Sword");
-                availableMoves.Add("Royal Knight Blocks");
+                availableMoves.Add("Royal Knight Melee-Swings Sword");
+                availableMoves.Add("Royal Knight Melee-Blocks");
                 break;
             
             case "Folkvar":
-                availableMoves.Add("Folkvar Swings Sword");
-                availableMoves.Add("Folkvar Smites");
+                availableMoves.Add("Folkvar-Swings Sword");
+                availableMoves.Add("Folkvar-Smites");
                 break;
             
             case "Royal Knight Ranged":
-                availableMoves.Add("Royal Knight Shoots Arrow");
-                availableMoves.Add("Royal Knight Heals Team");
+                availableMoves.Add("Royal Knight Ranged-Shoots Arrow");
+                // If an enemy can be healed and it is worth it to heal them
+                if (CombatManagerScript.enemy1HP <= CombatManagerScript.enemy1StartingHP - DamageValues.enemyCanHeal)
+                {
+                    if (CombatManagerScript.enemy1Alive) availableMoves.Add("Royal Knight Ranged-Heals Team");
+                }
+                if (CombatManagerScript.enemy2HP <= CombatManagerScript.enemy2StartingHP - DamageValues.enemyCanHeal)
+                {
+                    if (CombatManagerScript.enemy2Alive) availableMoves.Add("Royal Knight Ranged-Heals Team");
+                }
+                if (CombatManagerScript.enemy3HP <= CombatManagerScript.enemy3StartingHP - DamageValues.enemyCanHeal)
+                {
+                    if (CombatManagerScript.enemy3Alive) availableMoves.Add("Royal Knight Ranged-Heals Team");
+                }
                 break;
             
             
             
             case "Skull Grunt Melee":
-                availableMoves.Add("Skull Grunt Slashes");
-                availableMoves.Add("Skull Grunt Blocks");
+                availableMoves.Add("Skull Grunt Melee-Slashes");
+                availableMoves.Add("Skull Grunt Melee-Blocks");
                 break;
             
             case "Skull Grunt Ranged":
-                availableMoves.Add("Skull Grunt Shoots Arrow");
-                availableMoves.Add("Skull Grunt Throws Bomb");
+                availableMoves.Add("Skull Grunt Ranged-Shoots Arrow");
+                availableMoves.Add("Skull Grunt Ranged-Throws Bomb");
                 break;
             
             case "Kaz 1":
-                availableMoves.Add("Kaz 1 Shoots Arrow");
-                availableMoves.Add("Kaz 1 Swings Battle Axe");
-                availableMoves.Add("Kaz 1 Performs a Grand Slam");
+                availableMoves.Add("Kaz 1-Shoots Arrow");
+                availableMoves.Add("Kaz 1-Swings Battle Axe");
+                availableMoves.Add("Kaz 1-Performs a Grand Slam");
                 break;
             
             case "Kaz 2":
-                availableMoves.Add("Kaz 2 Swings Battle Axe");
-                availableMoves.Add("Kaz 2 Performs a Grand Slam");
-                availableMoves.Add("Kaz 2 Empowers both Teams");
-                availableMoves.Add("Kaz 2 Blocks");
+                availableMoves.Add("Kaz 2-Swings Battle Axe");
+                availableMoves.Add("Kaz 2-Performs a Grand Slam");
+                availableMoves.Add("Kaz 2-Empowers Both Teams");
+                availableMoves.Add("Kaz 2-Blocks");
                 break;
             
             
             
             case "Tavern Brute":
-                availableMoves.Add("Tavern Brute Smash");
-                availableMoves.Add("Tavern Brute Throws Chair");
+                availableMoves.Add("Tavern Brute-Smashes");
+                availableMoves.Add("Tavern Brute-Throws Chair");
                 break;
             
             case "Barkeeper":
-                
-                // TODO: Add a higher chance for Barkeeper to punch Brute if the Brute keeps throwing chairs
-                
-                availableMoves.Add("Barkeeper Punches You");
-                availableMoves.Add("Barkeeper Punches Tavern Brute");
+                availableMoves.Add("Barkeeper-Punches You");
+                // If the Tavern Brute is still alive
+                if (CombatManagerScript.enemy1Alive)
+                {
+                    // Make the Barkeeper more likely to punch the Brute each time a chair is thrown
+                    for (int i = 0; i < AttackScript.chairsThrown; i++)
+                    {
+                        availableMoves.Add("Barkeeper-Punches Tavern Brute");
+                    }
+                }
                 break;
             
             
             
             case "Gatekeeper":
-                availableMoves.Add("Gatekeeper's Dog Barks");
-                availableMoves.Add("Gatekeeper's Dog Bites");
-                availableMoves.Add("Gatekeeper Blocks");
+                availableMoves.Add("Gatekeeper-Dog Barks");
+                availableMoves.Add("Gatekeeper-Dog Bites");
+                availableMoves.Add("Gatekeeper-Blocks");
                 break;
             
             
             
             case "Royal Guard 1":
-                availableMoves.Add("Royal Guard 1 Swings Battle Axe");
-                availableMoves.Add("Royal Guard 1 Performs a Grand Slam");
-                availableMoves.Add("Royal Guard 1 Blocks");
+                availableMoves.Add("Royal Guard 1-Swings Battle Axe");
+                availableMoves.Add("Royal Guard 1-Performs a Grand Slam");
+                availableMoves.Add("Royal Guard 1-Blocks");
                 break;
             
             case "Royal Guard 2":
-                availableMoves.Add("Royal Guard 2 Swings Battle Axe");
-                availableMoves.Add("Royal Guard 2 Performs a Grand Slam");
-                availableMoves.Add("Royal Guard 2 Blocks");
+                availableMoves.Add("Royal Guard 2-Swings Battle Axe");
+                availableMoves.Add("Royal Guard 2-Performs a Grand Slam");
+                availableMoves.Add("Royal Guard 2-Blocks");
                 break;
             
             
             
             case "Skull King":
-                availableMoves.Add("Skull King Swings Mace");
-                availableMoves.Add("Skull King Performs a Grand Slam");
-                availableMoves.Add("Skull King Throws Bomb");
+                availableMoves.Add("Skull King-Swings Mace");
+                availableMoves.Add("Skull King-Performs a Grand Slam");
+                availableMoves.Add("Skull King-Throws Bomb");
                 break;
             
             case "Royal King":
                 // Stage 1
-                availableMoves.Add("Royal King Swings Mace");
-                availableMoves.Add("Royal King Performs a Grand Slam");
+                availableMoves.Add("Royal King-Swings Mace");
+                availableMoves.Add("Royal King-Performs a Grand Slam");
+                availableMoves.Add("Royal King-Smites");
                 // Stage 2
-                availableMoves.Add("Royal King Empowers his Team");
-                availableMoves.Add("Royal King Heals his Team");
-                availableMoves.Add("Royal King Casts a Shield");
+                availableMoves.Add("Royal King-Empowers His Team");
+                availableMoves.Add("Royal King-Blocks");
+                // If an enemy can be healed and it is worth it to heal them
+                if (CombatManagerScript.enemy1HP <= CombatManagerScript.enemy1StartingHP - DamageValues.enemyCanHeal)
+                {
+                    if (CombatManagerScript.enemy1Alive) availableMoves.Add("Royal King-Heals Team");
+                }
+                if (CombatManagerScript.enemy2HP <= CombatManagerScript.enemy2StartingHP - DamageValues.enemyCanHeal)
+                {
+                    if (CombatManagerScript.enemy2Alive) availableMoves.Add("Royal King-Heals Team");
+                }
+                if (CombatManagerScript.enemy3HP <= CombatManagerScript.enemy3StartingHP - DamageValues.enemyCanHeal)
+                {
+                    if (CombatManagerScript.enemy3Alive) availableMoves.Add("Royal King-Heals Team");
+                }
                 break;
         }
     }
@@ -522,18 +638,18 @@ public class EnemyManagerScript : MonoBehaviour
         if (attackNumber == 1)
         {
             // Enemy 1
-            if (firstAttack == "Enemy 1 Moves Left") enemy1First = enemy1Position - 1;
-            else if (firstAttack == "Enemy 1 Moves Right") enemy1First = enemy1Position + 1;
+            if (firstAttack == "Enemy 1-Moves Left") enemy1First = enemy1Position - 1;
+            else if (firstAttack == "Enemy 1-Moves Right") enemy1First = enemy1Position + 1;
             else enemy1First = enemy1Position;
             
             // Enemy 2
-            if (firstAttack == "Enemy 2 Moves Left") enemy2First = enemy2Position - 1;
-            else if (firstAttack == "Enemy 2 Moves Right") enemy2First = enemy2Position + 1;
+            if (firstAttack == "Enemy 2-Moves Left") enemy2First = enemy2Position - 1;
+            else if (firstAttack == "Enemy 2-Moves Right") enemy2First = enemy2Position + 1;
             else enemy2First = enemy2Position;
             
             // Enemy 3
-            if (firstAttack == "Enemy 3 Moves Left") enemy3First = enemy3Position - 1;
-            else if (firstAttack == "Enemy 3 Moves Right") enemy3First = enemy3Position + 1;
+            if (firstAttack == "Enemy 3-Moves Left") enemy3First = enemy3Position - 1;
+            else if (firstAttack == "Enemy 3-Moves Right") enemy3First = enemy3Position + 1;
             else enemy3First = enemy3Position;
         } 
         
@@ -541,18 +657,18 @@ public class EnemyManagerScript : MonoBehaviour
         if (attackNumber == 2)
         {
             // Enemy 1
-            if (secondAttack == "Enemy 1 Moves Left") enemy1Second = enemy1First - 1;
-            else if (secondAttack == "Enemy 1 Moves Right") enemy1Second = enemy1First + 1;
+            if (secondAttack == "Enemy 1-Moves Left") enemy1Second = enemy1First - 1;
+            else if (secondAttack == "Enemy 1-Moves Right") enemy1Second = enemy1First + 1;
             else enemy1Second = enemy1First;
                 
             // Enemy 2
-            if (secondAttack == "Enemy 2 Moves Left") enemy2Second = enemy2First - 1;
-            else if (secondAttack == "Enemy 2 Moves Right") enemy2Second = enemy2First + 1;
+            if (secondAttack == "Enemy 2-Moves Left") enemy2Second = enemy2First - 1;
+            else if (secondAttack == "Enemy 2-Moves Right") enemy2Second = enemy2First + 1;
             else enemy2Second = enemy2First;
         
             // Enemy 3
-            if (secondAttack == "Enemy 3 Moves Left") enemy3Second = enemy3First - 1;
-            else if (secondAttack == "Enemy 3 Moves Right") enemy3Second = enemy3First + 1;
+            if (secondAttack == "Enemy 3-Moves Left") enemy3Second = enemy3First - 1;
+            else if (secondAttack == "Enemy 3-Moves Right") enemy3Second = enemy3First + 1;
             else enemy3Second = enemy3First;
         }
     }

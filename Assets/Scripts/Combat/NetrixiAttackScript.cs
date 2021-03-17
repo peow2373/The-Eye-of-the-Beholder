@@ -11,13 +11,15 @@ public class NetrixiAttackScript : MonoBehaviour
     
     private static string enemy1Transform, enemy2Transform, enemy3Transform;
     
-    public Sprite cat, catRK;
-    public Sprite dog, dogRK;
-    public Sprite frog, frogRK;
+    public Sprite cat, catRK, catGK;
+    public Sprite dog, dogRK, dogGK;
+    public Sprite frog, frogRK, frogGK;
 
     public static int startingRound1, startingRound2, startingRound3;
 
     private static SpriteRenderer sr1, sr2, sr3;
+
+    public static int playerTarget;
     
     // Start is called before the first frame update
     void Start()
@@ -50,7 +52,7 @@ public class NetrixiAttackScript : MonoBehaviour
             {
                 enemy1Transformed = false;
                 
-                // Play transformation animation
+                // TODO: Play transformation animation
                 sr1.sprite = enemy1Sprite;
                 CombatManagerScript.canEnemy1Attack = true;
             }
@@ -67,7 +69,7 @@ public class NetrixiAttackScript : MonoBehaviour
             {
                 enemy2Transformed = false;
 
-                // Play transformation animation
+                // TODO: Play transformation animation
                 sr2.sprite = enemy2Sprite;
                 CombatManagerScript.canEnemy2Attack = true;
             }
@@ -84,7 +86,7 @@ public class NetrixiAttackScript : MonoBehaviour
             {
                 enemy3Transformed = false;
                 
-                // Play transformation animation
+                // TODO: Play transformation animation
                 sr3.sprite = enemy3Sprite;
                 CombatManagerScript.canEnemy3Attack = true;
             }
@@ -94,7 +96,7 @@ public class NetrixiAttackScript : MonoBehaviour
     public static void DoesNetrixiAttack(int playerAttack, int attackNumber)
     {
         // Check if Netrixi is still alive
-        if (!CombatManagerScript.netrixiAlive)
+        if (!CombatManagerScript.netrixiAlive || !CombatManagerScript.canNetrixiAttack)
         {
             // Skip the attack
             if (attackNumber == 1) CombatSimulationScript.attack1Delay = DamageValues.standardDelay;
@@ -104,8 +106,8 @@ public class NetrixiAttackScript : MonoBehaviour
         {
             float original;
             float burnRate;
-            
-            
+
+
             // ATTACK 1
             // Netrixi's Fireball
             if (playerAttack == 1)
@@ -124,6 +126,8 @@ public class NetrixiAttackScript : MonoBehaviour
                             DamageValues.ChangeDelay(3);
                             
                             // TODO: Play Netrixi Fireball animation
+                            playerTarget = 7;
+                            
                             HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
@@ -133,12 +137,14 @@ public class NetrixiAttackScript : MonoBehaviour
                         {
                             DamageValues.ChangeDelay(2);
                             
-                            int randomValue = UnityEngine.Random.Range(0,2);
+                            int randomValue = UnityEngine.Random.Range(1,2);
 
                             if (randomValue <= 1)
                             {
                                 // Launch 2 fireballs at Enemy 2
                                 // TODO: Play Netrixi Fireball animation
+                                playerTarget = 4;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 1, burnRate);
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
                             }
@@ -146,6 +152,8 @@ public class NetrixiAttackScript : MonoBehaviour
                             {
                                 // Launch 2 fireballs at Enemy 1
                                 // TODO: Play Netrixi Fireball animation
+                                playerTarget = 4;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 2, burnRate);
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 1, burnRate);
                             }
@@ -158,12 +166,14 @@ public class NetrixiAttackScript : MonoBehaviour
                         {
                             DamageValues.ChangeDelay(2);
                             
-                            int randomValue = UnityEngine.Random.Range(0,2);
+                            int randomValue = UnityEngine.Random.Range(1,2);
 
                             if (randomValue <= 1)
                             {
                                 // Launch 2 fireballs at Enemy 3
                                 // TODO: Play Netrixi Fireball animation
+                                playerTarget = 6;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 1, burnRate);
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
                             }
@@ -171,6 +181,8 @@ public class NetrixiAttackScript : MonoBehaviour
                             {
                                 // Launch 2 fireballs at Enemy 1
                                 // TODO: Play Netrixi Fireball animation
+                                playerTarget = 6;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 2, burnRate);
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 1, burnRate);
                             }
@@ -182,6 +194,8 @@ public class NetrixiAttackScript : MonoBehaviour
                             DamageValues.ChangeDelay(1);
                             
                             // TODO: Play Netrixi Fireball animation
+                            playerTarget = 1;
+                            
                             HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 3, burnRate);
                         }
                     }
@@ -195,12 +209,14 @@ public class NetrixiAttackScript : MonoBehaviour
                         {
                             DamageValues.ChangeDelay(2);
                             
-                            int randomValue = UnityEngine.Random.Range(0,2);
+                            int randomValue = UnityEngine.Random.Range(1,2);
 
                             if (randomValue <= 1)
                             {
                                 // Launch 2 fireballs at Enemy 3
                                 // TODO: Play Netrixi Fireball animation
+                                playerTarget = 5;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 1, burnRate);
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
                             }
@@ -208,6 +224,8 @@ public class NetrixiAttackScript : MonoBehaviour
                             {
                                 // Launch 2 fireballs at Enemy 2
                                 // TODO: Play Netrixi Fireball animation
+                                playerTarget = 5;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 1, burnRate);
                             }
@@ -218,6 +236,8 @@ public class NetrixiAttackScript : MonoBehaviour
                             DamageValues.ChangeDelay(1);
                             
                             // TODO: Play Netrixi Fireball animation
+                            playerTarget = 2;
+                            
                             HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 3, burnRate);
                         }
                     }
@@ -229,6 +249,8 @@ public class NetrixiAttackScript : MonoBehaviour
                             DamageValues.ChangeDelay(1);
                             
                             // TODO: Play Netrixi Fireball animation
+                            playerTarget = 3;
+                            
                             HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 3, burnRate);
                         }
                     }
@@ -244,8 +266,8 @@ public class NetrixiAttackScript : MonoBehaviour
             {
                 original = DamageValues.lightning * AttackScript.damageModifier;
                 burnRate = DamageValues.lightningBurn;
-                AttackScript.delayRate = DamageValues.lightningDelay;
                 int damageValue = (int) original;
+                AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
                 
                 
                 if (attackNumber == 1) DetermineEnemyPosition(CombatManagerScript.target1Location);
@@ -261,18 +283,24 @@ public class NetrixiAttackScript : MonoBehaviour
                             if (EnemyManagerScript.enemy1Position == 6)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 1;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 6)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 2;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 6)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 3;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -282,18 +310,24 @@ public class NetrixiAttackScript : MonoBehaviour
                             if (EnemyManagerScript.enemy1Position == 7)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 1;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 7)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 2;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 7)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 3;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -303,18 +337,24 @@ public class NetrixiAttackScript : MonoBehaviour
                             if (EnemyManagerScript.enemy1Position == 8)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 1;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 8)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 2;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 8)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 3;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -324,18 +364,24 @@ public class NetrixiAttackScript : MonoBehaviour
                             if (EnemyManagerScript.enemy1Position == 9)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 1;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 9)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 2;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 0)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 3;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -345,18 +391,24 @@ public class NetrixiAttackScript : MonoBehaviour
                             if (EnemyManagerScript.enemy1Position == 10)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 1;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy2Position == 10)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 2;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                             }
                             
                             if (EnemyManagerScript.enemy3Position == 10)
                             {
                                 // TODO: Play Netrixi Lightning animation
+                                playerTarget = 3;
+                                
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                             }
                             break;
@@ -403,6 +455,21 @@ public class NetrixiAttackScript : MonoBehaviour
                     // If an animal was chosen for the enemy to transform into
                     if (transformChoices[randomIndex1] != "None")
                     {
+                        switch (enemiesToTransform[randomIndex])
+                        {
+                            case "Enemy 1":
+                                playerTarget = 1;
+                                break;
+                            
+                            case "Enemy 2":
+                                playerTarget = 2;
+                                break;
+                            
+                            case "Enemy 3":
+                                playerTarget = 3;
+                                break;
+                        }
+
                         TransformEnemy(enemiesToTransform[randomIndex], CombatManagerScript.roundNumber, transformChoices[randomIndex1]);
                     }
                     else
@@ -415,6 +482,9 @@ public class NetrixiAttackScript : MonoBehaviour
                     print("There are no enemies to transform");
                 }
             }
+            
+            if (attackNumber == 1) CombatSimulationScript.playerAttack1Target = playerTarget;
+            else CombatSimulationScript.playerAttack2Target = playerTarget;
         }
     }
 
@@ -478,6 +548,12 @@ public class NetrixiAttackScript : MonoBehaviour
                 if (transformAnimal == "Cat") return catRK;
                 if (transformAnimal == "Dog") return dogRK;
                 if (transformAnimal == "Frog") return frogRK;
+            }
+            else if (EnemyManagerScript.enemy3 == "Gatekeeper")
+            {
+                if (transformAnimal == "Cat") return catGK;
+                if (transformAnimal == "Dog") return dogGK;
+                if (transformAnimal == "Frog") return frogGK;
             }
             else
             {

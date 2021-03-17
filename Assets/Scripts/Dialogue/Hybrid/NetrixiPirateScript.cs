@@ -21,6 +21,8 @@ public class NetrixiPirateScript : MonoBehaviour
     public GameObject TextContainer;
 
     bool skipScene = false;
+    
+    private bool didMarkerDisappear;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,8 @@ public class NetrixiPirateScript : MonoBehaviour
 
     void refreshUI()
     {
-
+        MarkerManagerScript.pastLocation = MarkerManagerScript.currentLocation;
+        
         eraseUI();
 
         Text storyText = Instantiate(textPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Text;
@@ -60,12 +63,6 @@ public class NetrixiPirateScript : MonoBehaviour
 
             Text choiceText = choiceButton.GetComponentInChildren<Text>();
             choiceText.text = choice.text;
-
-            choiceButton.onClick.AddListener(delegate
-            {
-                chooseStoryChoice(choice);
-            });
-
         }
     }
 
@@ -97,7 +94,7 @@ public class NetrixiPirateScript : MonoBehaviour
             {
                 goMarkerToContinue.enabled = true;
             }
-                if (MarkerManagerScript.goMarker)
+            if (MarkerManagerScript.goMarker)
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
@@ -118,8 +115,21 @@ public class NetrixiPirateScript : MonoBehaviour
                 case 3:
                 case 6:
                 case 9:
-                    story.ChooseChoiceIndex(1);
-                    refreshUI();
+                    if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
+                    {
+                        story.ChooseChoiceIndex(1);
+                        refreshUI();
+                    }
+                    else
+                    {
+                        if (MarkerManagerScript.palmMarker && didMarkerDisappear)
+                        {
+                            story.ChooseChoiceIndex(1);
+                            refreshUI();
+                        }
+                        
+                        if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
+                    }
                     break;
             }
         }

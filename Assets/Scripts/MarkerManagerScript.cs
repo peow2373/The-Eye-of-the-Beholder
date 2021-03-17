@@ -16,19 +16,23 @@ public class MarkerManagerScript : MonoBehaviour
     public GameObject hand;
     private SpriteRenderer sr;
     
-    public float[] xPos = new float[] { };
-    public float[] yPos = new float[] { };
+    public static float[] xPos = new float[] { };
+    public static float[] yPos = new float[] { };
 
-    public float[] rotation = new float[] { 90, 60, 30, 0, -30, -60, -90 };
+    public static float[] rotation = new float[] { 90, 72.5f, 45, 22.5f, 0, -90, -72.5f, -45, -22.5f };
+    
+    public static Vector3 scale = new Vector3(1,1,1);
 
-    public float scaleFactor = 2f;
+    public float scaleFactor = 1.5f;
     public static bool wasLarger = false, wasSmaller = false;
     
     public static bool beingRotated = false;
+    public static bool rotatingRight, rotatingLeft;
 
     public static MarkerManagerScript S;
 
     public static int currentLocation = 0;
+    public static int pastLocation = 0;
 
     void Awake()
     {
@@ -47,16 +51,6 @@ public class MarkerManagerScript : MonoBehaviour
     void Update()
     {
         TestForMarkers();
-        
-        // Flip marker if player is left-handed
-        if (!GameManagerScript.rightHanded)
-        {
-            sr.flipX = false;
-        }
-        else
-        {
-            sr.flipX = true;
-        }
 
         // If Palm marker is visible
         if (palmMarker)
@@ -96,6 +90,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[0], yPos[0]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 1;
         }
         
@@ -104,6 +99,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[1], yPos[0]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 2;
         }
         
@@ -112,6 +108,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[2], yPos[0]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 3;
         }
         
@@ -120,6 +117,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[0], yPos[1]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 4;
         }
         
@@ -128,6 +126,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[1], yPos[1]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 5;
         }
         
@@ -136,6 +135,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[2], yPos[1]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 6;
         }
         
@@ -144,6 +144,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[0], yPos[2]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 7;
         }
         
@@ -152,6 +153,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[1], yPos[2]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 8;
         }
         
@@ -160,6 +162,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             Vector2 loc = new Vector2(xPos[2], yPos[2]);
             hand.transform.position = loc;
+            pastLocation = currentLocation;
             currentLocation = 9;
         }
     }
@@ -177,6 +180,7 @@ public class MarkerManagerScript : MonoBehaviour
                     beingRotated = true;
                     // put the hand into the starting position
                     hand.transform.rotation = Quaternion.Euler(0, 0, rotation[0]);
+                    rotatingRight = true;
                 }
             } 
         
@@ -187,40 +191,40 @@ public class MarkerManagerScript : MonoBehaviour
                 {
                     beingRotated = true;
                     // put the hand into the starting position
-                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[6]);
+                    hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[5]);
+                    rotatingLeft = true;
                 }
             }
             
             
         } else {
-            // check to see if Palm marker is in the first zone
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[1]);
-            }
-            
+          
             // check to see if Palm marker is in the second zone
             if (Input.GetKeyDown(KeyCode.G))
             {
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[2]);
+                if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[1]);
+                if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[6]);
             }
             
             // check to see if Palm marker is in the third zone
             if (Input.GetKeyDown(KeyCode.B))
             {
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[3]);
+                if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[2]);
+                if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[7]);
             }
             
             // check to see if Palm marker is in the fourth zone
             if (Input.GetKeyDown(KeyCode.T))
             {
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[4]);
+                if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[3]);
+                if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[8]);
             }
             
             // check to see if Palm marker is in the fifth zone
             if (Input.GetKeyDown(KeyCode.R))
             {
-                hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[5]);
+                if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[4]);
+                if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[4]);
             }
         }
         
@@ -229,7 +233,7 @@ public class MarkerManagerScript : MonoBehaviour
         {
             beingRotated = false;
             // return the hand to a vertical position
-            hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[3]);
+            hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[4]);
         }
     }
 
@@ -278,70 +282,14 @@ public class MarkerManagerScript : MonoBehaviour
 
 
 
-    private float[] xPosStartGame = new float[] { -4.5f, 0, 4.5f };
-    private float[] yPosStartGame = new float[] { 2.5f, 0, -2.5f };
-    
-    private float[] xPosEndGame = new float[] { 50f, 50, 50f };
-    private float[] yPosEndGame = new float[] { 50f, 50, 50f };
-    
-    private float[] xPosCombat = new float[] { -3f, 0f, 3f };
-    private float[] yPosCombat = new float[] { 6.5f, 4f, 1.5f };
-    
-    private float[] xPosDialogue = new float[] { 0f, 3f, 6f };
-    private float[] yPosDialogue = new float[] { 2.5f, 1f, -0.5f };
-    
-
-    void ChangeMarkerLocation()
-    {
-        int curScene = GameManagerScript.currentScene;
-        
-        // If the player is in the Start Game Scene
-        if (curScene == 0)
-        {
-            //xPos = xPosStartGame;
-            //yPos = yPosStartGame;
-            
-            xPos = xPosDialogue;
-            yPos = yPosDialogue;
-            
-            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        }
-        
-        // If the player is in a Combat Scene
-        if (curScene == 1 || curScene == 3 || curScene == 5 || curScene == 6 || curScene == 8 || curScene == 9 || curScene == 11 || curScene == 13 || curScene == 14 || curScene == 16 || curScene == 18 || curScene == 19 || curScene == 21 || curScene == 22 || curScene == 24 || curScene == 26 || curScene == 28)
-        {
-            xPos = xPosDialogue;
-            yPos = yPosDialogue;
-            
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-        
-        // If the player is in a Dialogue Scene
-        if (curScene == 2 || curScene == 4 || curScene == 7 || curScene == 10 || curScene == 12 || curScene == 15 || curScene == 17 || curScene == 20 || curScene == 23 || curScene == 25 || curScene == 27)
-        {
-            xPos = xPosCombat;
-            yPos = yPosCombat;
-            
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        }
-        
-        // If the player is in the End Game Scene
-        if (curScene == 29)
-        {
-            xPos = xPosEndGame;
-            yPos = yPosEndGame;
-            
-            transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        }
-    }
-
-
-
     public void Reset()
     {
-        ChangeMarkerLocation();
+        GameWindowManager.S.ArrangeScreen();
+        HandManagerScript.ChangeHandLocation();
+        
         Vector2 loc = new Vector2(xPos[1], yPos[1]);
         hand.transform.position = loc;
+        hand.transform.localScale = scale;
 
         currentLocation = 0;
     }

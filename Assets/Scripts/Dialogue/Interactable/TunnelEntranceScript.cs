@@ -19,6 +19,8 @@ public class TunnelEntranceScript : MonoBehaviour
     bool skipScene = false;
     bool max = false;
 
+    private bool didMarkerDisappear;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class TunnelEntranceScript : MonoBehaviour
 
     void refreshUI()
     {
+        MarkerManagerScript.pastLocation = MarkerManagerScript.currentLocation;
 
         eraseUI();
 
@@ -120,7 +123,7 @@ public class TunnelEntranceScript : MonoBehaviour
                 {
                     skipScene = false;
                 }
-                    if (Input.GetKeyDown(KeyCode.V))
+                if (Input.GetKeyDown(KeyCode.V))
                 {
                     refreshUI();
                     GameManagerScript.NextScene(skipScene);
@@ -138,14 +141,41 @@ public class TunnelEntranceScript : MonoBehaviour
                 case 1:
                 case 4:
                 case 7:
-                    story.ChooseChoiceIndex(0);
-                    refreshUI();
+                    if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
+                    {
+                        story.ChooseChoiceIndex(0);
+                        refreshUI();
+                    }
+                    else
+                    {
+                        if (MarkerManagerScript.palmMarker && didMarkerDisappear)
+                        {
+                            story.ChooseChoiceIndex(0);
+                            refreshUI();
+                        }
+                        
+                        if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
+                    }
                     break;
+                
                 case 3:
                 case 6:
                 case 9:
-                    story.ChooseChoiceIndex(1);
-                    refreshUI();
+                    if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
+                    {
+                        story.ChooseChoiceIndex(1);
+                        refreshUI();
+                    }
+                    else
+                    {
+                        if (MarkerManagerScript.palmMarker && didMarkerDisappear)
+                        {
+                            story.ChooseChoiceIndex(1);
+                            refreshUI();
+                        }
+                        
+                        if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
+                    }
                     break;
             }
 

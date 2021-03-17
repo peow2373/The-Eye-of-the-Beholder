@@ -34,14 +34,18 @@ public class CombatManagerScript : MonoBehaviour
 
     public static int target1Location, target2Location;
 
+    public static bool canNetrixiAttack = true, canFolkvarAttack = true, canIvAttack = true;
     public static bool canEnemy1Attack = true, canEnemy2Attack = true, canEnemy3Attack = true;
+    
+    public static int netrixiTarget1Location, netrixiTarget2Location;
+    public static int folkvarTarget1Location, folkvarTarget2Location;
 
     // Start is called before the first frame update
     void Start()
     {
         MarkerManagerScript.S.Reset();
         CharacterManagerScript.StartCombat();
-
+        
         firstAttack = 0;
         secondAttack = 0;
         
@@ -59,13 +63,21 @@ public class CombatManagerScript : MonoBehaviour
 
         roundNumber = 1;
 
-        
+
         // Determine which characters are in the scene
         netrixiAlive = true;
         if (GameManagerScript.folkvarInParty) folkvarAlive = true;
-        else folkvarAlive = false;
+        else
+        {
+            folkvarAlive = false;
+            canFolkvarAttack = false;
+        }
         if (GameManagerScript.ivInParty) ivAlive = true;
-        else ivAlive = false;
+        else
+        {
+            ivAlive = false;
+            canIvAttack = false;
+        }
 
         // Determine which enemies are in the scene
         enemy1Alive = true;
@@ -99,6 +111,17 @@ public class CombatManagerScript : MonoBehaviour
         canEnemy2Attack = true;
         canEnemy3Attack = true;
         
+        canNetrixiAttack = true;
+        canFolkvarAttack = true;
+        canIvAttack = true;
+
+        
+        netrixiTarget1Location = 0;
+        netrixiTarget2Location = 0;
+        
+        folkvarTarget1Location = 0;
+        folkvarTarget2Location = 0;
+        
         
         // If only Netrixi is present in the scene
         //if (netrixiAlive && !folkvarAlive && !ivAlive) netrixiAttacks = true;
@@ -109,10 +132,6 @@ public class CombatManagerScript : MonoBehaviour
 
         hasWon = false;
         hasLost = false;
-
-        enemy1StartingHP = enemy1HP;
-        enemy2StartingHP = enemy2HP;
-        enemy3StartingHP = enemy3HP;
     }
 
     
@@ -128,14 +147,23 @@ public class CombatManagerScript : MonoBehaviour
 
         if (win) hasWon = true;
         if (lose) hasLost = true;
-
         
         if (win)
         {
-            // TODO: Play won-battle animation
-            GameManagerScript.NextScene(false);
-            print("You won!...that battle");
-            win = false;
+            if (GameManagerScript.currentScene == 10)
+            {
+                // TODO: Play won-battle animation
+                GameManagerScript.currentScene = 9;
+                print("You won!...that battle");
+                win = false;
+            }
+            else
+            {
+                // TODO: Play won-battle animation
+                GameManagerScript.NextScene(false);
+                print("You won!...that battle");
+                win = false;
+            }
         }
         else
         {
@@ -148,6 +176,8 @@ public class CombatManagerScript : MonoBehaviour
             }
         }
 
+        
+        
         // If the Netrixi marker is visible
         if (MarkerManagerScript.netrixiMarker)
         {
@@ -260,12 +290,18 @@ public class CombatManagerScript : MonoBehaviour
                         // Reset attack
                         CharacterManagerScript.UndoMove();
                         firstAttack = 0;
+
+                        netrixiTarget1Location = 0;
+                        folkvarTarget1Location = 0;
                     } 
                     else
                     {
                         // Reset attack
                         CharacterManagerScript.UndoMove();
                         secondAttack = 0;
+                        
+                        netrixiTarget2Location = 0;
+                        folkvarTarget2Location = 0;
                     }
                 }
             }
@@ -277,81 +313,88 @@ public class CombatManagerScript : MonoBehaviour
     
     public static void NetrixiSpellCast()
     {
-        // Netrixi casts her first spell
-        if (NetrixiCombatScript.netrixiCondition1[0] && NetrixiCombatScript.netrixiCondition1[1])
+        if (!canNetrixiAttack)
         {
-            print("Netrixi casts her first spell");
-            
-            // Make Netrixi attack in game 
-            if (firstAttack != 0)
-            {
-                hasRunSimulation = false;
-
-                if (secondAttack == 0)
-                {
-                    if (firstAttack != 1) secondAttack = 1;
-                    else print("Can't choose the same move twice");
-                }
-            }
-            else firstAttack = 1;
-
-
-            NetrixiCombatScript.ResetNetrixiVariables();
+            print("Netrixi is currently unable to attack! She can only dodge attacks this round");
         }
-            
-        // Netrixi casts her second spell
-        if (NetrixiCombatScript.netrixiCondition2[0] && NetrixiCombatScript.netrixiCondition2[1])
+        else
         {
-            print("Netrixi casts her second spell");
-            
-            // Make Netrixi attack in game 
-            if (firstAttack != 0)
+            // Netrixi casts her first spell
+            if (NetrixiCombatScript.netrixiCondition1[0] && NetrixiCombatScript.netrixiCondition1[1])
             {
-                hasRunSimulation = false;
+                print("Netrixi casts her first spell");
                 
-                if (secondAttack == 0)
+                // Make Netrixi attack in game 
+                if (firstAttack != 0)
                 {
-                    if (firstAttack != 2)
+                    hasRunSimulation = false;
+
+                    if (secondAttack == 0)
                     {
-                        target2Location = NetrixiCombatScript.netrixiRotation;
-                        secondAttack = 2;
+                        if (firstAttack != 1) secondAttack = 1;
+                        else print("Can't choose the same move twice");
                     }
-                    else print("Can't choose the same move twice");
                 }
-            }
-            else
-            {
-                target1Location = NetrixiCombatScript.netrixiRotation;
-                firstAttack = 2;
-            }
-            
+                else firstAttack = 1;
 
-            NetrixiCombatScript.ResetNetrixiVariables();
-        }
-            
-        // Netrixi casts her third spell
-        if (NetrixiCombatScript.netrixiCondition3[0] && NetrixiCombatScript.netrixiCondition3[1] && NetrixiCombatScript.netrixiCondition3[2] && NetrixiCombatScript.netrixiCondition3[3])
-        {
-            print("Netrixi casts her third spell");
-            
-            // Make Netrixi attack in game 
-            if (firstAttack != 0)
-            {
-                hasRunSimulation = false;
+
+                NetrixiCombatScript.ResetNetrixiVariables();
+            }
                 
-                if (secondAttack == 0)
+            // Netrixi casts her second spell
+            if (NetrixiCombatScript.netrixiCondition2[0] && NetrixiCombatScript.netrixiCondition2[1])
+            {
+                print("Netrixi casts her second spell");
+                
+                // Make Netrixi attack in game 
+                if (firstAttack != 0)
                 {
-                    if (firstAttack != 3) secondAttack = 3;
-                    else print("Can't choose the same move twice");
+                    hasRunSimulation = false;
+                    
+                    if (secondAttack == 0)
+                    {
+                        if (firstAttack != 2)
+                        {
+                            target2Location = NetrixiCombatScript.netrixiRotation;
+                            secondAttack = 2;
+                        }
+                        else print("Can't choose the same move twice");
+                    }
                 }
-            }
-            else firstAttack = 3;
-            
+                else
+                {
+                    target1Location = NetrixiCombatScript.netrixiRotation;
+                    firstAttack = 2;
+                }
+                
 
-            NetrixiCombatScript.ResetNetrixiVariables();
+                NetrixiCombatScript.ResetNetrixiVariables();
+            }
+                
+            // Netrixi casts her third spell
+            if (NetrixiCombatScript.netrixiCondition3[0] && NetrixiCombatScript.netrixiCondition3[1] && NetrixiCombatScript.netrixiCondition3[2] && NetrixiCombatScript.netrixiCondition3[3])
+            {
+                print("Netrixi casts her third spell");
+                
+                // Make Netrixi attack in game 
+                if (firstAttack != 0)
+                {
+                    hasRunSimulation = false;
+                    
+                    if (secondAttack == 0)
+                    {
+                        if (firstAttack != 3) secondAttack = 3;
+                        else print("Can't choose the same move twice");
+                    }
+                }
+                else firstAttack = 3;
+                
+
+                NetrixiCombatScript.ResetNetrixiVariables();
+            }
         }
-        
-        
+
+
         // Netrixi moves
         if (NetrixiCombatScript.netrixiCondition4[0])
         {
@@ -396,73 +439,191 @@ public class CombatManagerScript : MonoBehaviour
     
     public static void FolkvarMeleeAttack()
     {
-        // Folkvar uses his first melee attack
-        if (FolkvarCombatScript.folkvarCondition1[0] && FolkvarCombatScript.folkvarCondition1[1])
+        if (!canFolkvarAttack)
         {
-            print("Folkvar uses his first attack");
-            
-            // Make Folkvar attack in game 
-            if (firstAttack != 0)
-            {
-                hasRunSimulation = false;
-
-                if (secondAttack == 0)
-                {
-                    if (firstAttack != 4) secondAttack = 4;
-                    else print("Can't choose the same move twice");
-                }
-            }
-            else firstAttack = 4;
-
-
-            FolkvarCombatScript.ResetFolkvarVariables();
+            print("Folkvar is currently unable to attack! He can only dodge attacks this round");
         }
-            
-        // Folkvar uses his second melee attack
-        if (FolkvarCombatScript.folkvarCondition2[0] && FolkvarCombatScript.folkvarCondition2[1] && FolkvarCombatScript.folkvarCondition2[2])
+        else
         {
-            print("Folkvar uses his second attack");
-            
-            // Make Folkvar attack in game 
-            if (firstAttack != 0)
+            // Folkvar uses his first melee attack
+            if (FolkvarCombatScript.folkvarCondition1[0] && FolkvarCombatScript.folkvarCondition1[1])
             {
-                hasRunSimulation = false;
-
-                if (secondAttack == 0)
-                {
-                    if (firstAttack != 5) secondAttack = 5;
-                    else print("Can't choose the same move twice");
-                }
-            }
-            else firstAttack = 5;
-            
-
-            FolkvarCombatScript.ResetFolkvarVariables();
-        }
-            
-        // Folkvar uses his third melee attack
-        if (FolkvarCombatScript.folkvarCondition3[0] && FolkvarCombatScript.folkvarCondition3[1] && FolkvarCombatScript.folkvarCondition3[2])
-        {
-            print("Folkvar uses his third attack");
-            
-            // Make Folkvar attack in game 
-            if (firstAttack != 0)
-            {
-                hasRunSimulation = false;
+                print("Folkvar uses his first attack");
                 
-                if (secondAttack == 0)
+                // Make Folkvar attack in game 
+                if (firstAttack != 0)
                 {
-                    if (firstAttack != 6) secondAttack = 6;
-                    else print("Can't choose the same move twice");
+                    hasRunSimulation = false;
+
+                    if (secondAttack == 0)
+                    {
+                        if (firstAttack != 4) secondAttack = 4;
+                        else print("Can't choose the same move twice");
+                    }
+                }
+                else firstAttack = 4;
+
+
+                FolkvarCombatScript.ResetFolkvarVariables();
+            }
+                
+            // Folkvar uses his second melee attack
+            if (FolkvarCombatScript.folkvarCondition2[0] && FolkvarCombatScript.folkvarCondition2[1] && FolkvarCombatScript.folkvarCondition2[2])
+            {
+                print("Folkvar uses his second attack");
+                
+                // Make Folkvar attack in game 
+                if (firstAttack != 0)
+                {
+                    hasRunSimulation = false;
+
+                    if (secondAttack == 0)
+                    {
+                        if (firstAttack != 5)
+                        {
+                            DetermineWeakestEnemy(2);
+                            secondAttack = 5;
+                        }
+                        else print("Can't choose the same move twice");
+                    }
+                }
+                else
+                {
+                    DetermineWeakestEnemy(1);
+                    firstAttack = 5;
+                }
+
+                void DetermineWeakestEnemy(int attackNumber)
+                {
+                    int lowestEnemyHP = 500;
+                    int targetEnemy = 0;
+                    
+                    // Determine which enemy has the lowest HP
+                    if (CombatManagerScript.enemy1Alive)
+                    {
+                        targetEnemy = 1;
+                        lowestEnemyHP = CombatManagerScript.enemy1HP;
+                    }
+                    if (CombatManagerScript.enemy2Alive)
+                        if (CombatManagerScript.enemy2HP < lowestEnemyHP)
+                        {
+                            targetEnemy = 2;
+                            lowestEnemyHP = CombatManagerScript.enemy2HP;
+                        }
+                    if (CombatManagerScript.enemy3Alive)
+                        if (CombatManagerScript.enemy3HP < lowestEnemyHP)
+                        {
+                            targetEnemy = 3;
+                            lowestEnemyHP = CombatManagerScript.enemy3HP;
+                        }
+
+                    switch (targetEnemy)
+                    {
+                        case 1:
+                            if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy1Position;
+                            else folkvarTarget2Location = EnemyManagerScript.enemy1Position;
+                            break;
+                        
+                        case 2:
+                            if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy2Position;
+                            else folkvarTarget2Location = EnemyManagerScript.enemy2Position;
+                            break;
+                        
+                        case 3:
+                            if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy3Position;
+                            else folkvarTarget2Location = EnemyManagerScript.enemy3Position;
+                            break;
+                    }
+                }
+                
+
+                FolkvarCombatScript.ResetFolkvarVariables();
+            }
+                
+            // Folkvar uses his third melee attack
+            if (FolkvarCombatScript.folkvarCondition3[0] && FolkvarCombatScript.folkvarCondition3[1] && FolkvarCombatScript.folkvarCondition3[2])
+            {
+                if (GameManagerScript.currentScene >= 18)
+                {
+                    print("Folkvar uses his third attack");
+                
+                    // Make Folkvar attack in game 
+                    if (firstAttack != 0)
+                    {
+                        hasRunSimulation = false;
+                    
+                        if (secondAttack == 0)
+                        {
+                            if (firstAttack != 6)
+                            {
+                                DeterminGroupedEnemies(2);
+                                secondAttack = 6;
+                            }
+                            else print("Can't choose the same move twice");
+                        }
+                    }
+                    else
+                    {
+                        DeterminGroupedEnemies(1);
+                        firstAttack = 6;
+                    }
+                
+                    
+                    void DeterminGroupedEnemies(int attackNumber)
+                    {
+                        if (EnemyManagerScript.enemy2Position == EnemyManagerScript.enemy1Position + 1)
+                        {
+                            if (EnemyManagerScript.enemy3Position == EnemyManagerScript.enemy2Position + 1)
+                            {
+                                if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy2Position;
+                                else folkvarTarget2Location = EnemyManagerScript.enemy2Position;
+                            }
+                            else
+                            {
+                                if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy1Position;
+                                else folkvarTarget2Location = EnemyManagerScript.enemy1Position;
+                            }
+                        }
+                        else
+                        {
+                            if (EnemyManagerScript.enemy3Position == EnemyManagerScript.enemy2Position + 1)
+                            {
+                                if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy2Position;
+                                else folkvarTarget2Location = EnemyManagerScript.enemy2Position;
+                            }
+                            else
+                            {
+                                if (enemy1Alive)
+                                {
+                                    if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy1Position;
+                                    else folkvarTarget2Location = EnemyManagerScript.enemy1Position;
+                                }
+                                else if (enemy2Alive)
+                                {
+                                    if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy2Position;
+                                    else folkvarTarget2Location = EnemyManagerScript.enemy2Position;
+                                }
+                                else
+                                {
+                                    if (attackNumber == 1) folkvarTarget1Location = EnemyManagerScript.enemy3Position;
+                                    else folkvarTarget2Location = EnemyManagerScript.enemy3Position;
+                                }
+                            }
+                        }
+                    }
+
+                    FolkvarCombatScript.ResetFolkvarVariables();
+                }
+                else
+                {
+                    print("Can't use this attack yet, you must defeat Kaz first!");
+                    
+                    FolkvarCombatScript.ResetFolkvarVariables();
                 }
             }
-            else firstAttack = 6;
-            
-
-            FolkvarCombatScript.ResetFolkvarVariables();
         }
-        
-        
+
+
         // Folkvar moves
         if (FolkvarCombatScript.folkvarCondition4[0])
         {
@@ -507,81 +668,95 @@ public class CombatManagerScript : MonoBehaviour
     
     public static void IvTeamSupport()
     {
-        // Iv uses their first ability
-        if (IvCombatScript.ivCondition1[0] && IvCombatScript.ivCondition1[1])
+        if (!canIvAttack)
         {
-            print("Iv blocks the next attack");
-            
-            // Make Iv block in game 
-            if (firstAttack != 0)
-            {
-                hasRunSimulation = false;
-                
-                if (secondAttack == 0)
-                {
-                    if (firstAttack != 7) secondAttack = 7;
-                    else print("Can't choose the same move twice");
-                }
-            }
-            else firstAttack = 7;
-
-
-            IvCombatScript.ResetIvVariables();
+            print("Iv is currently unable to attack! She can only dodge attacks this round");
         }
-
-        // Iv uses their second ability
-        if (IvCombatScript.ivCondition2[0] && IvCombatScript.ivCondition2[1] && IvCombatScript.ivCondition2[2] && IvCombatScript.ivCondition2[3])
+        else
         {
-            print("Iv heals the weakest party");
-            
-            // Make Iv heal in game 
-            if (firstAttack != 0)
+             // Iv uses their first ability
+            if (IvCombatScript.ivCondition1[0] && IvCombatScript.ivCondition1[1])
             {
-                hasRunSimulation = false;
+                print("Iv blocks the next attack");
                 
-                if (secondAttack == 0)
+                // Make Iv block in game 
+                if (firstAttack != 0)
                 {
-                    if (firstAttack != 8) secondAttack = 8;
-                    else print("Can't choose the same move twice");
-                }
-            }
-            else firstAttack = 8;
-            
-
-            IvCombatScript.ResetIvVariables();
-        }
-        
-        // Iv uses their third ability
-        if (IvCombatScript.ivCondition3[0] && IvCombatScript.ivCondition3[1])
-        {
-            print("Iv empowers both teams");
-            
-            // Make Iv empower in game 
-            if (firstAttack != 0)
-            {
-                hasRunSimulation = false;
-                
-                if (secondAttack == 0)
-                {
-                    if (firstAttack != 9)
+                    hasRunSimulation = false;
+                    
+                    if (secondAttack == 0)
                     {
-                        target2Location = IvCombatScript.targetLocation;
-                        secondAttack = 9;
+                        if (firstAttack != 7) secondAttack = 7;
+                        else print("Can't choose the same move twice");
                     }
-                    else print("Can't choose the same move twice");
                 }
+                else firstAttack = 7;
+
+
+                IvCombatScript.ResetIvVariables();
             }
-            else
+
+            // Iv uses their second ability
+            if (IvCombatScript.ivCondition2[0] && IvCombatScript.ivCondition2[1] && IvCombatScript.ivCondition2[2] && IvCombatScript.ivCondition2[3])
             {
-                target1Location = IvCombatScript.targetLocation;
-                firstAttack = 9;
+                print("Iv heals the weakest party");
+                
+                // Make Iv heal in game 
+                if (firstAttack != 0)
+                {
+                    hasRunSimulation = false;
+                    
+                    if (secondAttack == 0)
+                    {
+                        if (firstAttack != 8) secondAttack = 8;
+                        else print("Can't choose the same move twice");
+                    }
+                }
+                else firstAttack = 8;
+                    
+                IvCombatScript.ResetIvVariables();
             }
             
-
-            IvCombatScript.ResetIvVariables();
+            // Iv uses their third ability
+            if (IvCombatScript.ivCondition3[0] && IvCombatScript.ivCondition3[1])
+            {
+                if (GameManagerScript.currentScene >= 18)
+                {
+                    print("Iv empowers both teams");
+                
+                    // Make Iv empower in game 
+                    if (firstAttack != 0)
+                    {
+                        hasRunSimulation = false;
+                    
+                        if (secondAttack == 0)
+                        {
+                            if (firstAttack != 9)
+                            {
+                                target2Location = IvCombatScript.targetLocation;
+                                secondAttack = 9;
+                            }
+                            else print("Can't choose the same move twice");
+                        }
+                    }
+                    else
+                    {
+                        target1Location = IvCombatScript.targetLocation;
+                        firstAttack = 9;
+                    }
+                    
+                    IvCombatScript.ResetIvVariables();
+                }
+                else
+                {
+                    print("Can't use this attack yet, you must defeat Kaz first!");
+                    
+                    IvCombatScript.ResetIvVariables();
+                }
+            }
         }
-        
-        
+
+
         // Iv moves
         if (IvCombatScript.ivCondition4[0])
         {
@@ -623,8 +798,8 @@ public class CombatManagerScript : MonoBehaviour
 
     
     
-    
-    
+
+
     public static void CharactersAlive()
     {
         // Determine whether the Main Characters are still alive
@@ -632,18 +807,21 @@ public class CombatManagerScript : MonoBehaviour
         {
             // Play death animation
             netrixiAlive = false;
+            canNetrixiAttack = false;
         }
 
         if (folkvarHP <= 0)
         {
             // Play death animation
             folkvarAlive = false;
+            canFolkvarAttack = false;
         }
 
         if (ivHP <= 0)
         {
             // Play death animation
             ivAlive = false;
+            canIvAttack = false;
         }
 
 
@@ -652,18 +830,21 @@ public class CombatManagerScript : MonoBehaviour
         {
             // Play death animation
             enemy1Alive = false;
+            canEnemy1Attack = false;
         }
 
         if (enemy2HP <= 0)
         {
             // Play death animation
             enemy2Alive = false;
+            canEnemy2Attack = false;
         }
 
         if (enemy3HP <= 0)
         {
             // Play death animation
             enemy3Alive = false;
+            canEnemy3Attack = false;
         }
     }
 

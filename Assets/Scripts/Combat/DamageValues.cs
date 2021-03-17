@@ -8,52 +8,107 @@ public class DamageValues : MonoBehaviour
     // Change these values to change the damage of different abilities
 
     public static float standardDelay = 1f;
+    public static float standardBurn = 0.01f;
 
+    // MAIN CHARACTERS
+    
     // Netrixi
     public static float fireball = 15;                    // How much damage does the attack do?
-    public static float fireballBurn = 0.075f;            // How long does the attack take to do 1 HP in damage?
+    public static float fireballBurn = 0.05f;            // How long does the attack take to do 1 HP in damage?
     public static float fireballDelay;                    // How long before the next attack is started?
     
     public static float lightning = 35;
-    public static float lightningBurn = 0f;
-    public static float lightningDelay = 1f;
+    public static float lightningBurn = standardBurn;
 
     public static int roundsTransformed = 2;
-    public static float transmutateDelay = 1f;
+    public static float transmutateDelay = standardDelay;
     public static int choices = 4;
 
     
     // Folkvar
     public static float swingSword = 40;
     public static int critChance = 10;                    // Determines the likelihood of a critical strike
-    public static float swingSwordBurn = 0.01f;
-    public static float swingSwordDelay = 1f;
+    public static float swingSwordBurn = standardBurn;
 
     public static float smite = 25;
     public static float executeThreshold = 0.25f;        // Enemies must be below 25% health to be executed
-    public static float smiteBurn = 0f;
-    public static float smiteDelay = 1f;
+    public static float smiteBurn = standardBurn;
 
     public static float grandSlam = 40;
-    public static float grandSlamBurn = 0.01f;
-    public static float grandSlamDelay = 1f;
-    
-    
+    public static float grandSlamBurn = standardBurn;
+
+
     // Iv
-    public static float blockedDamage = 0.75f;           // How much is the damage of the next attack reduced by?
-    public static float blockDelay = 1f; 
+    public static float blockedDamage = 0.25f;            // What percent damage will the next attack deal?
+    public static float blockDelay = standardDelay; 
     
     public static float empowered1Damage = 1.25f;        // How much is the damage of the next attack increased by?
     public static float empowered2Damage = 1.5f;         
     public static float empowered3Damage = 2f;           
-    public static float empowerDelay = 1f;
+    public static float empowerDelay = standardDelay;
 
-    public static float heal = -40;
-    public static float healBurn = 0.075f;    
-    public static float healDelay;   
+    public static float heal = 30;
+    public static float healBurn = 0.075f;
 
+
+
+    // ENEMIES
+    
+    // Pirate
+    public static float slash = 30;
+    public static float slashBurn = standardBurn;
+
+    public static float throwKnife = 25;
+    public static float throwKnifeBurn = standardBurn;
+
+
+    // Royal Knight Ranged
+    public static float shootArrow = 25;
+    public static float shootArrowBurn = standardBurn;
+
+    public static float healTeam = 25;
+    public static float healTeamBurn = 0.075f;
+    public static int enemyCanHeal = 25;                // How much damage an enemy needs to have taken to be considered worthy to heal
     
     
+    // Gatekeeper
+    public static float dogBite = 40;
+    public static float dogBiteBurn = standardBurn;
+    
+    public static float dogBark = 40;
+    public static float dogBarkBurn = standardBurn;
+
+
+    // Tavern Brute
+    public static float smash = 60;
+    public static float smashBurn = standardBurn;
+    
+    public static float throwChair = 45;
+    public static float throwChairBurn = standardBurn;
+    
+    
+    // Barkeeper
+    public static float punch = 40;
+    public static float punchBurn = standardBurn;
+    
+    
+    // Skull Grunt Ranged
+    public static float bomb = 15;
+    public static float bombBurn = standardBurn;
+    public static float roundsStunned = 2;
+    
+    
+    // Royal Guards
+    public static float swingAxe = 50;
+    public static float swingAxeBurn = standardBurn;
+    
+    
+    // Skull King
+    public static float swingMace = 75;
+    public static float swingMaceBurn = standardBurn;
+    
+    
+
     public static void ChangeDelay(int enemiesAlive)
     {
         // If there are 3 Enemies alive
@@ -73,11 +128,5 @@ public class DamageValues : MonoBehaviour
         {
             fireballDelay = (fireballBurn * (fireball * AttackScript.damageModifier) * 3) + standardDelay;
         }
-    }
-
-    public static void ChangeHealDelay(int healingDone, int enemyNumber)
-    {
-        // Change the delay for Iv's heal
-        if (enemyNumber == 0) healDelay = (healBurn * healingDone) + standardDelay;
     }
 }

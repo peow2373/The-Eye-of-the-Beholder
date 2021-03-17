@@ -44,7 +44,7 @@ public class FolkvarCombatScript : MonoBehaviour
                 // If player instead places their hand in any other corner
                 if (!folkvarCondition1[1])
                 {
-                    if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.X))
+                    if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.E))
                     {
                         folkvarCondition1[0] = false;
                     } 
@@ -71,7 +71,7 @@ public class FolkvarCombatScript : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.C)) folkvarCondition2[2] = true;
 
                     // If player instead moves hand to a different location
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.D))
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
                     {
                         folkvarCondition2[1] = false;
                         folkvarCondition2[0] = false;
@@ -80,7 +80,7 @@ public class FolkvarCombatScript : MonoBehaviour
                 else
                 {
                     // If player instead moves hand to a different location
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.D))
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
                     {
                         folkvarCondition2[0] = false;
                     }
@@ -104,7 +104,7 @@ public class FolkvarCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!folkvarCondition3[1])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.X))
+                        if (Input.GetKeyDown(KeyCode.E))
                         {
                             folkvarCondition3[0] = false;
                         } 
@@ -128,7 +128,7 @@ public class FolkvarCombatScript : MonoBehaviour
                     // If player instead places their hand in any other corner
                     if (!folkvarCondition3[2])
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.X))
+                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
                         {
                             folkvarCondition3[0] = false;
                             folkvarCondition3[1] = false;

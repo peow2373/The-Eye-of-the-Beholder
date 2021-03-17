@@ -42,9 +42,6 @@ public class IvCombatScript : MonoBehaviour
             {
                 // If player then moves hand close to the webcam
                 if (Input.GetKeyDown(KeyCode.N)) ivCondition1[1] = true;
-
-                // If player instead moves hand back to a resting position
-                else if (Input.GetKeyDown(KeyCode.M)) ivCondition1[0] = false;
             }
             
             
@@ -61,16 +58,6 @@ public class IvCombatScript : MonoBehaviour
 
                     // If player then places their their hand in the middle-left corner
                     if (Input.GetKeyDown(KeyCode.A)) ivCondition2[1] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition2[1])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) ||
-                            Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition2[0] = false;
-                        }
-                    }
                 }
             }
             
@@ -86,15 +73,6 @@ public class IvCombatScript : MonoBehaviour
                 
                     // If player then places their their hand in the middle-right corner
                     if (Input.GetKeyDown(KeyCode.D)) ivCondition2[1] = true;
-
-                    // If player instead places their hand in any other corner
-                    if (!ivCondition2[1])
-                    {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                        {
-                            ivCondition2[0] = false;
-                        } 
-                    }
                 }
             }
             
@@ -105,17 +83,6 @@ public class IvCombatScript : MonoBehaviour
 
                 // If player then places their their hand in the top-middle corner
                 if (Input.GetKeyDown(KeyCode.W)) ivCondition2[2] = true;
-
-                // If player instead places their hand in any other corner
-                if (!ivCondition2[2])
-                {
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) ||
-                        Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                    {
-                        ivCondition2[0] = false;
-                        ivCondition2[1] = false;
-                    }
-                }
             }
 
             // If player has then placed hand in the top-middle corner
@@ -131,17 +98,6 @@ public class IvCombatScript : MonoBehaviour
                     // The player has successfully made the pattern
                     ivCondition2[3] = true;
                 }
-
-                // If player instead places their hand in any other corner
-                if (!ivCondition2[3])
-                {
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.C))
-                    {
-                        ivCondition2[0] = false;
-                        ivCondition2[1] = false;
-                        ivCondition2[2] = false;
-                    }
-                }
             }
             
 
@@ -150,11 +106,19 @@ public class IvCombatScript : MonoBehaviour
             // If player starts to rotate their hand first
             if (GameManagerScript.rightHanded)
             {
-                if (Input.GetKeyDown(KeyCode.K)) ivCondition3[0] = true;
+                if (Input.GetKeyDown(KeyCode.K))
+                {
+                    ivRotation = 1;
+                    ivCondition3[0] = true;
+                }
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.J)) ivCondition3[0] = true;
+                if (Input.GetKeyDown(KeyCode.J))
+                {
+                    ivRotation = 1;
+                    ivCondition3[0] = true;
+                }
             }
             
             
@@ -164,14 +128,11 @@ public class IvCombatScript : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.V)) ivCondition3[1] = true;
                 
                 
-                // If player then rotates hand to the first or second zone
-                if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.G)) ivRotation = 1;
-                
-                // If player then rotates hand to the third or fourth zone
-                if (Input.GetKeyDown(KeyCode.B) || Input.GetKeyDown(KeyCode.T)) ivRotation = 2;
-                
-                // If player then rotates hand to the fifth zone
-                if (Input.GetKeyDown(KeyCode.R)) ivRotation = 3;
+                // If player then rotates hand to the second rotation
+                if (Input.GetKeyDown(KeyCode.G) || Input.GetKeyDown(KeyCode.B)) ivRotation = 2;
+
+                // If player then rotates hand to the third rotation
+                if (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.R)) ivRotation = 3;
                 
             }
 
