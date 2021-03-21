@@ -2,14 +2,14 @@ Come on pirate, hand over the coil. It's not even yours! I mean, you're a pirate
 
 I rightfully stole this! #Pirate
 
-Use your action hand to select you preferred dialogue option #Narrator
+Use your action hand to select your preferred response #Narrator
 
-+   [Time to die] -> Netrixi_attacks_Pirate
-+   [Hand it over] -> Netrixi_attacks_Pirate
++   [Time to die] -> Netrixi_attacks_pirate
++   [Hand it over] -> Netrixi_attacks_pirate
 
-=== Netrixi_attacks_Pirate ===
+=== Netrixi_attacks_pirate ===
 Gahhh bring it on, you hooded creep! #Pirate
 
-How foolish... I'm gonna enjoy this #Netrixi
+How foolish... I'm gonna enjoy this. #Netrixi
 
 +   [Fight] -> END

@@ -12,11 +12,12 @@ Those are the royal guards from the castle! #Netrixi
 === Royal_guards_spill_beans ===
 Agh, these slaves can be such a thorn in your side sometimes, man. #RoyalGuard_1
 
-Tell me about it. The berzerker is always killing other slaves and that monk is more slippery than a... a monkey! #RoyalGuard_2
+Tell me about it. The berzerker is always killing other slaves and that monk has gone even more crazy than the royal jester! #RoyalGuard_2
 
 Hahaha what a weirdo! #RoyalGuard_1
 
 THAT'S MY BROTHER, YOU SCUM!!! #Iv
+
 +   [Fight] -> END
 
 === Inside_cave_fight ===

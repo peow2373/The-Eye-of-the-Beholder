@@ -40,7 +40,9 @@ My most sincere of apologies, father. It took longer than expected. In better ne
 
 Brilliant! Do not delay. Go and bring that Beholderite back to me! I mean, the castle! So we can... uh store it in the vault? Yes, store it in the vault! #King
 
-Your wish is my command, father. #Folkvar
+Your wish is my command father, but there's one small complication. We were attacked by bandits on the way here, and we need to bring holy vengeance upon them. #Folkvar
+
+Yes, my son! You must crush your enemies. You may find the bandits you seek in the Caverns of Cathuloo. Now, off you go!  #King
 
 You got a weird family, man. #Netrixi
 

@@ -13,6 +13,12 @@ TagManager:
   - Enemy 3
   - Dialogue Choice
   - Dialogue Text
+  - Choice 1
+  - Choice 2
+  - Choice 3
+  - Option 1
+  - Option 2
+  - Option 3
   layers:
   - Default
   - TransparentFX

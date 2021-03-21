@@ -37,6 +37,8 @@ public class ChangePortrait : MonoBehaviour
 
     void DetermineSpeaker()
     {
+        int currentScene = GameManagerScript.currentScene;
+        
         switch (speakerName)
         {
             // Main Characters
@@ -45,34 +47,31 @@ public class ChangePortrait : MonoBehaviour
                 break;
             
             case "Iv":
-                if (GameManagerScript.currentScene > 10)
+                if (currentScene > 10)
                 {
-                    if (GameManagerScript.currentScene == 18) whoIsTalking = 2;
+                    if (currentScene == 18) whoIsTalking = 2;
                     else whoIsTalking = 1;
                 }
                 else whoIsTalking = 2;
                 break;
             
             case "Folkvar":
-                if (GameManagerScript.currentScene > 4)
+                if (currentScene > 4)
                 {
-                    if (GameManagerScript.currentScene == 18) whoIsTalking = 2;
-                    else if (GameManagerScript.currentScene == 8 || GameManagerScript.currentScene == 9)
+                    if (currentScene == 18) whoIsTalking = 2;
+                    else if (currentScene == 8 || currentScene == 9)
                     {
+                        if (MarkerManagerScript.folkvarMarker) folkvarChosen = true;
+                        
                         if (!folkvarChosen) whoIsTalking = 2;
-
-                        if (MarkerManagerScript.folkvarMarker)
-                        {
-                            whoIsTalking = 1;
-                            folkvarChosen = true;
-                        }
+                        else whoIsTalking = 1;
                     }
+                    else if (currentScene == 10 || currentScene == 11) folkvarChosen = false;
                     else whoIsTalking = 1;
                 }
                 else
                 {
                     whoIsTalking = 2;
-                    folkvarChosen = false;
                 }
                 break;
             
@@ -84,7 +83,7 @@ public class ChangePortrait : MonoBehaviour
                 break;
             
             case "Kaz":
-                if (GameManagerScript.currentScene == 16)
+                if (currentScene == 16)
                 {
                     if (MarkerManagerScript.goMarker) if (Input.GetKeyDown(KeyCode.V)) kazSpeaks++;
                     
@@ -104,7 +103,7 @@ public class ChangePortrait : MonoBehaviour
                 whoIsTalking = 2;
                 break;
             
-            case "GK":
+            case "GateKeeper":
                 whoIsTalking = 2;
                 break;
             
@@ -116,7 +115,7 @@ public class ChangePortrait : MonoBehaviour
                 whoIsTalking = 2;
                 break;
             
-            case "assassins":
+            case "Bandit":
                 whoIsTalking = 2;
                 break;
             

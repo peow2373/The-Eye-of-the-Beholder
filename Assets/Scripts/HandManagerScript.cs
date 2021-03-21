@@ -119,8 +119,8 @@ public class HandManagerScript : MonoBehaviour
         // If the player is in the End Game Scene
         if (curScene == 29)
         {
-            MarkerManagerScript.xPos = xPosEndGame;
-            MarkerManagerScript.yPos = yPosEndGame;
+            //MarkerManagerScript.xPos = xPosEndGame;
+            //MarkerManagerScript.yPos = yPosEndGame;
         }
     }
 }

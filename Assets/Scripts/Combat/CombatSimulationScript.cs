@@ -176,6 +176,8 @@ public class CombatSimulationScript : MonoBehaviour
         CharacterManagerScript.ResetVariables();
         EnemyManagerScript.ClearMoves();
 
+        CombatManagerScript.hasRunSimulation = false;
+
         didPlayerMove1 = false;
         didPlayerMove2 = false;
         didEnemyMove1 = false;

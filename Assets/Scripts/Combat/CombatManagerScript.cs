@@ -62,6 +62,7 @@ public class CombatManagerScript : MonoBehaviour
         isIv = true;
 
         roundNumber = 1;
+        hasRunSimulation = false;
 
 
         // Determine which characters are in the scene
@@ -327,8 +328,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Netrixi attack in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-
                     if (secondAttack == 0)
                     {
                         if (firstAttack != 1) secondAttack = 1;
@@ -349,8 +348,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Netrixi attack in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0)
                     {
                         if (firstAttack != 2)
@@ -379,8 +376,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Netrixi attack in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0)
                     {
                         if (firstAttack != 3) secondAttack = 3;
@@ -406,8 +401,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Netrixi move in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0) secondAttack = 10;
                 }
                 else firstAttack = 10;
@@ -423,8 +416,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Netrixi move in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-
                     if (secondAttack == 0) secondAttack = 11;
                 }
                 else firstAttack = 11;
@@ -453,8 +444,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Folkvar attack in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-
                     if (secondAttack == 0)
                     {
                         if (firstAttack != 4) secondAttack = 4;
@@ -475,8 +464,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Folkvar attack in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-
                     if (secondAttack == 0)
                     {
                         if (firstAttack != 5)
@@ -550,8 +537,6 @@ public class CombatManagerScript : MonoBehaviour
                     // Make Folkvar attack in game 
                     if (firstAttack != 0)
                     {
-                        hasRunSimulation = false;
-                    
                         if (secondAttack == 0)
                         {
                             if (firstAttack != 6)
@@ -635,8 +620,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Folkvar move in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0) secondAttack = 12;
                 }
                 else firstAttack = 12;
@@ -652,8 +635,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Folkvar move in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0) secondAttack = 13;
                 }
                 else firstAttack = 13;
@@ -682,8 +663,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Iv block in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0)
                     {
                         if (firstAttack != 7) secondAttack = 7;
@@ -704,8 +683,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Iv heal in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0)
                     {
                         if (firstAttack != 8) secondAttack = 8;
@@ -727,8 +704,6 @@ public class CombatManagerScript : MonoBehaviour
                     // Make Iv empower in game 
                     if (firstAttack != 0)
                     {
-                        hasRunSimulation = false;
-                    
                         if (secondAttack == 0)
                         {
                             if (firstAttack != 9)
@@ -768,8 +743,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Iv move in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0) secondAttack = 14;
                 }
                 else firstAttack = 14;
@@ -785,8 +758,6 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Iv move in game 
                 if (firstAttack != 0)
                 {
-                    hasRunSimulation = false;
-                    
                     if (secondAttack == 0) secondAttack = 15;
                 }
                 else firstAttack = 15;

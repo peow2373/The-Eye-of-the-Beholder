@@ -105,9 +105,12 @@ public class MokeScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = true;
 
-            if (Input.GetKeyDown(KeyCode.V))
+            if (MarkerManagerScript.goMarker)
             {
-                refreshUI();
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    refreshUI();
+                }
             }
         }
 

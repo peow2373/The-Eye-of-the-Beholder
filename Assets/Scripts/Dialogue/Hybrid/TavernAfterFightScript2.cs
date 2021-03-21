@@ -76,6 +76,13 @@ public class TavernAfterFightScript2 : MonoBehaviour
             });
 
         }
+        
+        // Fixes an error with an empty dialogue box loading in at the end of the story
+        string currentText = text;
+        if (currentText == "")
+        {
+            GameManagerScript.NextScene(skipScene);
+        }
     }
 
     void eraseUI()

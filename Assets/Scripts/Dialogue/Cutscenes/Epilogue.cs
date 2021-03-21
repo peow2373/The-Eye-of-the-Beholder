@@ -109,7 +109,8 @@ public class Epilogue : MonoBehaviour
 
             case 10:
 
-
+                GameManagerScript.endOfGame = true;
+                
                 text = "THE END \n \n Thank you for playing!";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);

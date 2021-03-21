@@ -16,7 +16,7 @@ public class CastleScript : MonoBehaviour
 
     public GameObject TextContainer;
 
-    bool skipScene = true;
+    bool skipScene = false;
     bool max = false;
 
     private bool didMarkerDisappear;
@@ -100,11 +100,10 @@ public class CastleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (this.transform.childCount == 0)
         {
             goMarkerToContinue.enabled = true;
-
+    
             if (MarkerManagerScript.goMarker)
             {
                 if (Input.GetKeyDown(KeyCode.V))
@@ -117,12 +116,15 @@ public class CastleScript : MonoBehaviour
         else if (this.transform.childCount == 1)
         {
             goMarkerToContinue.enabled = false;
+            
+            // Skip the following combat scene if the player makes the right choice
+            if ((string)story.currentChoices[0].text == "Continue")
+            {
+                skipScene = true;
+            }
+            
             if (MarkerManagerScript.goMarker)
             {
-                if ((string)story.currentChoices[0].text == "Fight")
-                {
-                    skipScene = false;
-                }
                 if (Input.GetKeyDown(KeyCode.V))
                 {
                     refreshUI();

@@ -18,9 +18,7 @@ public class TavernScript : MonoBehaviour
 
     bool skipScene = false;
     bool max = false;
-
-    private int pastLocation;
-
+    
     private bool didMarkerDisappear;
 
     // Start is called before the first frame update
@@ -36,6 +34,7 @@ public class TavernScript : MonoBehaviour
     void refreshUI()
     {
         MarkerManagerScript.pastLocation = MarkerManagerScript.currentLocation;
+        didMarkerDisappear = false;
         
         eraseUI();
 
@@ -78,6 +77,15 @@ public class TavernScript : MonoBehaviour
             });
 
         }
+        
+        // Fixes an error with an empty dialogue box loading in at the end of the story
+        string currentText = text;
+        if (currentText == "")
+        {
+            GameManagerScript.NextScene(skipScene);
+            skipScene = true;
+            GameManagerScript.NextScene(skipScene);
+        }
     }
 
     void eraseUI()
@@ -102,7 +110,6 @@ public class TavernScript : MonoBehaviour
     // Update is called once per frame
     void Update() //skip scene = true unless you fight the brute
     {
-
         if (this.transform.childCount == 0)
         {
             goMarkerToContinue.enabled = true;
@@ -119,6 +126,7 @@ public class TavernScript : MonoBehaviour
         else if (this.transform.childCount == 1)
         {
             goMarkerToContinue.enabled = false;
+            
             if ((string)story.currentChoices[0].text == "Fight")
             {
                 skipScene = true;
@@ -132,13 +140,15 @@ public class TavernScript : MonoBehaviour
                     }
                 }
             }
-
-            else if (MarkerManagerScript.goMarker)
+            else 
             {
-                if (Input.GetKeyDown(KeyCode.V))
+                if (MarkerManagerScript.goMarker)
                 {
-                    story.ChooseChoiceIndex(0);
-                    refreshUI();
+                    if (Input.GetKeyDown(KeyCode.V))
+                    {
+                        story.ChooseChoiceIndex(0);
+                        refreshUI();
+                    }
                 }
             }
         }
@@ -175,6 +185,7 @@ public class TavernScript : MonoBehaviour
                         {
                             story.ChooseChoiceIndex(0);
                             GameWindowManager.metBrute = true;
+                            ChangeChoiceText.madeChoice = true;
                             refreshUI();
                         }
                         else
@@ -183,6 +194,7 @@ public class TavernScript : MonoBehaviour
                             {
                                 story.ChooseChoiceIndex(0);
                                 GameWindowManager.metBrute = true;
+                                ChangeChoiceText.madeChoice = true;
                                 refreshUI();
                             }
                         
@@ -197,6 +209,7 @@ public class TavernScript : MonoBehaviour
                         {
                             story.ChooseChoiceIndex(1);
                             GameWindowManager.metBrute = true;
+                            ChangeChoiceText.madeChoice = true;
                             refreshUI();
                         }
                         else
@@ -205,6 +218,7 @@ public class TavernScript : MonoBehaviour
                             {
                                 story.ChooseChoiceIndex(1);
                                 GameWindowManager.metBrute = true;
+                                ChangeChoiceText.madeChoice = true;
                                 refreshUI();
                             }
                         

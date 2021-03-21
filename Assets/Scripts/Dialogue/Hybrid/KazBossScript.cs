@@ -16,7 +16,7 @@ public class KazBossScript : MonoBehaviour
 
     public GameObject TextContainer;
 
-    bool skipScene = true;
+    private bool skipScene = false;
     bool max = false;
 
     private bool didMarkerDisappear;
@@ -133,6 +133,12 @@ public class KazBossScript : MonoBehaviour
 
             else
             {
+                // Skip the following combat scene if the player makes the right choice
+                if ((string)story.currentChoices[0].text == "Continue")
+                {
+                    skipScene = true;
+                }
+                
                 if (MarkerManagerScript.goMarker)
                 {
                     if (Input.GetKeyDown(KeyCode.V))

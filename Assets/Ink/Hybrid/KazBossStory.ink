@@ -1,10 +1,10 @@
 What do you mean the Beholderite wasn’t in their stomach? #Kaz
 
-We couldn’t find it, dear prince. #assassins
+We couldn’t find it, dear prince. #Bandit
 
 Get out of my face. If you come back empty handed again, you’re going in the pit. #Kaz
 
-AHH! Intruders, your highness! #assassins
+AHH! Intruders, your highness! #Bandit
 
 Well well well, if it isn't the lovely folks that gave me the compass. #Kaz
 
@@ -55,7 +55,7 @@ We shall see about that. Run your arrands and return back to me, Netrixi. Heed m
 === Evade_Kaz ===
 Good. Here are your things. Oh, and bring these back as well. After you betray your friends, I mean. #Kaz
 
-+   [Next Scene] -> END
++   [Continue] -> END
 
 === Fight_Kaz ===
 You will regret coming here. #Kaz
@@ -65,7 +65,7 @@ You will regret coming here. #Kaz
 === Folkvar_speaks_to_Kaz ===
 Well hello! We just happened to be in the neighborhood and figured that we could pick up what you borrowed from us! #Folkvar
 
-Borrow? BWAHAHAHA! Assassins, kill them. #Kaz
+Borrow? BWAHAHAHA! Bandits! Kill them. #Kaz
 
 + [Fight] -> END
 
@@ -88,7 +88,7 @@ You're right. I have lost. I assume this amulet is yours? #Kaz
 === Iv_pursuades_Kaz_again ===
 I never knew my mother... Here, take your amulet. I hope you find your brother. Pray he is alive in this God-forsaken Region. And here are the rest of your things. Now leave.
 
-+   [Next Scene] -> END
++   [Continue] -> END
 
 === Fight_nice_Kaz ===
 I am not kind! I was raised as a monster and that is who I am. You never should have come here. #Kaz

@@ -29,6 +29,8 @@ public class TunnelEntranceScript : MonoBehaviour
         refreshUI();
 
         MarkerManagerScript.S.Reset();
+        
+        GameWindowManager.metBrute = true;
     }
 
     void refreshUI()
@@ -117,12 +119,15 @@ public class TunnelEntranceScript : MonoBehaviour
         else if (this.transform.childCount == 1)
         {
             goMarkerToContinue.enabled = false;
+            
+            // Skip the following combat scene if the player makes the right choice
+            if ((string)story.currentChoices[0].text == "Continue")
+            {
+                skipScene = true;
+            }
+            
             if (MarkerManagerScript.goMarker)
             {
-                if ((string)story.currentChoices[0].text == "Fight")
-                {
-                    skipScene = false;
-                }
                 if (Input.GetKeyDown(KeyCode.V))
                 {
                     refreshUI();

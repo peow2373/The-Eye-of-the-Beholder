@@ -65,7 +65,8 @@ public class MarkerManagerScript : MonoBehaviour
     void TestForMarkers()
     {
         // check to see if Palm marker is visible
-        if (Input.GetKeyDown(KeyCode.H)) palmMarker = !palmMarker;
+        if (Input.GetKeyDown(KeyCode.H)) palmMarker = true;
+        if (Input.GetKeyDown(KeyCode.L)) palmMarker = false;
         
         // check to see if Netrixi marker is visible
         if (Input.GetKeyDown(KeyCode.Y)) netrixiMarker = !netrixiMarker;

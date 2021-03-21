@@ -6,8 +6,8 @@ using System;
 
 public class GameWindowManager : MonoBehaviour
 {
-    public static float webcamSizeX = 680;
-    public static float webcamSizeY = 520;
+    public static float webcamSizeX = 640;
+    public static float webcamSizeY = 480;
     
     // Initial values for Beholder webcam
     //public static float webcamSizeX = 640;
@@ -30,7 +30,13 @@ public class GameWindowManager : MonoBehaviour
     public static float percentOfDialogueArea;
 
     public GameObject portrait;
+    public static float portraitYDimension, portraitYLocation;
     public static float dialoguePadding;
+    
+    public static float smallerDialoguePercent = 0.6f;
+    public static float smallerDialoguePadding = 0.03f;
+    public static float largerDialoguePercent = 0.7f;
+    public static float largerDialoguePadding = 0.035f;
 
     public GameObject hand, gridRow1, gridRow2, gridColumn1, gridColumn2;
     public static float gridRowPadding, gridColumnPadding;
@@ -46,6 +52,10 @@ public class GameWindowManager : MonoBehaviour
     public static bool metBrute = true;
 
     public static GameWindowManager S;
+    
+    public static float cameraHeight, cameraWidth;
+
+    public static bool choicesReset = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -57,12 +67,16 @@ public class GameWindowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Determine dimensions of the camera within the scene
+        // Determine the dimensions of the camera within the scene
         Camera camera = Camera.main;
-        float cameraHeight = 2f * camera.orthographicSize;
-        float cameraWidth = cameraHeight * camera.aspect;
+        cameraHeight = 2f * camera.orthographicSize;
+        cameraWidth = cameraHeight * camera.aspect;
+        
+        // Determine the dimensions of the player portrait
+        portraitYDimension = (((Screen.height - gameWindowSizeY) * smallerDialoguePercent) - (2*smallerDialoguePadding*Screen.height));
+        portraitYLocation = (cameraHeight/2) - ((gameWindowSizeY/Screen.height)*cameraHeight) - (((portraitYDimension/Screen.height) * cameraHeight)/2) - (smallerDialoguePadding * cameraHeight);
 
-
+        // Determine how many dialogue choices there are
         choices = GameObject.FindGameObjectsWithTag("Dialogue Choice");
         GameObject dialogueTextBox = GameObject.FindGameObjectWithTag("Dialogue Text");
 
@@ -114,7 +128,14 @@ public class GameWindowManager : MonoBehaviour
 
             ChangePortrait.whoIsTalking = 0;
             PositionPortrait(cameraWidth, cameraHeight);
+
+            if (!choicesReset)
+            {
+                ChangeChoiceText.S.ResetChoices(false);
+                choicesReset = true;
+            }
         }
+        else choicesReset = false;
     }
 
     public void ArrangeScreen()
@@ -308,33 +329,32 @@ public class GameWindowManager : MonoBehaviour
     void PositionPortrait(float cameraWidth, float cameraHeight)
     {
         // Determine the dimensions of the portrait window
-        float portraitSize = (((Screen.height - gameWindowSizeY) * percentOfDialogueArea) - (2*dialoguePadding*Screen.height));
-        
-        float portraitHeight =  portraitSize / Screen.height;
-        float portraitWidth = portraitSize / Screen.width;
+
+        float portraitHeight =  portraitYDimension / Screen.height;
+        float portraitWidth = portraitYDimension / Screen.width;
 
         portrait.transform.localScale = new Vector3(portraitWidth * cameraWidth, portraitHeight * cameraHeight, 1);
 
         // Determine the location of the portrait window
         float xLocation;
-        float yLocation = (cameraHeight/2) - ((gameWindowSizeY/Screen.height)*cameraHeight) - ((portraitHeight * cameraHeight)/2) - (dialoguePadding * cameraHeight);
 
         // Change the location of the portrait to the left side
         if (ChangePortrait.whoIsTalking == 1)
         {
-            xLocation = -cameraWidth/2 + ((portraitWidth * cameraWidth)/2) + (dialoguePadding * cameraHeight);
+            xLocation = -cameraWidth/2 + ((portraitWidth * cameraWidth)/2) + (smallerDialoguePadding * cameraHeight);
         }
         else
         {
             // Change the location of the portrait to the right side
             if (ChangePortrait.whoIsTalking == 2)
             {
-                xLocation = -cameraWidth/2 + ((gameWindowSizeX / Screen.width) * cameraWidth) - ((portraitWidth * cameraWidth)/2) - (dialoguePadding * cameraHeight);
+                xLocation = -cameraWidth/2 + ((gameWindowSizeX / Screen.width) * cameraWidth) - ((portraitWidth * cameraWidth)/2) - (smallerDialoguePadding * cameraHeight);
             }
             else xLocation = -1000;
         }
         
-        portrait.transform.position = new Vector3(xLocation, yLocation, 0);
+        portrait.transform.position = new Vector3(xLocation, portraitYLocation, 0);
+        
         
         // Change dialogue text location
         if (!GameManagerScript.inCombat)
@@ -392,12 +412,6 @@ public class GameWindowManager : MonoBehaviour
         // If the player is in a Combat Scene
         if (!GameManagerScript.inCombat && choices != null)
         {
-            float smallerDialoguePercent = 0.6f;
-            float smallerDialoguePadding = 0.03f;
-            
-            float largerDialoguePercent = 0.7f;
-            float largerDialoguePadding = 0.035f;
-            
             switch (choices.Length)
             {
                 case 0:
@@ -408,6 +422,8 @@ public class GameWindowManager : MonoBehaviour
                     
                     PositionChoices(cameraWidth, cameraHeight, 1);
                     PositionPortrait(cameraWidth, cameraHeight);
+                    
+                    ChangeChoiceText.S.ChangeChoices(false, choices,1);
                     break;
             
                 case 2:
@@ -426,6 +442,8 @@ public class GameWindowManager : MonoBehaviour
                     
                             PositionChoices(cameraWidth, cameraHeight, 2);
                             PositionPortrait(cameraWidth, cameraHeight);
+                            
+                            ChangeChoiceText.S.ChangeChoices(true, choices,2);
                         }
                         else
                         {
@@ -435,6 +453,8 @@ public class GameWindowManager : MonoBehaviour
                     
                             PositionChoices(cameraWidth, cameraHeight, 1);
                             PositionPortrait(cameraWidth, cameraHeight);
+                            
+                            ChangeChoiceText.S.ChangeChoices(false, choices,2);
                         }
                     }
                     else if (tempText == "Brute")
@@ -447,6 +467,8 @@ public class GameWindowManager : MonoBehaviour
                     
                             PositionChoices(cameraWidth, cameraHeight, 2);
                             PositionPortrait(cameraWidth, cameraHeight);
+                            
+                            ChangeChoiceText.S.ChangeChoices(true, choices,2);
                         }
                         else
                         {
@@ -456,6 +478,8 @@ public class GameWindowManager : MonoBehaviour
                     
                             PositionChoices(cameraWidth, cameraHeight, 1);
                             PositionPortrait(cameraWidth, cameraHeight);
+                            
+                            ChangeChoiceText.S.ChangeChoices(false, choices,2);
                         }
                     }
                     else
@@ -466,6 +490,8 @@ public class GameWindowManager : MonoBehaviour
                     
                         PositionChoices(cameraWidth, cameraHeight, 2);
                         PositionPortrait(cameraWidth, cameraHeight);
+                        
+                        ChangeChoiceText.S.ChangeChoices(true, choices,2);
                     }
                     break;
             
@@ -476,6 +502,8 @@ public class GameWindowManager : MonoBehaviour
                     
                     PositionChoices(cameraWidth, cameraHeight, 1);
                     PositionPortrait(cameraWidth, cameraHeight);
+                    
+                    ChangeChoiceText.S.ChangeChoices(false, choices,3);
                     break;
             }
         }

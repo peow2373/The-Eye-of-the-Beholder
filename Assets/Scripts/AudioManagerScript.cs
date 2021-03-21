@@ -16,7 +16,7 @@ public class AudioManagerScript : MonoBehaviour
 
     //Play the music
     bool m_Play;
-    //Detect when you use the toggle, ensures music isn’t played multiple times
+    //Detect when you use the toggle, ensures music isnâ€™t played multiple times
     bool m_ToggleChange;
 
     public static AudioManagerScript S;
@@ -40,22 +40,22 @@ public class AudioManagerScript : MonoBehaviour
 
         if (scene == 0)
         {
-            Debug.Log(scene);
+            
         }
 
         if (scene == 1)
         {
-            Debug.Log(scene);            
+                   
         }
 
         if (scene == 2)
         {
-            Debug.Log(scene);
+            
         }
 
         if (scene == 3)
         {
-            Debug.Log(scene);            
+                     
         }
 
         if (scene == 4)

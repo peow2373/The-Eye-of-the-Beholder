@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 67295061}
   m_Layer: 0
   m_Name: Option 1
-  m_TagString: Untagged
+  m_TagString: Option 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 137391422}
   m_Layer: 5
   m_Name: Choice Text 1
-  m_TagString: Untagged
+  m_TagString: Choice 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7ce4064c61856be4893a6681061f7b52, type: 3}
-    m_FontSize: 50
+    m_FontSize: 54
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -556,7 +556,7 @@ SpriteRenderer:
   m_SortingOrder: -2
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4,
     type: 3}
-  m_Color: {r: 0.18356179, g: 0.7075472, b: 0.34941125, a: 1}
+  m_Color: {r: 0.44152722, g: 0.7735849, b: 0.7199265, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 392612182}
   m_Layer: 0
   m_Name: Dialogue Choice 1
-  m_TagString: Untagged
+  m_TagString: Choice 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 479141768}
   m_Layer: 5
   m_Name: Option Text 1
-  m_TagString: Untagged
+  m_TagString: Option 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -720,7 +720,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7ce4064c61856be4893a6681061f7b52, type: 3}
-    m_FontSize: 75
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -917,7 +917,7 @@ GameObject:
   - component: {fileID: 804966709}
   m_Layer: 0
   m_Name: Dialogue Choice 3
-  m_TagString: Untagged
+  m_TagString: Choice 3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1252,6 +1252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 987585785}
   - component: {fileID: 987585786}
+  - component: {fileID: 987585787}
   m_Layer: 0
   m_Name: Dialogue
   m_TagString: Untagged
@@ -1325,6 +1326,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &987585787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987585784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb315bdd2f73ac348b3e28960f203cc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextChoice: {r: 0.109024554, g: 0.6603774, b: 0.37433723, a: 1}
+  color1: {r: 0.7176471, g: 0.20784314, b: 0.40784314, a: 1}
+  color2: {r: 0.7176471, g: 0.69803923, b: 0.32941177, a: 1}
+  color3: {r: 0.24313726, g: 0.63529414, b: 0.7647059, a: 1}
+  activeDecision: {r: 0.2509804, g: 0.30980393, b: 0.32941177, a: 1}
+  inActiveDecision: {r: 0.15792987, g: 0.18806736, b: 0.1981132, a: 1}
 --- !u!1 &998160518
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,7 +1816,7 @@ GameObject:
   - component: {fileID: 1043668156}
   m_Layer: 0
   m_Name: Option 3
-  m_TagString: Untagged
+  m_TagString: Option 3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1964,7 +1983,7 @@ GameObject:
   - component: {fileID: 1195290459}
   m_Layer: 5
   m_Name: Choice Text 3
-  m_TagString: Untagged
+  m_TagString: Choice 3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2010,7 +2029,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7ce4064c61856be4893a6681061f7b52, type: 3}
-    m_FontSize: 50
+    m_FontSize: 54
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -2124,7 +2143,7 @@ GameObject:
   - component: {fileID: 1232158007}
   m_Layer: 5
   m_Name: Option Text 2
-  m_TagString: Untagged
+  m_TagString: Option 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2170,7 +2189,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7ce4064c61856be4893a6681061f7b52, type: 3}
-    m_FontSize: 75
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -2809,7 +2828,7 @@ GameObject:
   - component: {fileID: 1584971351}
   m_Layer: 5
   m_Name: Choice Text 2
-  m_TagString: Untagged
+  m_TagString: Choice 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2855,7 +2874,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7ce4064c61856be4893a6681061f7b52, type: 3}
-    m_FontSize: 50
+    m_FontSize: 54
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -3284,7 +3303,7 @@ GameObject:
   - component: {fileID: 1808709743}
   m_Layer: 0
   m_Name: Option 2
-  m_TagString: Untagged
+  m_TagString: Option 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3345,7 +3364,7 @@ SpriteRenderer:
   m_SortingOrder: -2
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4,
     type: 3}
-  m_Color: {r: 0.7137255, g: 0.7647059, b: 0.24313726, a: 1}
+  m_Color: {r: 0.7176471, g: 0.69803923, b: 0.32941177, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3367,7 +3386,7 @@ GameObject:
   - component: {fileID: 1969255958}
   m_Layer: 0
   m_Name: Dialogue Choice 2
-  m_TagString: Untagged
+  m_TagString: Choice 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3428,7 +3447,7 @@ SpriteRenderer:
   m_SortingOrder: -3
   m_Sprite: {fileID: 7482667652216324306, guid: db750325989564987a34393247d883b4,
     type: 3}
-  m_Color: {r: 0.7137255, g: 0.7647059, b: 0.24313726, a: 1}
+  m_Color: {r: 0.7169812, g: 0.69674397, b: 0.32805273, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3451,7 +3470,7 @@ GameObject:
   - component: {fileID: 2062127260}
   m_Layer: 5
   m_Name: Option Text 3
-  m_TagString: Untagged
+  m_TagString: Option 3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3497,7 +3516,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7ce4064c61856be4893a6681061f7b52, type: 3}
-    m_FontSize: 75
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -3557,7 +3576,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7ce4064c61856be4893a6681061f7b52, type: 3}
-    m_FontSize: 64
+    m_FontSize: 58
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2

@@ -19,7 +19,7 @@ Really? Just like that? Alright, thanks losers. #Kaz
 
 WHAT?! FOLKVAR YOU IMBECILE! #Netrixi
 
-I apologize, the skeleton man scared me. Fear not, Netrixi! I know where their base is. We will find help and take back what once was ours! #Folkvar
+I apologize, the skeleton man scared me. Fear not, Netrixi! My father will know where their base is. We will find help and take back what once was ours! #Folkvar
 
 Take back what once was mine, you mean. #Netrixi
 

@@ -1,51 +1,53 @@
-Here is the entrance to the underground tunnels full of assassins. Looks like there's only two guards, so getting in should be a breeze! #Iv
+Here is the entrance to the underground tunnels full of bandits. Looks like there's only two guards, so getting in should be a breeze! #Iv
 
-+   [Netrixi] -> Netrixi_talks_to_assassins
-+   [Folkvar] -> Folkvar_talks_to_assassins
-+   [Iv] -> Iv_talks_to_assassins
++   [Netrixi] -> Netrixi_talks_to_bandits
++   [Folkvar] -> Folkvar_talks_to_bandits
++   [Iv] -> Iv_talks_to_bandits
 
-=== Netrixi_talks_to_assassins ===
-... #assassins
+=== Netrixi_talks_to_bandits ===
+... #Bandit
 
-+   [Let us in, and I won't turn you into fish] -> Fight_assassins
-+   [Look over there] -> Netrixi_makes_cats
++   [Let us in, and I won't turn you into fish] -> Fight_bandits
++   [Look over there! *summons kittens*] -> Netrixi_makes_cats
 
 === Netrixi_makes_cats ===
-Awww what cute kitty cats, come on in! #assassins
+Awww what cute kitty cats! #Bandit
+
+Now's our chance! Let's sneak by while the guards are distracted. #Netrixi
 
 +   [Continue] -> END
 
-=== Fight_assassins ===
-time to DIE #assassins
+=== Fight_bandits ===
+Time to DIE! #Bandit
 
 +   [Fight] -> END
 
-=== Folkvar_talks_to_assassins ===
-... #assassins
+=== Folkvar_talks_to_bandits ===
+... #Bandit
 
-+   [I am the Prince of the Iron Region!] -> Assassins_remain_silent_with_Folkvar
-+   [I know you folks aren't bad, gimme a hug] -> Folkvar_pursuades_assassins
++   [I am the Prince of the Iron Region!] -> Bandits_remain_silent_with_Folkvar
++   [I know you folks aren't bad, gimme a hug] -> Folkvar_pursuades_bandits
 
-=== Assassins_remain_silent_with_Folkvar ===
-... #assassins
+=== Bandits_remain_silent_with_Folkvar ===
+...Who? #Bandit
 
-+   [Brilliant! I'll show myself in] -> Fight_assassins
-+   [I know you folks aren't bad, gimme a hug] -> Folkvar_pursuades_assassins
++   [Nevermind! I'll just show myself in] -> Fight_bandits
++   [Someone who just wants a hug!] -> Folkvar_pursuades_bandits
 
 
-=== Folkvar_pursuades_assassins ===
-Finally! Someone that understands us. I knew there were good people out there. You know what? we quit. Have fun, guys.
+=== Folkvar_pursuades_bandits ===
+Finally! Someone that understands us. I knew there were good people out there. You know what? We quit. Have fun, guys.
 
 +   [Continue] -> END
 
-=== Iv_talks_to_assassins ===
-... #assassins
+=== Iv_talks_to_bandits ===
+... #Bandit
 
-+   [I am looking for my amulet can I have it back, please?] -> Assassins_remain_silent_with_Iv
-+   [Can we come in?] -> Assassins_remain_silent_with_Iv
++   [I am looking for my amulet... Can I have it back, please?] -> Bandits_remain_silent_with_Iv
++   [Can we come in?] -> Bandits_remain_silent_with_Iv
 
-=== Assassins_remain_silent_with_Iv ===
-... #assassins
+=== Bandits_remain_silent_with_Iv ===
+Not a chance! #Bandit
 
-+   [I'll take that as a yes!] -> Fight_assassins
-+   [You're beginning to feel very sleepy...] -> Fight_assassins
++   [I'll take that as a yes!] -> Fight_bandits
++   [You're beginning to feel very sleepy...] -> Fight_bandits

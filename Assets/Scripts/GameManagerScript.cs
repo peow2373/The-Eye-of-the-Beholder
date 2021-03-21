@@ -19,6 +19,8 @@ public class GameManagerScript : MonoBehaviour
     private int randomIndex;
 
     public static bool inCombat = false;
+    
+    public static bool endOfGame = false;
 
     // Start is called before the first frame update
     void Start()
@@ -86,6 +88,7 @@ public class GameManagerScript : MonoBehaviour
                     print("Tutorial Scene");
                     
                     inCombat = false;
+                    endOfGame = false;
                 }
                 break;
             
@@ -103,6 +106,7 @@ public class GameManagerScript : MonoBehaviour
                     print("Dialogue with Pirate");
                     
                     inCombat = false;
+                    endOfGame = false;
                 }
                 break;
             

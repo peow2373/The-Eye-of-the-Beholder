@@ -32,6 +32,8 @@ public class ThroneScript : MonoBehaviour
         refreshUI();
 
         MarkerManagerScript.S.Reset();
+
+        GameWindowManager.metBrute = true;
     }
 
     void refreshUI()

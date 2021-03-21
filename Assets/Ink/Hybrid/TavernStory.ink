@@ -35,7 +35,7 @@ BEHOLDERITE?! I WILL DESTROY ANYONE WHO COMES BETWEEN ME AND BEHOLDERITE!!! WHER
 +   [You're crazy. Bye] -> Resort_to_monk
 
 === Brute_prostitute ===
-You think I'm some kind of prostitute or something? Get 'em boys! #Brute
+You think I'm some kind of prostitute or something? That's stereotyping! #Brute
 
 +   [Fight] -> END
 
@@ -63,7 +63,7 @@ Watch this... #Iv
 
 Wow I feel powerful! #Netrixi
 
-What? What have you done to me? I'm weak. #Netrixi
+What? What have you done to me? I'm suddenly so weak! #Netrixi
 
 I can do stuff like that. #Iv
 
@@ -86,7 +86,7 @@ I think I might be able to find your brother. I just developed a compass that is
 +   [You clearly can't fight] -> Iv_shows_power
 
 === Iv_explains_past ===
-I am a monk. I have trained my entire life to rid myself of worldly temptations. Beholderite simply does not phase me. #Iv
+I have trained my entire life to rid myself of worldly temptations. Beholderite simply does not phase me. #Iv
 
 Welcome aboard, then! Sadly, we can't start knocking skulls yet. Folkvar needs to ask daddy first. #Netrixi
 
@@ -100,7 +100,7 @@ I am a monk from the mountains to the East. I am looking for help in finding my 
 
 By God! Excuse my language. Where do you think your brother was taken? By whom? #Folkvar
 
-I hear rumors of a man named Moke. His only goal is Beholderite and he is accumulating much. The problem is, I have no idea where he was taken. #Iv
+I hear rumors of a man named Moke. His only goal is Beholderite and he is accumulating much. The problem is, I have no idea where Moke's lair may be. #Iv
 
 
 +   [We can help each other!] -> Folkvar_offers_Iv_help
