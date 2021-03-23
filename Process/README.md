@@ -11,6 +11,8 @@ Progress
   - Hand sprite revised
   - Choices and options have correct text and will dynamically instantiate depending on how many options/choices are available
 
+- Barkeeper can now join mid-fight! He will then punch the brute for breaking one of his chairs
+
 # 3/16/2021 Update
 Progress
 ![image](https://user-images.githubusercontent.com/69484934/111389996-9856fd00-8677-11eb-9ff4-69fa5cbf7bb9.png)
