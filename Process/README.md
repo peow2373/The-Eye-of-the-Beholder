@@ -1,3 +1,18 @@
+# 3/22/2021 Update
+Progress
+- Peter helped swap the webcam footage into a live video feed that can then have the hand sprites drawn on top of it
+- Peter also helped with resizing the video to allow for people to play on any size screen!
+- Created blog post at GameDev.net
+- Backgrounds completed and implemented, may come back later to animate components certain components
+- Added on a dialogue interaction with the jester in the king’s palace
+- Progress on music: https://drive.google.com/drive/folders/1FTRO8JYfH-2nx1jbEg8xzrv5dfNaLJr0?usp=sharing 
+- More UI progress. 
+  - Color of options and choices revised
+  - Hand sprite revised
+  - Choices and options have correct text and will dynamically instantiate depending on how many options/choices are available
+
+- Barkeeper can now join mid-fight! He will then punch the brute for breaking one of his chairs
+
 # 3/16/2021 Update
 Progress
 ![image](https://user-images.githubusercontent.com/69484934/111389996-9856fd00-8677-11eb-9ff4-69fa5cbf7bb9.png)
