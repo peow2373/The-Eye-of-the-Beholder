@@ -12,10 +12,12 @@ public class ChangePortrait : MonoBehaviour
     public static bool folkvarChosen = false;
     public static int kazSpeaks = 0;
     
+    private SpriteRenderer sr;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        sr = this.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame

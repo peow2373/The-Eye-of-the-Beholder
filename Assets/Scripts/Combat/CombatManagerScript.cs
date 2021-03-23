@@ -63,6 +63,9 @@ public class CombatManagerScript : MonoBehaviour
 
         roundNumber = 1;
         hasRunSimulation = false;
+        
+        EnemyManagerScript.barkeeperMadNextAttack = false;
+        EnemyManagerScript.barkeeperMadNextRound = false;
 
 
         // Determine which characters are in the scene

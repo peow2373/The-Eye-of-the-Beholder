@@ -581,7 +581,7 @@ public class GameManagerScript : MonoBehaviour
                     EnemyManagerScript.enemy2 = "Royal Knight Melee";
                     EnemyManagerScript.enemy3 = "null";
                     
-                    EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0 );
+                    EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0 );
                     HealthManagerScript.StartingHealth(HealthValues.folkvarHP, HealthValues.knightMeleeHP, 0);
                 }
                 else if (randomIndex == 1 || randomIndex == 2)
@@ -601,7 +601,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
                 EnemyManagerScript.enemy3 = "Kaz 1";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 9 );
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10 );
                 HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, HealthValues.kazHP);
                 break;
             
@@ -624,7 +624,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Royal Knight Ranged";
                 EnemyManagerScript.enemy3 = "Gatekeeper";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 7, 10 );
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10 );
                 HealthManagerScript.StartingHealth(HealthValues.knightMeleeHP, HealthValues.knightRangedHP, HealthValues.gatekeeperHP);
                 break;
             
@@ -654,7 +654,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Royal Guard 2";
                 EnemyManagerScript.enemy3 = "null";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 7, 8, 0 );
+                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0 );
                 HealthManagerScript.StartingHealth(HealthValues.royalGuardHP, HealthValues.royalGuardHP, 0);
                 break;
             
@@ -664,7 +664,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Skull Grunt Ranged";
                 EnemyManagerScript.enemy3 = "Skull King";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 7, 9, 10 );
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10 );
                 HealthManagerScript.StartingHealth(HealthValues.skullMeleeHP, HealthValues.skullRangedHP, HealthValues.skullKingHP);
                 break;
             
@@ -674,7 +674,7 @@ public class GameManagerScript : MonoBehaviour
                 EnemyManagerScript.enemy2 = "Royal Guard 2";
                 EnemyManagerScript.enemy3 = "Royal King";
                 
-                EnemyManagerScript.ChangeEnemyLocation( 6, 7, 9 );
+                EnemyManagerScript.ChangeEnemyLocation( 6, 8, 10 );
                 HealthManagerScript.StartingHealth(HealthValues.royalGuardHP, HealthValues.royalGuardHP, HealthValues.royalKingHP);
                 break;
         }
@@ -699,6 +699,7 @@ public class GameManagerScript : MonoBehaviour
 
         barkeeperMad = false;
         EnemyManagerScript.barkeeperMadNextRound = false;
+        EnemyManagerScript.barkeeperMadNextAttack = false;
         AttackScript.chairsThrown = 0;
 
         CharacterManagerScript.ResetVariables();

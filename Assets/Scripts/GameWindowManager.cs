@@ -6,17 +6,19 @@ using System;
 
 public class GameWindowManager : MonoBehaviour
 {
+    // Initial values for Beholder webcam
     public static float webcamSizeX = 640;
     public static float webcamSizeY = 480;
     
-    // Initial values for Beholder webcam
-    //public static float webcamSizeX = 640;
-    //public static float webcamSizeY = 480;
+    public static float screenSizeX = 1920;
+    public static float screenSizeY = 1080;
 
     public static float gameWindowSizeX, gameWindowSizeY;
+    public static float windowWidth, windowHeight;
 
     public GameObject webcam;
     public Text webcamText;
+    public static float webcamWidth, webcamHeight;
     
     public GameObject option1, option2, option3;
     public Text option1Text, option2Text, option3Text;
@@ -57,6 +59,8 @@ public class GameWindowManager : MonoBehaviour
 
     public static bool choicesReset = false;
 
+    public static float offScreen = -1000;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -67,14 +71,17 @@ public class GameWindowManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gameWindowSizeX = screenSizeX - webcamSizeX;
+        gameWindowSizeY = (int) (gameWindowSizeX / 16) * 9;
+        
         // Determine the dimensions of the camera within the scene
         Camera camera = Camera.main;
         cameraHeight = 2f * camera.orthographicSize;
         cameraWidth = cameraHeight * camera.aspect;
         
         // Determine the dimensions of the player portrait
-        portraitYDimension = (((Screen.height - gameWindowSizeY) * smallerDialoguePercent) - (2*smallerDialoguePadding*Screen.height));
-        portraitYLocation = (cameraHeight/2) - ((gameWindowSizeY/Screen.height)*cameraHeight) - (((portraitYDimension/Screen.height) * cameraHeight)/2) - (smallerDialoguePadding * cameraHeight);
+        portraitYDimension = (((screenSizeY - gameWindowSizeY) * smallerDialoguePercent) - (2*smallerDialoguePadding*screenSizeY));
+        portraitYLocation = (cameraHeight/2) - ((gameWindowSizeY/screenSizeY)*cameraHeight) - (((portraitYDimension/screenSizeY) * cameraHeight)/2) - (smallerDialoguePadding * cameraHeight);
 
         // Determine how many dialogue choices there are
         choices = GameObject.FindGameObjectsWithTag("Dialogue Choice");
@@ -123,6 +130,8 @@ public class GameWindowManager : MonoBehaviour
         // If the player is in a combat scene
         if (GameManagerScript.inCombat)
         {
+            ChangeGameWindow(cameraWidth, cameraHeight);
+            
             percentOfDialogueArea = 1f;
             PositionDialogue(cameraWidth, cameraHeight);
 
@@ -141,10 +150,7 @@ public class GameWindowManager : MonoBehaviour
     public void ArrangeScreen()
     {
         Array.Clear(choices,0,choices.Length);
-        
-        gameWindowSizeX = Screen.width - webcamSizeX;
-        gameWindowSizeY = (int) (gameWindowSizeX / 16) * 9;
-        
+
         // Determine dimensions of the camera within the scene
         Camera camera = Camera.main;
         float cameraHeight = 2f * camera.orthographicSize;
@@ -171,8 +177,8 @@ public class GameWindowManager : MonoBehaviour
     void PositionWebcam(float cameraWidth, float cameraHeight)
     {
         // Determine the dimensions of the webcam
-        float webcamWidth = webcamSizeX / Screen.width;
-        float webcamHeight = webcamSizeY / Screen.height;
+        webcamWidth = webcamSizeX / screenSizeX;
+        webcamHeight = webcamSizeY / screenSizeY;
         
         webcam.transform.localScale = new Vector3(webcamWidth * cameraWidth, webcamHeight * cameraHeight, 1);
 
@@ -183,7 +189,14 @@ public class GameWindowManager : MonoBehaviour
         webcam.transform.position = new Vector3(xLocation, yLocation, 0);
         
         // Change webcam text location
-        webcamText.transform.position = new Vector3(Screen.width - (webcamSizeX/2), Screen.height - (webcamSizeY/2), 0);
+        webcamText.transform.position = new Vector3(Screen.width - (webcamWidth*Screen.width/2), Screen.height - (webcamHeight*Screen.height/2), 0);
+        
+        // Change webcam text box size
+        float sizeDiffX = webcamWidth*Screen.width - (4 * (Screen.width * optionXPadding));
+        float sizeDiffY = webcamHeight*Screen.height - (4 * (Screen.height * optionYPadding));
+        
+        webcamText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+        
         
         // Change scale of hand icon
         SpriteRenderer sr = hand.GetComponent<SpriteRenderer>();
@@ -207,8 +220,8 @@ public class GameWindowManager : MonoBehaviour
     void PositionOptions(float cameraWidth, float cameraHeight, int optionNumber)
     {
         // Determine the dimensions of the option
-        float optionWidth = webcamSizeX / Screen.width;
-        float optionHeight = ((Screen.height - webcamSizeY) / Screen.height)/3;
+        float optionWidth = webcamSizeX / screenSizeX;
+        float optionHeight = ((screenSizeY - webcamSizeY) / screenSizeY)/3;
 
         switch (optionNumber)
         {
@@ -248,27 +261,27 @@ public class GameWindowManager : MonoBehaviour
         }
         
         // Change option text location
-        float yHeight = (Screen.height - webcamSizeY) / 3;
+        float yHeight = (Screen.height - (webcamHeight*Screen.height)) / 3;
         
-        float sizeDiffX = webcamSizeX - (2 * (Screen.width * optionXPadding));
-        float sizeDiffY = (Screen.height - webcamSizeY);
+        float sizeDiffX = (webcamWidth*Screen.width) - (2 * (Screen.width * optionXPadding));
+        float sizeDiffY = (Screen.height - (webcamHeight*Screen.height));
 
         switch (optionNumber)
         {
             case 1:
-                option1Text.transform.position = new Vector3(Screen.width - (webcamSizeX/2), yHeight*5/2, 0);
+                option1Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), yHeight*5/2, 0);
                 sizeDiffY -= 2 * (Screen.height * optionYPadding);
                 break;
             
             case 2:
-                option2Text.transform.position = new Vector3(Screen.width - (webcamSizeX/2), yHeight*3/2, 0);
+                option2Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), yHeight*3/2, 0);
                 sizeDiffY /= 2;
                 
                 sizeDiffY -= 2 * (Screen.height * optionYPadding);
                 break;
             
             case 3:
-                option3Text.transform.position = new Vector3(Screen.width - (webcamSizeX/2), yHeight/2, 0);
+                option3Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), yHeight/2, 0);
                 sizeDiffY /= 3;
                 sizeDiffY -= 2 * (Screen.height * optionYPadding);
                 break;
@@ -286,8 +299,8 @@ public class GameWindowManager : MonoBehaviour
         SpriteRenderer sr = background.GetComponent<SpriteRenderer>();
         
         // Determine the dimensions of the game window
-        float windowWidth = gameWindowSizeX / Screen.width;
-        float windowHeight = gameWindowSizeY / Screen.height;
+        windowWidth = gameWindowSizeX / screenSizeX;
+        windowHeight = gameWindowSizeY / screenSizeY;
 
         float currWidth = sr.sprite.bounds.extents.x * 2;
         float currHeight = sr.sprite.bounds.extents.y * 2;
@@ -302,6 +315,33 @@ public class GameWindowManager : MonoBehaviour
         float yLocation = cameraHeight/2 - (windowHeight * cameraHeight)/2;
         
         background.transform.position = new Vector3(xLocation, yLocation, 0);
+        
+        ChangeCombatWindow(windowWidth, windowHeight);
+    }
+
+
+    void ChangeCombatWindow(float scaleX, float scaleY)
+    {
+        GameObject screenResize = GameObject.FindGameObjectWithTag("Resize");
+
+        if (screenResize != null)
+        {
+            // Determine the dimensions of the combat window
+            screenResize.transform.localScale = new Vector3(scaleX, scaleX, 1);
+        
+            // Determine the location of the combat window
+            float xLocation = -cameraWidth/2 + ((scaleX * cameraWidth)/2);
+            float yLocation = cameraHeight/2 - (scaleY * cameraHeight)/2;
+        
+            screenResize.transform.position = new Vector3(xLocation, yLocation, 0);
+
+            // Changing values for where characters are displayed
+            CharacterMovement.ChangeXLocations(scaleX, xLocation);
+            CharacterMovement.ChangeYLocations(scaleY, yLocation);
+            
+            // Re-Populate the dialogue section with combat text
+            ChangeCombatText.S.ChangeTextLocations(windowWidth*Screen.width, windowHeight*Screen.height);
+        }
     }
 
 
@@ -311,14 +351,14 @@ public class GameWindowManager : MonoBehaviour
         DetermineChoices(cameraWidth, cameraHeight);
 
         // Determine the dimensions of the dialogue window
-        float dialogueWidth = gameWindowSizeX / Screen.width;
-        float dialogueHeight = ((Screen.height - gameWindowSizeY) * percentOfDialogueArea) / Screen.height;
+        float dialogueWidth = gameWindowSizeX / screenSizeX;
+        float dialogueHeight = ((screenSizeY - gameWindowSizeY) * percentOfDialogueArea) / screenSizeY;
         
         dialogue.transform.localScale = new Vector3(dialogueWidth * cameraWidth, dialogueHeight * cameraHeight, 1);
 
         // Determine the location of the dialogue window
         float xLocation = -cameraWidth/2 + ((dialogueWidth * cameraWidth)/2);
-        float yLocation = (cameraHeight/2) - ((gameWindowSizeY/Screen.height)*cameraHeight) - ((dialogueHeight * cameraHeight)/2);
+        float yLocation = (cameraHeight/2) - ((gameWindowSizeY/screenSizeY)*cameraHeight) - ((dialogueHeight * cameraHeight)/2);
         
         dialogue.transform.position = new Vector3(xLocation, yLocation, 0);
         
@@ -330,8 +370,8 @@ public class GameWindowManager : MonoBehaviour
     {
         // Determine the dimensions of the portrait window
 
-        float portraitHeight =  portraitYDimension / Screen.height;
-        float portraitWidth = portraitYDimension / Screen.width;
+        float portraitHeight =  portraitYDimension / screenSizeY;
+        float portraitWidth = portraitYDimension / screenSizeX;
 
         portrait.transform.localScale = new Vector3(portraitWidth * cameraWidth, portraitHeight * cameraHeight, 1);
 
@@ -348,9 +388,9 @@ public class GameWindowManager : MonoBehaviour
             // Change the location of the portrait to the right side
             if (ChangePortrait.whoIsTalking == 2)
             {
-                xLocation = -cameraWidth/2 + ((gameWindowSizeX / Screen.width) * cameraWidth) - ((portraitWidth * cameraWidth)/2) - (smallerDialoguePadding * cameraHeight);
+                xLocation = -cameraWidth/2 + ((gameWindowSizeX / screenSizeX) * cameraWidth) - ((portraitWidth * cameraWidth)/2) - (smallerDialoguePadding * cameraHeight);
             }
-            else xLocation = -1000;
+            else xLocation = offScreen;
         }
         
         portrait.transform.position = new Vector3(xLocation, portraitYLocation, 0);
@@ -361,46 +401,46 @@ public class GameWindowManager : MonoBehaviour
         {
             float size = portraitHeight * Screen.height;
             float margin = (dialoguePadding * Screen.height);
-            float xLoc = (gameWindowSizeX - size - (margin*3)) / 2;
+            float xLoc = ((windowWidth*Screen.width) - size - (margin*3)) / 2;
 
             if (ChangePortrait.whoIsTalking == 1)
             {
                 // The Player characters are speaking
-                dialogueText.transform.position = new Vector3(xLoc + size + (margin * 2), Screen.height - gameWindowSizeY - (((Screen.height - gameWindowSizeY) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3(xLoc + size + (margin * 2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.alignment = TextAnchor.MiddleLeft;
 
                 // Change textbox size
                 float sizeDiffX = xLoc*2;
-                float sizeDiffY = ((Screen.height - gameWindowSizeY) * percentOfDialogueArea) - (margin * 2);
+                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
                 dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             } 
             else if (ChangePortrait.whoIsTalking == 2)
             {
                 // The Enemy characters are speaking
-                dialogueText.transform.position = new Vector3( xLoc + margin, Screen.height - gameWindowSizeY - (((Screen.height - gameWindowSizeY) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3( xLoc + margin, Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.alignment = TextAnchor.MiddleRight;
                 
                 // Change textbox size
                 float sizeDiffX = xLoc*2;
-                float sizeDiffY = ((Screen.height - gameWindowSizeY) * percentOfDialogueArea) - (margin * 2);
+                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
                 dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             }
             else
             {
                 // No characters are speaking
-                dialogueText.transform.position = new Vector3(gameWindowSizeX/2, Screen.height - gameWindowSizeY - (((Screen.height - gameWindowSizeY) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3((windowWidth*Screen.width)/2, Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.alignment = TextAnchor.MiddleCenter;
 
                 // Change textbox size
-                float sizeDiffX = (gameWindowSizeX - (margin * 2));
-                float sizeDiffY = ((Screen.height - gameWindowSizeY) * percentOfDialogueArea) - (margin * 2);
+                float sizeDiffX = ((windowWidth*Screen.width) - (margin * 2));
+                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
                 dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             }
         }
-        else dialogueText.transform.position = new Vector3(-500, - 500, 0);
+        else dialogueText.transform.position = new Vector3(offScreen, offScreen, 0);
     }
     
     
@@ -510,7 +550,7 @@ public class GameWindowManager : MonoBehaviour
         else
         {
             PositionChoices(cameraWidth, cameraHeight, 0);
-            portrait.transform.position = new Vector3(-1000,-1000,0);
+            portrait.transform.position = new Vector3(offScreen,offScreen,0);
         }
     }
 
@@ -525,19 +565,19 @@ public class GameWindowManager : MonoBehaviour
         switch (numberOfChoices)
         {
             case 0:
-                choice1.transform.position = new Vector3(-1000, -1000, 0);
-                choice2.transform.position = new Vector3(-1000, -1000, 0);
-                choice3.transform.position = new Vector3(-1000, -1000, 0);
+                choice1.transform.position = new Vector3(offScreen, offScreen, 0);
+                choice2.transform.position = new Vector3(offScreen, offScreen, 0);
+                choice3.transform.position = new Vector3(offScreen, offScreen, 0);
                 
-                choice1Text.transform.position = new Vector3(-1000, -1000, 0);
-                choice2Text.transform.position = new Vector3(-1000, -1000, 0);
-                choice3Text.transform.position = new Vector3(-1000, -1000, 0);
+                choice1Text.transform.position = new Vector3(offScreen, offScreen, 0);
+                choice2Text.transform.position = new Vector3(offScreen, offScreen, 0);
+                choice3Text.transform.position = new Vector3(offScreen, offScreen, 0);
                 break;
             
             case 1:
                 // Determine the dimensions of the choice window
-                choiceWidth = gameWindowSizeX / Screen.width;
-                choiceHeight = ((Screen.height - gameWindowSizeY) * percentOfArea) / Screen.height;
+                choiceWidth = gameWindowSizeX / screenSizeX;
+                choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
                 
                 choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
                 
@@ -546,18 +586,18 @@ public class GameWindowManager : MonoBehaviour
                 yLocation = -cameraHeight/2 + ((choiceHeight * cameraHeight)/2);
         
                 choice1.transform.position = new Vector3(xLocation, yLocation, 0);
-                choice2.transform.position = new Vector3(-500, -500, 0);
-                choice3.transform.position = new Vector3(-500, -500, 0);
+                choice2.transform.position = new Vector3(offScreen, offScreen, 0);
+                choice3.transform.position = new Vector3(offScreen, offScreen, 0);
                 
                 // Change choice text location
-                choice1Text.transform.position = new Vector3(gameWindowSizeX/2, ((Screen.height - gameWindowSizeY) * percentOfArea)/2, 0);
-                choice2Text.transform.position = new Vector3(-1000, -1000, 0);
-                choice3Text.transform.position = new Vector3(-1000, -1000, 0);
+                choice1Text.transform.position = new Vector3((windowWidth*Screen.width)/2, ((Screen.height - (windowHeight*Screen.height)) * percentOfArea)/2, 0);
+                choice2Text.transform.position = new Vector3(offScreen, offScreen, 0);
+                choice3Text.transform.position = new Vector3(offScreen, offScreen, 0);
                 
                 // Change choice text box sizes
-                sizeDiffX = Screen.width - webcamSizeX;
+                sizeDiffX = Screen.width - (webcamWidth*Screen.width);
                 sizeDiffX -= 2 * (Screen.width * choiceXPadding);
-                sizeDiffY = (Screen.height - gameWindowSizeY) * percentOfArea;
+                sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
                 sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
                 choice1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
@@ -565,15 +605,15 @@ public class GameWindowManager : MonoBehaviour
             
             case 2:
                 // Determine the dimensions of the choice windows
-                choiceWidth = (gameWindowSizeX / Screen.width)/2;
-                choiceHeight = ((Screen.height - gameWindowSizeY) * percentOfArea) / Screen.height;
+                choiceWidth = (gameWindowSizeX / screenSizeX)/2;
+                choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
                 
                 choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
                 choice2.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
                 
                 // Determine the locations of the choice windows
                 yLocation = -cameraHeight/2 + ((choiceHeight * cameraHeight)/2);
-                choice3.transform.position = new Vector3(-500, -500, 0);
+                choice3.transform.position = new Vector3(offScreen, offScreen, 0);
                 
                 xLocation = -cameraWidth/2 + ((choiceWidth * cameraWidth)/2);
                 choice1.transform.position = new Vector3(xLocation, yLocation, 0);
@@ -582,14 +622,14 @@ public class GameWindowManager : MonoBehaviour
                 choice2.transform.position = new Vector3(xLocation, yLocation, 0);
 
                 // Change choice text locations
-                choice1Text.transform.position = new Vector3(gameWindowSizeX/4, ((Screen.height - gameWindowSizeY) * percentOfArea)/2, 0);
-                choice2Text.transform.position = new Vector3(gameWindowSizeX*3/4, ((Screen.height - gameWindowSizeY) * percentOfArea)/2, 0);
-                choice3Text.transform.position = new Vector3(-1000, -1000, 0);
+                choice1Text.transform.position = new Vector3((windowWidth*Screen.width)/4, ((Screen.height - (windowHeight*Screen.height)) * percentOfArea)/2, 0);
+                choice2Text.transform.position = new Vector3((windowWidth*Screen.width)*3/4, ((Screen.height - (windowHeight*Screen.height)) * percentOfArea)/2, 0);
+                choice3Text.transform.position = new Vector3(offScreen, offScreen, 0);
                 
                 // Change choice text box sizes
-                sizeDiffX = (Screen.width - webcamSizeX) / 2;
+                sizeDiffX = (Screen.width - (webcamWidth*Screen.width)) / 2;
                 sizeDiffX -= 2 * (Screen.width * choiceXPadding);
-                sizeDiffY = (Screen.height - gameWindowSizeY) * percentOfArea;
+                sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
                 sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
                 choice1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
@@ -598,8 +638,8 @@ public class GameWindowManager : MonoBehaviour
             
             case 3:
                 // Determine the dimensions of the choice windows
-                choiceWidth = (gameWindowSizeX / Screen.width)/3;
-                choiceHeight = ((Screen.height - gameWindowSizeY) * percentOfArea) / Screen.height;
+                choiceWidth = (gameWindowSizeX / screenSizeX)/3;
+                choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
                 
                 choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
                 choice2.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
@@ -618,14 +658,14 @@ public class GameWindowManager : MonoBehaviour
                 choice3.transform.position = new Vector3(xLocation, yLocation, 0);
 
                 // Change choice text locations
-                choice1Text.transform.position = new Vector3(gameWindowSizeX/6, ((Screen.height - gameWindowSizeY) * percentOfArea)/2, 0);
-                choice2Text.transform.position = new Vector3(gameWindowSizeX*3/6, ((Screen.height - gameWindowSizeY) * percentOfArea)/2, 0);
-                choice3Text.transform.position = new Vector3(gameWindowSizeX*5/6, ((Screen.height - gameWindowSizeY) * percentOfArea)/2, 0);
+                choice1Text.transform.position = new Vector3((windowWidth*Screen.width)/6, ((Screen.height - (windowHeight*Screen.height)) * percentOfArea)/2, 0);
+                choice2Text.transform.position = new Vector3((windowWidth*Screen.width)*3/6, ((Screen.height - (windowHeight*Screen.height)) * percentOfArea)/2, 0);
+                choice3Text.transform.position = new Vector3((windowWidth*Screen.width)*5/6, ((Screen.height - (windowHeight*Screen.height)) * percentOfArea)/2, 0);
                 
                 // Change choice textbox sizes
-                sizeDiffX = (Screen.width - webcamSizeX) / 3;
+                sizeDiffX = (Screen.width - (webcamWidth*Screen.width)) / 3;
                 sizeDiffX -= 2 * (Screen.width * choiceXPadding);
-                sizeDiffY = (Screen.height - gameWindowSizeY) * percentOfArea;
+                sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
                 sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
                 choice1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);

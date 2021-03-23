@@ -88,6 +88,31 @@ public class CombatSimulationScript : MonoBehaviour
 
 
         
+        // If the Tavern Brute angers the Barkeeper and causes him to join the fight
+        if (!GameManagerScript.barkeeperMad)
+        {
+            if (EnemyManagerScript.barkeeperMadNextAttack)
+            {
+                GameManagerScript.barkeeperMad = true;
+                print("Barkeeper Joins the Fight!");
+                
+                CombatManagerScript.enemy2Alive = true;
+                CombatManagerScript.canEnemy2Attack = true;
+            
+                EnemyManagerScript.DetermineEnemyType(EnemyManagerScript.enemy2);
+                    
+                EnemyManagerScript.enemy2Position = 9;
+
+                EnemyManagerScript.secondAttack = "Barkeeper-Punches Tavern Brute";
+                enemySecondAttack = "Barkeeper-Punches Tavern Brute";
+
+                EnemyManagerScript.barkeeperMadNextAttack = false;
+                
+                yield return new WaitForSecondsRealtime(moveDelay);
+            }
+        }
+        
+
         
         // SECOND ATTACK
 

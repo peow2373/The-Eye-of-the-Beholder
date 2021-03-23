@@ -6,12 +6,60 @@ public class CharacterMovement : MonoBehaviour
 {
     public bool netrixi, folkvar, iv, enemy1, enemy2, enemy3;
 
-    private float[] xPositions = new float[] { -13.95f, -11f, -8f, -5.2f, -2.3f, 2.35f, 5.25f, 8.25f, 11.1f, 14.1f };
+    public static float[] xPositions = new float[] { -50f, -40f, -30f, -20f, -10f, 10f, 20f, 30f, 40f, 50f };
+    
+    public static float upperYPosition = -17f;
+    public static float middleYPosition = -19f;
+    public static float lowerYPosition = -21f;
+    
+    
+    public static float selectedPosition = 20;
+
+    public static float[] xLocations = new float[10];
+    
+    public static float upperYLocation;
+    public static float middleYLocation;
+    public static float lowerYLocation;
+
+    private float offScreen = 1000;
+
+    public static float combatWidth, combatHeight;
+
+    public static float netrixiOffset = 0;
+    public static float folkvarOffset = 1f;
+    public static float ivOffset = -0.5f;
+    
+    
+    public static float size1Offset = -0.25f;
+    public static float size2Offset = 0f;
+    public static float size3Offset = 0.7f;
+    public static float size4Offset = 1.5f;
+    public static float size5Offset = 2f;
+    public static float size6Offset = 2.25f;
     
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+    
+    public static void ChangeXLocations(float width, float xLocation)
+    {
+        for (int i = 0; i < xLocations.Length; i++)
+        {
+            xLocations[i] = xLocation + (xPositions[i]*width);
+        }
+
+        combatWidth = width;
+    }
+    
+    public static void ChangeYLocations(float height, float yLocation)
+    {
+        upperYLocation = yLocation + (upperYPosition*height);
+        middleYLocation = yLocation + (middleYPosition*height);
+        lowerYLocation = yLocation + (lowerYPosition*height);
+
+        combatHeight = height;
     }
 
     // Update is called once per frame
@@ -22,12 +70,17 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.netrixiAlive && GameManagerScript.netrixiInParty)
             {
-                Vector3 loc = new Vector3( xPositions[CharacterManagerScript.netrixiPosition - 1], this.transform.position.y);
-                this.transform.position = loc;
+                if (!CombatManagerScript.netrixiAttacks)
+                {
+                    float yLoc = DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight);
+                
+                    Vector3 loc = new Vector3( xLocations[CharacterManagerScript.netrixiPosition - 1], yLoc);
+                    this.transform.position = loc;
+                }
             }
             else
             {
-                this.transform.position = new Vector3(100, this.transform.position.y);
+                this.transform.position = new Vector3(offScreen, this.transform.position.y);
             }
         }
         
@@ -35,12 +88,17 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.folkvarAlive && GameManagerScript.folkvarInParty)
             {
-                Vector3 loc = new Vector3( xPositions[CharacterManagerScript.folkvarPosition - 1], this.transform.position.y);
-                this.transform.position = loc;
+                if (!CombatManagerScript.folkvarAttacks)
+                {
+                    float yLoc = DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight);
+                
+                    Vector3 loc = new Vector3( xLocations[CharacterManagerScript.folkvarPosition - 1], yLoc);
+                    this.transform.position = loc;
+                }
             }
             else
             {
-                this.transform.position = new Vector3(100, this.transform.position.y);
+                this.transform.position = new Vector3(offScreen, this.transform.position.y);
             }
         }
         
@@ -48,12 +106,17 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.ivAlive && GameManagerScript.ivInParty)
             {
-                Vector3 loc = new Vector3( xPositions[CharacterManagerScript.ivPosition - 1], this.transform.position.y);
-                this.transform.position = loc;
+                if (!CombatManagerScript.ivAttacks)
+                {
+                    float yLoc = DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight);
+                
+                    Vector3 loc = new Vector3( xLocations[CharacterManagerScript.ivPosition - 1], yLoc);
+                    this.transform.position = loc;
+                }
             }
             else
             {
-                this.transform.position = new Vector3(100, this.transform.position.y);
+                this.transform.position = new Vector3(offScreen, this.transform.position.y);
             }
         }
         
@@ -65,12 +128,14 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy1Alive)
             {
-                Vector3 loc = new Vector3( xPositions[EnemyManagerScript.enemy1Position - 1], this.transform.position.y);
+                float yLoc = DetermineYLocation(EnemyManagerScript.enemy1Position);
+                
+                Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy1Position - 1], yLoc);
                 this.transform.position = loc;
             }
             else
             {
-                this.transform.position = new Vector3(100, this.transform.position.y);
+                this.transform.position = new Vector3(offScreen, this.transform.position.y);
             }
         }
         
@@ -78,12 +143,14 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy2Alive && EnemyManagerScript.enemy2 != "null")
             {
-                Vector3 loc = new Vector3( xPositions[EnemyManagerScript.enemy2Position - 1], this.transform.position.y);
+                float yLoc = DetermineYLocation(EnemyManagerScript.enemy2Position);
+                
+                Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy2Position - 1], yLoc);
                 this.transform.position = loc;
             }
             else
             {
-                this.transform.position = new Vector3(100, this.transform.position.y);
+                this.transform.position = new Vector3(offScreen, this.transform.position.y);
             }
         }
         
@@ -91,13 +158,39 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
             {
-                Vector3 loc = new Vector3( xPositions[EnemyManagerScript.enemy3Position - 1], this.transform.position.y);
+                float yLoc = DetermineYLocation(EnemyManagerScript.enemy3Position);
+                
+                Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy3Position - 1], yLoc);
                 this.transform.position = loc;
             }
             else
             {
-                this.transform.position = new Vector3(100, this.transform.position.y);
+                this.transform.position = new Vector3(offScreen, this.transform.position.y);
             }
         }
+    }
+
+    public static float DetermineYLocation(int characterPosition)
+    {
+        switch (characterPosition)
+        {
+            case 1:
+            case 3:
+            case 5:
+            case 6:
+            case 8:
+            case 10:
+                return middleYLocation;
+            
+            case 2:
+            case 9:
+                return upperYLocation;
+
+            case 4:
+            case 7:
+                return lowerYLocation;
+        }
+
+        return middleYLocation;
     }
 }

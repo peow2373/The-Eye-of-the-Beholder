@@ -19,6 +19,7 @@ public class EnemyManagerScript : MonoBehaviour
     public static bool hasChangedScene = false;
 
     public static bool barkeeperMadNextRound = false;
+    public static bool barkeeperMadNextAttack = false;
 
     public static int attack1Location, attack2Location;
     public static int attack1Location2, attack2Location2;
@@ -43,16 +44,14 @@ public class EnemyManagerScript : MonoBehaviour
     void Update()
     {
         // If the Tavern Brute angers the Barkeeper and causes him to join the fight
-        if (AttackScript.chairsThrown >= 1)
-        {
-            barkeeperMadNextRound = true;
-        }
+        if (firstAttack == "Tavern Brute-Throws Chair") barkeeperMadNextAttack = true;
+        if (secondAttack == "Tavern Brute-Throws Chair") barkeeperMadNextRound = true;
 
-        if (barkeeperMadNextRound)
+        if (!GameManagerScript.barkeeperMad)
         {
-            if (firstAttack == "null" && secondAttack == "null")
+            if (barkeeperMadNextRound)
             {
-                if (!GameManagerScript.barkeeperMad)
+                if (firstAttack == "null" && secondAttack == "null")
                 {
                     GameManagerScript.barkeeperMad = true;
                     print("Barkeeper Joins the Fight!");
@@ -63,6 +62,8 @@ public class EnemyManagerScript : MonoBehaviour
                     DetermineEnemyType(enemy2);
                     
                     enemy2Position = 9;
+
+                    barkeeperMadNextRound = false;
                 }
             }
         }
@@ -75,6 +76,12 @@ public class EnemyManagerScript : MonoBehaviour
         }
         else
         {
+            if (barkeeperMadNextRound && GameManagerScript.barkeeperMad)
+            {
+                // The Barkeeper punches the Tavern Brute in retaliation for breaking one of his chairs
+                firstAttack = "Barkeeper-Punches Tavern Brute";
+            }
+            
             if (secondAttack == "null")
             {
                 DetermineEnemyChoice(2);
@@ -491,7 +498,7 @@ public class EnemyManagerScript : MonoBehaviour
     
     
 
-    void DetermineEnemyType(string enemyName)
+    public static void DetermineEnemyType(string enemyName)
     {
         switch (enemyName)
         {

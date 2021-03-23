@@ -310,6 +310,16 @@ public class ChangeChoiceText : MonoBehaviour
                         option3[0].GetComponent<SpriteRenderer>().color = color3;
                     }
                 }
+                else
+                {
+                    option1[1].GetComponent<Text>().text = "Netrixi is currently unable to Attack";
+                    option1[1].GetComponent<Text>().color = Color.gray;
+                    
+                    option2[1].GetComponent<Text>().text = "She can only Move during this round";
+                    option2[1].GetComponent<Text>().color = Color.gray;
+                    
+                    option3[1].GetComponent<Text>().text = "";
+                }
                 break;
             
             case "Folkvar":
@@ -318,7 +328,7 @@ public class ChangeChoiceText : MonoBehaviour
                     // Attack 1
                     if (attack1 != 4 && attack2 != 4) 
                     {
-                        option1[1].GetComponent<Text>().text = "Swing GreatSword";
+                        option1[1].GetComponent<Text>().text = "Swing Sword";
                         
                         option1[0].GetComponent<SpriteRenderer>().color = color1;
                     }
@@ -346,6 +356,16 @@ public class ChangeChoiceText : MonoBehaviour
                             option3[1].GetComponent<Text>().color = Color.gray;
                         }
                     }
+                }
+                else
+                {
+                    option1[1].GetComponent<Text>().text = "Folkvar is currently unable to Attack";
+                    option1[1].GetComponent<Text>().color = Color.gray;
+                    
+                    option2[1].GetComponent<Text>().text = "He can only Move during this round";
+                    option2[1].GetComponent<Text>().color = Color.gray;
+                    
+                    option3[1].GetComponent<Text>().text = "";
                 }
                 break;
             
@@ -398,6 +418,16 @@ public class ChangeChoiceText : MonoBehaviour
                         }
                     }
                 }
+                else
+                {
+                    option1[1].GetComponent<Text>().text = "Iv is currently unable to Attack";
+                    option1[1].GetComponent<Text>().color = Color.gray;
+                    
+                    option2[1].GetComponent<Text>().text = "She can only Move during this round";
+                    option2[1].GetComponent<Text>().color = Color.gray;
+                    
+                    option3[1].GetComponent<Text>().text = "";
+                }
                 break;
         }
     }
@@ -405,7 +435,7 @@ public class ChangeChoiceText : MonoBehaviour
 
     public void ResetChoices(bool fullReset)
     {
-        this.GetComponent<SpriteRenderer>().color = inActiveDecision;
+        //this.GetComponent<SpriteRenderer>().color = inActiveDecision;
         
         option1[1].GetComponent<Text>().color = Color.white;
         option2[1].GetComponent<Text>().color = Color.white;

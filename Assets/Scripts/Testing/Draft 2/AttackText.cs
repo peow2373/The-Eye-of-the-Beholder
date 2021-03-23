@@ -7,7 +7,7 @@ public class AttackText : MonoBehaviour
 {
 
     public bool attack1, attack2, rounds;
-    public int roundNumber;
+    private int roundNumber;
     // Start is called before the first frame update
     void Start()
     {
@@ -80,7 +80,7 @@ public class AttackText : MonoBehaviour
         {
             roundNumber = CombatManagerScript.roundNumber;
             
-            this.gameObject.GetComponent<Text>().text = "Round: " + roundNumber;
+            this.gameObject.GetComponent<Text>().text = "Round #" + roundNumber;
         }
     }
 }

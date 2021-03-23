@@ -6,22 +6,31 @@ using UnityEngine.UIElements;
 public class CharacterSelected : MonoBehaviour
 {
     public bool netrixi, folkvar, iv;
-    
-    private Vector3 deselectedSize = new Vector3(2f, 2f, 2f);
-    private Vector3 selectedSize = new Vector3(2.5f, 2.5f, 2.5f);
 
-    private float deselectedPosition = -2.6f;
-    private float selectedPosition = -1.0f;
-    
+    private Vector3 selected, deselected;
+
+    private static float deselectedSize = 9f;
+    private static float selectedSize = deselectedSize + 4f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        selected = new Vector3(selectedSize, selectedSize, selectedSize);
+        deselected = new Vector3(deselectedSize, deselectedSize, deselectedSize);
     }
 
     // Update is called once per frame
     void Update()
     {
+        float selectedLocation = CharacterMovement.selectedPosition;
+
+        float combatWidth = CharacterMovement.combatWidth;
+        float combatHeight = CharacterMovement.combatHeight;
+
+        float netrixiOffset = CharacterMovement.netrixiOffset;
+        float folkvarOffset = CharacterMovement.folkvarOffset;
+        float ivOffset = CharacterMovement.ivOffset;
+        
         if (netrixi)
         {
             // If Netrixi is in the party yet
@@ -34,13 +43,17 @@ public class CharacterSelected : MonoBehaviour
                 
                     if (CombatManagerScript.netrixiAttacks)
                     {
-                        this.transform.localScale = selectedSize;
-                        this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight) + (selectedLocation*combatHeight);
+                        
+                        this.transform.localScale = new Vector3(selectedSize, selectedSize, selectedSize);
+                        this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                     else
                     {
-                        this.transform.localScale = deselectedSize;
-                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition, this.transform.position.z);
+                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight);
+                        
+                        this.transform.localScale = new Vector3(deselectedSize + 0.5f, deselectedSize + 0.5f, deselectedSize);
+                        this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                 }
                 else
@@ -68,13 +81,17 @@ public class CharacterSelected : MonoBehaviour
                 
                     if (CombatManagerScript.folkvarAttacks)
                     {
-                        this.transform.localScale = selectedSize;
-                        this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight) + (selectedLocation*combatHeight);
+                        
+                        this.transform.localScale = new Vector3(selectedSize, selectedSize, selectedSize);
+                        this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                     else
                     {
-                        this.transform.localScale = new Vector3(deselectedSize.x + 0.25f, deselectedSize.y + 0.25f, deselectedSize.z);
-                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition + 0.2f, this.transform.position.z);
+                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight);
+                        
+                        this.transform.localScale = new Vector3(deselectedSize + 2f, deselectedSize + 2f, deselectedSize);
+                        this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                 }
                 else
@@ -102,13 +119,17 @@ public class CharacterSelected : MonoBehaviour
                 
                     if (CombatManagerScript.ivAttacks)
                     {
-                        this.transform.localScale = selectedSize;
-                        this.transform.position = new Vector3( this.transform.position.x, selectedPosition, this.transform.position.z);
+                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight) + (selectedLocation*combatHeight);
+                        
+                        this.transform.localScale = selected;
+                        this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                     else
                     {
-                        this.transform.localScale = deselectedSize;
-                        this.transform.position = new Vector3( this.transform.position.x, deselectedPosition, this.transform.position.z);
+                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight);
+                        
+                        this.transform.localScale = deselected;
+                        this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                 }
                 else

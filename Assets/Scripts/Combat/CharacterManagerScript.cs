@@ -8,6 +8,10 @@ public class CharacterManagerScript : MonoBehaviour
     public static int netrixi1st = 3, folkvar1st = 5, iv1st = 1;
     public static int netrixi2nd = 3, folkvar2nd = 5, iv2nd = 1;
     
+    public static int netrixiStartingPosition = 2;
+    public static int folkvarStartingPosition = 4;
+    public static int ivStartingPosition = 1;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +47,18 @@ public class CharacterManagerScript : MonoBehaviour
     public static void StartCombat()
     {
         // Reset character position
-        netrixiPosition = 3;
-        folkvarPosition = 5;
-        ivPosition = 1;
+        netrixiPosition = netrixiStartingPosition;
+        folkvarPosition = folkvarStartingPosition;
+        ivPosition = ivStartingPosition;
         
         netrixi1st = netrixiPosition;
         folkvar1st = folkvarPosition;
         iv1st = ivPosition;
+        
+        netrixi2nd = netrixi1st;
+        folkvar2nd = folkvar1st;
+        iv2nd = iv1st;
+
 
         // Reset character HP
         CombatManagerScript.netrixiHP = HealthValues.netrixiHP;

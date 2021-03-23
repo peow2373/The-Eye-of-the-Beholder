@@ -45,7 +45,7 @@ public class ChangeBackground : MonoBehaviour
                 sr.sprite = mansion;
                 break;
             
-            case 5:
+            case 6:
                 sr.sprite = road;
                 break;
             
