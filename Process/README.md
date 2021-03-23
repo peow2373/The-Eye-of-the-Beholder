@@ -6,9 +6,9 @@ Progress
 - Added on a dialogue interaction with the jester in the king’s palace
 - Progress on music: https://drive.google.com/drive/folders/1FTRO8JYfH-2nx1jbEg8xzrv5dfNaLJr0?usp=sharing 
 - More UI progress. 
-- Color of options and choices revised
-- Hand sprite revised
-- Choices and options have correct text and will dynamically instantiate depending on how many options/choices are available
+  - Color of options and choices revised
+  - Hand sprite revised
+  - Choices and options have correct text and will dynamically instantiate depending on how many options/choices are available
 
 # 3/16/2021 Update
 Progress
