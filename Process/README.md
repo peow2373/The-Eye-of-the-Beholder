@@ -2,6 +2,7 @@
 Progress
 - Peter helped swap the webcam footage into a live video feed that can then have the hand sprites drawn on top of it
 - Peter also helped with resizing the video to allow for people to play on any size screen!
+- Created blog post at GameDev.net
 - Backgrounds completed and implemented, may come back later to animate components certain components
 - Added on a dialogue interaction with the jester in the king’s palace
 - Progress on music: https://drive.google.com/drive/folders/1FTRO8JYfH-2nx1jbEg8xzrv5dfNaLJr0?usp=sharing 
