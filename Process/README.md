@@ -14,6 +14,7 @@ Progress
 - Barkeeper can now join mid-fight! He will then punch the brute for breaking one of his chairs
 - Finished redesigning Combat + Dialogue scenes with the new UI
 - Fixed some bugs with hand sprites resizing
+- Webcam video is not resizable as well
 
 # 3/16/2021 Update
 Progress
