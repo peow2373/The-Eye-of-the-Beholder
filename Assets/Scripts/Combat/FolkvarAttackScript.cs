@@ -143,72 +143,85 @@ public class FolkvarAttackScript : MonoBehaviour
                         lowestEnemyHP = CombatManagerScript.enemy3HP;
                     }
 
+                
+                int targetLocation;
+                if (attackNumber == 1) targetLocation = CombatManagerScript.folkvarTarget1Location;
+                else targetLocation = CombatManagerScript.folkvarTarget2Location;
 
                 switch (targetEnemy)
                 {
                     // Enemy 1
                     case 1:
-                        if (lowestEnemyHP <= CombatManagerScript.enemy1StartingHP * DamageValues.executeThreshold)
+                        if (EnemyManagerScript.enemy1Position == targetLocation)
                         {
-                            // TODO: Play Folkvar Holy Smite animation
-                            playerTarget = 1;
+                            if (lowestEnemyHP <= CombatManagerScript.enemy1StartingHP * DamageValues.executeThreshold)
+                            {
+                                // TODO: Play Folkvar Holy Smite animation
+                                playerTarget = 1;
                             
-                            // Enemy is below the threshold for Execution
-                            HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 2, burnRate);
+                                // Enemy is below the threshold for Execution
+                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 2, burnRate);
 
-                            print("Enemy 1 will be executed");
-                        }
-                        else
-                        {
-                            // TODO: Play Folkvar Holy Smite animation
-                            playerTarget = 1;
+                                print("Enemy 1 will be executed");
+                            }
+                            else
+                            {
+                                // TODO: Play Folkvar Holy Smite animation
+                                playerTarget = 1;
                             
-                            // Enemy is not below the threshold for Execution
-                            HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                                // Enemy is not below the threshold for Execution
+                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                            }
                         }
                         break;
                     
                     // Enemy 2
                     case 2:
-                        if (lowestEnemyHP <= CombatManagerScript.enemy2StartingHP * DamageValues.executeThreshold)
+                        if (EnemyManagerScript.enemy2Position == targetLocation)
                         {
-                            // TODO: Play Folkvar Holy Smite animation
-                            playerTarget = 2;
+                            if (lowestEnemyHP <= CombatManagerScript.enemy2StartingHP * DamageValues.executeThreshold)
+                            {
+                                // TODO: Play Folkvar Holy Smite animation
+                                playerTarget = 2;
                             
-                            // Enemy is below the threshold for Execution
-                            HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
+                                // Enemy is below the threshold for Execution
+                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
                             
-                            print("Enemy 2 will be executed");
-                        }
-                        else
-                        {
-                            // TODO: Play Folkvar Holy Smite animation
-                            playerTarget = 2;
+                                print("Enemy 2 will be executed");
+                            }
+                            else
+                            {
+                                // TODO: Play Folkvar Holy Smite animation
+                                playerTarget = 2;
                             
-                            // Enemy is not below the threshold for Execution
-                            HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                                // Enemy is not below the threshold for Execution
+                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                            }
                         }
                         break;
                     
                     // Enemy 3
                     case 3:
-                        if (lowestEnemyHP <= CombatManagerScript.enemy3StartingHP * DamageValues.executeThreshold)
+                        if (EnemyManagerScript.enemy3Position == targetLocation)
                         {
-                            // TODO: Play Folkvar Holy Smite animation
-                            playerTarget = 3;
+                            if (lowestEnemyHP <= CombatManagerScript.enemy3StartingHP * DamageValues.executeThreshold)
+                            {
+                                // TODO: Play Folkvar Holy Smite animation
+                                playerTarget = 3;
                             
-                            // Enemy is below the threshold for Execution
-                            HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
+                                // Enemy is below the threshold for Execution
+                                HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
                             
-                            print("Enemy 3 will be executed");
-                        }
-                        else
-                        {
-                            // TODO: Play Folkvar Holy Smite animation
-                            playerTarget = 3;
+                                print("Enemy 3 will be executed");
+                            }
+                            else
+                            {
+                                // TODO: Play Folkvar Holy Smite animation
+                                playerTarget = 3;
                             
-                            // Enemy is not below the threshold for Execution
-                            HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
+                                // Enemy is not below the threshold for Execution
+                                HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
+                            }
                         }
                         break;
                 }

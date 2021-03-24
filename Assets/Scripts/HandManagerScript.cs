@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class HandManagerScript : MonoBehaviour
 {
@@ -100,12 +101,56 @@ public class HandManagerScript : MonoBehaviour
     public static float[] yPosWebcam = new float[] { 6.5f, 4f, 1.5f };
     
 
-    public static void ChangeHandLocation()
+    public static void ChangeHandLocation(GameObject hand)
     {
         MarkerManagerScript.xPos = xPosWebcam;
         MarkerManagerScript.yPos = yPosWebcam;
-        
-        MarkerManagerScript.scale = new Vector3(scale, scale, 1);
+
+        int currLoc = MarkerManagerScript.currentLocation;
+
+        switch (currLoc)
+        {
+            case 0:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[1], HandManagerScript.yPosWebcam[1]);
+                break;
+            
+            case 1:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[0], HandManagerScript.yPosWebcam[0]);
+                break;
+            
+            case 2:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[1], HandManagerScript.yPosWebcam[0]);
+                break;
+            
+            case 3:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[2], HandManagerScript.yPosWebcam[0]);
+                break;
+            
+            case 4:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[0], HandManagerScript.yPosWebcam[1]);
+                break;
+            
+            case 5:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[1], HandManagerScript.yPosWebcam[1]);
+                break;
+            
+            case 6:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[2], HandManagerScript.yPosWebcam[1]);
+                break;
+            
+            case 7:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[0], HandManagerScript.yPosWebcam[2]);
+                break;
+            
+            case 8:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[1], HandManagerScript.yPosWebcam[2]);
+                break;
+            
+            case 9:
+                hand.transform.position = new Vector3(HandManagerScript.xPosWebcam[2], HandManagerScript.yPosWebcam[2]);
+                break;
+        }
+
         
         int curScene = GameManagerScript.currentScene;
         
@@ -121,6 +166,32 @@ public class HandManagerScript : MonoBehaviour
         {
             //MarkerManagerScript.xPos = xPosEndGame;
             //MarkerManagerScript.yPos = yPosEndGame;
+        }
+    }
+
+
+    public static void ChangeHandScale(GameObject hand, float webcamWidth, float cameraWidth)
+    {
+        SpriteRenderer sr = hand.GetComponent<SpriteRenderer>();
+        float handScale = sr.sprite.bounds.extents.x * 2;
+        
+        if (!MarkerManagerScript.wasLarger)
+        {
+            if (!MarkerManagerScript.wasSmaller)
+            {
+                float scaleFactor = ((webcamWidth / 4) * cameraWidth) / handScale;
+                hand.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+            }
+            else
+            {
+                float scaleFactor = ((webcamWidth / 4) * cameraWidth) / (handScale*2);
+                hand.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+            }
+        }
+        else
+        {
+            float scaleFactor = ((webcamWidth / 4) * cameraWidth) / (handScale/2);
+            hand.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
         }
     }
 }

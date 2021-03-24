@@ -146,32 +146,35 @@ public class IvCombatScript : MonoBehaviour
             
             if (ivCondition4[0])
             {
-                // If the player decides to move Folkvar to the left
+                CharacterManagerScript.MoveIv(1, false);
+                CharacterManagerScript.MoveIv(2, false);
+                
+                // If the player decides to move Iv to the left
                 if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
                 {
-                    if (CharacterManagerScript.MoveIv(1) == 1)
+                    if (CharacterManagerScript.MoveIv(1, true) == 1)
                     {
                         ivCondition4[1] = true;
                     }
                     
                     // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveIv(1) == 2)
+                    if (CharacterManagerScript.MoveIv(1, true) == 2)
                     {
                         print("Choose another direction to move in");
                         ivCondition4[0] = false;
                     }
                 }
                     
-                // If the player decides to move Folkvar to the right
+                // If the player decides to move Iv to the right
                 if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
                 {
-                    if (CharacterManagerScript.MoveIv(2) == 1)
+                    if (CharacterManagerScript.MoveIv(2, true) == 1)
                     {
                         ivCondition4[2] = true;
                     }
                     
                     // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveIv(2) == 2)
+                    if (CharacterManagerScript.MoveIv(2, true) == 2)
                     {
                         print("Choose another direction to move in");
                         ivCondition4[0] = false;

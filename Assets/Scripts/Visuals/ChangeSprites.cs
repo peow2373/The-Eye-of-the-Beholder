@@ -11,9 +11,9 @@ public class ChangeSprites : MonoBehaviour
 
     private SpriteRenderer sr1, sr2, sr3;
 
-    public Sprite netrixiHood, netrixiFace, netrixiFaceCompass, netrixiWeapon, netrixiWeaponCompass;
-    public Sprite folkvarHelmet, folkvarFace, folkvarWeapon, folkvarTwoWeapons;
-    public Sprite ivEyesClosed, ivEyesClosedAmulet, ivEyesOpen, ivWeapon, ivWeaponAmulet, ivWeaponEyesOpen;
+    public Sprite netrixiHood, netrixiFace, netrixiFaceCompass, netrixiHoodCompass;
+    public Sprite folkvarHelmet, folkvarFace, folkvarFaceTwoWeapons, folkvarTwoWeapons;
+    public Sprite ivEyesClosed, ivEyesClosedAmulet, ivEyesOpenAmulet;
     
     public Sprite knightMelee, knightRanged, gatekeeper, royalGuard;
     public Sprite skullMelee, skullRanged, kazHood, kazNoHood, skullKing, royalKing;
@@ -40,7 +40,7 @@ public class ChangeSprites : MonoBehaviour
         sr3.sprite = DisplayPlayerCharacter(7, true);
     }
 
-    public Sprite DisplayPlayerCharacter(int attack, bool hasWeapon)
+    public Sprite DisplayPlayerCharacter(int attack, bool inCombat)
     {
         int currScene = GameManagerScript.currentScene;
         
@@ -54,23 +54,22 @@ public class ChangeSprites : MonoBehaviour
             case 11:
                 if (currScene > 2 && currScene <= 7)
                 {
-                    if (hasWeapon) return netrixiWeaponCompass;
+                    if (inCombat) return netrixiHoodCompass;
                     else return netrixiFaceCompass;
                 } 
                 else if (currScene > 7 && currScene <= 15)
                 {
-                    if (hasWeapon) return netrixiWeapon;
+                    if (inCombat) return netrixiHood;
                     else return netrixiFace;
                 } 
                 else if (currScene > 15)
                 {
-                    if (hasWeapon) return netrixiWeaponCompass;
+                    if (inCombat) return netrixiHoodCompass;
                     else return netrixiFaceCompass;
                 }
                 else
                 {
-                    if (hasWeapon) return netrixiWeapon;
-                    else return netrixiHood;
+                    return netrixiHood;
                 }
 
             // If Folkvar is attacking
@@ -81,18 +80,17 @@ public class ChangeSprites : MonoBehaviour
             case 13:
                 if (currScene > 6 && currScene <= 15)
                 {
-                    if (hasWeapon) return folkvarTwoWeapons;
+                    if (inCombat) return folkvarHelmet;
                     else return folkvarFace;
                 }
                 else if (currScene > 15)
                 {
-                    if (hasWeapon) return folkvarTwoWeapons;
-                    else return folkvarFace;
+                    if (inCombat) return folkvarTwoWeapons;
+                    else return folkvarFaceTwoWeapons;
                 }
                 else
                 {
-                    if (hasWeapon) return folkvarWeapon;
-                    else return folkvarHelmet;
+                    return folkvarHelmet;
                 }
             
             // If Iv is attacking
@@ -103,18 +101,15 @@ public class ChangeSprites : MonoBehaviour
             case 15:
                 if (currScene > 15 && currScene < 24)
                 {
-                    if (hasWeapon) return ivWeaponAmulet;
-                    else return ivEyesClosedAmulet;
+                    return ivEyesClosedAmulet;
                 }
                 else if (currScene >= 25)
                 {
-                    if (hasWeapon) return ivWeaponEyesOpen;
-                    else return ivEyesOpen;
+                    return ivEyesOpenAmulet;
                 }
                 else
                 {
-                    if (hasWeapon) return ivWeapon;
-                    else return ivEyesClosed;
+                    return ivEyesClosed;
                 }
         }
 
@@ -126,6 +121,10 @@ public class ChangeSprites : MonoBehaviour
     {
         switch (enemy)
         {
+            case "None":
+                sr.sprite = null;
+                break;
+            
             case "Royal Knight Melee":
                 sr.sprite = knightMelee;
                 break;
@@ -135,7 +134,7 @@ public class ChangeSprites : MonoBehaviour
                 break;
             
             case "Folkvar":
-                sr.sprite = folkvarWeapon;
+                sr.sprite = folkvarHelmet;
                 break;
             
             case "Gatekeeper":

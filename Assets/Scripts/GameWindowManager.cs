@@ -20,8 +20,8 @@ public class GameWindowManager : MonoBehaviour
     public Text webcamText;
     public static float webcamWidth, webcamHeight;
     
-    public GameObject option1, option2, option3;
-    public Text option1Text, option2Text, option3Text;
+    public GameObject option1, option2, option3, option4;
+    public Text option1Text, option2Text, option3Text, option4Text;
     public static float optionXPadding = 0.0125f, optionYPadding = 0.0125f;
 
     public GameObject background;
@@ -29,7 +29,7 @@ public class GameWindowManager : MonoBehaviour
     public GameObject dialogue;
     public Text dialogueText;
     private string currentDialogue;
-    public static float percentOfDialogueArea;
+    public static float percentOfDialogueArea = 1;
 
     public GameObject portrait;
     public static float portraitYDimension, portraitYLocation;
@@ -115,16 +115,15 @@ public class GameWindowManager : MonoBehaviour
             }
         }
         
-        // Check to see if the dialogue has changed
-        if (dialogueTextBox != null)
-        {
-            if ((string)dialogueTextBox.GetComponent<Text>().text != currentDialogue)
-            {
-                PositionDialogue(cameraWidth, cameraHeight);
-                DetermineChoices(cameraWidth, cameraHeight);
-            }
-            currentDialogue = dialogueTextBox.GetComponent<Text>().text;
-        }
+        
+        //if (dialogueTextBox != null)
+        //{
+        //    if ((string)dialogueTextBox.GetComponent<Text>().text != currentDialogue)
+        //    {
+        //        PositionDialogue(cameraWidth, cameraHeight);
+        //    }
+        //    currentDialogue = dialogueTextBox.GetComponent<Text>().text;
+        //}
         
 
         // If the player is in a combat scene
@@ -134,17 +133,41 @@ public class GameWindowManager : MonoBehaviour
             
             percentOfDialogueArea = 1f;
             PositionDialogue(cameraWidth, cameraHeight);
-
-            ChangePortrait.whoIsTalking = 0;
-            PositionPortrait(cameraWidth, cameraHeight);
-
+            
             if (!choicesReset)
             {
                 ChangeChoiceText.S.ResetChoices(false);
                 choicesReset = true;
             }
+
+            ChangePortrait.whoIsTalking = 0;
+            PositionPortrait(cameraWidth, cameraHeight);
+
+            if (CombatManagerScript.netrixiAttacks || CombatManagerScript.folkvarAttacks || CombatManagerScript.ivAttacks)
+            {
+                if (CombatManagerScript.firstAttack == 0 || CombatManagerScript.secondAttack == 0)
+                {
+                    PositionOptions(cameraWidth, cameraHeight, 4);
+                }
+                else
+                {
+                    PositionOptions(cameraWidth, cameraHeight, 3);
+                }
+            }
+            else
+            {
+                PositionOptions(cameraWidth, cameraHeight, 3);
+            }
         }
-        else choicesReset = false;
+        else
+        {
+            choicesReset = false;
+
+            // Check to see if the dialogue has changed
+            PositionDialogue(cameraWidth, cameraHeight);
+            
+            option4Text.transform.position = new Vector3(offScreen, offScreen, 0);
+        }
     }
 
     public void ArrangeScreen()
@@ -197,21 +220,16 @@ public class GameWindowManager : MonoBehaviour
         
         webcamText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
         
-        
         // Change scale of hand icon
-        SpriteRenderer sr = hand.GetComponent<SpriteRenderer>();
-        float handScale = sr.sprite.bounds.extents.x * 2;
-        
-        // Change this value to change the scale of the hand icon in relation to the webcam window
-        HandManagerScript.scale = ((webcamWidth * cameraWidth) / 4) / handScale;
-        
+        HandManagerScript.ChangeHandScale(hand, webcamWidth, cameraWidth);
+
         // Change location of hand icon
         float handXPosition = xLocation - ((webcamWidth * cameraWidth)/2);
         float handYPosition = yLocation - ((webcamHeight * cameraHeight)/2);
 
         HandManagerScript.xPosWebcam = new[] {handXPosition + ((webcamWidth * cameraWidth * 1.5f)/9), handXPosition + ((webcamWidth * cameraWidth * 1)/2), handXPosition + ((webcamWidth * cameraWidth * 7.5f)/9)};
         HandManagerScript.yPosWebcam = new[] {handYPosition + ((webcamHeight * cameraHeight * 7.5f)/9), handYPosition + ((webcamHeight * cameraHeight * 1)/2), handYPosition + ((webcamHeight * cameraHeight * 1.5f)/9)};
-        HandManagerScript.ChangeHandLocation();
+        HandManagerScript.ChangeHandLocation(hand);
 
         PositionGrid(webcamWidth, webcamHeight, cameraWidth, cameraHeight);
     }
@@ -221,17 +239,29 @@ public class GameWindowManager : MonoBehaviour
     {
         // Determine the dimensions of the option
         float optionWidth = webcamSizeX / screenSizeX;
-        float optionHeight = ((screenSizeY - webcamSizeY) / screenSizeY)/3;
+        float optionHeight = ((screenSizeY - webcamSizeY) / screenSizeY);
 
         switch (optionNumber)
         {
-            case 1: option1.transform.localScale = new Vector3(optionWidth * cameraWidth, optionHeight * cameraHeight, 1);
+            case 1: option1.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
                 break;
             
-            case 2: option2.transform.localScale = new Vector3(optionWidth * cameraWidth, optionHeight * cameraHeight, 1);
+            case 2: 
+                option1.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
+                option2.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
                 break;
             
-            case 3: option3.transform.localScale = new Vector3(optionWidth * cameraWidth, optionHeight * cameraHeight, 1);
+            case 3: 
+                option1.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
+                option2.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
+                option3.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
+                break;
+                
+            case 4: 
+                option1.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*3/11) * cameraHeight, 1);
+                option2.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*3/11) * cameraHeight, 1);
+                option3.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*3/11) * cameraHeight, 1);
+                option4.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*2/11) * cameraHeight, 1);
                 break;
         }
         
@@ -242,26 +272,52 @@ public class GameWindowManager : MonoBehaviour
         switch (optionNumber)
         {
             case 1:
-                yLocation = (-cameraHeight/2) + ((optionHeight * cameraHeight)*5/2);
-                
+                yLocation = (-cameraHeight/2) + (((optionHeight/3) * cameraHeight)*5/2);
                 option1.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                option4.transform.position = new Vector3(offScreen, offScreen, 0);
                 break;
             
             case 2:
-                yLocation = (-cameraHeight/2) + ((optionHeight * cameraHeight)*3/2);
-
+                yLocation = (-cameraHeight/2) + (((optionHeight/3) * cameraHeight)*5/2);
+                option1.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                yLocation = (-cameraHeight/2) + (((optionHeight/3) * cameraHeight)*3/2);
                 option2.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                option4.transform.position = new Vector3(offScreen, offScreen, 0);
                 break;
             
             case 3: 
-                yLocation = (-cameraHeight/2) + ((optionHeight * cameraHeight)/2);
+                yLocation = (-cameraHeight/2) + (((optionHeight/3) * cameraHeight)*5/2);
+                option1.transform.position = new Vector3(xLocation, yLocation, 0);
                 
+                yLocation = (-cameraHeight/2) + (((optionHeight/3) * cameraHeight)*3/2);
+                option2.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                yLocation = (-cameraHeight/2) + (((optionHeight/3) * cameraHeight)/2);
                 option3.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                option4.transform.position = new Vector3(offScreen, offScreen, 0);
+                break;
+            
+            case 4: 
+                yLocation = (-cameraHeight/2) + (optionHeight * cameraHeight) - (((optionHeight*3/11) * cameraHeight)/2);
+                option1.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                yLocation = (-cameraHeight/2) + (optionHeight * cameraHeight) - (((optionHeight*3/11) * cameraHeight)*3/2);
+                option2.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                yLocation = (-cameraHeight/2) + (optionHeight * cameraHeight) - (((optionHeight*3/11) * cameraHeight)*5/2);
+                option3.transform.position = new Vector3(xLocation, yLocation, 0);
+                
+                yLocation = (-cameraHeight/2) + (((optionHeight*2/11) * cameraHeight)/2);
+                option4.transform.position = new Vector3(xLocation, yLocation, 0);
                 break;
         }
         
         // Change option text location
-        float yHeight = (Screen.height - (webcamHeight*Screen.height)) / 3;
+        float yHeight = (Screen.height - (webcamHeight*Screen.height));
         
         float sizeDiffX = (webcamWidth*Screen.width) - (2 * (Screen.width * optionXPadding));
         float sizeDiffY = (Screen.height - (webcamHeight*Screen.height));
@@ -269,28 +325,58 @@ public class GameWindowManager : MonoBehaviour
         switch (optionNumber)
         {
             case 1:
-                option1Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), yHeight*5/2, 0);
+                option1Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight/3)*5/2, 0);
                 sizeDiffY -= 2 * (Screen.height * optionYPadding);
+                
+                option4Text.transform.position = new Vector3(offScreen, offScreen, 0);
                 break;
             
             case 2:
-                option2Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), yHeight*3/2, 0);
+                option1Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight/3)*5/2, 0);
+                option2Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight/3)*3/2, 0);
                 sizeDiffY /= 2;
-                
                 sizeDiffY -= 2 * (Screen.height * optionYPadding);
+                
+                option4Text.transform.position = new Vector3(offScreen, offScreen, 0);
                 break;
             
             case 3:
-                option3Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), yHeight/2, 0);
+                option1Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight/3)*5/2, 0);
+                option2Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight/3)*3/2, 0);
+                option3Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight/3)/2, 0);
                 sizeDiffY /= 3;
                 sizeDiffY -= 2 * (Screen.height * optionYPadding);
+                
+                option4Text.transform.position = new Vector3(offScreen, offScreen, 0);
+                break;
+            
+            case 4:
+                option1Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight*2/11) + (yHeight*3/11)*5/2, 0);
+                option2Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight*2/11) + (yHeight*3/11)*3/2, 0);
+                option3Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight*2/11) + (yHeight*3/11)/2, 0);
+                
+                option4Text.transform.position = new Vector3(Screen.width - ((webcamWidth*Screen.width)/2), (yHeight*2/11)/2, 0);
+                sizeDiffY /= 7;
                 break;
         }
         
         // Change option textbox sizes
-        option1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
-        option2Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
-        option3Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+        if (optionNumber == 4)
+        {
+            float sizeDiffYLarge = (sizeDiffY * 2) - (2 * (Screen.height * optionYPadding));
+            float sizeDiffYSmall = sizeDiffY - (2 * (Screen.height * optionYPadding));
+            
+            option1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffYLarge);
+            option2Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffYLarge);
+            option3Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffYLarge);
+            option4Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffYSmall);
+        }
+        else
+        {
+            option1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+            option2Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+            option3Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+        }
     }
 
 
@@ -339,7 +425,7 @@ public class GameWindowManager : MonoBehaviour
             CharacterMovement.ChangeXLocations(scaleX, xLocation);
             CharacterMovement.ChangeYLocations(scaleY, yLocation);
             
-            // Re-Populate the dialogue section with combat text
+            // Re-populate the dialogue section with combat text
             ChangeCombatText.S.ChangeTextLocations(windowWidth*Screen.width, windowHeight*Screen.height);
         }
     }
@@ -351,14 +437,14 @@ public class GameWindowManager : MonoBehaviour
         DetermineChoices(cameraWidth, cameraHeight);
 
         // Determine the dimensions of the dialogue window
-        float dialogueWidth = gameWindowSizeX / screenSizeX;
+        float dialogueWidth = windowWidth;
         float dialogueHeight = ((screenSizeY - gameWindowSizeY) * percentOfDialogueArea) / screenSizeY;
         
         dialogue.transform.localScale = new Vector3(dialogueWidth * cameraWidth, dialogueHeight * cameraHeight, 1);
 
         // Determine the location of the dialogue window
         float xLocation = -cameraWidth/2 + ((dialogueWidth * cameraWidth)/2);
-        float yLocation = (cameraHeight/2) - ((gameWindowSizeY/screenSizeY)*cameraHeight) - ((dialogueHeight * cameraHeight)/2);
+        float yLocation = (cameraHeight/2) - ((windowHeight)*cameraHeight) - ((dialogueHeight * cameraHeight)/2);
         
         dialogue.transform.position = new Vector3(xLocation, yLocation, 0);
         
@@ -401,16 +487,15 @@ public class GameWindowManager : MonoBehaviour
         {
             float size = portraitHeight * Screen.height;
             float margin = (dialoguePadding * Screen.height);
-            float xLoc = ((windowWidth*Screen.width) - size - (margin*3)) / 2;
 
             if (ChangePortrait.whoIsTalking == 1)
             {
                 // The Player characters are speaking
-                dialogueText.transform.position = new Vector3(xLoc + size + (margin * 2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3((margin*2) + size + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.alignment = TextAnchor.MiddleLeft;
 
                 // Change textbox size
-                float sizeDiffX = xLoc*2;
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
                 dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
@@ -418,13 +503,13 @@ public class GameWindowManager : MonoBehaviour
             else if (ChangePortrait.whoIsTalking == 2)
             {
                 // The Enemy characters are speaking
-                dialogueText.transform.position = new Vector3( xLoc + margin, Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3( margin + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.alignment = TextAnchor.MiddleRight;
                 
                 // Change textbox size
-                float sizeDiffX = xLoc*2;
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
-
+    
                 dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             }
             else
@@ -434,7 +519,7 @@ public class GameWindowManager : MonoBehaviour
                 dialogueText.alignment = TextAnchor.MiddleCenter;
 
                 // Change textbox size
-                float sizeDiffX = ((windowWidth*Screen.width) - (margin * 2));
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - (margin * 2));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
                 dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);

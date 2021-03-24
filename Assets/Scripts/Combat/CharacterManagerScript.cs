@@ -11,6 +11,10 @@ public class CharacterManagerScript : MonoBehaviour
     public static int netrixiStartingPosition = 2;
     public static int folkvarStartingPosition = 4;
     public static int ivStartingPosition = 1;
+
+    public static bool netrixiCanMoveLeft = true, netrixiCanMoveRight = true;
+    public static bool folkvarCanMoveLeft = true, folkvarCanMoveRight = true;
+    public static bool ivCanMoveLeft = true, ivCanMoveRight = true;
     
     // Start is called before the first frame update
     void Start()
@@ -66,8 +70,8 @@ public class CharacterManagerScript : MonoBehaviour
         CombatManagerScript.ivHP = HealthValues.ivHP;
     }
 
-    
-    public static int MoveNetrixi( int direction )
+
+    public static int MoveNetrixi(int direction, bool actuallyMove)
     {
         // If Netrixi is still alive
         if (CombatManagerScript.netrixiAlive)
@@ -83,13 +87,15 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (netrixiPosition - 1 != ivPosition)
                         {
-                            netrixi1st = netrixiPosition - 1;
+                            if (actuallyMove) netrixi1st = netrixiPosition - 1;
+                            netrixiCanMoveLeft = true;
                             UpdateVariables();
                             return 1;
                         }
                         else
                         {
                             print("Can't move Netrixi past Iv!");
+                            netrixiCanMoveLeft = false;
                             UpdateVariables();
                             return 2;
                         }
@@ -98,13 +104,15 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (netrixiPosition - 1 > 0)
                         {
-                            netrixi1st = netrixiPosition - 1;
+                            if (actuallyMove) netrixi1st = netrixiPosition - 1;
+                            netrixiCanMoveLeft = true;
                             UpdateVariables();
                             return 1;
                         }
                         else
                         {
                             print("Can't move Netrixi out of bounds!");
+                            netrixiCanMoveLeft = false;
                             UpdateVariables();
                             return 2;
                         }
@@ -121,12 +129,14 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (netrixi1st - 1 != iv2nd)
                             {
-                                netrixi2nd = netrixi1st - 1;
+                                if (actuallyMove) netrixi2nd = netrixi1st - 1;
+                                netrixiCanMoveLeft = true;
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Netrixi past Iv!");
+                                netrixiCanMoveLeft = false;
                                 return 2;
                             }
                         }
@@ -134,12 +144,14 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (netrixi1st - 1 > 0)
                             {
-                                netrixi2nd = netrixi1st - 1;
+                                if (actuallyMove) netrixi2nd = netrixi1st - 1;
+                                netrixiCanMoveLeft = true;
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Netrixi out of bounds!");
+                                netrixiCanMoveLeft = false;
                                 return 2;
                             }
                         }
@@ -159,13 +171,15 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (netrixiPosition + 1 != folkvarPosition)
                         {
-                            netrixi1st = netrixiPosition + 1;
+                            if (actuallyMove) netrixi1st = netrixiPosition + 1;
+                            netrixiCanMoveRight = true;
                             UpdateVariables();
                             return 1;
                         }
                         else
                         {
                             print("Can't move Netrixi past Folkvar!");
+                            netrixiCanMoveRight = false;
                             UpdateVariables();
                             return 2;
                         }
@@ -174,13 +188,15 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (netrixiPosition + 1 < 6)
                         {
-                            netrixi1st = netrixiPosition + 1;
+                            if (actuallyMove) netrixi1st = netrixiPosition + 1;
+                            netrixiCanMoveRight = true;
                             UpdateVariables();
                             return 1;
                         }
                         else
                         {
                             print("Can't move Netrixi into enemy territory!");
+                            netrixiCanMoveRight = false;
                             UpdateVariables();
                             return 2;
                         }
@@ -197,12 +213,14 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (netrixi1st + 1 != folkvar2nd)
                             {
-                                netrixi2nd = netrixi1st + 1;
+                                if (actuallyMove) netrixi2nd = netrixi1st + 1;
+                                netrixiCanMoveRight = true;
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Netrixi past Folkvar!");
+                                netrixiCanMoveRight = false;
                                 return 2;
                             }
                         }
@@ -210,12 +228,14 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (netrixi1st + 1 < 6)
                             {
-                                netrixi2nd = netrixi1st + 1;
+                                if (actuallyMove) netrixi2nd = netrixi1st + 1;
+                                netrixiCanMoveRight = true;
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Netrixi into enemy territory!");
+                                netrixiCanMoveRight = false;
                                 return 2;
                             }
                         }
@@ -233,7 +253,7 @@ public class CharacterManagerScript : MonoBehaviour
     
     
     
-    public static int MoveFolkvar( int direction )
+    public static int MoveFolkvar( int direction, bool actuallyMove)
     {
         // If Folkvar is still alive
         if (CombatManagerScript.folkvarAlive)
@@ -249,13 +269,15 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (folkvarPosition - 1 != netrixiPosition)
                         {
-                            folkvar1st = folkvarPosition - 1;
+                            if (actuallyMove) folkvar1st = folkvarPosition - 1;
+                            folkvarCanMoveLeft = true;
                             UpdateVariables();
                             return 1;
                         }
                         else
                         {
                             print("Can't move Folkvar past Netrixi!");
+                            folkvarCanMoveLeft = false;
                             UpdateVariables();
                             return 2;
                         }
@@ -267,13 +289,15 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (folkvarPosition - 1 != ivPosition)
                             {
-                                folkvar1st = folkvarPosition - 1;
+                                if (actuallyMove) folkvar1st = folkvarPosition - 1;
+                                folkvarCanMoveLeft = true;
                                 UpdateVariables();
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Folkvar past Iv!");
+                                folkvarCanMoveLeft = false;
                                 UpdateVariables();
                                 return 2;
                             }
@@ -282,13 +306,15 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (folkvarPosition - 1 > 0)
                             {
-                                folkvar1st = folkvarPosition - 1;
+                                if (actuallyMove) folkvar1st = folkvarPosition - 1;
+                                folkvarCanMoveLeft = true;
                                 UpdateVariables();
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Folkvar out of bounds!");
+                                folkvarCanMoveLeft = false;
                                 UpdateVariables();
                                 return 2;
                             }
@@ -305,12 +331,14 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (folkvar1st - 1 != netrixi2nd)
                             {
-                                folkvar2nd = folkvar1st - 1;
+                                if (actuallyMove) folkvar2nd = folkvar1st - 1;
+                                folkvarCanMoveLeft = true;
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Folkvar past Netrixi!");
+                                folkvarCanMoveLeft = false;
                                 return 2;
                             }
                         }
@@ -321,12 +349,14 @@ public class CharacterManagerScript : MonoBehaviour
                             {
                                 if (folkvar1st - 1 != iv2nd)
                                 {
-                                    folkvar2nd = folkvar1st - 1;
+                                    if (actuallyMove) folkvar2nd = folkvar1st - 1;
+                                    folkvarCanMoveLeft = true;
                                     return 1;
                                 }
                                 else
                                 {
                                     print("Can't move Folkvar past Iv!");
+                                    folkvarCanMoveLeft = false;
                                     UpdateVariables();
                                     return 2;
                                 }
@@ -335,12 +365,14 @@ public class CharacterManagerScript : MonoBehaviour
                             {
                                 if (folkvar1st - 1 > 0)
                                 {
-                                    folkvar2nd = folkvar1st - 1;
+                                    if (actuallyMove) folkvar2nd = folkvar1st - 1;
+                                    folkvarCanMoveLeft = true;
                                     return 1;
                                 }
                                 else
                                 {
                                     print("Can't move Folkvar out of bounds!");
+                                    folkvarCanMoveLeft = false;
                                     UpdateVariables();
                                     return 2;
                                 }
@@ -358,13 +390,15 @@ public class CharacterManagerScript : MonoBehaviour
                 {
                     if (folkvarPosition + 1 < 6)
                     {
-                        folkvar1st = folkvarPosition + 1;
+                        if (actuallyMove) folkvar1st = folkvarPosition + 1;
+                        folkvarCanMoveRight = true;
                         UpdateVariables();
                         return 1;
                     }
                     else
                     {
                         print("Can't move Folkvar into enemy territory!");
+                        folkvarCanMoveRight = false;
                         UpdateVariables();
                         return 2;
                     }
@@ -377,12 +411,14 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (folkvar1st + 1 < 6)
                         {
-                            folkvar2nd = folkvar1st + 1;
+                            if (actuallyMove) folkvar2nd = folkvar1st + 1;
+                            folkvarCanMoveRight = true;
                             return 1;
                         }
                         else
                         {
                             print("Can't move Folkvar into enemy territory!");
+                            folkvarCanMoveRight = false;
                             return 2;
                         }
                     }
@@ -399,7 +435,7 @@ public class CharacterManagerScript : MonoBehaviour
     
     
     
-    public static int MoveIv( int direction )
+    public static int MoveIv( int direction, bool actuallyMove)
     {
         // If Iv is still alive
         if (CombatManagerScript.ivAlive)
@@ -412,13 +448,15 @@ public class CharacterManagerScript : MonoBehaviour
                 {
                     if (ivPosition - 1 > 0)
                     {
-                        iv1st = ivPosition - 1;
+                        if (actuallyMove) iv1st = ivPosition - 1;
+                        ivCanMoveLeft = true;
                         UpdateVariables();
                         return 1;
                     }
                     else
                     {
                         print("Can't move Iv out of bounds!");
+                        ivCanMoveLeft = false;
                         UpdateVariables();
                         return 2;
                     }
@@ -431,12 +469,14 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (iv1st - 1 > 0)
                         {
-                            iv2nd = iv1st - 1;
+                            if (actuallyMove) iv2nd = iv1st - 1;
+                            ivCanMoveLeft = true;
                             return 1;
                         }
                         else
                         {
                             print("Can't move Iv out of bounds!");
+                            ivCanMoveLeft = false;
                             return 2;
                         }
                     }
@@ -454,13 +494,15 @@ public class CharacterManagerScript : MonoBehaviour
                     {
                         if (ivPosition + 1 != netrixiPosition)
                         {
-                            iv1st = ivPosition + 1;
+                            if (actuallyMove) iv1st = ivPosition + 1;
+                            ivCanMoveRight = true;
                             UpdateVariables();
                             return 1;
                         }
                         else
                         {
                             print("Can't move Iv past Netrixi!");
+                            ivCanMoveRight = false;
                             UpdateVariables();
                             return 2;
                         }
@@ -472,13 +514,15 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (ivPosition + 1 != folkvarPosition)
                             {
-                                iv1st = ivPosition + 1;
+                                if (actuallyMove) iv1st = ivPosition + 1;
+                                ivCanMoveRight = true;
                                 UpdateVariables();
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Iv past Folkvar!");
+                                ivCanMoveRight = false;
                                 UpdateVariables();
                                 return 2;
                             }
@@ -487,13 +531,15 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (ivPosition + 1 < 6)
                             {
-                                iv1st = ivPosition + 1;
+                                if (actuallyMove) iv1st = ivPosition + 1;
+                                ivCanMoveRight = true;
                                 UpdateVariables();
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Iv into enemy territory!");
+                                ivCanMoveRight = false;
                                 UpdateVariables();
                                 return 2;
                             }
@@ -511,12 +557,14 @@ public class CharacterManagerScript : MonoBehaviour
                         {
                             if (iv1st + 1 != netrixi2nd)
                             {
-                                iv2nd = iv1st + 1;
+                                if (actuallyMove) iv2nd = iv1st + 1;
+                                ivCanMoveRight = true;
                                 return 1;
                             }
                             else
                             {
                                 print("Can't move Iv past Netrixi!");
+                                ivCanMoveRight = false;
                                 return 2;
                             }
                         }
@@ -530,12 +578,14 @@ public class CharacterManagerScript : MonoBehaviour
                             {
                                 if (iv1st + 1 != folkvar2nd)
                                 {
-                                    iv2nd = iv1st + 1;
+                                    if (actuallyMove) iv2nd = iv1st + 1;
+                                    ivCanMoveRight = true;
                                     return 1;
                                 }
                                 else
                                 {
                                     print("Can't move Iv past Folkvar!");
+                                    ivCanMoveRight = false;
                                     return 2;
                                 }
                             }
@@ -546,12 +596,14 @@ public class CharacterManagerScript : MonoBehaviour
                             {
                                 if (iv1st + 1 < 6)
                                 {
-                                    iv2nd = iv1st + 1;
+                                    if (actuallyMove) iv2nd = iv1st + 1;
+                                    ivCanMoveRight = true;
                                     return 1;
                                 }
                                 else
                                 {
                                     print("Can't move Iv into enemy territory!");
+                                    ivCanMoveRight = false;
                                     return 2;
                                 }
                             }
@@ -613,5 +665,15 @@ public class CharacterManagerScript : MonoBehaviour
         
         iv1st = ivPosition;
         iv2nd = ivPosition;
+
+
+        netrixiCanMoveLeft = true;
+        netrixiCanMoveRight = true;
+        
+        folkvarCanMoveLeft = true;
+        folkvarCanMoveRight = true;
+        
+        ivCanMoveLeft = true;
+        ivCanMoveRight = true;
     }
 }

@@ -6,18 +6,20 @@ using UnityEngine.UI;
 
 public class ChangeChoiceText : MonoBehaviour
 {
-    public static GameObject[] choice1, choice2, choice3;
-    public static GameObject[] option1, option2, option3;
+    public static GameObject[] choice1, choice2, choice3, choice4;
+    public static GameObject[] option1, option2, option3, option4;
     
     public static bool madeChoice = false;
 
     public static bool talkingToBrute, talkingToIv;
 
-    public Color nextChoice;
+    public Color nextChoice, firstChoice, secondChoice;
     public Color color1, color2, color3;
     public Color activeDecision, inActiveDecision;
 
     public static ChangeChoiceText S;
+
+    public static string originalOption1, originalOption2, originalOption3;
 
     // Start is called before the first frame update
     void Awake()
@@ -27,10 +29,11 @@ public class ChangeChoiceText : MonoBehaviour
         choice1 = GameObject.FindGameObjectsWithTag("Choice 1");
         choice2 = GameObject.FindGameObjectsWithTag("Choice 2");
         choice3 = GameObject.FindGameObjectsWithTag("Choice 3");
-        
+
         option1 = GameObject.FindGameObjectsWithTag("Option 1");
         option2 = GameObject.FindGameObjectsWithTag("Option 2");
         option3 = GameObject.FindGameObjectsWithTag("Option 3");
+        option4 = GameObject.FindGameObjectsWithTag("Option 4");
 
         // Changing the color of the different choices
         choice1[0].GetComponent<SpriteRenderer>().color = color1;
@@ -50,6 +53,12 @@ public class ChangeChoiceText : MonoBehaviour
             }
             
             if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+            {
+                talkingToIv = true;
+                talkingToBrute = false;
+            }
+            
+            if (GameWindowManager.metBrute)
             {
                 talkingToIv = true;
                 talkingToBrute = false;
@@ -207,15 +216,14 @@ public class ChangeChoiceText : MonoBehaviour
                 
                 ChangeOptions(3, "Choose Netrixi", "Choose Folkvar", "Choose Iv");
                 break;
+            
+            case 4:
+                ChangeOptions(4, "", "", "");
+                break;
         }
         
         // Changing the color of choice 1
-        if (displayDialogueResponses)
-        {
-            choice1[0].GetComponent<SpriteRenderer>().color = color1;
-            option1[0].GetComponent<SpriteRenderer>().color = color1;
-        }
-        else
+        if (!displayDialogueResponses)
         {
             choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
         }
@@ -245,8 +253,39 @@ public class ChangeChoiceText : MonoBehaviour
                 break;
             
             case 2:
-                option1[0].GetComponent<SpriteRenderer>().color = color1;
-                option2[0].GetComponent<SpriteRenderer>().color = color2;
+                GameObject[] choices = GameObject.FindGameObjectsWithTag("Dialogue Choice");
+                Button button = choices[0].GetComponent<Button>();
+                string tempText = button.GetComponentInChildren<Text>().text;
+
+                // Determine if the player is choosing a character or responding to dialogue
+                if (tempText == "Netrixi")
+                {
+                    if (!GameWindowManager.metBrute)
+                    {
+                        option1[0].GetComponent<SpriteRenderer>().color = firstChoice;
+                        option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
+                        
+                        choice1[0].GetComponent<SpriteRenderer>().color = firstChoice;
+                        choice2[0].GetComponent<SpriteRenderer>().color = secondChoice;
+                    }
+                    else
+                    {
+                        option1[0].GetComponent<SpriteRenderer>().color = color1;
+                        option2[0].GetComponent<SpriteRenderer>().color = color2;
+                        
+                        choice1[0].GetComponent<SpriteRenderer>().color = color1;
+                        choice2[0].GetComponent<SpriteRenderer>().color = color2;
+                    }
+                }
+                else
+                {
+                    option1[0].GetComponent<SpriteRenderer>().color = firstChoice;
+                    option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
+                    
+                    choice1[0].GetComponent<SpriteRenderer>().color = firstChoice;
+                    choice2[0].GetComponent<SpriteRenderer>().color = secondChoice;
+                }
+                
                 option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
                 break;
             
@@ -254,18 +293,8 @@ public class ChangeChoiceText : MonoBehaviour
                 option1[0].GetComponent<SpriteRenderer>().color = color1;
                 option2[0].GetComponent<SpriteRenderer>().color = color2;
                 option3[0].GetComponent<SpriteRenderer>().color = color3;
-                break;
-            
-            case 4:
-                option1[0].GetComponent<SpriteRenderer>().color = color1;
-                option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
-                option3[0].GetComponent<SpriteRenderer>().color = color3;
-                break;
-            
-            case 5:
-                option1[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
-                option2[0].GetComponent<SpriteRenderer>().color = color2;
-                option3[0].GetComponent<SpriteRenderer>().color = color3;
+                
+                option4[0].GetComponent<SpriteRenderer>().color = nextChoice;
                 break;
         }
     }
@@ -273,11 +302,20 @@ public class ChangeChoiceText : MonoBehaviour
 
     public void DetermineCombat(string character)
     {
-        // Reset colors
+        // Reset options
         option1[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
         option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
         option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
 
+        option1[1].GetComponent<Text>().color = Color.gray;
+        option2[1].GetComponent<Text>().color = Color.gray;
+        option3[1].GetComponent<Text>().color = Color.gray;
+        
+        option1[1].GetComponent<Text>().text = originalOption1;
+        option2[1].GetComponent<Text>().text = originalOption2;
+        option3[1].GetComponent<Text>().text = originalOption3;
+
+        
         int attack1 = CombatManagerScript.firstAttack;
         int attack2 = CombatManagerScript.secondAttack;
         
@@ -286,59 +324,80 @@ public class ChangeChoiceText : MonoBehaviour
             case "Netrixi":
                 if (CombatManagerScript.canNetrixiAttack)
                 {
+                    option4[1].GetComponent<Text>().text = "Flip Hand to Move Netrixi";
+
                     // Attack 1
                     if (attack1 != 1 && attack2 != 1)
                     {
                         option1[1].GetComponent<Text>().text = "Fireball";
+                        originalOption1 = option1[1].GetComponent<Text>().text;
                         
                         option1[0].GetComponent<SpriteRenderer>().color = color1;
+                        option1[1].GetComponent<Text>().color = Color.white;
                     }
 
                     // Attack 2
                     if (attack1 != 2 && attack2 != 2)
                     {
                         option2[1].GetComponent<Text>().text = "Lightning Strike";
+                        originalOption2 = option2[1].GetComponent<Text>().text;
                         
                         option2[0].GetComponent<SpriteRenderer>().color = color2;
+                        option2[1].GetComponent<Text>().color = Color.white;
                     }
 
                     // Attack 3
                     if (attack1 != 3 && attack2 != 3)
                     {
                         option3[1].GetComponent<Text>().text = "Transmutation";
+                        originalOption3 = option3[1].GetComponent<Text>().text;
                         
                         option3[0].GetComponent<SpriteRenderer>().color = color3;
+                        option3[1].GetComponent<Text>().color = Color.white;
                     }
                 }
                 else
                 {
                     option1[1].GetComponent<Text>().text = "Netrixi is currently unable to Attack";
                     option1[1].GetComponent<Text>().color = Color.gray;
+                    originalOption1 = option1[1].GetComponent<Text>().text;
                     
                     option2[1].GetComponent<Text>().text = "She can only Move during this round";
                     option2[1].GetComponent<Text>().color = Color.gray;
+                    originalOption2 = option2[1].GetComponent<Text>().text;
                     
                     option3[1].GetComponent<Text>().text = "";
+                    
+                    option4[1].GetComponent<Text>().text = "Flip Hand to Move Netrixi";
                 }
+                
+                IfHandFlipped("Flip Hand to Move Netrixi");
+                IfAttacksChosen();
                 break;
             
             case "Folkvar":
                 if (CombatManagerScript.canFolkvarAttack)
                 {
+                    option4[1].GetComponent<Text>().text = "Flip Hand to Move Folkvar";
+
                     // Attack 1
                     if (attack1 != 4 && attack2 != 4) 
                     {
                         option1[1].GetComponent<Text>().text = "Swing Sword";
+                        originalOption1 = option1[1].GetComponent<Text>().text;
                         
                         option1[0].GetComponent<SpriteRenderer>().color = color1;
+                        option1[1].GetComponent<Text>().color = Color.white;
                     }
 
                     // Attack 2
                     if (attack1 != 5 && attack2 != 5)
                     {
                         option2[1].GetComponent<Text>().text = "Holy Smite";
+                        originalOption2 = option2[1].GetComponent<Text>().text;
                         
                         option2[0].GetComponent<SpriteRenderer>().color = color2;
+                        option2[1].GetComponent<Text>().color = Color.white;
                     }
 
                     // Attack 3
@@ -347,12 +406,15 @@ public class ChangeChoiceText : MonoBehaviour
                         if (GameManagerScript.currentScene > 17)
                         {
                             option3[1].GetComponent<Text>().text = "Grand Slam";
+                            originalOption3 = option3[1].GetComponent<Text>().text;
 
                             option3[0].GetComponent<SpriteRenderer>().color = color3;
+                            option3[1].GetComponent<Text>().color = Color.white;
                         }
                         else
                         {
                             option3[1].GetComponent<Text>().text = "Currently Locked";
+                            originalOption3 = option3[1].GetComponent<Text>().text;
                             option3[1].GetComponent<Text>().color = Color.gray;
                         }
                     }
@@ -361,45 +423,60 @@ public class ChangeChoiceText : MonoBehaviour
                 {
                     option1[1].GetComponent<Text>().text = "Folkvar is currently unable to Attack";
                     option1[1].GetComponent<Text>().color = Color.gray;
+                    originalOption1 = option1[1].GetComponent<Text>().text;
                     
                     option2[1].GetComponent<Text>().text = "He can only Move during this round";
                     option2[1].GetComponent<Text>().color = Color.gray;
+                    originalOption2 = option2[1].GetComponent<Text>().text;
                     
                     option3[1].GetComponent<Text>().text = "";
+                    
+                    option4[1].GetComponent<Text>().text = "Flip Hand to Move Folkvar";
                 }
+                
+                IfHandFlipped("Flip Hand to Move Folkvar");
+                IfAttacksChosen();
                 break;
             
             case "Iv":
                 if (CombatManagerScript.canIvAttack)
                 {
+                    option4[1].GetComponent<Text>().text = "Flip Hand to Move Iv";
+                    
                     // Attack 1
                     if (attack1 != 7 && attack2 != 7)
                     {
                         if (AttackScript.countered) 
                         {
                             option1[1].GetComponent<Text>().text = "Counter Attack";
+                            originalOption1 = option1[1].GetComponent<Text>().text;
                         }
                         else
                         {
                             if (CombatManagerScript.firstAttack == 9)
                             {
                                 option1[1].GetComponent<Text>().text = "Counter Attack";
+                                originalOption1 = option1[1].GetComponent<Text>().text;
                             }
                             else
                             {
                                 option1[1].GetComponent<Text>().text = "Block Attack";
+                                originalOption1 = option1[1].GetComponent<Text>().text;
                             }
                         }
-                    
+                        
                         option1[0].GetComponent<SpriteRenderer>().color = color1;
+                        option1[1].GetComponent<Text>().color = Color.white;
                     }
 
                     // Attack 2
                     if (attack1 != 8 && attack2 != 8)
                     {
                         option2[1].GetComponent<Text>().text = "Heal Ally";
+                        originalOption2 = option2[1].GetComponent<Text>().text;
                         
                         option2[0].GetComponent<SpriteRenderer>().color = color2;
+                        option2[1].GetComponent<Text>().color = Color.white;
                     }
 
                     // Attack 3
@@ -408,12 +485,15 @@ public class ChangeChoiceText : MonoBehaviour
                         if (GameManagerScript.currentScene > 17)
                         {
                             option3[1].GetComponent<Text>().text = "Empower Attack";
+                            originalOption3 = option3[1].GetComponent<Text>().text;
                         
                             option3[0].GetComponent<SpriteRenderer>().color = color3;
+                            option3[1].GetComponent<Text>().color = Color.white;
                         }
                         else
                         {
                             option3[1].GetComponent<Text>().text = "Currently Locked";
+                            originalOption3 = option3[1].GetComponent<Text>().text;
                             option3[1].GetComponent<Text>().color = Color.gray;
                         }
                     }
@@ -422,13 +502,179 @@ public class ChangeChoiceText : MonoBehaviour
                 {
                     option1[1].GetComponent<Text>().text = "Iv is currently unable to Attack";
                     option1[1].GetComponent<Text>().color = Color.gray;
+                    originalOption1 = option1[1].GetComponent<Text>().text;
                     
                     option2[1].GetComponent<Text>().text = "She can only Move during this round";
                     option2[1].GetComponent<Text>().color = Color.gray;
+                    originalOption2 = option2[1].GetComponent<Text>().text;
                     
                     option3[1].GetComponent<Text>().text = "";
+                    
+                    option4[1].GetComponent<Text>().text = "Flip Hand to Move Iv";
                 }
+                
+                IfHandFlipped("Flip Hand to Move Iv");
+                IfAttacksChosen();
                 break;
+        }
+    }
+
+
+    public void IfHandFlipped(string option)
+    {
+        // Change options for Netrixi
+        if (option == "Flip Hand to Move Netrixi")
+        {
+            option4[1].GetComponent<Text>().text = "Flip Hand to Move";
+            
+            if (NetrixiCombatScript.netrixiCondition4[0])
+            {
+                if (!NetrixiCombatScript.netrixiCondition2[1])
+                {
+                    if (!NetrixiCombatScript.netrixiCondition4[1])
+                    {
+                        ChangeText("Netrixi");
+                    }
+                }
+            }
+        }
+        
+        // Change options for Folkvar
+        if (option == "Flip Hand to Move Folkvar")
+        {
+            option4[1].GetComponent<Text>().text = "Flip Hand to Move";
+            
+            if (FolkvarCombatScript.folkvarCondition4[0])
+            {
+                if (!FolkvarCombatScript.folkvarCondition4[1])
+                {
+                    ChangeText("Folkvar");
+                }
+            }
+        }
+        
+        // Change options for Iv
+        if (option == "Flip Hand to Move Iv")
+        {
+            option4[1].GetComponent<Text>().text = "Flip Hand to Move";
+            
+            if (IvCombatScript.ivCondition4[0])
+            {
+                if (!IvCombatScript.ivCondition3[1])
+                {
+                    if (!IvCombatScript.ivCondition4[1])
+                    {
+                        ChangeText("Iv");
+                    }
+                }
+            }
+        }
+
+        void ChangeText(string character)
+        {
+            originalOption1 = option1[1].GetComponent<Text>().text;
+            originalOption2 = option2[1].GetComponent<Text>().text;
+            originalOption3 = option3[1].GetComponent<Text>().text;
+
+            switch (character)
+            {
+                case "Netrixi":
+                    if (CharacterManagerScript.netrixiCanMoveLeft) ChangeMove(true, true);
+                    else ChangeMove(false, true);
+                    
+                    if (CharacterManagerScript.netrixiCanMoveRight) ChangeMove(true, false);
+                    else ChangeMove(false, false);
+                    break;
+                
+                case "Folkvar":
+                    if (CharacterManagerScript.folkvarCanMoveLeft) ChangeMove(true, true);
+                    else ChangeMove(false, true);
+                    
+                    if (CharacterManagerScript.folkvarCanMoveRight) ChangeMove(true, false);
+                    else ChangeMove(false, false);
+                    break;
+                
+                case "Iv":
+                    if (CharacterManagerScript.ivCanMoveLeft) ChangeMove(true, true);
+                    else ChangeMove(false, true);
+                    
+                    if (CharacterManagerScript.ivCanMoveRight) ChangeMove(true, false);
+                    else ChangeMove(false, false);
+                    break;
+            }
+
+
+            void ChangeMove(bool canMove, bool directionIsLeft)
+            {
+                if (directionIsLeft)
+                {
+                    if (canMove)
+                    {
+                        option1[1].GetComponent<Text>().text = "Move " + character + " Left";
+                        option1[1].GetComponent<Text>().color = Color.white;
+                        option1[0].GetComponent<SpriteRenderer>().color = firstChoice;
+                    }
+                    else
+                    {
+                        option1[1].GetComponent<Text>().text = character + " is unable to move Left";
+                        option1[1].GetComponent<Text>().color = Color.gray;
+                        option1[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+                    }
+                }
+                else
+                {
+                    if (canMove)
+                    {
+                        option2[1].GetComponent<Text>().text = "Move " + character + " Right";
+                        option2[1].GetComponent<Text>().color = Color.white;
+                        option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
+                    }
+                    else
+                    {
+                        option2[1].GetComponent<Text>().text = character + " is unable to move Right";
+                        option2[1].GetComponent<Text>().color = Color.gray;
+                        option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+                    }
+                }
+            }
+
+            // Change other option texts
+            option3[1].GetComponent<Text>().text = "";
+            option3[1].GetComponent<Text>().color = Color.gray;
+            
+            option4[1].GetComponent<Text>().text = "Flip Hand to Confirm";
+            option4[1].GetComponent<Text>().color = Color.white;
+                
+            
+            // Change colors
+            option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            option4[0].GetComponent<SpriteRenderer>().color = nextChoice;
+        }
+    }
+
+
+    public void IfAttacksChosen()
+    {
+        if (CombatManagerScript.firstAttack != 0 && CombatManagerScript.secondAttack != 0)
+        {
+            originalOption1 = option1[1].GetComponent<Text>().text;
+            originalOption2 = option2[1].GetComponent<Text>().text;
+            originalOption3 = option3[1].GetComponent<Text>().text;
+            
+            
+            option1[1].GetComponent<Text>().text = "Flip Hand to Confirm";
+            option1[1].GetComponent<Text>().color = Color.white;
+                    
+            option2[1].GetComponent<Text>().text = "Change an Attack";
+            option2[1].GetComponent<Text>().color = Color.white;
+                
+            option3[1].GetComponent<Text>().text = "";
+            option3[1].GetComponent<Text>().color = Color.gray;
+
+
+            option1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+            option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
+            option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
         }
     }
 
@@ -443,33 +689,46 @@ public class ChangeChoiceText : MonoBehaviour
 
         if (!fullReset)
         {
-            if (!GameManagerScript.netrixiInParty || !CombatManagerScript.folkvarAlive)
+            if (!CombatManagerScript.netrixiAlive)
             {
-                option1[1].GetComponent<Text>().text = "";
+                option1[1].GetComponent<Text>().text = originalOption1;
                 option1[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
             }
 
             if (!GameManagerScript.folkvarInParty || !CombatManagerScript.folkvarAlive)
             {
-                option2[1].GetComponent<Text>().text = "";
+                if (CombatManagerScript.firstAttack != 2 && CombatManagerScript.secondAttack != 2)
+                {
+                    option2[1].GetComponent<Text>().text = originalOption2;
+                }
                 option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
             }
 
-            if (!GameManagerScript.ivInParty || !CombatManagerScript.folkvarAlive)
+            if (!GameManagerScript.ivInParty || !CombatManagerScript.ivAlive)
             {
-                option3[1].GetComponent<Text>().text = "";
+                if (CombatManagerScript.firstAttack != 3 && CombatManagerScript.secondAttack != 3)
+                {
+                    option3[1].GetComponent<Text>().text = originalOption3;
+                }
                 option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
             }
         }
         else
         {
-            option1[1].GetComponent<Text>().text = "";
-            option2[1].GetComponent<Text>().text = "";
-            option3[1].GetComponent<Text>().text = "";
+            originalOption1 = "";
+            originalOption2 = "";
+            originalOption3 = "";
             
-            option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            option1[1].GetComponent<Text>().text = originalOption1;
+            option2[1].GetComponent<Text>().text = originalOption2;
+            option3[1].GetComponent<Text>().text = originalOption3;
+            option4[1].GetComponent<Text>().text = "";
+
             option1[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
             option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            
+            option4[0].transform.position = new Vector3(GameWindowManager.offScreen, GameWindowManager.offScreen, 0);
         }
     }
 

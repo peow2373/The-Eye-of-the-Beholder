@@ -178,16 +178,19 @@ public class NetrixiCombatScript : MonoBehaviour
             
             if (netrixiCondition4[0])
             {
+                CharacterManagerScript.MoveNetrixi(1, false);
+                CharacterManagerScript.MoveNetrixi(2, false);
+                
                 // If the player decides to move Netrixi to the left
                 if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
                 {
-                    if (CharacterManagerScript.MoveNetrixi(1) == 1)
+                    if (CharacterManagerScript.MoveNetrixi(1, true) == 1)
                     {
                         netrixiCondition4[1] = true;
                     }
                     
                     // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveNetrixi(1) == 2)
+                    if (CharacterManagerScript.MoveNetrixi(1, true) == 2)
                     {
                         print("Choose another direction to move in");
                         netrixiCondition4[0] = false;
@@ -197,13 +200,13 @@ public class NetrixiCombatScript : MonoBehaviour
                 // If the player decides to move Netrixi to the right
                 if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
                 {
-                    if (CharacterManagerScript.MoveNetrixi(2) == 1)
+                    if (CharacterManagerScript.MoveNetrixi(2, true) == 1)
                     {
                         netrixiCondition4[2] = true;
                     }
                     
                     // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveNetrixi(2) == 2)
+                    if (CharacterManagerScript.MoveNetrixi(2, true) == 2)
                     {
                         print("Choose another direction to move in");
                         netrixiCondition4[0] = false;

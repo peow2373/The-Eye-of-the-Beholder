@@ -146,16 +146,19 @@ public class FolkvarCombatScript : MonoBehaviour
             
                 if (folkvarCondition4[0])
                 {
+                    CharacterManagerScript.MoveFolkvar(1, false);
+                    CharacterManagerScript.MoveFolkvar(2, false);
+                    
                     // If the player decides to move Folkvar to the left
                     if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
                     {
-                        if (CharacterManagerScript.MoveFolkvar(1) == 1)
+                        if (CharacterManagerScript.MoveFolkvar(1, true) == 1)
                         {
                             folkvarCondition4[1] = true;
                         }
                         
                         // If they cannot move in that direction
-                        if (CharacterManagerScript.MoveFolkvar(1) == 2)
+                        if (CharacterManagerScript.MoveFolkvar(1, true) == 2)
                         {
                             print("Choose another direction to move in");
                             folkvarCondition4[0] = false;
@@ -165,13 +168,13 @@ public class FolkvarCombatScript : MonoBehaviour
                     // If the player decides to move Folkvar to the right
                     if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
                     {
-                        if (CharacterManagerScript.MoveFolkvar(2) == 1)
+                        if (CharacterManagerScript.MoveFolkvar(2, true) == 1)
                         {
                             folkvarCondition4[2] = true;
                         }
                         
                         // If they cannot move in that direction
-                        if (CharacterManagerScript.MoveFolkvar(2) == 2)
+                        if (CharacterManagerScript.MoveFolkvar(2, true) == 2)
                         {
                             print("Choose another direction to move in");
                             folkvarCondition4[0] = false;

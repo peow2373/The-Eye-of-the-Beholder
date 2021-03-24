@@ -36,11 +36,17 @@ public class ChangeCombatText : MonoBehaviour
     {
         if (!GameManagerScript.inCombat)
         {
-            // Hide these text boxes if not in combat
+            // Hide content if not in combat
             playerAttackText.transform.position = new Vector3(offScreen, offScreen, 0);
             enemyAttackText.transform.position = new Vector3(offScreen, offScreen, 0);
             
             roundNumber.transform.position = new Vector3(offScreen, offScreen, 0);
+            
+            playerSprite1.transform.position = new Vector3(offScreen, offScreen, 0);
+            playerSprite2.transform.position = new Vector3(offScreen, offScreen, 0);
+            
+            enemySprite1.transform.position = new Vector3(offScreen, offScreen, 0);
+            enemySprite2.transform.position = new Vector3(offScreen, offScreen, 0);
         }
 
 

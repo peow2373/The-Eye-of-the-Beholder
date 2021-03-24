@@ -3361,22 +3361,18 @@ MonoBehaviour:
   enemy1: {fileID: 400236884}
   enemy2: {fileID: 1463007793}
   enemy3: {fileID: 1155050518}
-  netrixiHood: {fileID: 21300000, guid: 2816a458cace97040b4c2ded76a876b5, type: 3}
+  netrixiHood: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd, type: 3}
   netrixiFace: {fileID: 21300000, guid: 2816a458cace97040b4c2ded76a876b5, type: 3}
   netrixiFaceCompass: {fileID: 21300000, guid: 2816a458cace97040b4c2ded76a876b5, type: 3}
-  netrixiWeapon: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd, type: 3}
-  netrixiWeaponCompass: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd,
-    type: 3}
-  folkvarHelmet: {fileID: 21300000, guid: db9e1dc9e901f0245832dbd165eab93d, type: 3}
+  netrixiHoodCompass: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd, type: 3}
+  folkvarHelmet: {fileID: 21300000, guid: b1d086d0379f1cf4ba645b76d472acd5, type: 3}
   folkvarFace: {fileID: 21300000, guid: db9e1dc9e901f0245832dbd165eab93d, type: 3}
-  folkvarWeapon: {fileID: 21300000, guid: b1d086d0379f1cf4ba645b76d472acd5, type: 3}
+  folkvarFaceTwoWeapons: {fileID: 21300000, guid: db9e1dc9e901f0245832dbd165eab93d,
+    type: 3}
   folkvarTwoWeapons: {fileID: 21300000, guid: b1d086d0379f1cf4ba645b76d472acd5, type: 3}
-  ivEyesClosed: {fileID: 21300000, guid: bb92df8c1666f71498161907f86091d6, type: 3}
-  ivEyesClosedAmulet: {fileID: 21300000, guid: bb92df8c1666f71498161907f86091d6, type: 3}
-  ivEyesOpen: {fileID: 21300000, guid: bb92df8c1666f71498161907f86091d6, type: 3}
-  ivWeapon: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
-  ivWeaponAmulet: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
-  ivWeaponEyesOpen: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
+  ivEyesClosed: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
+  ivEyesClosedAmulet: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
+  ivEyesOpenAmulet: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
   knightMelee: {fileID: 21300000, guid: 1161309e388562d42b55c32e79626f1b, type: 3}
   knightRanged: {fileID: 21300000, guid: 2d19811de57bcca43a314a0840841b70, type: 3}
   gatekeeper: {fileID: 21300000, guid: 4a17a1ee9e043494a8deddf336ab1376, type: 3}

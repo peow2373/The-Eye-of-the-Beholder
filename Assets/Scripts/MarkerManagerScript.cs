@@ -286,13 +286,7 @@ public class MarkerManagerScript : MonoBehaviour
     public void Reset()
     {
         GameWindowManager.S.ArrangeScreen();
-        HandManagerScript.ChangeHandLocation();
-        
-        Vector2 loc = new Vector2(xPos[1], yPos[1]);
-        hand.transform.position = loc;
-        hand.transform.localScale = scale;
-
-        currentLocation = 0;
+        HandManagerScript.ChangeHandLocation(hand);
     }
 }
 
