@@ -14,6 +14,6 @@ We have to get out of here before we're found! #Netrixi
 
 Stay here, Bo! I'm coming back for you. I have to keep my word and help my friends. #Iv
 
-Well well well... if it isn't the three little thieves trying to steal my Beholderite. I rightfully own this! It's hard work running this operation, you know. #Moke
+Well well well... if it isn't the three little thieves trying to steal my Beholderite. #Moke
 
 +   [Fight] -> END

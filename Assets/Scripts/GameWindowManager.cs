@@ -35,6 +35,7 @@ public class GameWindowManager : MonoBehaviour
     public GameObject portrait;
     public static float portraitYDimension, portraitYLocation;
     public static float dialoguePadding;
+    public static float portraitSizeX;
     
     public static float smallerDialoguePercent = 0.6f;
     public static float smallerDialoguePadding = 0.03f;
@@ -426,17 +427,25 @@ public class GameWindowManager : MonoBehaviour
             screenResize.transform.localScale = new Vector3(scaleX, scaleX, 1);
         
             // Determine the location of the combat window
+            // Determine the dimensions of the camera within the scene
+            Camera camera = Camera.main;
+            cameraHeight = 2f * camera.orthographicSize;
+            cameraWidth = cameraHeight * camera.aspect;
+            
             float xLocation = -cameraWidth/2 + ((scaleX * cameraWidth)/2);
             float yLocation = cameraHeight/2 - (scaleY * cameraHeight)/2;
         
             screenResize.transform.position = new Vector3(xLocation, yLocation, 0);
 
-            // Changing values for where characters are displayed
-            CharacterMovement.ChangeXLocations(scaleX, xLocation);
-            CharacterMovement.ChangeYLocations(scaleY, yLocation);
+            if (GameManagerScript.inCombat)
+            {
+                // Changing values for where characters are displayed
+                CharacterMovement.ChangeXLocations(scaleX, xLocation);
+                CharacterMovement.ChangeYLocations(scaleY, yLocation);
             
-            // Re-populate the dialogue section with combat text
-            ChangeCombatText.S.ChangeTextLocations(windowWidth*Screen.width, windowHeight*Screen.height);
+                // Re-populate the dialogue section with combat text
+                ChangeCombatText.S.ChangeTextLocations(windowWidth*Screen.width, windowHeight*Screen.height);
+            }
         }
     }
 
@@ -468,6 +477,8 @@ public class GameWindowManager : MonoBehaviour
 
         float portraitHeight =  portraitYDimension / screenSizeY;
         float portraitWidth = portraitYDimension / screenSizeX;
+
+        portraitSizeX = portraitWidth * cameraWidth;
 
         portrait.transform.localScale = new Vector3(portraitWidth * cameraWidth, portraitHeight * cameraHeight, 1);
 

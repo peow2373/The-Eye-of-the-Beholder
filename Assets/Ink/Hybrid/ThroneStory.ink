@@ -36,13 +36,15 @@ They don't sin! #Jester
 
 Well hello dear son! It sounds like you've caused quite a stir about the castle tonight! #King
 
-My most sincere of apologies, father. It took longer than expected. In better news, Netrixi has discovered an overwhelming quantity of Beholderite. She will help us secure it and bring it to safety. #Folkvar
+My most sincere of apologies, father. It took longer than expected. In better news... #Folkvar
 
-Brilliant! Do not delay. Go and bring that Beholderite back to me! I mean, the castle! So we can... uh store it in the vault? Yes, store it in the vault! #King
+Netrixi has discovered an overwhelming quantity of Beholderite abd will help us secure it. #Folkvar
 
-Your wish is my command father, but there's one small complication. We were attacked by bandits on the way here, and we need to bring holy vengeance upon them. #Folkvar
+Brilliant! Do not delay. Go and bring that Beholderite back to me! I mean, the castle! I mean, the Vault! #King
 
-Yes, my son! You must crush your enemies. You may find the bandits you seek in the Caverns of Cathuloo. Now, off you go!  #King
+Your wish is my command father, but our gear was taken by bandits. First, we shall reclaim our goods. #Folkvar
+
+Yes, my son! You must crush your enemies. You may find the bandits you seek in the Ratways. Now, off you go!  #King
 
 You got a weird family, man. #Netrixi
 

@@ -52,17 +52,17 @@ public class ChangeSprites : MonoBehaviour
             case 3:
             case 10:
             case 11:
-                if (currScene > 2 && currScene <= 7)
+                if (currScene > 3 && currScene <= 8)
                 {
                     if (inCombat) return netrixiHoodCompass;
                     else return netrixiFaceCompass;
                 } 
-                else if (currScene > 7 && currScene <= 15)
+                else if (currScene > 8 && currScene <= 17)
                 {
                     if (inCombat) return netrixiHood;
                     else return netrixiFace;
                 } 
-                else if (currScene > 15)
+                else if (currScene > 17)
                 {
                     if (inCombat) return netrixiHoodCompass;
                     else return netrixiFaceCompass;
@@ -78,12 +78,12 @@ public class ChangeSprites : MonoBehaviour
             case 6:
             case 12:
             case 13:
-                if (currScene > 6 && currScene <= 15)
+                if (currScene > 6 && currScene <= 17)
                 {
                     if (inCombat) return folkvarHelmet;
                     else return folkvarFace;
                 }
-                else if (currScene > 15)
+                else if (currScene > 16)
                 {
                     if (inCombat) return folkvarTwoWeapons;
                     else return folkvarFaceTwoWeapons;
@@ -99,7 +99,7 @@ public class ChangeSprites : MonoBehaviour
             case 9:
             case 14:
             case 15:
-                if (currScene > 15 && currScene < 24)
+                if (currScene > 17 && currScene < 24)
                 {
                     return ivEyesClosedAmulet;
                 }

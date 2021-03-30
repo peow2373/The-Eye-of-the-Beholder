@@ -2038,7 +2038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &877017137
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2078,7 +2078,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -15
   m_Sprite: {fileID: 21300000, guid: 4cf2eb7ca1c69b148909f648cb0d45af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -3361,18 +3361,18 @@ MonoBehaviour:
   enemy1: {fileID: 400236884}
   enemy2: {fileID: 1463007793}
   enemy3: {fileID: 1155050518}
-  netrixiHood: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd, type: 3}
-  netrixiFace: {fileID: 21300000, guid: 2816a458cace97040b4c2ded76a876b5, type: 3}
-  netrixiFaceCompass: {fileID: 21300000, guid: 2816a458cace97040b4c2ded76a876b5, type: 3}
-  netrixiHoodCompass: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd, type: 3}
-  folkvarHelmet: {fileID: 21300000, guid: b1d086d0379f1cf4ba645b76d472acd5, type: 3}
-  folkvarFace: {fileID: 21300000, guid: db9e1dc9e901f0245832dbd165eab93d, type: 3}
-  folkvarFaceTwoWeapons: {fileID: 21300000, guid: db9e1dc9e901f0245832dbd165eab93d,
+  netrixiHood: {fileID: 21300000, guid: 191c5162f3871a44d88a5bfc90f4e92d, type: 3}
+  netrixiFace: {fileID: 21300000, guid: 6f0d1c9c22b73654bbc6f834e17b4e3c, type: 3}
+  netrixiFaceCompass: {fileID: 21300000, guid: db551b4b77bbed743a852f8bbc254e89, type: 3}
+  netrixiHoodCompass: {fileID: 21300000, guid: 22c7be4d1e20e1c4fb6e230dafefc624, type: 3}
+  folkvarHelmet: {fileID: 21300000, guid: 7a84bc3c0fbda4d4a9d01d87dc2f0d86, type: 3}
+  folkvarFace: {fileID: 21300000, guid: fedfdb779d51d964eb905dbf88776f7a, type: 3}
+  folkvarFaceTwoWeapons: {fileID: 21300000, guid: 4ecff0b21f2095b44bc8db3ace48336b,
     type: 3}
-  folkvarTwoWeapons: {fileID: 21300000, guid: b1d086d0379f1cf4ba645b76d472acd5, type: 3}
-  ivEyesClosed: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
-  ivEyesClosedAmulet: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
-  ivEyesOpenAmulet: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
+  folkvarTwoWeapons: {fileID: 21300000, guid: 0b159c30161b8b1498e0c79b5ce7f65e, type: 3}
+  ivEyesClosed: {fileID: 21300000, guid: 0c302b5528c6fc842bc0091331642183, type: 3}
+  ivEyesClosedAmulet: {fileID: 21300000, guid: a754b2661853af14987a694497d0dc7b, type: 3}
+  ivEyesOpenAmulet: {fileID: 21300000, guid: 5c13d7b4d068604479f71f84978b1d63, type: 3}
   knightMelee: {fileID: 21300000, guid: 1161309e388562d42b55c32e79626f1b, type: 3}
   knightRanged: {fileID: 21300000, guid: 2d19811de57bcca43a314a0840841b70, type: 3}
   gatekeeper: {fileID: 21300000, guid: 4a17a1ee9e043494a8deddf336ab1376, type: 3}

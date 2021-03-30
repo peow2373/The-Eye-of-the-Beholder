@@ -4,9 +4,8 @@ Your mind seems so tainted by Beholderite. How can you still function? #Folkvar
 
 You learn some things when you're alive for hundreds of years. #Netrixi
 
-Hmmm. Ok well we might need some extra help, and not just with the lad that stole our compass. Whoever has that Beholderite probably has it guarded. Shall we ask someone in the tavern to assist us? #Folkvar
-
-Ah yes, let's take a look around... Oooo those two look promising. Who should we ask to join our party? #Netrixi
+Hmmm. Ok well we might need some extra help, and not just with the lad that stole our compass. #Folkvar 
+Whoever has that Beholderite probably has it guarded. Shall we ask someone in the tavern to assist us? #Folkvar
 
 +   [Brute] -> Brute
 +   [Monk] -> Resort_to_monk
@@ -69,18 +68,20 @@ I can do stuff like that. #Iv
 
 WE NEED HER IN THE GANG! #Netrixi
 
-While completely and utterly badass, let us not get overly thrilled. I will remind you that first, I must ask my father for permission to commence the bashing of skulls. #Folkvar
+I will remind you that first, I must ask my father for permission to commence the bashing of skulls. #Folkvar
 
 +   [Next Scene] -> END
 
 === Netrixi_asks_Iv_why_here ===
-I am a monk from the mountains to the East. I am looking for help in finding my brother. I believe he was taken as a slave to mine Beholderite. #Iv
+I am a monk from the mountains to the East looking for my brother. I am looking for help in finding my brother. #Iv
+
+I believe he was taken as a slave to mine Beholderite. #Iv
 
 Oooo that's rough. Wait, I didn't think there were Beholderite mines anymore. I thought they were all outlawed. #Netrixi
 
-This man named Moke is running a secret operation. Still, it is very difficult to keep an operation that big a secret. #Iv
+A man named Moke is running a secret operation. Still, it is difficult to keep an operation that big a secret. #Iv
 
-I think I might be able to find your brother. I just developed a compass that is pointing to the source of that Beholderite. The problem is... #Netrixi
+I think I might be able to find your brother. The problem is... #Netrixi
 
 +   [How can I trust you?] -> Iv_explains_past
 +   [You clearly can't fight] -> Iv_shows_power
@@ -96,11 +97,13 @@ Welcome aboard, then! Sadly, we can't start knocking skulls yet. Folkvar needs t
 
 Well hello there, little lady! I hope you do not mind me saying but you look oddly out of place here! #Folkvar
 
-I am a monk from the mountains to the East. I am looking for help in finding my brother. I believe he was taken as a slave to mine Beholderite. #Iv
+I am a monk from the mountains to the East. I am looking for help in finding my brother. #Iv
+
+I believe he was taken as a slave to mine Beholderite. #Iv
 
 By God! Excuse my language. Where do you think your brother was taken? By whom? #Folkvar
 
-I hear rumors of a man named Moke. His only goal is Beholderite and he is accumulating much. The problem is, I have no idea where Moke's lair may be. #Iv
+I hear rumors of a man named Moke. The problem is, I have no idea where Moke's lair may be. #Iv
 
 
 +   [We can help each other!] -> Folkvar_offers_Iv_help

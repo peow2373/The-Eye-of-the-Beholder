@@ -1,4 +1,4 @@
-Come on pirate, hand over the coil. It's not even yours! I mean, you're a pirate. We can do this the easy way or the hard way. #Netrixi
+Come on pirate, hand over the coil. It's not even yours! We can do this the easy way or the hard way. #Netrixi
 
 I rightfully stole this! #Pirate
 

@@ -89,5 +89,10 @@ public class ChangeBackground : MonoBehaviour
                 sr.sprite = epilogue;
                 break;
         }
+        
+        // Flip the background image of the final scene because it looks better that way
+        int scene = GameManagerScript.currentScene;
+        if (scene == 26 || scene == 27 || scene == 28) sr.flipX = true;
+        else sr.flipX = false;
     }
 }

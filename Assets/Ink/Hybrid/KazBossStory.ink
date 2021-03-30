@@ -63,14 +63,14 @@ You will regret coming here. #Kaz
 +   [Fight] -> END
 
 === Folkvar_speaks_to_Kaz ===
-Well hello! We just happened to be in the neighborhood and figured that we could pick up what you borrowed from us! #Folkvar
+Well hello! We happened to be in the area and figured that we could pick up what you borrowed from us! #Folkvar
 
 Borrow? BWAHAHAHA! Bandits! Kill them. #Kaz
 
 + [Fight] -> END
 
 === Iv_speaks_to_Kaz ===
-I am looking for my brother I know you all didn't take him. It's not in your business. Still, We need more power to take him back from the people that took him from us. #Iv
+I am looking for my brother. I know you all didn't take him, but we need the power to take him back. #Iv
 
 Why would I help you? #Kaz
 
@@ -86,7 +86,7 @@ You're right. I have lost. I assume this amulet is yours? #Kaz
 +   [I knew you were good] -> Fight_nice_Kaz
 
 === Iv_pursuades_Kaz_again ===
-I never knew my mother... Here, take your amulet. I hope you find your brother. Pray he is alive in this God-forsaken Region. And here are the rest of your things. Now leave.
+I never knew my mother... Here, take your amulet. And here are the rest of your things. Now leave.
 
 +   [Continue] -> END
 

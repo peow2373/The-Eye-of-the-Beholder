@@ -10,7 +10,7 @@ Last one in is a rotten egg! #Netrixi
 === Think_about_it ===
 OK, so what do you think we should do, Folkvar? #Netrixi
 
-Well, you know me. I do not yearn to fight. Therefore, I would rather be turned into a car and sneak passed the mercenaries. #Folkvar
+Well, you know me. I do not yearn to fight. Therefore, I would rather be turned into a cat and sneak passed. #Folkvar
 
 I concur. I would really appreciate avoiding any unnecessary conflict. #Iv
 

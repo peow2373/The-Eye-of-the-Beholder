@@ -17,7 +17,7 @@ Fine, but I will need to check in with my father. #Folkvar
 === Netrixi_convinces_Folkvar ===
 This compass leads to the biggest supply of Beholderite in the Iron Region. #Netrixi
 
-That could not be! My father, the King, has secured all known Beholderite in the castle, and that does not point to our castle. #Folkvar
+Impossible! My father, the King, secured all Beholderite in the castle, and that does not point to our castle. #Folkvar
 
 Then we need to figure out what is going on. Someone might be hiding Beholderite. #Netrixi
 

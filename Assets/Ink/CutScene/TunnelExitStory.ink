@@ -1,4 +1,4 @@
-Alrighty, the compass leads straight to this volcano. I think I see an cave... Now let's go get that damn Beholderite! #Netrixi
+Alrighty, the compass leads straight inside this volcano. Now let's go get that damn Beholderite! #Netrixi
 
 Well said. #Iv
 
