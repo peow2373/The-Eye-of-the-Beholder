@@ -1,3 +1,13 @@
+# 3/30/2021 Update
+Progress
+- Character portraits
+- Hand animations to guide attack moves and dialogue options
+- Shortened some dialogue to always fit inside the dialogue box
+- Revised backgrounds
+- Most SFX created
+- 2 tailored audio tracks from Chandra completely finished
+- Dialogue scenes populated with characters
+
 # 3/22/2021 Update
 Progress
 - Peter helped swap the webcam footage into a live video feed that can then have the hand sprites drawn on top of it
@@ -10,7 +20,6 @@ Progress
   - Color of options and choices revised
   - Hand sprite revised
   - Choices and options have correct text and will dynamically instantiate depending on how many options/choices are available
-
 - Barkeeper can now join mid-fight! He will then punch the brute for breaking one of his chairs
 - Finished redesigning Combat + Dialogue scenes with the new UI
 - Fixed some bugs with hand sprites resizing
