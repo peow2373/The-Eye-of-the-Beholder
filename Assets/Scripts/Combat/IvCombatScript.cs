@@ -13,6 +13,8 @@ public class IvCombatScript : MonoBehaviour
     public static int ivRotation = 0;
 
     public static int targetLocation = 0;
+
+    public static bool canCancelMove;
     
     // Start is called before the first frame update
     void Start()
@@ -180,11 +182,24 @@ public class IvCombatScript : MonoBehaviour
                         ivCondition4[0] = false;
                     }
                 }
+                
+                // If the player decides to cancel their move instead
+                if (canCancelMove)
+                {
+                    if (MarkerManagerScript.goMarker)
+                    {
+                        if (Input.GetKeyDown(KeyCode.V)) ivCondition4[0] = false;
+                    }
+                }
+
+                canCancelMove = true;
             }
             else
             {
                 ivCondition4[1] = false;
                 ivCondition4[2] = false;
+
+                canCancelMove = false;
             }
             
             

@@ -702,6 +702,7 @@ public class GameManagerScript : MonoBehaviour
         EnemyManagerScript.barkeeperMadNextAttack = false;
         AttackScript.chairsThrown = 0;
 
+        ChangeChoiceText.S.ResetChoices(true);
         CharacterManagerScript.ResetVariables();
         EnemyManagerScript.ClearMoves();
     }

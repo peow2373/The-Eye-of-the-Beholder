@@ -13,6 +13,8 @@ public class FolkvarCombatScript : MonoBehaviour
     public static int swing = 1;
 
     public static int upStart;
+
+    public static bool canCancelMove;
     
     // Start is called before the first frame update
     void Start()
@@ -53,13 +55,13 @@ public class FolkvarCombatScript : MonoBehaviour
 
 
             // Second attack
-            // If player moves their hand closer to the webcam first
-            if (MarkerManagerScript.currentLocation == 2) folkvarCondition2[0] = true;
+            // If player moves their hand to the upper-right section
+            if (MarkerManagerScript.currentLocation == 1) folkvarCondition2[0] = true;
             
             if (folkvarCondition2[0])
             {
-                // If player then moves hand to the upper-left section
-                if (Input.GetKeyDown(KeyCode.E)) folkvarCondition2[1] = true;
+                // If player then moves hand to the upper-middle section
+                if (Input.GetKeyDown(KeyCode.W)) folkvarCondition2[1] = true;
 
 
                 // If player then moves hand downwards
@@ -68,10 +70,10 @@ public class FolkvarCombatScript : MonoBehaviour
                     print("Sword ready to strike from the heavens");
                     
                     // If player then moves hand to the bottom-middle section
-                    if (Input.GetKeyDown(KeyCode.C)) folkvarCondition2[2] = true;
+                    if (Input.GetKeyDown(KeyCode.X)) folkvarCondition2[2] = true;
 
                     // If player instead moves hand to a different location
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                    if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.A))
                     {
                         folkvarCondition2[1] = false;
                         folkvarCondition2[0] = false;
@@ -180,11 +182,24 @@ public class FolkvarCombatScript : MonoBehaviour
                             folkvarCondition4[0] = false;
                         }
                     }
+                    
+                    // If the player decides to cancel their move instead
+                    if (canCancelMove)
+                    {
+                        if (MarkerManagerScript.goMarker)
+                        {
+                            if (Input.GetKeyDown(KeyCode.V)) folkvarCondition4[0] = false;
+                        }
+                    }
+
+                    canCancelMove = true;
                 }
                 else
                 {
                     folkvarCondition4[1] = false;
                     folkvarCondition4[2] = false;
+
+                    canCancelMove = false;
                 }
 
 

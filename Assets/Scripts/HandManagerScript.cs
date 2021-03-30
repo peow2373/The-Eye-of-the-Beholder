@@ -29,7 +29,7 @@ public class HandManagerScript : MonoBehaviour
         // Flip marker if player is left-handed
         if (GameManagerScript.rightHanded)
         {
-            sr.flipX = false;
+            //sr.flipX = false;
 
             if (MarkerManagerScript.goMarker)
             {
@@ -43,7 +43,7 @@ public class HandManagerScript : MonoBehaviour
         }
         else
         {
-            sr.flipX = true;
+            //sr.flipX = true;
             
             if (MarkerManagerScript.goMarker)
             {

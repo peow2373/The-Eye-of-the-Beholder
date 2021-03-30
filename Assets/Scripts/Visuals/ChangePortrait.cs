@@ -31,7 +31,7 @@ public class ChangePortrait : MonoBehaviour
             speakerName = splitArray[0];
             if (splitArray.Length > 1) speakerDialogue = splitArray[1];
             
-            print(speakerName);
+            //print(speakerName);
         }
 
         DetermineSpeaker();

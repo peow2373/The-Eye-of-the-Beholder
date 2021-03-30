@@ -15,6 +15,8 @@ public class NetrixiCombatScript : MonoBehaviour
 
     public static int targetLocation = 0;
 
+    public static bool canCancelMove;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -212,11 +214,24 @@ public class NetrixiCombatScript : MonoBehaviour
                         netrixiCondition4[0] = false;
                     }
                 }
+                
+                // If the player decides to cancel their move instead
+                if (canCancelMove)
+                {
+                    if (MarkerManagerScript.goMarker)
+                    {
+                        if (Input.GetKeyDown(KeyCode.V)) netrixiCondition4[0] = false;
+                    }
+                }
+
+                canCancelMove = true;
             }
             else
             {
                 netrixiCondition4[1] = false;
                 netrixiCondition4[2] = false;
+                
+                canCancelMove = false;
             }
 
 

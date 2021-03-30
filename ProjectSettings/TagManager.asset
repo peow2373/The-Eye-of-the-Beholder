@@ -21,6 +21,7 @@ TagManager:
   - Option 3
   - Resize
   - Option 4
+  - Hand Animation
   layers:
   - Default
   - TransparentFX
