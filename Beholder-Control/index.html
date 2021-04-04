@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="description" content="">
+    <meta name="author" content="Peter Gyory">
+    <meta name="theme-color" content="#B12A34">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Beholder Electron Keyboard Example</title>
+    <script src="./src/vector2.js"></script>
+    <script src="./src/index.js"></script>
+    <style>
+      .rightHandEye {
+        position: absolute;
+        left: -1000px;
+      }
+      .rightHandGo {
+        position: absolute;
+        left: -1000px;
+      }
+      .leftHandEye {
+        position: absolute;
+        left: -1000px;
+      }
+      .leftHandGo {
+        position: absolute;
+        left: -1000px;
+      }
+      .gridRow {
+        position: absolute;
+        left: -1000px;
+      }
+      .gridColumn {
+        position: absolute;
+        left: -1000px;
+      }
+      #canvas-overlay {
+        margin: 0 auto;
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="canvas-overlay" style="horiz-align: center; vertical-align: middle;"></canvas>
+    <img class="rightHandEye" src="./images/Right Hand Eye.png" alt="Right Hand Eye">
+    <img class="rightHandGo" src="./images/Right Hand Go.png" alt="Right Hand Go">
+    <img class="leftHandEye" src="./images/Left Hand Eye.png" alt="Left Hand Eye">
+    <img class="leftHandGo" src="./images/Left Hand Go.png" alt="Left Hand Go">
+    <img class="gridRow" src="./images/Grid Row.png" alt="Grid Row">
+    <img class="gridColumn" src="./images/Grid Column.png" alt="Grid Column">
+    <div id="beholder-root"></div>
+  </body>
+</html>

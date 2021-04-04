@@ -1,5 +1,5 @@
 const ipcRenderer = require('electron').ipcRenderer;
-const Beholder = require('beholder-detection');
+const Beholder = require('beholder-detection').default;
 
 // Code for if I can get key press working on front side
 // const { keyboard, Key, mouse, left, right, up, down, screen } = require("@nut-tree/nut-js");
@@ -8,7 +8,8 @@ const Beholder = require('beholder-detection');
 // keyboard.config.autoDelayMs = 0;
 
 // Delay after marker has been undetected before it reports that the marker is missing
-const BUTTON_TIMEOUT = 1000;
+const BUTTON_TIMEOUT = 250;
+const BUTTON_LONG = 2000;
 
 // Marker detection variables
 let palm, netrixi, folkvar, iv, undo, go;
@@ -21,13 +22,13 @@ let xLattice1 = 0, xLattice2 = 220, xLattice3 = 420, xLattice4 = 640;
 let yLattice1 = 0, yLattice2 = 170, yLattice3 = 310, yLattice4 = 480;
 
 // Detection for rotations of markerButton1
-let startPoint = 1.6, endPoint = 0;
+let startPoint = 1.5, endPoint = 0;
 let secondZone = (startPoint - endPoint) * (3/4), thirdZone = (startPoint - endPoint) * (2/4), fourthZone = (startPoint - endPoint) * (1/4);
 
 let rotatingRight = false, rotatingLeft = false;
 
 // Detection for depth of markerButton1
-let near = 80, far = 50;
+let near = 75, far = 50;
 
 // Variable to help detection of changes in location, rotation, or depth
 let deadzone = 5;
@@ -36,12 +37,25 @@ let deadzone = 5;
 let markerButton = [palm, netrixi, folkvar, iv, undo, go];
 let keyOutput = ['H', 'Y', 'O', 'I', 'U', 'V'];
 let wasMarkerPresent = [false, false, false, false, false, false];
-let buttonTimer = [BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT];
+let buttonTimer = [BUTTON_LONG, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT];
+
+// Hand overlay
+let canvas, ctx;
+let videoElement;
+let hand, rhe, rhg, lhe, lhg;
+let gridRow, gridColumn;
+
+let videoLoaded = false;
+let videoMargins = 10;
+
+let handSize = 0.4;
+let gridThickness = 0.25;
+
 
 // code written in here will be executed once when the page loads
 function init() {
   // Initialize beholder
-  Beholder.init('#beholder-root', { feed_params: { flip: true } }, [855, 787, 907, 357, 683, 84]);
+  Beholder.init('#beholder-root', { feed_params: { flip: true }, overlay_params: { present: false } }, [855, 787, 907, 357, 683, 84]);
 
   // Change these values depending on what markers are being used
   markerButton[0] = Beholder.getMarker(855);
@@ -51,6 +65,45 @@ function init() {
   markerButton[4] = Beholder.getMarker(683);
   markerButton[5] = Beholder.getMarker(84);
   
+  // Initializes a video stream of the webcam
+  canvas = document.querySelector("#canvas-overlay");
+  ctx = canvas.getContext("2d");
+  rhe = document.querySelector(".rightHandEye");
+  rhg = document.querySelector(".rightHandGo");
+  lhe = document.querySelector(".leftHandEye");
+  lhg = document.querySelector(".leftHandGo");
+  gridRow = document.querySelector(".gridRow");
+  gridColumn = document.querySelector(".gridColumn");
+  
+  window.onresize = ()=>{
+      
+      // Changes the body window
+      body = document.querySelector("body");
+      body.style.margin = videoMargins + "px";
+      
+      body.style.backgroundColor = "black";
+      body.style.overflow = "hidden";
+      
+      // Resizes the video width to match the height while retaining a 4:3 aspect ratio
+      if (window.innerWidth < window.innerHeight*4/3) {
+          canvas.width = window.innerWidth - (videoMargins*2);
+          if (canvas.height != window.innerWidth*3/4) canvas.height = canvas.width*3/4;
+      }
+
+      // Resizes the video height to match the width while retaining a 4:3 aspect ratio
+      if (window.innerHeight < window.innerWidth*3/4) {
+          canvas.height = window.innerHeight - (videoMargins*2);
+          if (canvas.width != window.innerHeight*4/3) canvas.width = canvas.height*4/3;
+      }
+  }
+  
+  window.onresize();
+  
+  Beholder.addVideoStreamListener((s)=>{
+      videoLoaded = true;
+      videoElement = document.querySelector("#beholder-video");
+  });
+  
 
   requestAnimationFrame(update);
 }
@@ -58,18 +111,32 @@ function init() {
 let lastTime = Date.now();
 // code written in here will be executed every frame
 function update() {
+    
   const currentTime = Date.now();
   let delta = currentTime - lastTime;
   lastTime = currentTime;
-
   
   // Limits delta to 50 to account for latency
   if (delta > 50) {
     delta = 50;
   }
-  
 
   Beholder.update(); // comment this line to turn off detection
+    
+    // Displays the webcam as a video
+    ctx.save();
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    if (videoLoaded) ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+    ctx.restore();
+    
+    // Draws grid overlay
+    DrawGridOverlay();
+    
+    // Draws hand image
+    ctx.save();
+    DrawHandOverlay();
+    ctx.restore();
 
   requestAnimationFrame(update);
 
@@ -83,12 +150,26 @@ function update() {
     if (markerButton[i].present) {
       buttonTimer[i] = BUTTON_TIMEOUT;
       if (!wasMarkerPresent[i]) {
-        wasMarkerPresent[i] = true;
+          
+        // If it is the Go marker 
+        if (i == 5) {
+            if (!wasMarkerPresent[0]) {
+                wasMarkerPresent[5] = true;
 
-        // Tells the main process that the marker is present
-        ipcRenderer.send(keyInput1);
-        ipcRenderer.send(keyInput2);
-          //setTimeout(() => ipcRenderer.send(keyInput2), 5);
+                ipcRenderer.send('V_KEY_DOWN');
+                ipcRenderer.send('V_KEY_UP');
+                
+                rotatingRight = false;
+                rotatingLeft = false;
+            }
+        } else {
+            
+            wasMarkerPresent[i] = true;
+
+            // Tells the main process that the marker is present
+            ipcRenderer.send(keyInput1);
+            ipcRenderer.send(keyInput2);
+        }
       }
     } else {
       // Start timer countdown once marker disappears
@@ -99,9 +180,14 @@ function update() {
       wasMarkerPresent[i] = false;
 
       // Tells the main process that the marker is no longer present
-      ipcRenderer.send(keyInput1);
-      ipcRenderer.send(keyInput2);
-        //setTimeout(() => ipcRenderer.send(keyInput2), 5);
+        // If it is the Palm marker
+        if (keyOutput[i] == 'H') {
+            ipcRenderer.send('L_KEY_DOWN');
+            ipcRenderer.send('L_KEY_UP');
+        } else {
+            ipcRenderer.send(keyInput1);
+            ipcRenderer.send(keyInput2); 
+        }
 
         return;
     }
@@ -113,6 +199,69 @@ function update() {
     MarkerRotation();
     MarkerDepth();
   }
+}
+
+
+function DrawGridOverlay() {
+    
+    let rowThickness = canvas.height*gridThickness
+    let columnThickness = canvas.width*gridThickness
+
+    // Draw grid rows
+    ctx.drawImage(gridRow, 0, (canvas.height/3) - (rowThickness/2), canvas.width, rowThickness);
+    ctx.drawImage(gridRow, 0, (canvas.height*2/3) - (rowThickness/2), canvas.width, rowThickness);
+
+    // Draw grid columns
+    ctx.drawImage(gridColumn, (canvas.width/3) - (rowThickness/2), 0, columnThickness, canvas.height);
+    ctx.drawImage(gridColumn, (canvas.width*2/3) - (rowThickness/2), 0, columnThickness, canvas.height);
+}
+
+
+function DrawHandOverlay() {
+
+    // Check to see if the Go marker is present
+    if (markerButton[5].present && !markerButton[0].present) {
+        markerCenter = markerButton[5].center;
+        hand = rhg;
+    } else {
+        markerCenter = markerButton[0].center;
+        hand = rhe;
+    }
+    
+    let xHand, yHand;
+
+    // Check to see if the Palm marker is present
+    if (markerButton[0].present || markerButton[5].present) {
+        xHand = markerCenter[Object.keys(markerCenter)[0]];
+        yHand = markerCenter[Object.keys(markerCenter)[1]];
+    } else {
+        if (!wasMarkerPresent[0] && !wasMarkerPresent[5]) {
+            //xHand = -1000;
+            //yHand = -1000;
+        }
+    }
+    
+    let xStart = (xHand*canvas.width)/640;
+    let yStart = (yHand*canvas.height)/480;
+    let size = handSize * canvas.width;
+
+    ctx.translate(xStart, yStart)
+    ctx.rotate(0);
+    
+    // Check to see if the Palm marker is rotated
+    if (pastRotation == -1 || pastRotation == -2) ctx.rotate(-Math.PI/2);
+    if (pastRotation == 2 || pastRotation == -4) ctx.rotate(-Math.PI/2 * 3/4);
+    if (pastRotation == 3 || pastRotation == -5) ctx.rotate(-Math.PI/2 * 2/4);
+    if (pastRotation == 4 || pastRotation == -6) ctx.rotate(-Math.PI/2 * 1/4);
+    
+    ctx.translate(-xStart, -yStart)
+    
+    // Check to see if the Palm marker is far/near
+    if (pastDepth == 1) size *= 1.65;
+    if (pastDepth == 2) size *= 1.15;
+    if (pastDepth == 3) size *= 0.75;
+
+    ctx.drawImage(hand, xStart-(size/2), yStart-(size/2), size, size);
 }
 
 
@@ -285,47 +434,52 @@ function MarkerRotation() {
             return;
         }
     }
-    
-    if (rotatingRight) {
-        
-        // is the marker then rotated to the second zone?
-        if (markerRotation < startPoint -deadZoneDivided && markerRotation >= secondZone +deadZoneDivided) {
-            if (pastRotation !== 2) {
+
+    // is the marker then rotated to the second zone?
+    if (markerRotation < startPoint -deadZoneDivided && markerRotation >= secondZone +deadZoneDivided) {
+        if (pastRotation !== 2) {
+            pastRotation = 2;
+            if (rotatingRight) {
                 ipcRenderer.send('G_KEY_DOWN');
-                pastRotation = 2;
                 ipcRenderer.send('G_KEY_UP');
-                return;
             }
+            return;
         }
+    }
 
-        // is the marker then rotated to the third zone?
-        if (markerRotation < secondZone -deadZoneDivided && markerRotation >= thirdZone +deadZoneDivided) {
-            if (pastRotation !== 3) {
+    // is the marker then rotated to the third zone?
+    if (markerRotation < secondZone -deadZoneDivided && markerRotation >= thirdZone +deadZoneDivided) {
+        if (pastRotation !== 3) {
+            pastRotation = 3;
+            if (rotatingRight) {
                 ipcRenderer.send('B_KEY_DOWN');
-                pastRotation = 3;
                 ipcRenderer.send('B_KEY_UP');
-                return;
             }
+            return;
         }
+    }
 
-        // is the marker then rotated to the fourth zone?
-        if (markerRotation < thirdZone -deadZoneDivided && markerRotation >= fourthZone +deadZoneDivided) {
-            if (pastRotation !== 4) {
+    // is the marker then rotated to the fourth zone?
+    if (markerRotation < thirdZone -deadZoneDivided && markerRotation >= fourthZone +deadZoneDivided) {
+        if (pastRotation !== 4) {
+            pastRotation = 4;
+            if (rotatingRight) {
                 ipcRenderer.send('T_KEY_DOWN');
-                pastRotation = 4;
                 ipcRenderer.send('T_KEY_UP');
-                return;
             }
+            return;
         }
+    }
 
-        // is the marker then rotated to the fifth zone?
-        if (markerRotation < fourthZone -deadZoneDivided && markerRotation >= endPoint +deadZoneDivided) {
-            if (pastRotation !== 5) {
+    // is the marker then rotated to the fifth zone?
+    if (markerRotation < fourthZone -deadZoneDivided && markerRotation >= endPoint +deadZoneDivided) {
+        if (pastRotation !== 5) {
+            pastRotation = 5;
+            if (rotatingRight) {
                 ipcRenderer.send('R_KEY_DOWN');
-                pastRotation = 5;
                 ipcRenderer.send('R_KEY_UP');
-                return;
             }
+            return;
         }
     }
 
@@ -344,46 +498,51 @@ function MarkerRotation() {
         }
     }
 
-    if (rotatingLeft) {
-        
-        // is the marker then rotated to the second zone?
-        if (markerRotation > (-startPoint) +deadZoneDivided && markerRotation <= (-secondZone) -deadZoneDivided) {
-            if (pastRotation !== -4) {
+    // is the marker then rotated to the second zone?
+    if (markerRotation > (-startPoint) +deadZoneDivided && markerRotation <= (-secondZone) -deadZoneDivided) {
+        if (pastRotation !== -4) {
+            pastRotation = -4;
+            if (rotatingLeft) {
                 ipcRenderer.send('G_KEY_DOWN');
-                pastRotation = -4;
                 ipcRenderer.send('G_KEY_UP');
-                return;
             }
+            return;
         }
+    }
 
-        // is the marker then rotated to the third zone?
-        if (markerRotation > (-secondZone) +deadZoneDivided && markerRotation <= (-thirdZone) -deadZoneDivided) {
-            if (pastRotation !== -5) {
+    // is the marker then rotated to the third zone?
+    if (markerRotation > (-secondZone) +deadZoneDivided && markerRotation <= (-thirdZone) -deadZoneDivided) {
+        if (pastRotation !== -5) {
+            pastRotation = -5;
+            if (rotatingLeft) {
                 ipcRenderer.send('B_KEY_DOWN');
-                pastRotation = -5;
                 ipcRenderer.send('B_KEY_UP');
-                return;
             }
+            return;
         }
+    }
 
-        // is the marker then rotated to the fourth zone?
-        if (markerRotation > (-thirdZone) +deadZoneDivided && markerRotation <= (-fourthZone) -deadZoneDivided) {
-            if (pastRotation !== -6) {
+    // is the marker then rotated to the fourth zone?
+    if (markerRotation > (-thirdZone) +deadZoneDivided && markerRotation <= (-fourthZone) -deadZoneDivided) {
+        if (pastRotation !== -6) {
+            pastRotation = -6;
+            if (rotatingLeft) {
                 ipcRenderer.send('T_KEY_DOWN');
-                pastRotation = -6;
                 ipcRenderer.send('T_KEY_UP');
-                return;
             }
+            return;
         }
+    }
 
-        // is the marker then rotated to the fifth zone?
-        if (markerRotation > (-fourthZone) +deadZoneDivided && markerRotation <= endPoint -deadZoneDivided) {
-            if (pastRotation !== -7) {
+    // is the marker then rotated to the fifth zone?
+    if (markerRotation > (-fourthZone) +deadZoneDivided && markerRotation <= endPoint -deadZoneDivided) {
+        if (pastRotation !== -7) {
+            pastRotation = -7;
+            if (rotatingLeft) {
                 ipcRenderer.send('R_KEY_DOWN');
-                pastRotation = -7;
                 ipcRenderer.send('R_KEY_UP');
-                return;
             }
+            return;
         }
     }
 }

@@ -3,6 +3,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 
+let width = 640;
+let height = 480;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -13,11 +16,12 @@ function createWindow() {
     
     alwaysOnTop: true,
     
-    x : 5, // xOffset from where the window is loaded
-    y : 5, // yOffset from where the window is loaded
-    
-    width: 680, // Set these to whatever is convenient to change window size
-    height: 525,
+    x : 0, // xOffset from where the window is loaded
+    y : 0, // yOffset from where the window is loaded
+
+    // Set these to change window size
+    width: width,
+    height: height,
 
     // Needed to include communication between render and main processes
     webPreferences: {
@@ -25,7 +29,7 @@ function createWindow() {
     },
   });
 
-  mainWindow.setMenu(null);
+  //mainWindow.setMenu(null);
   //mainWindow.webContents.openDevTools(); // Uncomment to open the DevTools automatically
   
   
@@ -75,9 +79,13 @@ keyboard.config.autoDelayMs = 0;
 
 // Key presses when a certain marker is present
 
-// Palm marker (H)
+// Palm marker appears (H)
 ipcMain.on("H_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.H)});
 ipcMain.on("H_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.H)});
+
+// Palm marker disappears (L)
+ipcMain.on("L_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.L)});
+ipcMain.on("L_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.L)});
 
 // Netrixi marker (Y)
 ipcMain.on("Y_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.Y)});
