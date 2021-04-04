@@ -20,6 +20,7 @@ public class TunnelEntranceScript : MonoBehaviour
     bool max = false;
 
     private bool didMarkerDisappear;
+    private bool handInMiddleLeft, handInMiddleRight;
 
     // Start is called before the first frame update
     void Start()
@@ -140,16 +141,20 @@ public class TunnelEntranceScript : MonoBehaviour
         else if (this.transform.childCount == 2)
         {
             goMarkerToContinue.enabled = false;
+            
+            int currLoc = MarkerManagerScript.currentLocation;
+            if (currLoc == 1 || currLoc == 4 || currLoc == 7 || currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddleLeft = true;
+            if (currLoc == 3 || currLoc == 6 || currLoc == 9 || currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddleRight = true;
 
-            switch (MarkerManagerScript.currentLocation)
+            if (handInMiddleRight)
             {
-                case 1:
-                case 4:
-                case 7:
+                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                {
                     if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                     {
                         story.ChooseChoiceIndex(0);
                         refreshUI();
+                        handInMiddleRight = false;
                     }
                     else
                     {
@@ -157,19 +162,23 @@ public class TunnelEntranceScript : MonoBehaviour
                         {
                             story.ChooseChoiceIndex(0);
                             refreshUI();
+                            handInMiddleRight = false;
                         }
                         
                         if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
                     }
-                    break;
-                
-                case 3:
-                case 6:
-                case 9:
+                }
+            }
+            
+            if (handInMiddleLeft)
+            {
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                {
                     if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                     {
                         story.ChooseChoiceIndex(1);
                         refreshUI();
+                        handInMiddleLeft = false;
                     }
                     else
                     {
@@ -177,13 +186,13 @@ public class TunnelEntranceScript : MonoBehaviour
                         {
                             story.ChooseChoiceIndex(1);
                             refreshUI();
+                            handInMiddleLeft = false;
                         }
                         
                         if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
                     }
-                    break;
+                }
             }
-
         }
 
         else

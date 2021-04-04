@@ -82,7 +82,7 @@ public class ChangePortrait : MonoBehaviour
                 whoIsTalking = 1;
                 
                 // Change portriat
-                if (currentScene == 3 || currentScene == 8 || currentScene == 9) sr.sprite = netrixiNoHood;
+                if (currentScene == 3 || currentScene == 8 || currentScene == 9 || currentScene == 13 || currentScene == 18 || currentScene == 26) sr.sprite = netrixiNoHood;
                 else sr.sprite = netrixiHood;
                 break;
             
@@ -123,7 +123,7 @@ public class ChangePortrait : MonoBehaviour
                 }
 
                 // Change portrait
-                if (currentScene == 13) sr.sprite = folkvarNoHelmet;
+                if (currentScene == 8 || currentScene == 9 || currentScene == 13 || currentScene == 18 || currentScene == 26) sr.sprite = folkvarNoHelmet;
                 else sr.sprite = folkvarHelmet;
                 break;
             

@@ -17,6 +17,14 @@ public class HandAnimationManager : MonoBehaviour
     private string originalText1, originalText2, originalText3;
 
     public static bool restartAnimation;
+
+    public static bool netrixiAttack1, netrixiAttack2, netrixiAttack3;
+    public static bool folkvarAttack1, folkvarAttack2, folkvarAttack3;
+    public static bool ivAttack1, ivAttack2, ivAttack3;
+
+    public static string animationName1, animationName2, animationName3;
+
+    public static int originalScene;
     
     // Start is called before the first frame update
     void Start()
@@ -47,7 +55,29 @@ public class HandAnimationManager : MonoBehaviour
         }
 
         CheckForChanges();
-        
+        CheckForCombatChanges();
+
+        if (ChangeHandAnimation.animationName1 != "") animationName1 = ChangeHandAnimation.animationName1;
+        if (ChangeHandAnimation.animationName2 != "") animationName2 = ChangeHandAnimation.animationName2;
+        if (ChangeHandAnimation.animationName3 != "") animationName3 = ChangeHandAnimation.animationName3;
+
+        // If the Undo button is pressed
+        if (MarkerManagerScript.undoMarker)
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                ChangeHandAnimation.animationName1 = animationName1;
+                ChangeHandAnimation.animationName2 = animationName2;
+                ChangeHandAnimation.animationName3 = animationName3;
+                
+                ChangeChoiceText.S.handAnimation1.SetActive(true);
+                ChangeChoiceText.S.handAnimation2.SetActive(true);
+                ChangeChoiceText.S.handAnimation3.SetActive(true);
+                
+                restartAnimation = true;
+            }
+        }
+
         // If the animations need to be restarted
         if (restartAnimation)
         {
@@ -96,9 +126,365 @@ public class HandAnimationManager : MonoBehaviour
                 restartAnimation = true;
             }
         }
+        
+        // If the scene has changed
+        if (originalScene != GameManagerScript.currentScene) restartAnimation = true;
+        originalScene = GameManagerScript.currentScene;
 
         originalText1 = optionText1.GetComponent<Text>().text;
         originalText2 = optionText2.GetComponent<Text>().text;
         originalText3 = optionText3.GetComponent<Text>().text;
+    }
+
+
+    void CheckForCombatChanges()
+    {
+        if (GameManagerScript.inCombat)
+        {
+            // Check Netrixi's attacks
+            if (CombatManagerScript.netrixiAttacks)
+            {
+                // If Attack 1 changes
+                if (NetrixiCombatScript.netrixiCondition1[0])
+                {
+                    if (NetrixiCombatScript.netrixiCondition1[1])
+                    {
+                        if (netrixiAttack1)
+                        {
+                            netrixiAttack1 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!netrixiAttack1)
+                        {
+                            netrixiAttack1 = true;
+                            restartAnimation = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (netrixiAttack1)
+                    {
+                        netrixiAttack1 = false;
+                        restartAnimation = true;
+                    }
+                }
+                
+                // If Attack 2 changes
+                if (NetrixiCombatScript.netrixiCondition2[0])
+                {
+                    if (NetrixiCombatScript.netrixiCondition2[1])
+                    {
+                        if (netrixiAttack2)
+                        {
+                            netrixiAttack2 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!netrixiAttack2)
+                        {
+                            netrixiAttack2 = true;
+                            restartAnimation = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (netrixiAttack2)
+                    {
+                        netrixiAttack2 = false;
+                        restartAnimation = true;
+                    }
+                }
+                
+                // If Attack 3 changes
+                if (NetrixiCombatScript.netrixiCondition3[0])
+                {
+                    if (NetrixiCombatScript.netrixiCondition3[1])
+                    {
+                        if (NetrixiCombatScript.netrixiCondition3[2])
+                        {
+                            if (NetrixiCombatScript.netrixiCondition3[3])
+                            {
+                                if (netrixiAttack3)
+                                {
+                                    netrixiAttack3 = false;
+                                    restartAnimation = true;
+                                }
+                            }
+                            else
+                            {
+                                if (!netrixiAttack3)
+                                {
+                                    netrixiAttack3 = true;
+                                    restartAnimation = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (netrixiAttack3)
+                            {
+                                netrixiAttack3 = false;
+                                restartAnimation = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (!netrixiAttack3)
+                        {
+                            netrixiAttack3 = true;
+                            restartAnimation = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (netrixiAttack3)
+                    {
+                        netrixiAttack3 = false;
+                        restartAnimation = true;
+                    }
+                }
+            }
+            
+            else if (CombatManagerScript.folkvarAttacks)
+            {
+                // Check Folkvar's attacks
+                if (CombatManagerScript.folkvarAttacks)
+                {
+                    // If Attack 1 changes
+                    if (FolkvarCombatScript.folkvarCondition1[0])
+                    {
+                        if (FolkvarCombatScript.folkvarCondition1[1])
+                        {
+                            if (folkvarAttack1)
+                            {
+                                folkvarAttack1 = false;
+                                restartAnimation = true;
+                            }
+                        }
+                        else
+                        {
+                            if (!folkvarAttack1)
+                            {
+                                folkvarAttack1 = true;
+                                restartAnimation = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (folkvarAttack1)
+                        {
+                            folkvarAttack1 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                    
+                    // If Attack 2 changes
+                    if (FolkvarCombatScript.folkvarCondition2[0])
+                    {
+                        if (FolkvarCombatScript.folkvarCondition2[1])
+                        {
+                            if (FolkvarCombatScript.folkvarCondition2[2])
+                            {
+                                if (!folkvarAttack2)
+                                {
+                                    folkvarAttack2 = true;
+                                    restartAnimation = true;
+                                }
+                            }
+                            else
+                            {
+                                if (folkvarAttack2)
+                                {
+                                    folkvarAttack2 = false;
+                                    restartAnimation = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!folkvarAttack2)
+                            {
+                                folkvarAttack2 = true;
+                                restartAnimation = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (folkvarAttack2)
+                        {
+                            folkvarAttack2 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                    
+                    // If Attack 3 changes
+                    if (FolkvarCombatScript.folkvarCondition3[0])
+                    {
+                        if (FolkvarCombatScript.folkvarCondition3[1])
+                        {
+                            if (FolkvarCombatScript.folkvarCondition3[2])
+                            {
+                                if (!folkvarAttack3)
+                                {
+                                    folkvarAttack3 = true;
+                                    restartAnimation = true;
+                                }
+                            }
+                            else
+                            {
+                                if (folkvarAttack3)
+                                {
+                                    folkvarAttack3 = false;
+                                    restartAnimation = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!folkvarAttack3)
+                            {
+                                folkvarAttack3 = true;
+                                restartAnimation = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (folkvarAttack3)
+                        {
+                            folkvarAttack3 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                }
+            }
+            
+            else if (CombatManagerScript.ivAttacks)
+            {
+                // Check Iv's attacks
+                if (CombatManagerScript.ivAttacks)
+                {
+                    // If Attack 1 changes
+                    if (IvCombatScript.ivCondition1[0])
+                    {
+                        if (IvCombatScript.ivCondition1[1])
+                        {
+                            if (ivAttack1)
+                            {
+                                ivAttack1 = false;
+                                restartAnimation = true;
+                            }
+                        }
+                        else
+                        {
+                            if (!ivAttack1)
+                            {
+                                ivAttack1 = true;
+                                restartAnimation = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (ivAttack1)
+                        {
+                            ivAttack1 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                    
+                    // If Attack 2 changes
+                    if (IvCombatScript.ivCondition2[0])
+                    {
+                        if (IvCombatScript.ivCondition2[1])
+                        {
+                            if (IvCombatScript.ivCondition2[2])
+                            {
+                                if (IvCombatScript.ivCondition2[3])
+                                {
+                                    if (ivAttack2)
+                                    {
+                                        ivAttack2 = false;
+                                        restartAnimation = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (!ivAttack2)
+                                    {
+                                        ivAttack2 = true;
+                                        restartAnimation = true;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (ivAttack2)
+                                {
+                                    ivAttack2 = false;
+                                    restartAnimation = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (!ivAttack2)
+                            {
+                                ivAttack2 = true;
+                                restartAnimation = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (ivAttack2)
+                        {
+                            ivAttack2 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                }
+                
+                // If Attack 3 changes
+                if (IvCombatScript.ivCondition3[0])
+                {
+                    if (IvCombatScript.ivCondition3[1])
+                    {
+                        if (ivAttack3)
+                        {
+                            ivAttack3 = false;
+                            restartAnimation = true;
+                        }
+                    }
+                    else
+                    {
+                        if (!ivAttack3)
+                        {
+                            ivAttack3 = true;
+                            restartAnimation = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (ivAttack3)
+                    {
+                        ivAttack3 = false;
+                        restartAnimation = true;
+                    }
+                }
+            }
+        }
     }
 }

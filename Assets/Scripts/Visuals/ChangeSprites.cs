@@ -54,18 +54,15 @@ public class ChangeSprites : MonoBehaviour
             case 11:
                 if (currScene > 3 && currScene <= 8)
                 {
-                    if (inCombat) return netrixiHoodCompass;
-                    else return netrixiFaceCompass;
+                    return netrixiHoodCompass;
                 } 
                 else if (currScene > 8 && currScene <= 17)
                 {
-                    if (inCombat) return netrixiHood;
-                    else return netrixiFace;
+                    return netrixiHood;
                 } 
                 else if (currScene > 17)
                 {
-                    if (inCombat) return netrixiHoodCompass;
-                    else return netrixiFaceCompass;
+                    return netrixiHoodCompass;
                 }
                 else
                 {
@@ -80,13 +77,11 @@ public class ChangeSprites : MonoBehaviour
             case 13:
                 if (currScene > 6 && currScene <= 17)
                 {
-                    if (inCombat) return folkvarHelmet;
-                    else return folkvarFace;
+                    return folkvarHelmet;
                 }
                 else if (currScene > 16)
                 {
-                    if (inCombat) return folkvarTwoWeapons;
-                    else return folkvarFaceTwoWeapons;
+                    return folkvarTwoWeapons;
                 }
                 else
                 {

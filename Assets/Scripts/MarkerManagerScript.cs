@@ -31,7 +31,7 @@ public class MarkerManagerScript : MonoBehaviour
 
     public static MarkerManagerScript S;
 
-    public static int currentLocation = 0;
+    public static int currentLocation = 5;
     public static int pastLocation = 0;
 
     void Awake()

@@ -23,6 +23,7 @@ public class NetrixiPirateScript : MonoBehaviour
     bool skipScene = false;
     
     private bool didMarkerDisappear;
+    private bool handInMiddle;
 
     // Start is called before the first frame update
     void Start()
@@ -107,18 +108,18 @@ public class NetrixiPirateScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = false;
 
-            switch (MarkerManagerScript.currentLocation)
+            int currLoc = MarkerManagerScript.currentLocation;
+            if (currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddle = true;
+
+            if (handInMiddle)
             {
-                case 1:
-                case 4:
-                case 7:
-                case 3:
-                case 6:
-                case 9:
+                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                {
                     if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                     {
                         story.ChooseChoiceIndex(1);
                         refreshUI();
+                        handInMiddle = false;
                     }
                     else
                     {
@@ -126,14 +127,14 @@ public class NetrixiPirateScript : MonoBehaviour
                         {
                             story.ChooseChoiceIndex(1);
                             refreshUI();
+                            handInMiddle = false;
                         }
                         
                         if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
                     }
-                    break;
+                }
             }
         }
-
     }
 
     string loadStoryChunk()

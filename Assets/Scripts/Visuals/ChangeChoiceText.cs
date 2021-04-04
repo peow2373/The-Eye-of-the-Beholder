@@ -48,27 +48,6 @@ public class ChangeChoiceText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManagerScript.currentScene == 8)
-        {
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
-            {
-                talkingToBrute = true;
-                talkingToIv = false;
-            }
-            
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-            {
-                talkingToIv = true;
-                talkingToBrute = false;
-            }
-            
-            if (GameWindowManager.metBrute)
-            {
-                talkingToIv = true;
-                talkingToBrute = false;
-            }
-        }
-        
         if (GameManagerScript.currentScene == 11)
         {
             madeChoice = false;
@@ -1024,8 +1003,15 @@ public class ChangeChoiceText : MonoBehaviour
         switch (GameManagerScript.currentScene)
         {
             case 8:
-                if (talkingToBrute) return "the brute";
-                if (talkingToIv) return "the monk";
+                if (!GameWindowManager.metBrute)
+                {
+                    if (talkingToBrute) return "the brute";
+                    else if (talkingToIv) return "the monk";
+                }
+                else
+                {
+                    return "the monk";
+                }
                 break;
             
             case 9:

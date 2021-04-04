@@ -47,6 +47,7 @@ public class GameWindowManager : MonoBehaviour
 
     public GameObject choice1, choice2, choice3;
     public Text choice1Text, choice2Text, choice3Text;
+    public GameObject choiceBackground;
     
     private GameObject[] choices;
     public static float choiceXPadding = 0.0125f, choiceYPadding = 0.0125f;
@@ -779,6 +780,18 @@ public class GameWindowManager : MonoBehaviour
                 choice3Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 break;
         }
+
+        // Determine the dimensions of the choice background
+        choiceWidth = gameWindowSizeX / screenSizeX;
+        choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
+                
+        choiceBackground.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
+                
+        // Determine the location of the choice background
+        xLocation = -cameraWidth/2 + ((choiceWidth * cameraWidth)/2);
+        yLocation = -cameraHeight/2 + ((choiceHeight * cameraHeight)/2);
+        
+        choiceBackground.transform.position = new Vector3(xLocation, yLocation, 0);
     }
 
 

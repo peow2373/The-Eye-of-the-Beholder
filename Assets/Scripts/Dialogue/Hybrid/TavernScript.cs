@@ -20,6 +20,7 @@ public class TavernScript : MonoBehaviour
     bool max = false;
     
     private bool didMarkerDisappear;
+    private bool handInMiddleLeft, handInMiddleRight;
 
     // Start is called before the first frame update
     void Start()
@@ -176,17 +177,22 @@ public class TavernScript : MonoBehaviour
 
             else
             {
-                switch (MarkerManagerScript.currentLocation)
+                int currLoc = MarkerManagerScript.currentLocation;
+                if (currLoc == 1 || currLoc == 4 || currLoc == 7 || currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddleLeft = true;
+                if (currLoc == 3 || currLoc == 6 || currLoc == 9 || currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddleRight = true;
+
+                if (handInMiddleRight)
                 {
-                    case 1:
-                    case 4:
-                    case 7:
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                    {
                         if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                         {
                             story.ChooseChoiceIndex(0);
                             GameWindowManager.metBrute = true;
                             ChangeChoiceText.madeChoice = true;
+                            ChangeChoiceText.talkingToBrute = true;
                             refreshUI();
+                            handInMiddleRight = false;
                         }
                         else
                         {
@@ -195,22 +201,28 @@ public class TavernScript : MonoBehaviour
                                 story.ChooseChoiceIndex(0);
                                 GameWindowManager.metBrute = true;
                                 ChangeChoiceText.madeChoice = true;
+                                ChangeChoiceText.talkingToBrute = true;
                                 refreshUI();
+                                handInMiddleRight = false;
                             }
                         
                             if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
                         }
-                        break;
+                    }
+                }
                 
-                    case 3:
-                    case 6:
-                    case 9:
+                if (handInMiddleLeft)
+                {
+                    if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                    {
                         if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                         {
                             story.ChooseChoiceIndex(1);
                             GameWindowManager.metBrute = true;
                             ChangeChoiceText.madeChoice = true;
+                            ChangeChoiceText.talkingToIv = true;
                             refreshUI();
+                            handInMiddleLeft = false;
                         }
                         else
                         {
@@ -219,12 +231,14 @@ public class TavernScript : MonoBehaviour
                                 story.ChooseChoiceIndex(1);
                                 GameWindowManager.metBrute = true;
                                 ChangeChoiceText.madeChoice = true;
+                                ChangeChoiceText.talkingToIv = true;
                                 refreshUI();
+                                handInMiddleLeft = false;
                             }
                         
                             if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
                         }
-                        break;
+                    }
                 }
             }
         }
