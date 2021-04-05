@@ -302,8 +302,11 @@ function DrawMarkerOverlay() {
         }
 
         let xStart = (xLoc*canvas.width)/640;
-        let yStart = (yLoc*canvas.height)/480;
-        let size = markerSize * canvas.width;
+        let yStart = ((yLoc - 25)*canvas.height)/480;
+
+        let size;
+        if (i == 4) size = markerSize * canvas.width;
+        else size = markerSize * 2 * canvas.width;
 
         if (i == 1) ctx.drawImage(netrixiMarker, xStart-(size/2), yStart-(size/2), size, size);
         if (i == 2) ctx.drawImage(folkvarMarker, xStart-(size/2), yStart-(size/2), size, size);
