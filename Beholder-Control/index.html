@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#B12A34">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Beholder Electron Keyboard Example</title>
+    <title>The Eye of the Beholder</title>
     <script src="./src/vector2.js"></script>
     <script src="./src/index.js"></script>
     <style>
@@ -23,6 +23,22 @@
         left: -1000px;
       }
       .leftHandGo {
+        position: absolute;
+        left: -1000px;
+      }
+      .netrixiMarker {
+        position: absolute;
+        left: -1000px;
+      }
+      .folkvarMarker {
+        position: absolute;
+        left: -1000px;
+      }
+      .ivMarker {
+        position: absolute;
+        left: -1000px;
+      }
+      .undoMarker {
         position: absolute;
         left: -1000px;
       }
@@ -43,10 +59,17 @@
 
   <body>
     <canvas id="canvas-overlay" style="horiz-align: center; vertical-align: middle;"></canvas>
+    
     <img class="rightHandEye" src="./images/Right Hand Eye.png" alt="Right Hand Eye">
     <img class="rightHandGo" src="./images/Right Hand Go.png" alt="Right Hand Go">
     <img class="leftHandEye" src="./images/Left Hand Eye.png" alt="Left Hand Eye">
     <img class="leftHandGo" src="./images/Left Hand Go.png" alt="Left Hand Go">
+
+    <img class="netrixiMarker" src="./images/Netrixi.png" alt="Netrixi Marker">
+    <img class="folkvarMarker" src="./images/Folkvar.png" alt="Folkvar Marker">
+    <img class="ivMarker" src="./images/Iv.png" alt="Iv Marker">
+    <img class="undoMarker" src="./images/Undo Marker.png" alt="Undo Marker">
+    
     <img class="gridRow" src="./images/Grid Row.png" alt="Grid Row">
     <img class="gridColumn" src="./images/Grid Column.png" alt="Grid Column">
     <div id="beholder-root"></div>
