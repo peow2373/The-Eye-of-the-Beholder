@@ -1,6 +1,9 @@
 const ipcRenderer = require('electron').ipcRenderer;
 const Beholder = require('beholder-detection').default;
 
+const { keyboard, Key } = require('@nut-tree/nut-js');
+keyboard.config.autoDelayMs = 0;
+
 // Code for if I can get key press working on front side
 // const { keyboard, Key, mouse, left, right, up, down, screen } = require("@nut-tree/nut-js");
 // In keyboard.class.js, I have set the keyboard delay to 0 Ms
@@ -43,19 +46,21 @@ let buttonTimer = [BUTTON_LONG, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, 
 let canvas, ctx;
 let videoElement;
 let hand, rhe, rhg, lhe, lhg;
+let netrixiMarker, folkvarMarker, ivMarker, undoMarker;
 let gridRow, gridColumn;
 
 let videoLoaded = false;
 let videoMargins = 10;
 
 let handSize = 0.4;
+let markerSize = 0.25;
 let gridThickness = 0.25;
 
 
 // code written in here will be executed once when the page loads
 function init() {
   // Initialize beholder
-  Beholder.init('#beholder-root', { feed_params: { flip: true }, overlay_params: { present: false } }, [855, 787, 907, 357, 683, 84]);
+  Beholder.init('#beholder-root', { feed_params: { flip: true , contrast: 100 }, overlay_params: { present: false } }, [855, 787, 907, 357, 683, 84]);
 
   // Change these values depending on what markers are being used
   markerButton[0] = Beholder.getMarker(855);
@@ -68,12 +73,20 @@ function init() {
   // Initializes a video stream of the webcam
   canvas = document.querySelector("#canvas-overlay");
   ctx = canvas.getContext("2d");
+  
   rhe = document.querySelector(".rightHandEye");
   rhg = document.querySelector(".rightHandGo");
   lhe = document.querySelector(".leftHandEye");
   lhg = document.querySelector(".leftHandGo");
+  
+  netrixiMarker = document.querySelector(".netrixiMarker");
+  folkvarMarker = document.querySelector(".folkvarMarker");
+  ivMarker = document.querySelector(".ivMarker");
+  undoMarker = document.querySelector(".undoMarker");
+  
   gridRow = document.querySelector(".gridRow");
   gridColumn = document.querySelector(".gridColumn");
+  
   
   window.onresize = ()=>{
       
@@ -137,6 +150,9 @@ function update() {
     ctx.save();
     DrawHandOverlay();
     ctx.restore();
+    
+    // Draws marker images
+    DrawMarkerOverlay();
 
   requestAnimationFrame(update);
 
@@ -144,8 +160,7 @@ function update() {
   for (let i = 0; i < markerButton.length; i++) {
 
     // This is the logic for a single key press using a given marker
-    let keyInput1 = KeyCode(keyOutput[i], 1);
-    let keyInput2 = KeyCode(keyOutput[i], 2);
+    let keyInput = KeyCode(keyOutput[i]);
 
     if (markerButton[i].present) {
       buttonTimer[i] = BUTTON_TIMEOUT;
@@ -156,19 +171,19 @@ function update() {
             if (!wasMarkerPresent[0]) {
                 wasMarkerPresent[5] = true;
 
-                ipcRenderer.send('V_KEY_DOWN');
-                ipcRenderer.send('V_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.V)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.V)});
                 
-                rotatingRight = false;
-                rotatingLeft = false;
+                //rotatingRight = false;
+                //rotatingLeft = false;
             }
         } else {
             
             wasMarkerPresent[i] = true;
 
             // Tells the main process that the marker is present
-            ipcRenderer.send(keyInput1);
-            ipcRenderer.send(keyInput2);
+            setImmediate( async (event,arg) => {keyboard.pressKey(keyInput)});
+            setImmediate( async (event,arg) => {keyboard.releaseKey(keyInput)});
         }
       }
     } else {
@@ -182,11 +197,11 @@ function update() {
       // Tells the main process that the marker is no longer present
         // If it is the Palm marker
         if (keyOutput[i] == 'H') {
-            ipcRenderer.send('L_KEY_DOWN');
-            ipcRenderer.send('L_KEY_UP');
+            setImmediate( async (event,arg) => {keyboard.pressKey(Key.L)});
+            setImmediate( async (event,arg) => {keyboard.releaseKey(Key.L)});
         } else {
-            ipcRenderer.send(keyInput1);
-            ipcRenderer.send(keyInput2); 
+            setImmediate( async (event,arg) => {keyboard.pressKey(keyInput)});
+            setImmediate( async (event,arg) => {keyboard.releaseKey(keyInput)});
         }
 
         return;
@@ -265,39 +280,62 @@ function DrawHandOverlay() {
 }
 
 
+function DrawMarkerOverlay() {
 
-function KeyCode(keyOutput, binary) {
+    for (let i = 1; i < markerButton.length - 1; i++) {
+
+        // Check to see if the marker is present
+        markerCenter = markerButton[i].center;
+
+        let xLoc, yLoc;
+
+        // Check to see if the Palm marker is present
+        if (markerButton[i].present) {
+            xLoc = markerCenter[Object.keys(markerCenter)[0]];
+            yLoc = markerCenter[Object.keys(markerCenter)[1]];
+            
+        } else {
+            if (!wasMarkerPresent[i]) {
+                xLoc = -1000;
+                yLoc = -1000;
+            }
+        }
+
+        let xStart = (xLoc*canvas.width)/640;
+        let yStart = ((yLoc - 25)*canvas.height)/480;
+
+        let size;
+        if (i == 4) size = markerSize * canvas.width;
+        else size = markerSize * 2 * canvas.width;
+
+        if (i == 1) ctx.drawImage(netrixiMarker, xStart-(size/2), yStart-(size/2), size, size);
+        if (i == 2) ctx.drawImage(folkvarMarker, xStart-(size/2), yStart-(size/2), size, size);
+        if (i == 3) ctx.drawImage(ivMarker, xStart-(size/2), yStart-(size/2), size, size);
+        if (i == 4) ctx.drawImage(undoMarker, xStart-(size/2), yStart-(size/2), size, size);
+    }
+}
+
+
+
+function KeyCode(keyOutput) {
 
   // if Palm marker is visible
-  if (keyOutput == 'H') {
-    if (binary == 1) return 'H_KEY_DOWN';
-    if (binary == 2) return 'H_KEY_UP';
-  }
+  if (keyOutput == 'H') return Key.H;
+  
   // if Netrixi marker is visible
-  if (keyOutput == 'Y') {
-    if (binary == 1) return 'Y_KEY_DOWN';
-    if (binary == 2) return 'Y_KEY_UP';
-  }
+  if (keyOutput == 'Y') return Key.Y;
+  
   // if Folkvar marker is visible
-  if (keyOutput == 'O') {
-    if (binary == 1) return 'O_KEY_DOWN';
-    if (binary == 2) return 'O_KEY_UP';
-  }
+  if (keyOutput == 'O') return Key.O;
+
   // if Iv marker is visible
-  if (keyOutput == 'I') {
-    if (binary == 1) return 'I_KEY_DOWN';
-    if (binary == 2) return 'I_KEY_UP';
-  }
+  if (keyOutput == 'I') return Key.I;
+  
   // if Undo marker is visible
-  if (keyOutput == 'U') {
-    if (binary == 1) return 'U_KEY_DOWN';
-    if (binary == 2) return 'U_KEY_UP';
-  }
+  if (keyOutput == 'U') return Key.U;
+  
   // if Go marker is visible
-  if (keyOutput == 'V') {
-    if (binary == 1) return 'V_KEY_DOWN';
-    if (binary == 2) return 'V_KEY_UP';
-  }
+  if (keyOutput == 'V') return Key.V;
 }
 
 
@@ -321,27 +359,27 @@ function MarkerLocation() {
     // Is the marker in the upper left section of the grid?
     if (yCenter > yLattice1 +deadzone/2 && yCenter <= yLattice2 -deadzone/2) {
       if (pastLocation !== 1) {
-        ipcRenderer.send('1_KEY_DOWN');
         pastLocation = 1;
-        ipcRenderer.send('1_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.Q)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.Q)});
         return;
       }
     }
     // Is the marker in the middle left section of the grid?
     if (yCenter > yLattice2 +deadzone/2 && yCenter <= yLattice3 -deadzone/2) {
       if (pastLocation !== 4) {
-        ipcRenderer.send('4_KEY_DOWN');
         pastLocation = 4;
-        ipcRenderer.send('4_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.A)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.A)});
         return;
       }
     }
     // Is the marker in the lower left section of the grid?
     if (yCenter > yLattice3 +deadzone/2 && yCenter <= yLattice4 -deadzone/2) {
       if (pastLocation !== 7) {
-        ipcRenderer.send('7_KEY_DOWN');
         pastLocation = 7;
-        ipcRenderer.send('7_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.Z)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.Z)});
         return;
       }
     }
@@ -353,27 +391,27 @@ function MarkerLocation() {
     // Is the marker in the upper middle section of the grid?
     if (yCenter > yLattice1 -deadzone/2 && yCenter <= yLattice2 -deadzone/2) {
       if (pastLocation !== 2) {
-        ipcRenderer.send('2_KEY_DOWN');
         pastLocation = 2;
-        ipcRenderer.send('2_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.W)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.W)});
         return;
       }
     }
     // Is the marker in the center section of the grid?
     if (yCenter > yLattice2 +deadzone/2 && yCenter <= yLattice3 -deadzone/2) {
       if (pastLocation !== 5) {
-        ipcRenderer.send('5_KEY_DOWN');
         pastLocation = 5;
-        ipcRenderer.send('5_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.S)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.S)});
         return;
       }
     }
     // Is the marker in the lower middle section of the grid?
     if (yCenter > yLattice3 +deadzone/2 && yCenter <= yLattice4 -deadzone/2) {
       if (pastLocation !== 8) {
-        ipcRenderer.send('8_KEY_DOWN');
         pastLocation = 8;
-        ipcRenderer.send('8_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.X)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.X)});
         return;
       }
     }
@@ -385,27 +423,27 @@ function MarkerLocation() {
     // Is the marker in the upper right section of the grid?
     if (yCenter > yLattice1 +deadzone/2 && yCenter <= yLattice2 -deadzone/2) {
       if (pastLocation !== 3) {
-        ipcRenderer.send('3_KEY_DOWN');
         pastLocation = 3;
-        ipcRenderer.send('3_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.E)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.E)});
         return;
       }
     }
     // Is the marker in the middle right section of the grid?
     if (yCenter > yLattice2 +deadzone/2 && yCenter <= yLattice3 -deadzone/2) {
       if (pastLocation !== 6) {
-        ipcRenderer.send('6_KEY_DOWN');
         pastLocation = 6;
-        ipcRenderer.send('6_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.D)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.D)});
         return;
       }
     }
     // Is the marker in the lower right section of the grid?
     if (yCenter > yLattice3 +deadzone/2 && yCenter <= yLattice4 -deadzone/2) {
       if (pastLocation !== 9) {
-        ipcRenderer.send('9_KEY_DOWN');
         pastLocation = 9;
-        ipcRenderer.send('9_KEY_UP');
+          setImmediate( async (event,arg) => {keyboard.pressKey(Key.C)});
+          setImmediate( async (event,arg) => {keyboard.releaseKey(Key.C)});
       }
     }
   }
@@ -425,9 +463,9 @@ function MarkerRotation() {
     // if the player starts by facing the Palm marker to the Left
     if (markerRotation >= startPoint +deadZoneDivided) {
         if (pastRotation !== -1) {
-            ipcRenderer.send('K_KEY_DOWN');
             pastRotation = -1;
-            ipcRenderer.send('K_KEY_UP');
+              setImmediate( async (event,arg) => {keyboard.pressKey(Key.K)});
+              setImmediate( async (event,arg) => {keyboard.releaseKey(Key.K)});
             
             rotatingRight = true;
             rotatingLeft = false;
@@ -440,8 +478,8 @@ function MarkerRotation() {
         if (pastRotation !== 2) {
             pastRotation = 2;
             if (rotatingRight) {
-                ipcRenderer.send('G_KEY_DOWN');
-                ipcRenderer.send('G_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.G)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.G)});
             }
             return;
         }
@@ -452,8 +490,8 @@ function MarkerRotation() {
         if (pastRotation !== 3) {
             pastRotation = 3;
             if (rotatingRight) {
-                ipcRenderer.send('B_KEY_DOWN');
-                ipcRenderer.send('B_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.B)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.B)});
             }
             return;
         }
@@ -464,8 +502,8 @@ function MarkerRotation() {
         if (pastRotation !== 4) {
             pastRotation = 4;
             if (rotatingRight) {
-                ipcRenderer.send('T_KEY_DOWN');
-                ipcRenderer.send('T_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.T)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.T)});
             }
             return;
         }
@@ -476,8 +514,8 @@ function MarkerRotation() {
         if (pastRotation !== 5) {
             pastRotation = 5;
             if (rotatingRight) {
-                ipcRenderer.send('R_KEY_DOWN');
-                ipcRenderer.send('R_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.R)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.R)});
             }
             return;
         }
@@ -488,9 +526,9 @@ function MarkerRotation() {
     // if the player starts by facing the Palm marker to the Right
     if (markerRotation <= (-startPoint) -deadZoneDivided) {
         if (pastRotation !== -2) {
-            ipcRenderer.send('J_KEY_DOWN');
             pastRotation = -2;
-            ipcRenderer.send('J_KEY_UP');
+              setImmediate( async (event,arg) => {keyboard.pressKey(Key.J)});
+              setImmediate( async (event,arg) => {keyboard.releaseKey(Key.J)});
 
             rotatingRight = false;
             rotatingLeft = true;
@@ -503,8 +541,8 @@ function MarkerRotation() {
         if (pastRotation !== -4) {
             pastRotation = -4;
             if (rotatingLeft) {
-                ipcRenderer.send('G_KEY_DOWN');
-                ipcRenderer.send('G_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.G)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.G)});
             }
             return;
         }
@@ -515,8 +553,8 @@ function MarkerRotation() {
         if (pastRotation !== -5) {
             pastRotation = -5;
             if (rotatingLeft) {
-                ipcRenderer.send('B_KEY_DOWN');
-                ipcRenderer.send('B_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.B)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.B)});
             }
             return;
         }
@@ -527,8 +565,8 @@ function MarkerRotation() {
         if (pastRotation !== -6) {
             pastRotation = -6;
             if (rotatingLeft) {
-                ipcRenderer.send('T_KEY_DOWN');
-                ipcRenderer.send('T_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.T)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.T)});
             }
             return;
         }
@@ -539,8 +577,8 @@ function MarkerRotation() {
         if (pastRotation !== -7) {
             pastRotation = -7;
             if (rotatingLeft) {
-                ipcRenderer.send('R_KEY_DOWN');
-                ipcRenderer.send('R_KEY_UP');
+                setImmediate( async (event,arg) => {keyboard.pressKey(Key.R)});
+                setImmediate( async (event,arg) => {keyboard.releaseKey(Key.R)});
             }
             return;
         }
@@ -570,9 +608,9 @@ function MarkerDepth() {
   // Is the marker nearest to the camera?
   if (cornerDistance >= near +deadzone/2) {
     if (pastDepth !== 1) {
-      ipcRenderer.send('N_KEY_DOWN');
       pastDepth = 1;
-      ipcRenderer.send('N_KEY_UP');
+        setImmediate( async (event,arg) => {keyboard.pressKey(Key.N)});
+        setImmediate( async (event,arg) => {keyboard.releaseKey(Key.N)});
       return;
     }
   }
@@ -580,9 +618,9 @@ function MarkerDepth() {
   // Is the marker in the middle from the camera?
   if (cornerDistance > far +deadzone/3 && cornerDistance < near -deadzone/2) {
     if (pastDepth !== 2) {
-      ipcRenderer.send('M_KEY_DOWN');
       pastDepth = 2;
-      ipcRenderer.send('M_KEY_UP');
+        setImmediate( async (event,arg) => {keyboard.pressKey(Key.M)});
+        setImmediate( async (event,arg) => {keyboard.releaseKey(Key.M)});
       return;
     }
   }
@@ -590,9 +628,9 @@ function MarkerDepth() {
   // Is the marker farthest from the camera?
   if (cornerDistance <= far -deadzone/2) {
     if (pastDepth !== 3) {
-      ipcRenderer.send('F_KEY_DOWN');
       pastDepth = 3;
-      ipcRenderer.send('F_KEY_UP');
+        setImmediate( async (event,arg) => {keyboard.pressKey(Key.F)});
+        setImmediate( async (event,arg) => {keyboard.releaseKey(Key.F)});
     }
   }
 }

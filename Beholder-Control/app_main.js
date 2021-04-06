@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { screen, app, BrowserWindow, ipcMain } = require('electron');
 
 const path = require('path');
 const url = require('url');
@@ -12,16 +12,20 @@ let mainWindow;
 
 function createWindow() {
   // Create the browser window.
+  const screenData = screen.getPrimaryDisplay().workAreaSize
+  
   mainWindow = new BrowserWindow({
     
     alwaysOnTop: true,
     
-    x : 0, // xOffset from where the window is loaded
+    x : screenData.width - width, // xOffset from where the window is loaded
     y : 0, // yOffset from where the window is loaded
 
     // Set these to change window size
     width: width,
     height: height,
+    
+    //frame: false, 
 
     // Needed to include communication between render and main processes
     webPreferences: {
@@ -29,7 +33,7 @@ function createWindow() {
     },
   });
 
-  //mainWindow.setMenu(null);
+  mainWindow.setMenu(null);
   //mainWindow.webContents.openDevTools(); // Uncomment to open the DevTools automatically
   
   
