@@ -3,6 +3,7 @@ Progress
 - Hand animations now restart whenever a change in Combat is detected
 - Added hands+grid overlay to Beholder software
 - Gave the Skull King another melee attack, and "Throw Bomb" now deals splash damage
+- Added background soundtracks to the game
 
 # 3/30/2021 Update
 Progress
