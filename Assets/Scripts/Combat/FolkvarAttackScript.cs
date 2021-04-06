@@ -117,6 +117,7 @@ public class FolkvarAttackScript : MonoBehaviour
             if (playerAttack == 5)
             {
                 original = DamageValues.smite * AttackScript.damageModifier;
+                int execute = (int) DamageValues.executeDamage;
                 burnRate = DamageValues.smiteBurn;
                 int damageValue = (int) original;
                 AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
@@ -156,21 +157,37 @@ public class FolkvarAttackScript : MonoBehaviour
                         {
                             if (lowestEnemyHP <= CombatManagerScript.enemy1StartingHP * DamageValues.executeThreshold)
                             {
-                                // TODO: Play Folkvar Holy Smite animation
-                                playerTarget = 1;
-                            
-                                // Enemy is below the threshold for Execution
-                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 2, burnRate);
+                                int position = EnemyManagerScript.enemy1Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
 
-                                print("Enemy 1 will be executed");
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Holy Smite animation
+                                    playerTarget = 1;
+                            
+                                    // Enemy is below the threshold for Execution
+                                    HealthManagerScript.ChangeHealth("Enemy 1", execute, burnRate);
+
+                                    print("Enemy 1 will be executed");
+                                }
                             }
                             else
                             {
-                                // TODO: Play Folkvar Holy Smite animation
-                                playerTarget = 1;
+                                int position = EnemyManagerScript.enemy1Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Holy Smite animation
+                                    playerTarget = 1;
                             
-                                // Enemy is not below the threshold for Execution
-                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                                    // Enemy is not below the threshold for Execution
+                                    HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                                }
                             }
                         }
                         break;
@@ -181,21 +198,37 @@ public class FolkvarAttackScript : MonoBehaviour
                         {
                             if (lowestEnemyHP <= CombatManagerScript.enemy2StartingHP * DamageValues.executeThreshold)
                             {
-                                // TODO: Play Folkvar Holy Smite animation
-                                playerTarget = 2;
+                                int position = EnemyManagerScript.enemy2Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Holy Smite animation
+                                    playerTarget = 2;
                             
-                                // Enemy is below the threshold for Execution
-                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
+                                    // Enemy is below the threshold for Execution
+                                    HealthManagerScript.ChangeHealth("Enemy 2", execute, burnRate);
                             
-                                print("Enemy 2 will be executed");
+                                    print("Enemy 2 will be executed");
+                                }
                             }
                             else
                             {
-                                // TODO: Play Folkvar Holy Smite animation
-                                playerTarget = 2;
+                                int position = EnemyManagerScript.enemy2Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Holy Smite animation
+                                    playerTarget = 2;
                             
-                                // Enemy is not below the threshold for Execution
-                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                                    // Enemy is not below the threshold for Execution
+                                    HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                                }
                             }
                         }
                         break;
@@ -206,21 +239,37 @@ public class FolkvarAttackScript : MonoBehaviour
                         {
                             if (lowestEnemyHP <= CombatManagerScript.enemy3StartingHP * DamageValues.executeThreshold)
                             {
-                                // TODO: Play Folkvar Holy Smite animation
-                                playerTarget = 3;
+                                int position = EnemyManagerScript.enemy3Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Holy Smite animation
+                                    playerTarget = 3;
                             
-                                // Enemy is below the threshold for Execution
-                                HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);
+                                    // Enemy is below the threshold for Execution
+                                    HealthManagerScript.ChangeHealth("Enemy 3", execute, burnRate);
                             
-                                print("Enemy 3 will be executed");
+                                    print("Enemy 3 will be executed");
+                                }
                             }
                             else
                             {
-                                // TODO: Play Folkvar Holy Smite animation
-                                playerTarget = 3;
-                            
-                                // Enemy is not below the threshold for Execution
-                                HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
+                                int position = EnemyManagerScript.enemy3Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Holy Smite animation
+                                    playerTarget = 3;
+
+                                    // Enemy is not below the threshold for Execution
+                                    HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
+                                }
                             }
                         }
                         break;
@@ -252,32 +301,56 @@ public class FolkvarAttackScript : MonoBehaviour
                                 // If Enemy 3 is close to Enemies 1 + 2
                                 if (EnemyManagerScript.enemy2Position + 1 == EnemyManagerScript.enemy3Position)
                                 {
-                                    // TODO: Play Folkvar Grand Slam animation
-                                    playerTarget = 7;
-                                    
-                                    // Attack Enemy 2 and deal splash damage to Enemies 1 + 3
-                                    HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
-                                    HealthManagerScript.ChangeHealth("Enemy 1", damageValue / 2, burnRate);
-                                    HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);
+                                    int position = EnemyManagerScript.enemy2Position;
+                                    int enemyPosition;
+                                    if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                    else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                    if (position == enemyPosition)
+                                    {
+                                        // TODO: Play Folkvar Grand Slam animation
+                                        playerTarget = 7;
+                                        
+                                        // Attack Enemy 2 and deal splash damage to Enemies 1 + 3
+                                        HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                                        HealthManagerScript.ChangeHealth("Enemy 1", damageValue / 2, burnRate);
+                                        HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);    
+                                    }
                                 }
                                 else
+                                {
+                                    int position = EnemyManagerScript.enemy1Position;
+                                    int enemyPosition;
+                                    if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                    else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                    if (position == enemyPosition)
+                                    {
+                                        // TODO: Play Folkvar Grand Slam animation
+                                        playerTarget = 4;
+                                        
+                                        // Attack Enemy 1 and deal splash damage to Enemy 2
+                                        HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                                        HealthManagerScript.ChangeHealth("Enemy 2", damageValue / 2, burnRate);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                int position = EnemyManagerScript.enemy1Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
                                 {
                                     // TODO: Play Folkvar Grand Slam animation
                                     playerTarget = 4;
                                     
                                     // Attack Enemy 1 and deal splash damage to Enemy 2
                                     HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
-                                    HealthManagerScript.ChangeHealth("Enemy 2", damageValue / 2, burnRate);
+                                    HealthManagerScript.ChangeHealth("Enemy 2", damageValue / 2, burnRate);      
                                 }
-                            }
-                            else
-                            {
-                                // TODO: Play Folkvar Grand Slam animation
-                                playerTarget = 4;
-                                    
-                                // Attack Enemy 1 and deal splash damage to Enemy 2
-                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
-                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue / 2, burnRate);
                             }
                         }
                         else
@@ -285,20 +358,36 @@ public class FolkvarAttackScript : MonoBehaviour
                             // If Enemy 2 is close to Enemy 3
                             if (EnemyManagerScript.enemy2Position + 1 == EnemyManagerScript.enemy3Position)
                             {
-                                // TODO: Play Folkvar Grand Slam animation
-                                playerTarget = 5;
-                                    
-                                // Attack Enemy 2 and deal splash damage to Enemy 3
-                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
-                                HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);
+                                int position = EnemyManagerScript.enemy2Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Grand Slam animation
+                                    playerTarget = 5;
+
+                                    // Attack Enemy 2 and deal splash damage to Enemy 3
+                                    HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                                    HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);        
+                                }
                             }
                             else
                             {
-                                // TODO: Play Folkvar Grand Slam animation
-                                playerTarget = 1;
-                                    
-                                // Attack Enemy 1 and deal no splash damage to other enemies
-                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                                int position = EnemyManagerScript.enemy1Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Grand Slam animation
+                                    playerTarget = 1;
+
+                                    // Attack Enemy 1 and deal no splash damage to other enemies
+                                    HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);       
+                                }
                             }
                         }
                     }
@@ -310,29 +399,53 @@ public class FolkvarAttackScript : MonoBehaviour
                             // If Enemy 1 is close to Enemy 3
                             if (EnemyManagerScript.enemy1Position + 1 == EnemyManagerScript.enemy3Position)
                             {
-                                // TODO: Play Folkvar Grand Slam animation
-                                playerTarget = 6;
-                                    
-                                // Attack Enemy 1 and deal splash damage to Enemy 3
-                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
-                                HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);
+                                int position = EnemyManagerScript.enemy1Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Grand Slam animation
+                                    playerTarget = 6;
+
+                                    // Attack Enemy 1 and deal splash damage to Enemy 3
+                                    HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                                    HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);       
+                                }
                             }
                             else
                             {
-                                // TODO: Play Folkvar Grand Slam animation
-                                playerTarget = 1;
-                                    
-                                // Attack Enemy 1 and deal no splash damage to other enemies
-                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                                int position = EnemyManagerScript.enemy1Position;
+                                int enemyPosition;
+                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                                if (position == enemyPosition)
+                                {
+                                    // TODO: Play Folkvar Grand Slam animation
+                                    playerTarget = 1;
+
+                                    // Attack Enemy 1 and deal no splash damage to other enemies
+                                    HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);       
+                                }
                             }
                         }
                         else
                         {
-                            // TODO: Play Folkvar Grand Slam animation
-                            playerTarget = 1;
-                                    
-                            // Attack Enemy 1 and deal no splash damage to other enemies
-                            HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
+                            int position = EnemyManagerScript.enemy1Position;
+                            int enemyPosition;
+                            if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                            else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                            if (position == enemyPosition)
+                            {
+                                // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 1;
+
+                                // Attack Enemy 1 and deal no splash damage to other enemies
+                                HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);            
+                            }
                         }
                     }
                 }
@@ -346,29 +459,53 @@ public class FolkvarAttackScript : MonoBehaviour
                         // If Enemy 2 is close to Enemy 3
                         if (EnemyManagerScript.enemy2Position + 1 == EnemyManagerScript.enemy3Position)
                         {
-                            // TODO: Play Folkvar Grand Slam animation
-                            playerTarget = 5;
-                                    
-                            // Attack Enemy 2 and deal splash damage to Enemy 3
-                            HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
-                            HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);
+                            int position = EnemyManagerScript.enemy2Position;
+                            int enemyPosition;
+                            if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                            else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                            if (position == enemyPosition)
+                            {
+                                // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 5;
+
+                                // Attack Enemy 2 and deal splash damage to Enemy 3
+                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                                HealthManagerScript.ChangeHealth("Enemy 3", damageValue / 2, burnRate);          
+                            }
                         }
                         else
                         {
-                            // TODO: Play Folkvar Grand Slam animation
-                            playerTarget = 2;
-                                    
-                            // Attack Enemy 2 and deal no splash damage to other enemies
-                            HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                            int position = EnemyManagerScript.enemy2Position;
+                            int enemyPosition;
+                            if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                            else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                            if (position == enemyPosition)
+                            {
+                                // TODO: Play Folkvar Grand Slam animation
+                                playerTarget = 2;
+
+                                // Attack Enemy 2 and deal no splash damage to other enemies
+                                HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
+                            }
                         }
                     }
                     else
                     {
-                        // TODO: Play Folkvar Grand Slam animation
-                        playerTarget = 3;
-                                    
-                        // Attack Enemy 3 and deal no splash damage to other enemies
-                        HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
+                        int position = EnemyManagerScript.enemy3Position;
+                        int enemyPosition;
+                        if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
+                        else enemyPosition = CombatManagerScript.folkvarTarget2Location;
+
+                        if (position == enemyPosition)
+                        {
+                            // TODO: Play Folkvar Grand Slam animation
+                            playerTarget = 3;
+
+                            // Attack Enemy 3 and deal no splash damage to other enemies
+                            HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
+                        }
                     }
                 }
             }

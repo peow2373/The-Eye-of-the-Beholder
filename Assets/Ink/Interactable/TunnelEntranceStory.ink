@@ -1,4 +1,4 @@
-Here is the entrance to the underground tunnels full of bandits. Looks like there's only two guards, so getting in should be a breeze! #Iv
+Here is the entrance to the underground tunnels full of bandits. Looks like there's only two guards. #Iv
 
 +   [Netrixi] -> Netrixi_talks_to_bandits
 +   [Folkvar] -> Folkvar_talks_to_bandits

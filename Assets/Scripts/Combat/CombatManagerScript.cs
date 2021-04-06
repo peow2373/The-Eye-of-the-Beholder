@@ -70,13 +70,24 @@ public class CombatManagerScript : MonoBehaviour
 
         // Determine which characters are in the scene
         netrixiAlive = true;
-        if (GameManagerScript.folkvarInParty) folkvarAlive = true;
+        canNetrixiAttack = true;
+
+        if (GameManagerScript.folkvarInParty)
+        {
+            folkvarAlive = true;
+            canFolkvarAttack = true;
+        }
         else
         {
             folkvarAlive = false;
             canFolkvarAttack = false;
         }
-        if (GameManagerScript.ivInParty) ivAlive = true;
+
+        if (GameManagerScript.ivInParty)
+        {
+            ivAlive = true;
+            canIvAttack = true;
+        }
         else
         {
             ivAlive = false;
@@ -85,19 +96,29 @@ public class CombatManagerScript : MonoBehaviour
 
         // Determine which enemies are in the scene
         enemy1Alive = true;
+        canEnemy1Attack = true;
+        
         if (EnemyManagerScript.enemy2 == "null")
         {
             enemy2Alive = false;
             canEnemy2Attack = false;
         }
-        else enemy2Alive = true;
+        else
+        {
+            enemy2Alive = true;
+            canEnemy2Attack = true;
+        }
 
         if (EnemyManagerScript.enemy3 == "null")
         {
             enemy3Alive = false;
             canEnemy3Attack = false;
         }
-        else enemy3Alive = true;
+        else
+        {
+            enemy3Alive = true;
+            canEnemy3Attack = true;
+        }
         
 
         playerAttacking1 = false;
@@ -106,10 +127,24 @@ public class CombatManagerScript : MonoBehaviour
         enemyAttacking2 = false;
 
         
-        // Reset any transformed enemies
-        if (!canEnemy1Attack) NetrixiAttackScript.enemy1Transformed = false;
-        if (!canEnemy2Attack) NetrixiAttackScript.enemy2Transformed = false;
-        if (!canEnemy3Attack) NetrixiAttackScript.enemy3Transformed = false;
+        // Reset any transformations
+        NetrixiAttackScript.enemy1Transformed = false;
+        NetrixiAttackScript.enemy2Transformed = false;
+        NetrixiAttackScript.enemy3Transformed = false;
+
+        AttackScript.playerBlocking = false;
+        AttackScript.playerEmpowering = false;
+        AttackScript.enemyBlocking = false;
+        AttackScript.enemyEmpowering = false;
+        AttackScript.countered = false;
+
+        EnemyAttackScript.netrixiStunned = false;
+        EnemyAttackScript.folkvarStunned = false;
+        EnemyAttackScript.ivStunned = false;
+
+        EnemyAttackScript.enemy1Stunned = false;
+        EnemyAttackScript.enemy2Stunned = false;
+        EnemyAttackScript.enemy3Stunned = false;
         
         canEnemy1Attack = true;
         canEnemy2Attack = true;
@@ -119,18 +154,13 @@ public class CombatManagerScript : MonoBehaviour
         canFolkvarAttack = true;
         canIvAttack = true;
 
-        
+        // Reset target locations
         netrixiTarget1Location = 0;
         netrixiTarget2Location = 0;
         
         folkvarTarget1Location = 0;
         folkvarTarget2Location = 0;
-        
-        
-        // If only Netrixi is present in the scene
-        //if (netrixiAlive && !folkvarAlive && !ivAlive) netrixiAttacks = true;
 
-        
         win = false;
         lose = false;
 

@@ -196,6 +196,15 @@ public class AttackScript : MonoBehaviour
                     EnemyAttackScript.MeleeAttack(damageValue, burnRate, attackingEnemy);
                     break;
                 
+                case "Swings Mace":
+                    original = DamageValues.swingMace;
+                    burnRate = DamageValues.swingMaceBurn;
+                    damageValue = (int) (original * enemyDamageModifier);
+                    delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
+                    
+                    EnemyAttackScript.MeleeAttack(damageValue, burnRate, attackingEnemy);
+                    break;
+                
                 case "Smashes":
                     original = DamageValues.smash;
                     burnRate = DamageValues.smashBurn;
@@ -262,9 +271,9 @@ public class AttackScript : MonoBehaviour
                     EnemyAttackScript.DogAttack(damageValue, burnRate, attackNumber, attackingEnemy, true);
                     break;
                 
-                case "Swings Mace":
-                    original = DamageValues.swingMace;
-                    burnRate = DamageValues.swingMaceBurn;
+                case "Slams with Mace":
+                    original = DamageValues.slamWithMace;
+                    burnRate = DamageValues.slamWithMaceBurn;
                     damageValue = (int) (original * enemyDamageModifier);
                     
                     // Re-calculate delayRate depending on how many characters are struck by the attack
@@ -296,9 +305,15 @@ public class AttackScript : MonoBehaviour
                     original = DamageValues.shootArrow;
                     burnRate = DamageValues.shootArrowBurn;
                     damageValue = (int) (original * enemyDamageModifier);
-                    delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
+                    
+                    // Re-calculate delayRate if no characters are struck by the attack
+                    if (CharacterManagerScript.netrixiPosition == attackLocation1 || CharacterManagerScript.folkvarPosition == attackLocation1 || CharacterManagerScript.ivPosition == attackLocation1)
+                    {
+                        delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
+                    }
+                    else delayRate = DamageValues.standardDelay;
                 
-                    EnemyAttackScript.RangedAttack(damageValue, burnRate);
+                    EnemyAttackScript.ThrowingAttack(damageValue, burnRate, attackNumber, attackingEnemy);
                     break;
                 
                 case "Throws Knife":

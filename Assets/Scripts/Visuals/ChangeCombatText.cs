@@ -465,6 +465,11 @@ public class ChangeCombatText : MonoBehaviour
                  if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter("Skull King", enemySR1);
                  else ChangeSprites.S.ChangeEnemyCharacter("Skull King", enemySR2);
                  return "Swing Mace";
+             
+            case "Skull King-Slams with Mace":
+                if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter("Skull King", enemySR1);
+                else ChangeSprites.S.ChangeEnemyCharacter("Skull King", enemySR2);
+                return "Slams Mace";
                  
              case "Skull King-Performs a Grand Slam":
                  if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter("Skull King", enemySR1);
@@ -482,6 +487,11 @@ public class ChangeCombatText : MonoBehaviour
                  if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR1);
                  else ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR2);
                  return "Swing Mace";
+             
+            case "Royal King-Slams with Mace":
+                if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR1);
+                else ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR2);
+                return "Slams Mace";
          
              case "Royal King-Performs a Grand Slam":
                  if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR1);

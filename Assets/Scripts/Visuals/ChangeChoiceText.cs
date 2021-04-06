@@ -445,21 +445,40 @@ public class ChangeChoiceText : MonoBehaviour
                     option1[1].GetComponent<Text>().text = "Netrixi is unable to Attack";
                     option1[1].GetComponent<Text>().color = Color.gray;
                     originalOption1 = option1[1].GetComponent<Text>().text;
-                    
-                    option2[1].GetComponent<Text>().text = "She can only Move\nthis round";
+
+                    if (GameManagerScript.currentScene == 12)
+                    {
+                        // Gatekeeper scene
+                        option2[1].GetComponent<Text>().text = "She was scared\nby the Dog's Bark";
+                    }
+                    else
+                    {
+                        if (GameManagerScript.currentScene == 10)
+                        {
+                            // Tavern scene
+                            option2[1].GetComponent<Text>().text = "She is recovering\nfrom being Smashed";
+                        }
+                        else
+                        {
+                            option2[1].GetComponent<Text>().text = "She was dazed\nby the Bomb";
+                        }
+                    }
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
-                    option3[1].GetComponent<Text>().text = "";
+                    option3[1].GetComponent<Text>().text = "She can only Move\nthis round";
+                    option3[1].GetComponent<Text>().color = Color.gray;
+                    originalOption3 = option3[1].GetComponent<Text>().text;
                     
                     option4[1].GetComponent<Text>().text = "Flip hand to Move Netrixi";
                     
-                    handAnimation1.SetActive(false);
-                    handAnimation2.SetActive(false);
-                    handAnimation3.SetActive(false);
+                    if (GameWindowManager.option1Centered) handAnimation1.SetActive(false);
+                    if (GameWindowManager.option2Centered) handAnimation2.SetActive(false);
+                    if (GameWindowManager.option3Centered) handAnimation3.SetActive(false);
                     
                     GameWindowManager.option1Centered = true;
                     GameWindowManager.option2Centered = true;
+                    GameWindowManager.option3Centered = true;
                 }
                 
                 IfHandFlipped("Netrixi");
@@ -568,20 +587,39 @@ public class ChangeChoiceText : MonoBehaviour
                     option1[1].GetComponent<Text>().color = Color.gray;
                     originalOption1 = option1[1].GetComponent<Text>().text;
                     
-                    option2[1].GetComponent<Text>().text = "He can only Move\nthis round";
+                    if (GameManagerScript.currentScene == 12)
+                    {
+                        // Gatekeeper scene
+                        option2[1].GetComponent<Text>().text = "He was scared\nby the Dog's Bark";
+                    }
+                    else
+                    {
+                        if (GameManagerScript.currentScene == 10)
+                        {
+                            // Tavern scene
+                            option2[1].GetComponent<Text>().text = "He is recovering\nfrom being Smashed";
+                        }
+                        else
+                        {
+                            option2[1].GetComponent<Text>().text = "He was dazed\nby the Bomb";
+                        }
+                    }
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
-                    option3[1].GetComponent<Text>().text = "";
+                    option3[1].GetComponent<Text>().text = "He can only Move\nthis round";
+                    option3[1].GetComponent<Text>().color = Color.gray;
+                    originalOption3 = option3[1].GetComponent<Text>().text;
                     
                     option4[1].GetComponent<Text>().text = "Flip hand to Move Folkvar";
                     
-                    handAnimation1.SetActive(false);
-                    handAnimation2.SetActive(false);
-                    handAnimation3.SetActive(false);
+                    if (GameWindowManager.option1Centered) handAnimation1.SetActive(false);
+                    if (GameWindowManager.option2Centered) handAnimation2.SetActive(false);
+                    if (GameWindowManager.option3Centered) handAnimation3.SetActive(false);
                     
                     GameWindowManager.option1Centered = true;
                     GameWindowManager.option2Centered = true;
+                    GameWindowManager.option3Centered = true;
                 }
                 
                 IfHandFlipped("Folkvar");
@@ -717,20 +755,39 @@ public class ChangeChoiceText : MonoBehaviour
                     option1[1].GetComponent<Text>().color = Color.gray;
                     originalOption1 = option1[1].GetComponent<Text>().text;
                     
-                    option2[1].GetComponent<Text>().text = "She can only Move\nthis round";
+                    if (GameManagerScript.currentScene == 12)
+                    {
+                        // Gatekeeper scene
+                        option2[1].GetComponent<Text>().text = "She was scared\nby the Dog's Bark";
+                    }
+                    else
+                    {
+                        if (GameManagerScript.currentScene == 10)
+                        {
+                            // Tavern scene
+                            option2[1].GetComponent<Text>().text = "She is recovering\nfrom being Smashed";
+                        }
+                        else
+                        {
+                            option2[1].GetComponent<Text>().text = "She was dazed\nby the Bomb";
+                        }
+                    }
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
-                    option3[1].GetComponent<Text>().text = "";
+                    option3[1].GetComponent<Text>().text = "She can only Move\nthis round";
+                    option3[1].GetComponent<Text>().color = Color.gray;
+                    originalOption3 = option3[1].GetComponent<Text>().text;
                     
                     option4[1].GetComponent<Text>().text = "Flip hand to Move Iv";
                     
-                    handAnimation1.SetActive(false);
-                    handAnimation2.SetActive(false);
-                    handAnimation3.SetActive(false);
+                    if (GameWindowManager.option1Centered) handAnimation1.SetActive(false);
+                    if (GameWindowManager.option2Centered) handAnimation2.SetActive(false);
+                    if (GameWindowManager.option3Centered) handAnimation3.SetActive(false);
                     
                     GameWindowManager.option1Centered = true;
                     GameWindowManager.option2Centered = true;
+                    GameWindowManager.option3Centered = true;
                 }
                 
                 IfHandFlipped("Iv");
@@ -857,7 +914,7 @@ public class ChangeChoiceText : MonoBehaviour
                     option1[1].GetComponent<Text>().text = character + " is unable to\nMove Left";
                     option1[1].GetComponent<Text>().color = Color.gray;
                     option1[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
-                        
+
                     handAnimation1.SetActive(false);
                     GameWindowManager.option1Centered = true;
                 }
@@ -867,7 +924,7 @@ public class ChangeChoiceText : MonoBehaviour
                     option2[1].GetComponent<Text>().text = "Move " + character + "\nRight";
                     option2[1].GetComponent<Text>().color = Color.white;
                     option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
-                        
+
                     handAnimation2.SetActive(true);
 
                     GameWindowManager.option2Centered = false;
@@ -879,14 +936,21 @@ public class ChangeChoiceText : MonoBehaviour
                     option2[1].GetComponent<Text>().text = character + " is unable to\nMove Right";
                     option2[1].GetComponent<Text>().color = Color.gray;
                     option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
-                        
+
                     handAnimation2.SetActive(false);
                     GameWindowManager.option2Centered = true;
                 }
+
+                if (!canMoveLeft && !canMoveRight)
+                {
+                    option3[1].GetComponent<Text>().text = "Another character\nis in the way";
+                    GameWindowManager.option3Centered = true;
+                }
+                else option3[1].GetComponent<Text>().text = "";
             }
 
             // Change other option texts
-            option3[1].GetComponent<Text>().text = "";
+            
             option3[1].GetComponent<Text>().color = Color.gray;
             option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
             

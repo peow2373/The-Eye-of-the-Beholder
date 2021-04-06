@@ -607,6 +607,7 @@ public class EnemyManagerScript : MonoBehaviour
             
             case "Skull King":
                 availableMoves.Add("Skull King-Swings Mace");
+                availableMoves.Add("Skull King-Slams with Mace");
                 availableMoves.Add("Skull King-Performs a Grand Slam");
                 availableMoves.Add("Skull King-Throws Bomb");
                 break;
@@ -614,6 +615,7 @@ public class EnemyManagerScript : MonoBehaviour
             case "Royal King":
                 // Stage 1
                 availableMoves.Add("Royal King-Swings Mace");
+                availableMoves.Add("Skull King-Slams with Mace");
                 availableMoves.Add("Royal King-Performs a Grand Slam");
                 availableMoves.Add("Royal King-Smites");
                 // Stage 2

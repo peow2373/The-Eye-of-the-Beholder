@@ -437,6 +437,7 @@ public class EnemyAttackScript : MonoBehaviour
         void DetermineCharactersHit(int attackNumber)
         {
             int attackLocation;
+            int executeDamage = (int) DamageValues.executeDamage;
 
             if (attackNumber == 1) attackLocation = EnemyManagerScript.attack1Location;
             else attackLocation = EnemyManagerScript.attack2Location;
@@ -453,7 +454,7 @@ public class EnemyAttackScript : MonoBehaviour
                     if (DetermineEnemyHP())
                     {
                         // Execute low-health Enemy for double damage
-                        HealthManagerScript.ChangeHealth(attackingEnemy, damageValue * 2, burnRate);
+                        HealthManagerScript.ChangeHealth(attackingEnemy, executeDamage, burnRate);
                     }
                     else HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
                 }
@@ -462,7 +463,7 @@ public class EnemyAttackScript : MonoBehaviour
                     if (CombatManagerScript.folkvarHP <= HealthValues.folkvarHP * DamageValues.executeThreshold)
                     {
                         // Execute low-health Character for double damage
-                        HealthManagerScript.ChangeHealth("Folkvar", damageValue * 2, burnRate);
+                        HealthManagerScript.ChangeHealth("Folkvar", executeDamage, burnRate);
                     }
                     else HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
                 }
@@ -481,7 +482,7 @@ public class EnemyAttackScript : MonoBehaviour
                         if (DetermineEnemyHP())
                         {
                             // Execute low-health Enemy for double damage
-                            HealthManagerScript.ChangeHealth(attackingEnemy, damageValue * 2, burnRate);
+                            HealthManagerScript.ChangeHealth(attackingEnemy, executeDamage, burnRate);
                         }
                         else HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
                     }
@@ -490,7 +491,7 @@ public class EnemyAttackScript : MonoBehaviour
                         if (CombatManagerScript.netrixiHP <= HealthValues.netrixiHP * DamageValues.executeThreshold)
                         {
                             // Execute low-health Character for double damage
-                            HealthManagerScript.ChangeHealth("Netrixi", damageValue * 2, burnRate);
+                            HealthManagerScript.ChangeHealth("Netrixi", executeDamage, burnRate);
                         }
                         else HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
                     }
@@ -510,7 +511,7 @@ public class EnemyAttackScript : MonoBehaviour
                             if (DetermineEnemyHP())
                             {
                                 // Execute low-health Enemy for double damage
-                                HealthManagerScript.ChangeHealth(attackingEnemy, damageValue * 2, burnRate);
+                                HealthManagerScript.ChangeHealth(attackingEnemy, executeDamage, burnRate);
                             }
                             else HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
                         }
@@ -519,7 +520,7 @@ public class EnemyAttackScript : MonoBehaviour
                             if (CombatManagerScript.ivHP <= HealthValues.ivHP * DamageValues.executeThreshold)
                             {
                                 // Execute low-health Character for double damage
-                                HealthManagerScript.ChangeHealth("Iv", damageValue * 2, burnRate);
+                                HealthManagerScript.ChangeHealth("Iv", executeDamage, burnRate);
                             }
                             else HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
                         }
@@ -678,11 +679,19 @@ public class EnemyAttackScript : MonoBehaviour
             {
                 if (AttackScript.countered)
                 {
+                    StunAttackingEnemy("Enemy 1");
+                    startOfTransformation = CombatManagerScript.roundNumber;
+                    
                     HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
                     CheckForNearbyEnemies();
                 }
                 else
                 {
+                    if (character1 == "Netrixi") netrixiStunned = true;
+                    if (character1 == "Folkvar") folkvarStunned = true;
+                    if (character1 == "Iv") ivStunned = true;
+                    startOfTransformation = CombatManagerScript.roundNumber;
+                    
                     HealthManagerScript.ChangeHealth(character1, damageValue, burnRate);
                     if (character2 != "null") HealthManagerScript.ChangeHealth(character2, damageValue / 2, burnRate);
                     if (character3 != "null") HealthManagerScript.ChangeHealth(character3, damageValue / 2, burnRate);
@@ -850,45 +859,27 @@ public class EnemyAttackScript : MonoBehaviour
             if (attackNumber == 1) attackLocation = EnemyManagerScript.attack1Location;
             else attackLocation = EnemyManagerScript.attack2Location;
 
-            void StunAttackingEnemy()
-            {
-                switch (attackingEnemy)
-                {
-                    case "Enemy 1":
-                        enemy1Stunned = true;
-                        break;
-                    
-                    case "Enemy 2":
-                        enemy2Stunned = true;
-                        break;
-                    
-                    case "Enemy 3":
-                        enemy3Stunned = true;
-                        break;
-                }
-            }
-                
-            
             // If Folkvar is standing on the target location
             if (CharacterManagerScript.folkvarPosition == attackLocation)
             {
-                // TODO: Play Throw Bomb animation
-                AttackScript.enemyTarget = "Folkvar";
-
                 // If Iv is countering this ability
                 if (AttackScript.countered)
                 {
-                    StunAttackingEnemy();
+                    // TODO: Play Throw Bomb animation
+                    AttackScript.enemyTarget = "Folkvar";
+                    
+                    StunAttackingEnemy(attackingEnemy);
                     startOfTransformation = CombatManagerScript.roundNumber;
                     
                     HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
                 }
                 else
                 {
+                    // TODO: Play Throw Bomb animation
+                    CheckForNearbyCharacters("Folkvar");
+                    
                     folkvarStunned = true;
                     startOfTransformation = CombatManagerScript.roundNumber;
-                    
-                    HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
                 }
             }
             else
@@ -896,23 +887,24 @@ public class EnemyAttackScript : MonoBehaviour
                 // If Netrixi is standing on the target location
                 if (CharacterManagerScript.netrixiPosition == attackLocation)
                 {
-                    // TODO: Play Throw Bomb animation
-                    AttackScript.enemyTarget = "Netrixi";
-
                     // If Iv is countering this ability
                     if (AttackScript.countered)
                     {
-                        StunAttackingEnemy();
+                        // TODO: Play Throw Bomb animation
+                        AttackScript.enemyTarget = "Netrixi";
+                        
+                        StunAttackingEnemy(attackingEnemy);
                         startOfTransformation = CombatManagerScript.roundNumber;
                     
                         HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
                     }
                     else
                     {
+                        // TODO: Play Throw Bomb animation
+                        CheckForNearbyCharacters("Netrixi");
+
                         netrixiStunned = true;
                         startOfTransformation = CombatManagerScript.roundNumber;
-                    
-                        HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
                     }
                 }
                 else
@@ -920,29 +912,113 @@ public class EnemyAttackScript : MonoBehaviour
                     // If Iv is standing on the target location
                     if (CharacterManagerScript.ivPosition == attackLocation)
                     {
-                        // TODO: Play Throw Bomb animation
-                        AttackScript.enemyTarget = "Iv";
-
                         // If Iv is countering this ability
                         if (AttackScript.countered)
                         {
-                            StunAttackingEnemy();
+                            // TODO: Play Throw Bomb animation
+                            AttackScript.enemyTarget = "Iv";
+                            
+                            StunAttackingEnemy(attackingEnemy);
                             startOfTransformation = CombatManagerScript.roundNumber;
                     
                             HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
                         }
                         else
                         {
+                            // TODO: Play Throw Bomb animation
+                            CheckForNearbyCharacters("Iv");
+
                             ivStunned = true;
                             startOfTransformation = CombatManagerScript.roundNumber;
-                    
-                            HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
                         }
                     }
                 }
             }
+
+            void CheckForNearbyCharacters(string target)
+            {
+                switch (target)
+                {
+                    case "Folkvar":
+                        if (CharacterManagerScript.netrixiPosition == CharacterManagerScript.folkvarPosition - 1)
+                        {
+                            HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                            HealthManagerScript.ChangeHealth("Netrixi", damageValue/2, burnRate);
+                            AttackScript.enemyTarget = "Netrixi + Folkvar";
+                        }
+                        else
+                        {
+                            if (CharacterManagerScript.ivPosition == CharacterManagerScript.folkvarPosition - 1)
+                            {
+                                HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                                HealthManagerScript.ChangeHealth("Iv", damageValue/2, burnRate);
+                                AttackScript.enemyTarget = "Folkvar + Iv";
+                            }
+                        }
+                        break;
+                    
+                    case "Netrixi":
+                        if (CharacterManagerScript.folkvarPosition == CharacterManagerScript.netrixiPosition + 1)
+                        {
+                            HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                            HealthManagerScript.ChangeHealth("Folkvar", damageValue/2, burnRate);
+                            AttackScript.enemyTarget = "Netrixi + Folkvar";
+                        }
+                        else
+                        {
+                            if (CharacterManagerScript.ivPosition == CharacterManagerScript.netrixiPosition - 1)
+                            {
+                                HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                                HealthManagerScript.ChangeHealth("Iv", damageValue/2, burnRate);
+                                AttackScript.enemyTarget = "Netrixi + Iv";
+                            }
+                        }
+                        break;
+                    
+                    case "Iv":
+                        if (CharacterManagerScript.folkvarPosition == CharacterManagerScript.ivPosition + 1)
+                        {
+                            HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
+                            HealthManagerScript.ChangeHealth("Folkvar", damageValue/2, burnRate);
+                            AttackScript.enemyTarget = "Folkvar + Iv";
+                        }
+                        else
+                        {
+                            if (CharacterManagerScript.netrixiPosition == CharacterManagerScript.ivPosition + 1)
+                            {
+                                HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
+                                HealthManagerScript.ChangeHealth("Netrixi", damageValue/2, burnRate);
+                                AttackScript.enemyTarget = "Netrixi + Iv";
+                            }
+                        }
+                        break; 
+                    
+                    default:
+                        AttackScript.enemyTarget = target;
+                        break;
+                }
+            }
         }
     }
+    
+    public static void StunAttackingEnemy(string attackingEnemy)
+    {
+        switch (attackingEnemy)
+        {
+            case "Enemy 1":
+                enemy1Stunned = true;
+                break;
+                    
+            case "Enemy 2":
+                enemy2Stunned = true;
+                break;
+                    
+            case "Enemy 3":
+                enemy3Stunned = true;
+                break;
+        }
+    }
+
 
 
     public static void SwingMaceAttack(int damageValue, float burnRate, int attackNumber, string attackingEnemy)
@@ -1173,8 +1249,8 @@ public class EnemyAttackScript : MonoBehaviour
         
         
         
-        // If an Enemy will attack a certain location by Swinging a Mace
-        else if (enemyAttack == "Swings Mace")
+        // If an Enemy will attack a certain location by Slamming the ground with the Mace
+        else if (enemyAttack == "Slams with Mace")
         {
             // Choose a random first square to attack
             int randomLocation1 = UnityEngine.Random.Range(1, 5);
@@ -1183,6 +1259,13 @@ public class EnemyAttackScript : MonoBehaviour
             // Choose a random second square to attack
             int randomLocation2 = UnityEngine.Random.Range(1, 5);
             randomLocation2 = ChooseNewRandomNumber(randomLocation2);
+
+            // If the two target locations are the same
+            if (randomLocation2 == randomLocation1)
+            {
+                if (randomLocation2 != 5) randomLocation2 ++;
+                else randomLocation2 --;
+            }
             
             int ChooseNewRandomNumber(int randomNumber)
             {
@@ -1297,7 +1380,7 @@ public class EnemyAttackScript : MonoBehaviour
         
         
         // If an Enemy will attack a certain location by Throwing a Chair or a Knife
-        else if (enemyAttack == "Throws Knife" || enemyAttack == "Throws Chair")
+        else if (enemyAttack == "Throws Knife" || enemyAttack == "Throws Chair" || enemyAttack == "Shoots Arrow")
         {
             // If Iv is still alive
             if (CombatManagerScript.ivAlive)

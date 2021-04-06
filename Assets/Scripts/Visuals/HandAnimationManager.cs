@@ -69,11 +69,14 @@ public class HandAnimationManager : MonoBehaviour
                 ChangeHandAnimation.animationName1 = animationName1;
                 ChangeHandAnimation.animationName2 = animationName2;
                 ChangeHandAnimation.animationName3 = animationName3;
-                
-                ChangeChoiceText.S.handAnimation1.SetActive(true);
-                ChangeChoiceText.S.handAnimation2.SetActive(true);
-                ChangeChoiceText.S.handAnimation3.SetActive(true);
-                
+
+                if (CombatManagerScript.firstAttack != 0)
+                {
+                    ChangeChoiceText.S.handAnimation1.SetActive(true);
+                    ChangeChoiceText.S.handAnimation2.SetActive(true);
+                    ChangeChoiceText.S.handAnimation3.SetActive(true);
+                }
+
                 restartAnimation = true;
             }
         }

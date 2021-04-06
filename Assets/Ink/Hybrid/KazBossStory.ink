@@ -34,9 +34,9 @@ Too hot-headed for manners huh? So be it. Prepare to die. #Kaz
 +   [Fight] -> END
 
 === Name_is_Netrixi ===
-My name is Netrixi! Witch and alchemist of Beholderite. I have killed countless men in my lifetimes and discovered more secrets than you could ever hope to. One more man is nothing to me. #Netrixi
+My name is Netrixi! Witch and alchemist of Beholderite. I have killed countless men. One more is nothing to me. #Netrixi
 
-You... Nobody has ever dared speak to me that way. I like you. Maybe we can arrange something. You work for me in my labs after whatever quest you're on, and I will give you your things #Kaz
+I like you. Maybe we can arrange something. You work for me in my labs, and I will give you your things #Kaz
 
 +   [OK! You have a deal!] -> Netrixi_fight_Kaz
 +   [I am no slave] -> Evade_Kaz_slave

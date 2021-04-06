@@ -1241,7 +1241,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1276,7 +1276,7 @@ MonoBehaviour:
   skullMelee: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
   skullRanged: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
   kaz1: {fileID: 21300000, guid: 5a32d511bd31db14da04176e9ee0b34f, type: 3}
-  kaz2: {fileID: 21300000, guid: 42f46f018532c144a9d099d2caa1d3c9, type: 3}
+  kaz2: {fileID: 21300000, guid: e8b6027dbcd857149a6cf0886b6254c6, type: 3}
   skullKing: {fileID: 21300000, guid: f4960f759af5c524ca194dc8b386e036, type: 3}
   evilKing: {fileID: 21300000, guid: cbeac254f76fe8148bff958d92aa7828, type: 3}
   pirate: {fileID: 21300000, guid: 3fcff3bc92e8d7147bd38086d04361c2, type: 3}
@@ -2124,7 +2124,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &877017137
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2330,7 +2330,6 @@ GameObject:
   - component: {fileID: 928428114}
   - component: {fileID: 928428115}
   - component: {fileID: 928428116}
-  - component: {fileID: 928428117}
   m_Layer: 9
   m_Name: Netrixi
   m_TagString: Netrixi
@@ -2390,10 +2389,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 1e47617a5f5f15c4ca1f8eec9a4ac8cd, type: 3}
+  m_SortingLayerID: 1447842013
+  m_SortingLayer: -2
+  m_SortingOrder: 4
+  m_Sprite: {fileID: 21300000, guid: 22c7be4d1e20e1c4fb6e230dafefc624, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -2437,24 +2436,6 @@ MonoBehaviour:
   enemy1: 0
   enemy2: 0
   enemy3: 0
---- !u!114 &928428117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928428112}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c04c079d6f7207b4f9baa0fd84105fb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  netrixi: 1
-  folkvar: 0
-  iv: 0
-  netrixiHP: {fileID: 308013254}
-  folkvarHP: {fileID: 1597655804}
-  ivHP: {fileID: 1069591988}
 --- !u!1 &942895053
 GameObject:
   m_ObjectHideFlags: 0
@@ -2467,7 +2448,6 @@ GameObject:
   - component: {fileID: 942895055}
   - component: {fileID: 942895056}
   - component: {fileID: 942895057}
-  - component: {fileID: 942895058}
   m_Layer: 9
   m_Name: Iv
   m_TagString: Iv
@@ -2527,10 +2507,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 6
-  m_Sprite: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
+  m_SortingLayerID: 1447842013
+  m_SortingLayer: -2
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 0c302b5528c6fc842bc0091331642183, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -2574,24 +2554,6 @@ MonoBehaviour:
   enemy1: 0
   enemy2: 0
   enemy3: 0
---- !u!114 &942895058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942895053}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c04c079d6f7207b4f9baa0fd84105fb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  netrixi: 0
-  folkvar: 0
-  iv: 1
-  netrixiHP: {fileID: 308013254}
-  folkvarHP: {fileID: 1597655804}
-  ivHP: {fileID: 1069591988}
 --- !u!1 &975557790
 GameObject:
   m_ObjectHideFlags: 0
@@ -3027,7 +2989,7 @@ MonoBehaviour:
   skullMelee: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
   skullRanged: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
   kaz1: {fileID: 21300000, guid: 5a32d511bd31db14da04176e9ee0b34f, type: 3}
-  kaz2: {fileID: 21300000, guid: 42f46f018532c144a9d099d2caa1d3c9, type: 3}
+  kaz2: {fileID: 21300000, guid: e8b6027dbcd857149a6cf0886b6254c6, type: 3}
   skullKing: {fileID: 21300000, guid: f4960f759af5c524ca194dc8b386e036, type: 3}
   evilKing: {fileID: 21300000, guid: cbeac254f76fe8148bff958d92aa7828, type: 3}
   pirate: {fileID: 21300000, guid: 3fcff3bc92e8d7147bd38086d04361c2, type: 3}
@@ -3630,7 +3592,7 @@ MonoBehaviour:
     type: 3}
   folkvarTwoWeapons: {fileID: 21300000, guid: 0b159c30161b8b1498e0c79b5ce7f65e, type: 3}
   ivEyesClosed: {fileID: 21300000, guid: 0c302b5528c6fc842bc0091331642183, type: 3}
-  ivEyesClosedAmulet: {fileID: 21300000, guid: b360f9857a65d434cafff848f6b8a017, type: 3}
+  ivEyesClosedAmulet: {fileID: 21300000, guid: a754b2661853af14987a694497d0dc7b, type: 3}
   ivEyesOpenAmulet: {fileID: 21300000, guid: 5c13d7b4d068604479f71f84978b1d63, type: 3}
   knightMelee: {fileID: 21300000, guid: 1161309e388562d42b55c32e79626f1b, type: 3}
   knightRanged: {fileID: 21300000, guid: 2d19811de57bcca43a314a0840841b70, type: 3}
@@ -3639,7 +3601,7 @@ MonoBehaviour:
   skullMelee: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
   skullRanged: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
   kazHood: {fileID: 21300000, guid: 5a32d511bd31db14da04176e9ee0b34f, type: 3}
-  kazNoHood: {fileID: 21300000, guid: 42f46f018532c144a9d099d2caa1d3c9, type: 3}
+  kazNoHood: {fileID: 21300000, guid: e8b6027dbcd857149a6cf0886b6254c6, type: 3}
   skullKing: {fileID: 21300000, guid: f4960f759af5c524ca194dc8b386e036, type: 3}
   royalKing: {fileID: 21300000, guid: cbeac254f76fe8148bff958d92aa7828, type: 3}
   pirate: {fileID: 21300000, guid: 3fcff3bc92e8d7147bd38086d04361c2, type: 3}
@@ -3975,7 +3937,6 @@ GameObject:
   - component: {fileID: 1454148732}
   - component: {fileID: 1454148733}
   - component: {fileID: 1454148734}
-  - component: {fileID: 1454148735}
   m_Layer: 9
   m_Name: Folkvar
   m_TagString: Folkvar
@@ -4035,10 +3996,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 7
-  m_Sprite: {fileID: 21300000, guid: b1d086d0379f1cf4ba645b76d472acd5, type: 3}
+  m_SortingLayerID: 1447842013
+  m_SortingLayer: -2
+  m_SortingOrder: 6
+  m_Sprite: {fileID: 21300000, guid: 7a84bc3c0fbda4d4a9d01d87dc2f0d86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -4082,24 +4043,6 @@ MonoBehaviour:
   enemy1: 0
   enemy2: 0
   enemy3: 0
---- !u!114 &1454148735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454148730}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c04c079d6f7207b4f9baa0fd84105fb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  netrixi: 0
-  folkvar: 1
-  iv: 0
-  netrixiHP: {fileID: 308013254}
-  folkvarHP: {fileID: 1597655804}
-  ivHP: {fileID: 1069591988}
 --- !u!1 &1463007793
 GameObject:
   m_ObjectHideFlags: 0
@@ -4192,7 +4135,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4227,7 +4170,7 @@ MonoBehaviour:
   skullMelee: {fileID: 21300000, guid: 86d34a1be59df844f8d1aebc0477bfba, type: 3}
   skullRanged: {fileID: 21300000, guid: 85f5010a118eb69418c43915f18ad2e8, type: 3}
   kaz1: {fileID: 21300000, guid: 5a32d511bd31db14da04176e9ee0b34f, type: 3}
-  kaz2: {fileID: 21300000, guid: 42f46f018532c144a9d099d2caa1d3c9, type: 3}
+  kaz2: {fileID: 21300000, guid: e8b6027dbcd857149a6cf0886b6254c6, type: 3}
   skullKing: {fileID: 21300000, guid: f4960f759af5c524ca194dc8b386e036, type: 3}
   evilKing: {fileID: 21300000, guid: cbeac254f76fe8148bff958d92aa7828, type: 3}
   pirate: {fileID: 21300000, guid: 3fcff3bc92e8d7147bd38086d04361c2, type: 3}

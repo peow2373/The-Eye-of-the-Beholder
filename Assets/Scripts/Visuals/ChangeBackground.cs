@@ -7,19 +7,20 @@ public class ChangeBackground : MonoBehaviour
     private SpriteRenderer sr;
     
     public Sprite 
-        start,                // Needs to be completed still
+        start,
         forrest,
-        mansion,                // Needs to be completed still
+        mansion, 
         road,
-        tavern,                // Needs to be completed still
+        tavern,
         castle,
         throneRoom,
         ratwayEntrance,
-        ratwayTunnel,                // Needs to be completed still
-        volcanoEntrance,                // Needs to be completed still
-        volcanoHall,                // Needs to be completed still
+        ratwayTunnel,
+        volcanoEntrance,
+        volcanoHall,
         volcanoPrison,
-        volcano,                // Needs to be completed still
+        volcanoPrisonOpened,
+        volcano,
         epilogue;
     
     // Start is called before the first frame update
@@ -79,6 +80,10 @@ public class ChangeBackground : MonoBehaviour
             
             case 24:
                 sr.sprite = volcanoPrison;
+                break;
+            
+            case 25:
+                sr.sprite = volcanoPrisonOpened;
                 break;
             
             case 26:
