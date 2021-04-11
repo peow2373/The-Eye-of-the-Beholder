@@ -166,6 +166,9 @@ public class CombatManagerScript : MonoBehaviour
 
         hasWon = false;
         hasLost = false;
+        
+        // Reset character health
+        HealthManagerScript.ResetVariables();
     }
 
     
@@ -501,7 +504,7 @@ public class CombatManagerScript : MonoBehaviour
                     {
                         if (firstAttack != 5)
                         {
-                            DetermineWeakestEnemy(2);
+                            DetermineTargetEnemy(2);
                             secondAttack = 5;
                         }
                         else print("Can't choose the same move twice");
@@ -509,34 +512,25 @@ public class CombatManagerScript : MonoBehaviour
                 }
                 else
                 {
-                    DetermineWeakestEnemy(1);
+                    DetermineTargetEnemy(1);
                     firstAttack = 5;
                 }
 
-                void DetermineWeakestEnemy(int attackNumber)
+                void DetermineTargetEnemy(int attackNumber)
                 {
-                    int lowestEnemyHP = 500;
                     int targetEnemy = 0;
-                    
-                    // Determine which enemy has the lowest HP
-                    if (CombatManagerScript.enemy1Alive)
-                    {
-                        targetEnemy = 1;
-                        lowestEnemyHP = CombatManagerScript.enemy1HP;
-                    }
-                    if (CombatManagerScript.enemy2Alive)
-                        if (CombatManagerScript.enemy2HP < lowestEnemyHP)
-                        {
-                            targetEnemy = 2;
-                            lowestEnemyHP = CombatManagerScript.enemy2HP;
-                        }
-                    if (CombatManagerScript.enemy3Alive)
-                        if (CombatManagerScript.enemy3HP < lowestEnemyHP)
-                        {
-                            targetEnemy = 3;
-                            lowestEnemyHP = CombatManagerScript.enemy3HP;
-                        }
 
+                    if (attackNumber == 1)
+                    {
+                        CombatSimulationScript.DetermineEnemy(EnemyManagerScript.firstAttack, 1);
+                        targetEnemy = CombatSimulationScript.enemyAttacker1;
+                    }
+                    else
+                    {
+                        CombatSimulationScript.DetermineEnemy(EnemyManagerScript.secondAttack, 2);
+                        targetEnemy = CombatSimulationScript.enemyAttacker2;
+                    }
+                    
                     switch (targetEnemy)
                     {
                         case 1:
@@ -850,6 +844,8 @@ public class CombatManagerScript : MonoBehaviour
             enemy3Alive = false;
             canEnemy3Attack = false;
         }
+        
+        HealthManagerScript.CheckHealth();
     }
 
 

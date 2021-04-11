@@ -25,7 +25,7 @@ public class AttackScript : MonoBehaviour
     
     public static void PlayerAttack(int playerAttack, int attackNumber)
     {
-       // Check if Netrixi attacks
+        // Check if Netrixi attacks
         if (playerAttack == 1 || playerAttack == 2 || playerAttack == 3)
         {
             NetrixiAttackScript.DoesNetrixiAttack( playerAttack, attackNumber);
@@ -33,7 +33,7 @@ public class AttackScript : MonoBehaviour
             if (attackNumber == 1) CombatSimulationScript.playerAttacker1 = "Netrixi";
             else CombatSimulationScript.playerAttacker2 = "Netrixi";
         }
-        
+
         // Check if Folkvar attacks
         if (playerAttack == 4 || playerAttack == 5 || playerAttack == 6)
         {
@@ -42,7 +42,7 @@ public class AttackScript : MonoBehaviour
             if (attackNumber == 1) CombatSimulationScript.playerAttacker1 = "Folkvar";
             else CombatSimulationScript.playerAttacker2 = "Folkvar";
         }
-        
+
         // Check if Iv attacks
         if (playerAttack == 7 || playerAttack == 8 || playerAttack == 9)
         {

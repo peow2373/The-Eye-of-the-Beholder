@@ -23,7 +23,7 @@ public class NetrixiPirateScript : MonoBehaviour
     bool skipScene = false;
     
     private bool didMarkerDisappear;
-    private bool handInMiddle;
+    private bool handInMiddleLeft, handInMiddleRight, handInMiddle;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,7 @@ public class NetrixiPirateScript : MonoBehaviour
     void refreshUI()
     {
         MarkerManagerScript.pastLocation = MarkerManagerScript.currentLocation;
-        
+
         eraseUI();
 
         Text storyText = Instantiate(textPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Text;
@@ -99,6 +99,9 @@ public class NetrixiPirateScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
+                    HighlightChoices.S.HighlightChoice(1,1);
+                    
+                    SFXManager.S.PlaySFX(40);
                     refreshUI();
                 }
             }
@@ -109,29 +112,53 @@ public class NetrixiPirateScript : MonoBehaviour
             goMarkerToContinue.enabled = false;
 
             int currLoc = MarkerManagerScript.currentLocation;
-            if (currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddle = true;
+            if (currLoc == 1 || currLoc == 4 || currLoc == 7 || currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddleLeft = true;
+            if (currLoc == 3 || currLoc == 6 || currLoc == 9 || currLoc == 2 || currLoc == 5 || currLoc == 8) handInMiddleRight = true;
 
+            // If the player picked the left choice
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+            {
+                HighlightChoices.S.HighlightChoice(1,2);
+
+                if (handInMiddleRight) handInMiddle = true;
+            }
+                    
+            // If the player picked the right choice
+            else if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+            {
+                HighlightChoices.S.HighlightChoice(2,2);
+                
+                if (handInMiddleLeft) handInMiddle = true;
+            }
+            
             if (handInMiddle)
             {
-                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                 {
-                    if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
+                    SFXManager.S.PlaySFX(42);
+                    
+                    story.ChooseChoiceIndex(1);
+                    refreshUI();
+                    
+                    handInMiddle = false;
+                    handInMiddleLeft = false;
+                    handInMiddleRight = false;
+                }
+                else
+                {
+                    if (MarkerManagerScript.palmMarker && didMarkerDisappear)
                     {
+                        SFXManager.S.PlaySFX(42);
+                        
                         story.ChooseChoiceIndex(1);
                         refreshUI();
-                        handInMiddle = false;
-                    }
-                    else
-                    {
-                        if (MarkerManagerScript.palmMarker && didMarkerDisappear)
-                        {
-                            story.ChooseChoiceIndex(1);
-                            refreshUI();
-                            handInMiddle = false;
-                        }
                         
-                        if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
+                        handInMiddle = false;
+                        handInMiddleLeft = false;
+                        handInMiddleRight = false;
                     }
+                        
+                    if (!MarkerManagerScript.palmMarker) didMarkerDisappear = true;
                 }
             }
         }

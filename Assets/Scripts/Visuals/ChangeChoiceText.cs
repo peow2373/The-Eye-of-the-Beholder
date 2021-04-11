@@ -13,7 +13,7 @@ public class ChangeChoiceText : MonoBehaviour
 
     public static bool talkingToBrute, talkingToIv;
 
-    public Color nextChoice, firstChoice, secondChoice;
+    public Color nextChoice, firstChoice, secondChoice, whichChoice;
     public Color color1, color2, color3;
     public Color activeDecision, inActiveDecision;
 
@@ -23,7 +23,11 @@ public class ChangeChoiceText : MonoBehaviour
 
     public bool canConfirmAttacks = false;
 
+    public static string attackSelected = "Choose another move\nor character";
+
     public GameObject handAnimation1, handAnimation2, handAnimation3;
+
+    public static bool justEnteredCombat = true;
 
     // Start is called before the first frame update
     void Awake()
@@ -48,7 +52,7 @@ public class ChangeChoiceText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManagerScript.currentScene == 11)
+        if (GameManagerScript.currentScene == 9)
         {
             madeChoice = false;
             talkingToBrute = false;
@@ -77,6 +81,9 @@ public class ChangeChoiceText : MonoBehaviour
                     
                         option1[0].GetComponent<SpriteRenderer>().color = color1;
                         ChangeHandAnimation.animationName1 = "Netrixi Marker";
+                        handAnimation1.SetActive(true);
+                        
+                        //if (MarkerManagerScript.netrixiMarker) if (Input.GetKeyDown(KeyCode.Y)) HighlightChoices.S.HighlightChoice(1,3);
                     }
                     else handAnimation1.SetActive(false);
 
@@ -87,6 +94,9 @@ public class ChangeChoiceText : MonoBehaviour
                     
                         option2[0].GetComponent<SpriteRenderer>().color = color2;
                         ChangeHandAnimation.animationName2 = "Folkvar Marker";
+                        handAnimation2.SetActive(true);
+                        
+                        //if (MarkerManagerScript.folkvarMarker) if (Input.GetKeyDown(KeyCode.O)) HighlightChoices.S.HighlightChoice(2,3);
                     }
                     else handAnimation2.SetActive(false);
 
@@ -97,12 +107,24 @@ public class ChangeChoiceText : MonoBehaviour
                     
                         option3[0].GetComponent<SpriteRenderer>().color = color3;
                         ChangeHandAnimation.animationName3 = "Iv Marker";
+                        handAnimation3.SetActive(true);
+                        
+                        //if (MarkerManagerScript.ivMarker) if (Input.GetKeyDown(KeyCode.I)) HighlightChoices.S.HighlightChoice(3,3);
                     }
                     else handAnimation3.SetActive(false);
                 }
                 else
                 {
                     ResetChoices(true);
+                }
+                
+                if (justEnteredCombat)
+                {
+                    handAnimation1.SetActive(false);
+                    handAnimation2.SetActive(false);
+                    handAnimation3.SetActive(false);
+
+                    justEnteredCombat = false;
                 }
             }
             else
@@ -116,6 +138,8 @@ public class ChangeChoiceText : MonoBehaviour
         else
         {
             this.GetComponent<SpriteRenderer>().color = activeDecision;
+
+            justEnteredCombat = true;
         }
     }
 
@@ -140,27 +164,35 @@ public class ChangeChoiceText : MonoBehaviour
                         if (choices[0].GetComponentInChildren<Text>().text == "Fight")
                         {
                             choice1[1].GetComponent<Text>().text = "Fight!";
+                            
+                            ChangeOptions(1, "Flip hand to\nStart Fight", "", "");
+                            option1[0].GetComponent<SpriteRenderer>().color = whichChoice;
                         }
                         else
                         {
                             choice1[1].GetComponent<Text>().text = "Next...";
+                            
+                            ChangeOptions(1, "Flip hand to\nContinue", "", "");
+                            choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
                         }
                     }
                     else
                     {
                         choice1[1].GetComponent<Text>().text = "Next...";
+                        
+                        ChangeOptions(1, "Flip hand to\nContinue", "", "");
+                        choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
                     }
-
-                    ChangeOptions(1, "Flip hand to\nContinue", "", "");
-                    ChangeHandAnimation.animationName1 = "Flip Hand";
                 }
                 else
                 {
                     choice1[1].GetComponent<Text>().text = "Restart Game?";
                 
                     ChangeOptions(1, "Flip hand to\nRestart", "", "");
-                    ChangeHandAnimation.animationName1 = "Flip Hand";
+                    
                 }
+                
+                ChangeHandAnimation.animationName1 = "Flip Hand";
                 break;
             
             case 2:
@@ -236,7 +268,14 @@ public class ChangeChoiceText : MonoBehaviour
         // Changing the color of choice 1
         if (!displayDialogueResponses)
         {
-            choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+            if (choices.Length > 0 && choices[0].GetComponentInChildren<Text>().text == "Fight")
+            {
+                choice1[0].GetComponent<SpriteRenderer>().color = whichChoice;
+            }
+            else
+            {
+                choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+            }
         }
     }
 
@@ -376,6 +415,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!NetrixiCombatScript.canCancelMove) handAnimation1.SetActive(false);
                         GameWindowManager.option1Centered = true;
+                        option1[1].GetComponent<Text>().text = attackSelected;
                     }
 
                     // Attack 2
@@ -402,6 +442,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!NetrixiCombatScript.canCancelMove) handAnimation2.SetActive(false);
                         GameWindowManager.option2Centered = true;
+                        option2[1].GetComponent<Text>().text = attackSelected;
                     }
 
                     // Attack 3
@@ -438,6 +479,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!NetrixiCombatScript.canCancelMove) handAnimation3.SetActive(false);
                         GameWindowManager.option3Centered = true;
+                        option3[1].GetComponent<Text>().text = attackSelected;
                     }
                 }
                 else
@@ -509,6 +551,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!FolkvarCombatScript.canCancelMove) handAnimation1.SetActive(false);
                         GameWindowManager.option1Centered = true;
+                        option1[1].GetComponent<Text>().text = attackSelected;
                     }
 
                     // Attack 2
@@ -538,6 +581,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!FolkvarCombatScript.canCancelMove) handAnimation2.SetActive(false);
                         GameWindowManager.option2Centered = true;
+                        option2[1].GetComponent<Text>().text = attackSelected;
                     }
 
                     // Attack 3
@@ -579,6 +623,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!FolkvarCombatScript.canCancelMove) handAnimation3.SetActive(false);
                         GameWindowManager.option3Centered = true;
+                        option3[1].GetComponent<Text>().text = attackSelected;
                     }
                 }
                 else
@@ -670,6 +715,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!IvCombatScript.canCancelMove) handAnimation1.SetActive(false);
                         GameWindowManager.option1Centered = true;
+                        option1[1].GetComponent<Text>().text = attackSelected;
                     }
 
                     // Attack 2
@@ -706,6 +752,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!IvCombatScript.canCancelMove) handAnimation2.SetActive(false);
                         GameWindowManager.option2Centered = true;
+                        option2[1].GetComponent<Text>().text = attackSelected;
                     }
 
                     // Attack 3
@@ -747,6 +794,7 @@ public class ChangeChoiceText : MonoBehaviour
                     {
                         if (!IvCombatScript.canCancelMove) handAnimation3.SetActive(false);
                         GameWindowManager.option3Centered = true;
+                        option3[1].GetComponent<Text>().text = attackSelected;
                     }
                 }
                 else
@@ -803,6 +851,11 @@ public class ChangeChoiceText : MonoBehaviour
         option4[1].GetComponent<Text>().text = "Flip hand to Move";
         option4[1].GetComponent<Text>().color = Color.white;
         option4[0].GetComponent<SpriteRenderer>().color = nextChoice;
+
+        if (MarkerManagerScript.goMarker)
+        {
+            if (Input.GetKeyDown(KeyCode.V)) HighlightChoices.S.HighlightChoice(4,4);
+        }
         
         // Change options for Netrixi
         if (option == "Netrixi")
@@ -908,6 +961,11 @@ public class ChangeChoiceText : MonoBehaviour
                     GameWindowManager.option1Centered = false;
                     
                     ChangeHandAnimation.animationName1 = "Move Left";
+                    
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                    {
+                        HighlightChoices.S.HighlightChoice(1,2);
+                    }
                 }
                 else
                 {
@@ -930,6 +988,11 @@ public class ChangeChoiceText : MonoBehaviour
                     GameWindowManager.option2Centered = false;
                     
                     ChangeHandAnimation.animationName2 = "Move Right";
+                    
+                    if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
+                    {
+                        HighlightChoices.S.HighlightChoice(2,2);
+                    }
                 }
                 else
                 {
@@ -959,6 +1022,11 @@ public class ChangeChoiceText : MonoBehaviour
             option4[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
 
             handAnimation3.SetActive(false);
+            
+            if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V)) HighlightChoices.S.HighlightChoice(4,4);
+            }
         }
     }
 
@@ -994,6 +1062,11 @@ public class ChangeChoiceText : MonoBehaviour
             
             ChangeHandAnimation.animationName1 = "Flip Hand";
             ChangeHandAnimation.animationName2 = "Undo Marker";
+            
+            if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V)) HighlightChoices.S.HighlightChoice(1,2);
+            }
         }
     }
 
@@ -1033,10 +1106,6 @@ public class ChangeChoiceText : MonoBehaviour
                 }
                 option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
             }
-            
-            handAnimation1.SetActive(true);
-            handAnimation2.SetActive(true);
-            handAnimation3.SetActive(true);
         }
         else
         {
@@ -1055,6 +1124,10 @@ public class ChangeChoiceText : MonoBehaviour
             
             option4[0].transform.position = new Vector3(GameWindowManager.offScreen, GameWindowManager.offScreen, 0);
             
+            ChangeHandAnimation.animationName1 = "";
+            ChangeHandAnimation.animationName2 = "";
+            ChangeHandAnimation.animationName3 = "";
+            
             handAnimation1.SetActive(false);
             handAnimation2.SetActive(false);
             handAnimation3.SetActive(false);
@@ -1067,7 +1140,7 @@ public class ChangeChoiceText : MonoBehaviour
         switch (GameManagerScript.currentScene)
         {
             case 8:
-                if (!GameWindowManager.metBrute)
+                if (madeChoice)
                 {
                     if (talkingToBrute) return "the brute";
                     else if (talkingToIv) return "the monk";

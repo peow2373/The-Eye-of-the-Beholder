@@ -19,12 +19,17 @@ public class CombatSimulationScript : MonoBehaviour
 
     public static string enemy1stAttack, enemy2ndAttack;
 
+    public static bool canPlayerMove1 = true, canPlayerMove2 = true;
+    public static bool canEnemyMove1 = true, canEnemyMove2 = true;
+
     public IEnumerator RunSimulation(int playerFirstAttack, int playerSecondAttack, string enemyFirstAttack, string enemySecondAttack, GameObject runner)
     {
         CombatManagerScript.netrixiAttacks = false;
         CombatManagerScript.folkvarAttacks = false;
         CombatManagerScript.ivAttacks = false;
         
+        DetermineEnemy(enemyFirstAttack, 1);
+        DetermineEnemy(enemySecondAttack, 2);
         
         // FIRST ATTACK
         yield return new WaitForSecondsRealtime(moveDelay);
@@ -44,13 +49,18 @@ public class CombatSimulationScript : MonoBehaviour
         // Check to see what the player's first attack is
         if (!didPlayerMove1)
         {
-            AttackScript.PlayerAttack(playerFirstAttack, 1);
-            CombatManagerScript.playerAttacking1 = true;
-            
+            if (canPlayerMove1)
+            {
+                AttackScript.PlayerAttack(playerFirstAttack, 1);
+
                 // TODO: Play Player attack 1 animation
                 PlayerAttackAnimation(playerAttacker1, playerAttack1Target);
 
                 //print(playerAttacker1 + ", " + playerAttack1Target);
+            }
+            else attack1Delay = moveDelay;
+            
+            CombatManagerScript.playerAttacking1 = true;
         }
         else attack1Delay = 0;
 
@@ -66,15 +76,18 @@ public class CombatSimulationScript : MonoBehaviour
         // Check to see what the enemy's first attack is
         if (!didEnemyMove1)
         {
-            DetermineEnemy(enemyFirstAttack, 1);
+            if (canEnemyMove1)
+            {
+                AttackScript.EnemyAttack(enemy1stAttack, 1, enemyAttacker1);
 
-            AttackScript.EnemyAttack(enemy1stAttack, 1, enemyAttacker1);
-            CombatManagerScript.enemyAttacking1 = true;
-            
                 // TODO: Play Enemy attack 1 animation
                 EnemyAttackAnimation(enemyAttacker1, enemyAttack1Target);
 
                 //print(enemyAttacker1 + ", " + enemyAttack1Target);
+            }
+            else attack1Delay = moveDelay;
+            
+            CombatManagerScript.enemyAttacking1 = true;
         }
         else attack1Delay = 0;
         
@@ -131,13 +144,18 @@ public class CombatSimulationScript : MonoBehaviour
         // Check to see what the player's second attack is
         if (!didPlayerMove2)
         {
-            AttackScript.PlayerAttack(playerSecondAttack, 2);
-            CombatManagerScript.playerAttacking2 = true;
-            
+            if (canPlayerMove2)
+            {
+                AttackScript.PlayerAttack(playerSecondAttack, 2);
+
                 // TODO: Play Player attack 2 animation
                 PlayerAttackAnimation(playerAttacker2, playerAttack2Target);
-            
+
                 //print(playerAttacker2 + ", " + playerAttack2Target);
+            }
+            else attack2Delay = moveDelay;
+            
+            CombatManagerScript.playerAttacking2 = true;
         }
         else attack2Delay = 0;
         
@@ -153,15 +171,18 @@ public class CombatSimulationScript : MonoBehaviour
         // Check to see what the enemy's second attack is
         if (!didEnemyMove2)
         {
-            DetermineEnemy(enemySecondAttack, 2);
+            if (canEnemyMove2)
+            {
+                AttackScript.EnemyAttack(enemy2ndAttack, 2, enemyAttacker2);
 
-            AttackScript.EnemyAttack(enemy2ndAttack, 2, enemyAttacker2);
-            CombatManagerScript.enemyAttacking2 = true;
-            
                 // TODO: Play Enemy attack 2 animation
                 EnemyAttackAnimation(enemyAttacker2, enemyAttack2Target);
 
                 //print(enemyAttacker2 + ", " + enemyAttack2Target);
+            }
+            else attack2Delay = moveDelay;
+            
+            CombatManagerScript.enemyAttacking2 = true;
         }
         else attack2Delay = 0;
 
@@ -208,6 +229,10 @@ public class CombatSimulationScript : MonoBehaviour
         didEnemyMove1 = false;
         didEnemyMove2 = false;
 
+        canPlayerMove1 = true;
+        canPlayerMove2 = true;
+        canEnemyMove1 = true;
+        canEnemyMove2 = true;
 
         // If only one character is alive
         //if (CombatManagerScript.netrixiAlive && !CombatManagerScript.folkvarAlive && !CombatManagerScript.ivAlive) CombatManagerScript.netrixiAttacks = true;
@@ -223,6 +248,38 @@ public class CombatSimulationScript : MonoBehaviour
 
     public static void CheckForPlayerMovement(int playerAttack, int attackNumber)
     {
+        // Folkvar Smite Attack
+        if (playerAttack == 5)
+        {
+            if (CombatManagerScript.folkvarAlive)
+            {
+                if (attackNumber == 1)
+                {
+                    if (canPlayerMove1)
+                    {
+                        AttackScript.PlayerAttack(playerAttack, 1);
+
+                        // TODO: Play Folkvar smite animation
+                        PlayerAttackAnimation(playerAttacker1, playerAttack1Target);
+                    }
+                    CombatManagerScript.playerAttacking1 = true;
+                    didPlayerMove1 = true;
+                }
+                else
+                {
+                    if (canPlayerMove2)
+                    {
+                        AttackScript.PlayerAttack(playerAttack, 2);
+
+                        // TODO: Play Folkvar smite animation
+                        PlayerAttackAnimation(playerAttacker2, playerAttack2Target);
+                    }
+                    CombatManagerScript.playerAttacking2 = true;
+                    didPlayerMove2 = true;
+                }
+            }
+        }
+        
         // Main Characters
         if (playerAttack == 10 || playerAttack == 11)
         {
@@ -230,13 +287,22 @@ public class CombatSimulationScript : MonoBehaviour
             {
                 if (attackNumber == 1)
                 {
-                    CharacterManagerScript.netrixiPosition = CharacterManagerScript.netrixi1st;
+                    if (canPlayerMove1)
+                    {
+                        CharacterManagerScript.netrixiPosition = CharacterManagerScript.netrixi1st;
+                    }
+
+                    playerAttacker1 = "Netrixi";
                     CombatManagerScript.playerAttacking1 = true;
                     didPlayerMove1 = true;
                 }
                 else
                 {
-                    CharacterManagerScript.netrixiPosition = CharacterManagerScript.netrixi2nd;
+                    if (canPlayerMove2)
+                    {
+                        CharacterManagerScript.netrixiPosition = CharacterManagerScript.netrixi2nd;
+                    }
+                    playerAttacker2 = "Netrixi";
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
@@ -249,13 +315,23 @@ public class CombatSimulationScript : MonoBehaviour
             {
                 if (attackNumber == 1)
                 {
-                    CharacterManagerScript.folkvarPosition = CharacterManagerScript.folkvar1st;
+                    if (canPlayerMove1)
+                    {
+                        CharacterManagerScript.folkvarPosition = CharacterManagerScript.folkvar1st;
+                    }
+                    
+                    playerAttacker1 = "Folkvar";
                     CombatManagerScript.playerAttacking1 = true;
                     didPlayerMove1 = true;
                 }
                 else
                 {
-                    CharacterManagerScript.folkvarPosition = CharacterManagerScript.folkvar2nd;
+                    if (canPlayerMove2)
+                    {
+                        CharacterManagerScript.folkvarPosition = CharacterManagerScript.folkvar2nd;
+                    }
+                    
+                    playerAttacker2 = "Folkvar";
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
@@ -268,13 +344,23 @@ public class CombatSimulationScript : MonoBehaviour
             {
                 if (attackNumber == 1)
                 {
-                    CharacterManagerScript.ivPosition = CharacterManagerScript.iv1st;
+                    if (canPlayerMove1)
+                    {
+                        CharacterManagerScript.ivPosition = CharacterManagerScript.iv1st;
+                    }
+                    
+                    playerAttacker1 = "Iv";
                     CombatManagerScript.playerAttacking1 = true;
                     didPlayerMove1 = true;
                 }
                 else
                 {
-                    CharacterManagerScript.ivPosition = CharacterManagerScript.iv2nd;
+                    if (canPlayerMove2)
+                    {
+                        CharacterManagerScript.ivPosition = CharacterManagerScript.iv2nd;
+                    }
+                    
+                    playerAttacker2 = "Iv";
                     CombatManagerScript.playerAttacking2 = true;
                     didPlayerMove2 = true;
                 }
@@ -292,13 +378,20 @@ public class CombatSimulationScript : MonoBehaviour
             {
                 if (attackNumber == 1)
                 {
-                    EnemyManagerScript.enemy1Position = EnemyManagerScript.enemy1First;
+                    if (canEnemyMove1)
+                    {
+                        EnemyManagerScript.enemy1Position = EnemyManagerScript.enemy1First;
+                    }
+                    
                     CombatManagerScript.enemyAttacking1 = true;
                     didEnemyMove1 = true;
                 }
                 else
                 {
-                    EnemyManagerScript.enemy1Position = EnemyManagerScript.enemy1Second;
+                    if (canEnemyMove2)
+                    {
+                        EnemyManagerScript.enemy1Position = EnemyManagerScript.enemy1Second;
+                    }
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
@@ -311,13 +404,19 @@ public class CombatSimulationScript : MonoBehaviour
             {
                 if (attackNumber == 1)
                 {
-                    EnemyManagerScript.enemy2Position = EnemyManagerScript.enemy2First;
+                    if (canEnemyMove1)
+                    {
+                        EnemyManagerScript.enemy2Position = EnemyManagerScript.enemy2First;
+                    }
                     CombatManagerScript.enemyAttacking1 = true;
                     didEnemyMove1 = true;
                 }
                 else
                 {
-                    EnemyManagerScript.enemy2Position = EnemyManagerScript.enemy2Second;
+                    if (canEnemyMove2)
+                    {
+                        EnemyManagerScript.enemy2Position = EnemyManagerScript.enemy2Second;
+                    }
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
@@ -330,13 +429,19 @@ public class CombatSimulationScript : MonoBehaviour
             {
                 if (attackNumber == 1)
                 {
-                    EnemyManagerScript.enemy3Position = EnemyManagerScript.enemy3First;
+                    if (canEnemyMove1)
+                    {
+                        EnemyManagerScript.enemy3Position = EnemyManagerScript.enemy3First;
+                    }
                     CombatManagerScript.enemyAttacking1 = true;
                     didEnemyMove1 = true;
                 }
                 else
                 {
-                    EnemyManagerScript.enemy3Position = EnemyManagerScript.enemy3Second;
+                    if (canEnemyMove2)
+                    {
+                        EnemyManagerScript.enemy3Position = EnemyManagerScript.enemy3Second;
+                    }
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
                 }
@@ -347,37 +452,69 @@ public class CombatSimulationScript : MonoBehaviour
 
         string[] splitArray =  enemyAttack.Split(char.Parse("-"));
         enemyChoice = splitArray[1];
-        
 
         // If the enemy blocks the player's incoming attack
         if (enemyChoice == "Blocks")
         {
             if (attackNumber == 1)
             {
-                DetermineEnemy(enemyAttack, 1);
+                if (canEnemyMove1)
+                {
+                    DetermineEnemy(enemyAttack, 1);
 
-                AttackScript.EnemyAttack(enemy1stAttack, 1, enemyAttacker1);
-                CombatManagerScript.enemyAttacking1 = true;
-            
-                    // TODO: Play Enemy attack 1 animation
+                    AttackScript.EnemyAttack(enemy1stAttack, 1, enemyAttacker1);
+
+                    // TODO: Play Enemy block animation
                     EnemyAttackAnimation(enemyAttacker1, enemyAttack1Target);
-
-                //print(enemyAttacker1 + ", " + enemyAttack1Target);
-
+                }
+                CombatManagerScript.enemyAttacking1 = true;
                 didEnemyMove1 = true;
             }
             else
             {
-                DetermineEnemy(enemyAttack, 2);
+                if (canEnemyMove2)
+                {
+                    DetermineEnemy(enemyAttack, 2);
 
-                AttackScript.EnemyAttack(enemy2ndAttack, 2, enemyAttacker2);
+                    AttackScript.EnemyAttack(enemy2ndAttack, 2, enemyAttacker2);
+
+                    // TODO: Play Enemy block animation
+                    EnemyAttackAnimation(enemyAttacker2, enemyAttack2Target);
+                }
                 CombatManagerScript.enemyAttacking2 = true;
-            
-                // TODO: Play Enemy attack 2 animation
-                EnemyAttackAnimation(enemyAttacker2, enemyAttack2Target);
+                didEnemyMove2 = true;
+            }
+        }
+        
+        // If the enemy smites the player
+        if (enemyChoice == "Smites")
+        {
+            if (attackNumber == 1)
+            {
+                if (canEnemyMove1)
+                {
+                    DetermineEnemy(enemyAttack, 1);
 
-                //print(enemyAttacker2 + ", " + enemyAttack2Target);
+                    AttackScript.EnemyAttack(enemy1stAttack, 1, enemyAttacker1);
 
+                    // TODO: Play Enemy smite animation
+                    EnemyAttackAnimation(enemyAttacker1, enemyAttack1Target);
+                }
+                CombatManagerScript.enemyAttacking1 = true;
+                didEnemyMove1 = true;
+            }
+            else
+            {
+                if (canEnemyMove2)
+                {
+                    DetermineEnemy(enemyAttack, 2);
+
+                    AttackScript.EnemyAttack(enemy2ndAttack, 2, enemyAttacker2);
+
+                    // TODO: Play Enemy smite animation
+                    EnemyAttackAnimation(enemyAttacker2, enemyAttack2Target);
+                }
+                CombatManagerScript.enemyAttacking2 = true;
                 didEnemyMove2 = true;
             }
         }
@@ -476,6 +613,21 @@ public class CombatSimulationScript : MonoBehaviour
                 break;
             
             case "Royal King":
+                if (attackNumber == 1) enemyAttacker1 = 3;
+                else enemyAttacker2 = 3;
+                break;
+            
+            case "Enemy 1":
+                if (attackNumber == 1) enemyAttacker1 = 1;
+                else enemyAttacker2 = 1;
+                break;
+            
+            case "Enemy 2":
+                if (attackNumber == 1) enemyAttacker1 = 2;
+                else enemyAttacker2 = 2;
+                break;
+            
+            case "Enemy 3":
                 if (attackNumber == 1) enemyAttacker1 = 3;
                 else enemyAttacker2 = 3;
                 break;

@@ -117,34 +117,16 @@ public class FolkvarAttackScript : MonoBehaviour
             if (playerAttack == 5)
             {
                 original = DamageValues.smite * AttackScript.damageModifier;
-                int execute = (int) DamageValues.executeDamage;
                 burnRate = DamageValues.smiteBurn;
                 int damageValue = (int) original;
                 AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
-
-                int lowestEnemyHP = 500;
+                
                 int targetEnemy = 0;
 
-                // Determine which enemy has the lowest HP
-                if (CombatManagerScript.enemy1Alive)
-                {
-                    targetEnemy = 1;
-                    lowestEnemyHP = CombatManagerScript.enemy1HP;
-                }
-                if (CombatManagerScript.enemy2Alive)
-                    if (CombatManagerScript.enemy2HP < lowestEnemyHP)
-                    {
-                        targetEnemy = 2;
-                        lowestEnemyHP = CombatManagerScript.enemy2HP;
-                    }
-                if (CombatManagerScript.enemy3Alive)
-                    if (CombatManagerScript.enemy3HP < lowestEnemyHP)
-                    {
-                        targetEnemy = 3;
-                        lowestEnemyHP = CombatManagerScript.enemy3HP;
-                    }
+                // Determine which enemy is attacking next
+                if (attackNumber == 1) targetEnemy = CombatSimulationScript.enemyAttacker1;
+                else targetEnemy = CombatSimulationScript.enemyAttacker2;
 
-                
                 int targetLocation;
                 if (attackNumber == 1) targetLocation = CombatManagerScript.folkvarTarget1Location;
                 else targetLocation = CombatManagerScript.folkvarTarget2Location;
@@ -155,40 +137,14 @@ public class FolkvarAttackScript : MonoBehaviour
                     case 1:
                         if (EnemyManagerScript.enemy1Position == targetLocation)
                         {
-                            if (lowestEnemyHP <= CombatManagerScript.enemy1StartingHP * DamageValues.executeThreshold)
-                            {
-                                int position = EnemyManagerScript.enemy1Position;
-                                int enemyPosition;
-                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
-                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
-
-                                if (position == enemyPosition)
-                                {
-                                    // TODO: Play Folkvar Holy Smite animation
-                                    playerTarget = 1;
+                            // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 1;
+                                
+                            if (attackNumber == 1) CombatSimulationScript.canEnemyMove1 = false;
+                            else CombatSimulationScript.canEnemyMove2 = false;
                             
-                                    // Enemy is below the threshold for Execution
-                                    HealthManagerScript.ChangeHealth("Enemy 1", execute, burnRate);
-
-                                    print("Enemy 1 will be executed");
-                                }
-                            }
-                            else
-                            {
-                                int position = EnemyManagerScript.enemy1Position;
-                                int enemyPosition;
-                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
-                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
-
-                                if (position == enemyPosition)
-                                {
-                                    // TODO: Play Folkvar Holy Smite animation
-                                    playerTarget = 1;
-                            
-                                    // Enemy is not below the threshold for Execution
-                                    HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
-                                }
-                            }
+                            // Enemy will no longer perform their next attack
+                            HealthManagerScript.ChangeHealth("Enemy 1", damageValue, burnRate);
                         }
                         break;
                     
@@ -196,40 +152,14 @@ public class FolkvarAttackScript : MonoBehaviour
                     case 2:
                         if (EnemyManagerScript.enemy2Position == targetLocation)
                         {
-                            if (lowestEnemyHP <= CombatManagerScript.enemy2StartingHP * DamageValues.executeThreshold)
-                            {
-                                int position = EnemyManagerScript.enemy2Position;
-                                int enemyPosition;
-                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
-                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
-
-                                if (position == enemyPosition)
-                                {
-                                    // TODO: Play Folkvar Holy Smite animation
-                                    playerTarget = 2;
+                            // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 2;
+                                
+                            if (attackNumber == 1) CombatSimulationScript.canEnemyMove1 = false;
+                            else CombatSimulationScript.canEnemyMove2 = false;
                             
-                                    // Enemy is below the threshold for Execution
-                                    HealthManagerScript.ChangeHealth("Enemy 2", execute, burnRate);
-                            
-                                    print("Enemy 2 will be executed");
-                                }
-                            }
-                            else
-                            {
-                                int position = EnemyManagerScript.enemy2Position;
-                                int enemyPosition;
-                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
-                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
-
-                                if (position == enemyPosition)
-                                {
-                                    // TODO: Play Folkvar Holy Smite animation
-                                    playerTarget = 2;
-                            
-                                    // Enemy is not below the threshold for Execution
-                                    HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
-                                }
-                            }
+                            // Enemy will no longer perform their next attack
+                            HealthManagerScript.ChangeHealth("Enemy 2", damageValue, burnRate);
                         }
                         break;
                     
@@ -237,40 +167,14 @@ public class FolkvarAttackScript : MonoBehaviour
                     case 3:
                         if (EnemyManagerScript.enemy3Position == targetLocation)
                         {
-                            if (lowestEnemyHP <= CombatManagerScript.enemy3StartingHP * DamageValues.executeThreshold)
-                            {
-                                int position = EnemyManagerScript.enemy3Position;
-                                int enemyPosition;
-                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
-                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
-
-                                if (position == enemyPosition)
-                                {
-                                    // TODO: Play Folkvar Holy Smite animation
-                                    playerTarget = 3;
+                            // TODO: Play Folkvar Holy Smite animation
+                            playerTarget = 3;
+                                
+                            if (attackNumber == 1) CombatSimulationScript.canEnemyMove1 = false;
+                            else CombatSimulationScript.canEnemyMove2 = false;
                             
-                                    // Enemy is below the threshold for Execution
-                                    HealthManagerScript.ChangeHealth("Enemy 3", execute, burnRate);
-                            
-                                    print("Enemy 3 will be executed");
-                                }
-                            }
-                            else
-                            {
-                                int position = EnemyManagerScript.enemy3Position;
-                                int enemyPosition;
-                                if (attackNumber == 1) enemyPosition = CombatManagerScript.folkvarTarget1Location;
-                                else enemyPosition = CombatManagerScript.folkvarTarget2Location;
-
-                                if (position == enemyPosition)
-                                {
-                                    // TODO: Play Folkvar Holy Smite animation
-                                    playerTarget = 3;
-
-                                    // Enemy is not below the threshold for Execution
-                                    HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
-                                }
-                            }
+                            // Enemy will no longer perform their next attack
+                            HealthManagerScript.ChangeHealth("Enemy 3", damageValue, burnRate);
                         }
                         break;
                 }

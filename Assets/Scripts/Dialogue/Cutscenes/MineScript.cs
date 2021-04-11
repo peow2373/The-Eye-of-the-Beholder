@@ -96,6 +96,9 @@ public class MineScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
+                HighlightChoices.S.HighlightChoice(1,1);
+                
+                SFXManager.S.PlaySFX(40);
                 refreshUI();
             }
         }

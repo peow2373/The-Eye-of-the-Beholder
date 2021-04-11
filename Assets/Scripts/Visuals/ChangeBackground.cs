@@ -12,7 +12,9 @@ public class ChangeBackground : MonoBehaviour
         mansion, 
         road,
         tavern,
+        tavernBar,
         castle,
+        castleAlone,
         throneRoom,
         ratwayEntrance,
         ratwayTunnel,
@@ -39,22 +41,34 @@ public class ChangeBackground : MonoBehaviour
                 break;
             
             case 1:
+            case 2:
                 sr.sprite = forrest;
                 break;
             
             case 3:
+            case 4:
                 sr.sprite = mansion;
                 break;
             
             case 6:
+            case 7:
                 sr.sprite = road;
                 break;
             
             case 8:
+            case 9:
+                sr.sprite = tavernBar;
+                break;
+            
+            case 10:
                 sr.sprite = tavern;
                 break;
             
             case 11:
+                sr.sprite = castleAlone;
+                break;
+            
+            case 12:
                 sr.sprite = castle;
                 break;
             
@@ -63,18 +77,22 @@ public class ChangeBackground : MonoBehaviour
                 break;
             
             case 14:
+            case 15:
                 sr.sprite = ratwayEntrance;
                 break;
             
             case 16:
+            case 17:
                 sr.sprite = ratwayTunnel;
                 break;
             
             case 18:
+            case 19:
                 sr.sprite = volcanoEntrance;
                 break;
 
             case 22:
+            case 23:
                 sr.sprite = volcanoHall;
                 break;
             
@@ -87,6 +105,8 @@ public class ChangeBackground : MonoBehaviour
                 break;
             
             case 26:
+            case 27:
+            case 28:
                 sr.sprite = volcano;
                 break;
 

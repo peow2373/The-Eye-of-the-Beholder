@@ -5,11 +5,96 @@ using UnityEngine;
 public class HealthManagerScript : MonoBehaviour
 {
     public static bool hasChangedHealth = false;
+
+    public static bool netrixiDead = true, folkvarDead = true, ivDead = true;
+    public static bool enemy1Dead = true, enemy2Dead = true, enemy3Dead = true;
     
     // Start is called before the first frame update
     void Start()
     {
         hasChangedHealth = false;
+    }
+
+
+    public static void ResetVariables()
+    {
+        netrixiDead = false;
+        if (GameManagerScript.folkvarInParty) folkvarDead = false;
+        else folkvarDead = true;
+        if (GameManagerScript.ivInParty) ivDead = false;
+        else ivDead = true;
+        
+        enemy1Dead = false;
+        if (EnemyManagerScript.enemy2 != "null") enemy2Dead = false;
+        else enemy2Dead = true;
+        if (EnemyManagerScript.enemy3 != "null") enemy3Dead = false;
+        else enemy3Dead = true;
+    }
+
+
+    public static void CheckHealth()
+    {
+        // Main Characters
+        if (!CombatManagerScript.netrixiAlive)
+        {
+            if (!netrixiDead)
+            {
+                netrixiDead = true;
+                // TODO: Play Netrixi death animation
+                SFXManager.S.PlaySFX(31);
+            }
+        }
+        
+        if (!CombatManagerScript.folkvarAlive)
+        {
+            if (!folkvarDead)
+            {
+                folkvarDead = true;
+                // TODO: Play Folkvar death animation
+                SFXManager.S.PlaySFX(31);
+            }
+        }
+        
+        if (!CombatManagerScript.ivAlive)
+        {
+            if (!ivDead)
+            {
+                ivDead = true;
+                // TODO: Play Iv death animation
+                SFXManager.S.PlaySFX(31);
+            }
+        }
+        
+        // Enemy Characters
+        if (!CombatManagerScript.enemy1Alive)
+        {
+            if (!enemy1Dead)
+            {
+                enemy1Dead = true;
+                // TODO: Play Enemy 1 death animation
+                SFXManager.S.PlaySFX(35);
+            }
+        }
+        
+        if (!CombatManagerScript.enemy2Alive)
+        {
+            if (!enemy2Dead)
+            {
+                enemy2Dead = true;
+                // TODO: Play Enemy 2 death animation
+                SFXManager.S.PlaySFX(34);
+            }
+        }
+        
+        if (!CombatManagerScript.enemy3Alive)
+        {
+            if (!enemy3Dead)
+            {
+                enemy3Dead = true;
+                // TODO: Play Enemy 3 death animation
+                SFXManager.S.PlaySFX(36);
+            }
+        }
     }
     
     

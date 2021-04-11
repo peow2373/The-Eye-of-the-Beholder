@@ -18,11 +18,6 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource celestial;
     public static int scene;
 
-    //Play the music
-    bool m_Play;
-    //Detect when you use the toggle, ensures music isn’t played multiple times
-    bool m_ToggleChange;
-
     public static AudioManagerScript S;
 
     // Start is called before the first frame update

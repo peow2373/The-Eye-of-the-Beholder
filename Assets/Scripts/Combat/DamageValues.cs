@@ -14,10 +14,10 @@ public class DamageValues : MonoBehaviour
     
     // Netrixi
     public static float fireball = 25;                    // How much damage does the attack do?
-    public static float fireballBurn = 0.05f;            // How long does the attack take to do 1 HP in damage?
+    public static float fireballBurn = 0.025f;            // How long does the attack take to do 1 HP in damage?
     public static float fireballDelay;                    // How long before the next attack is started?
     
-    public static float lightning = 65;
+    public static float lightning = 50;
     public static float lightningBurn = standardBurn;
 
     public static int roundsTransformed = 2;
@@ -26,14 +26,12 @@ public class DamageValues : MonoBehaviour
 
     
     // Folkvar
-    public static float swingSword = 75;
-    public static int critChance = 20;                    // Determines the likelihood of a critical strike
+    public static float swingSword = 60;
+    public static int critChance = 12;                    // Determines the likelihood of a critical strike
     public static float swingSwordBurn = standardBurn;
 
-    public static float smite = 15;
-    public static float executeDamage = 150;
-    public static float executeThreshold = 0.25f;        // Enemies must be below 25% health to be executed
-    public static float smiteBurn = standardBurn;
+    public static float smite = 25;
+    public static float smiteBurn = 0.025f;
 
     public static float grandSlam = 85;
     public static float grandSlamBurn = standardBurn;

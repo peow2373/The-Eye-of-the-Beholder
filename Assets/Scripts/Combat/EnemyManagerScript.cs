@@ -76,12 +76,6 @@ public class EnemyManagerScript : MonoBehaviour
         }
         else
         {
-            if (barkeeperMadNextRound && GameManagerScript.barkeeperMad)
-            {
-                // The Barkeeper punches the Tavern Brute in retaliation for breaking one of his chairs
-                firstAttack = "Barkeeper-Punches Tavern Brute";
-            }
-            
             if (secondAttack == "null")
             {
                 DetermineEnemyChoice(2);
@@ -615,7 +609,7 @@ public class EnemyManagerScript : MonoBehaviour
             case "Royal King":
                 // Stage 1
                 availableMoves.Add("Royal King-Swings Mace");
-                availableMoves.Add("Skull King-Slams with Mace");
+                availableMoves.Add("Royal King-Slams with Mace");
                 availableMoves.Add("Royal King-Performs a Grand Slam");
                 availableMoves.Add("Royal King-Smites");
                 // Stage 2

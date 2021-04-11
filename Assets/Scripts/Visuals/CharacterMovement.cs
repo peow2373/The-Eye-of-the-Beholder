@@ -36,7 +36,7 @@ public class CharacterMovement : MonoBehaviour
     public static float size4Offset = 1.5f;
     public static float size5Offset = 2f;
     public static float size6Offset = 2.25f;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -170,24 +170,34 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    public static float DetermineYLocation(int characterPosition)
+    public float DetermineYLocation(int characterPosition)
     {
         switch (characterPosition)
         {
             case 1:
             case 3:
             case 5:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                return middleYLocation;
+                
             case 6:
             case 8:
             case 10:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 2;
                 return middleYLocation;
             
             case 2:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+                return upperYLocation;
             case 9:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 1;
                 return upperYLocation;
 
             case 4:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 6;
+                return lowerYLocation;
             case 7:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 3;
                 return lowerYLocation;
         }
 

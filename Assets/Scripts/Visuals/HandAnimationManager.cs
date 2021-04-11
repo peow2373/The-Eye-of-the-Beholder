@@ -61,26 +61,6 @@ public class HandAnimationManager : MonoBehaviour
         if (ChangeHandAnimation.animationName2 != "") animationName2 = ChangeHandAnimation.animationName2;
         if (ChangeHandAnimation.animationName3 != "") animationName3 = ChangeHandAnimation.animationName3;
 
-        // If the Undo button is pressed
-        if (MarkerManagerScript.undoMarker)
-        {
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                ChangeHandAnimation.animationName1 = animationName1;
-                ChangeHandAnimation.animationName2 = animationName2;
-                ChangeHandAnimation.animationName3 = animationName3;
-
-                if (CombatManagerScript.firstAttack != 0)
-                {
-                    ChangeChoiceText.S.handAnimation1.SetActive(true);
-                    ChangeChoiceText.S.handAnimation2.SetActive(true);
-                    ChangeChoiceText.S.handAnimation3.SetActive(true);
-                }
-
-                restartAnimation = true;
-            }
-        }
-
         // If the animations need to be restarted
         if (restartAnimation)
         {
@@ -95,6 +75,24 @@ public class HandAnimationManager : MonoBehaviour
         else
         {
             ChangeHandAnimation.restartAnimation = false;
+        }
+        
+        
+        // If the Undo button is pressed
+        if (MarkerManagerScript.undoMarker)
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                ChangeHandAnimation.animationName1 = animationName1;
+                ChangeHandAnimation.animationName2 = animationName2;
+                ChangeHandAnimation.animationName3 = animationName3;
+
+                ChangeChoiceText.S.handAnimation1.SetActive(true);
+                ChangeChoiceText.S.handAnimation2.SetActive(true);
+                ChangeChoiceText.S.handAnimation3.SetActive(true);
+
+                restartAnimation = true;
+            }
         }
     }
 
@@ -154,6 +152,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (netrixiAttack1)
                         {
+                            HighlightChoices.S.HighlightChoice(1,3);
+                            
                             netrixiAttack1 = false;
                             restartAnimation = true;
                         }
@@ -162,6 +162,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (!netrixiAttack1)
                         {
+                            HighlightChoices.S.HighlightChoice(1,3);
+                            
                             netrixiAttack1 = true;
                             restartAnimation = true;
                         }
@@ -171,6 +173,8 @@ public class HandAnimationManager : MonoBehaviour
                 {
                     if (netrixiAttack1)
                     {
+                        HighlightChoices.S.HighlightChoice(1,3);
+                        
                         netrixiAttack1 = false;
                         restartAnimation = true;
                     }
@@ -183,6 +187,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (netrixiAttack2)
                         {
+                            HighlightChoices.S.HighlightChoice(2,3);
+                            
                             netrixiAttack2 = false;
                             restartAnimation = true;
                         }
@@ -191,6 +197,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (!netrixiAttack2)
                         {
+                            HighlightChoices.S.HighlightChoice(2,3);
+                            
                             netrixiAttack2 = true;
                             restartAnimation = true;
                         }
@@ -200,6 +208,8 @@ public class HandAnimationManager : MonoBehaviour
                 {
                     if (netrixiAttack2)
                     {
+                        HighlightChoices.S.HighlightChoice(2,3);
+                        
                         netrixiAttack2 = false;
                         restartAnimation = true;
                     }
@@ -216,6 +226,8 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (netrixiAttack3)
                                 {
+                                    HighlightChoices.S.HighlightChoice(3,3);
+                                    
                                     netrixiAttack3 = false;
                                     restartAnimation = true;
                                 }
@@ -224,6 +236,8 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (!netrixiAttack3)
                                 {
+                                    HighlightChoices.S.HighlightChoice(3,3);
+                                    
                                     netrixiAttack3 = true;
                                     restartAnimation = true;
                                 }
@@ -233,6 +247,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (netrixiAttack3)
                             {
+                                HighlightChoices.S.HighlightChoice(3,3);
+                                
                                 netrixiAttack3 = false;
                                 restartAnimation = true;
                             }
@@ -242,6 +258,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (!netrixiAttack3)
                         {
+                            HighlightChoices.S.HighlightChoice(3,3);
+                            
                             netrixiAttack3 = true;
                             restartAnimation = true;
                         }
@@ -251,6 +269,8 @@ public class HandAnimationManager : MonoBehaviour
                 {
                     if (netrixiAttack3)
                     {
+                        HighlightChoices.S.HighlightChoice(3,3);
+                        
                         netrixiAttack3 = false;
                         restartAnimation = true;
                     }
@@ -269,6 +289,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (folkvarAttack1)
                             {
+                                HighlightChoices.S.HighlightChoice(1,3);
+                                
                                 folkvarAttack1 = false;
                                 restartAnimation = true;
                             }
@@ -277,6 +299,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (!folkvarAttack1)
                             {
+                                HighlightChoices.S.HighlightChoice(1,3);
+                                
                                 folkvarAttack1 = true;
                                 restartAnimation = true;
                             }
@@ -286,6 +310,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (folkvarAttack1)
                         {
+                            HighlightChoices.S.HighlightChoice(1,3);
+                            
                             folkvarAttack1 = false;
                             restartAnimation = true;
                         }
@@ -300,6 +326,8 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (!folkvarAttack2)
                                 {
+                                    HighlightChoices.S.HighlightChoice(2,3);
+                                    
                                     folkvarAttack2 = true;
                                     restartAnimation = true;
                                 }
@@ -308,6 +336,8 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (folkvarAttack2)
                                 {
+                                    HighlightChoices.S.HighlightChoice(2,3);
+                                    
                                     folkvarAttack2 = false;
                                     restartAnimation = true;
                                 }
@@ -317,6 +347,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (!folkvarAttack2)
                             {
+                                HighlightChoices.S.HighlightChoice(2,3);
+                                
                                 folkvarAttack2 = true;
                                 restartAnimation = true;
                             }
@@ -326,6 +358,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (folkvarAttack2)
                         {
+                            HighlightChoices.S.HighlightChoice(2,3);
+                            
                             folkvarAttack2 = false;
                             restartAnimation = true;
                         }
@@ -340,6 +374,8 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (!folkvarAttack3)
                                 {
+                                    HighlightChoices.S.HighlightChoice(3,3);
+                                    
                                     folkvarAttack3 = true;
                                     restartAnimation = true;
                                 }
@@ -348,6 +384,8 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (folkvarAttack3)
                                 {
+                                    HighlightChoices.S.HighlightChoice(3,3);
+                                    
                                     folkvarAttack3 = false;
                                     restartAnimation = true;
                                 }
@@ -357,6 +395,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (!folkvarAttack3)
                             {
+                                HighlightChoices.S.HighlightChoice(3,3);
+                                
                                 folkvarAttack3 = true;
                                 restartAnimation = true;
                             }
@@ -366,6 +406,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (folkvarAttack3)
                         {
+                            HighlightChoices.S.HighlightChoice(3,3);
+                            
                             folkvarAttack3 = false;
                             restartAnimation = true;
                         }
@@ -385,6 +427,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (ivAttack1)
                             {
+                                HighlightChoices.S.HighlightChoice(1,3);
+                                
                                 ivAttack1 = false;
                                 restartAnimation = true;
                             }
@@ -393,6 +437,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (!ivAttack1)
                             {
+                                HighlightChoices.S.HighlightChoice(1,3);
+                                
                                 ivAttack1 = true;
                                 restartAnimation = true;
                             }
@@ -402,6 +448,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (ivAttack1)
                         {
+                            HighlightChoices.S.HighlightChoice(1,3);
+                            
                             ivAttack1 = false;
                             restartAnimation = true;
                         }
@@ -418,6 +466,8 @@ public class HandAnimationManager : MonoBehaviour
                                 {
                                     if (ivAttack2)
                                     {
+                                        HighlightChoices.S.HighlightChoice(2,3);
+                                        
                                         ivAttack2 = false;
                                         restartAnimation = true;
                                     }
@@ -426,6 +476,8 @@ public class HandAnimationManager : MonoBehaviour
                                 {
                                     if (!ivAttack2)
                                     {
+                                        HighlightChoices.S.HighlightChoice(2,3);
+                                        
                                         ivAttack2 = true;
                                         restartAnimation = true;
                                     }
@@ -435,6 +487,8 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (ivAttack2)
                                 {
+                                    HighlightChoices.S.HighlightChoice(2,3);
+                                    
                                     ivAttack2 = false;
                                     restartAnimation = true;
                                 }
@@ -444,6 +498,8 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (!ivAttack2)
                             {
+                                HighlightChoices.S.HighlightChoice(2,3);
+                                
                                 ivAttack2 = true;
                                 restartAnimation = true;
                             }
@@ -453,6 +509,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (ivAttack2)
                         {
+                            HighlightChoices.S.HighlightChoice(2,3);
+                            
                             ivAttack2 = false;
                             restartAnimation = true;
                         }
@@ -466,6 +524,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (ivAttack3)
                         {
+                            HighlightChoices.S.HighlightChoice(3,3);
+                            
                             ivAttack3 = false;
                             restartAnimation = true;
                         }
@@ -474,6 +534,8 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (!ivAttack3)
                         {
+                            HighlightChoices.S.HighlightChoice(3,3);
+                            
                             ivAttack3 = true;
                             restartAnimation = true;
                         }
@@ -483,6 +545,8 @@ public class HandAnimationManager : MonoBehaviour
                 {
                     if (ivAttack3)
                     {
+                        HighlightChoices.S.HighlightChoice(3,3);
+                        
                         ivAttack3 = false;
                         restartAnimation = true;
                     }

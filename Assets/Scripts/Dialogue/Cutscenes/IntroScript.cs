@@ -34,7 +34,6 @@ public class IntroScript : MonoBehaviour
 
     void refreshUI()
     {
-
         eraseUI();
 
         Text storyText = Instantiate(textPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Text;
@@ -96,6 +95,9 @@ public class IntroScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
+                HighlightChoices.S.HighlightChoice(1,1);
+                
+                SFXManager.S.PlaySFX(40);
                 refreshUI();
             }
         }

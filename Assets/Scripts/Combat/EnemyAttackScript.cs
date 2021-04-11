@@ -437,7 +437,6 @@ public class EnemyAttackScript : MonoBehaviour
         void DetermineCharactersHit(int attackNumber)
         {
             int attackLocation;
-            int executeDamage = (int) DamageValues.executeDamage;
 
             if (attackNumber == 1) attackLocation = EnemyManagerScript.attack1Location;
             else attackLocation = EnemyManagerScript.attack2Location;
@@ -451,21 +450,19 @@ public class EnemyAttackScript : MonoBehaviour
                 // If Iv is countering this ability
                 if (AttackScript.countered)
                 {
-                    if (DetermineEnemyHP())
-                    {
-                        // Execute low-health Enemy for double damage
-                        HealthManagerScript.ChangeHealth(attackingEnemy, executeDamage, burnRate);
-                    }
-                    else HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+                    // Deal damage to the attacking enemy instead
+                    HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+
+                    if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = true;
+                    else CombatSimulationScript.canPlayerMove2 = true;
                 }
                 else
                 {
-                    if (CombatManagerScript.folkvarHP <= HealthValues.folkvarHP * DamageValues.executeThreshold)
-                    {
-                        // Execute low-health Character for double damage
-                        HealthManagerScript.ChangeHealth("Folkvar", executeDamage, burnRate);
-                    }
-                    else HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                    // Deal damage to Folkvar
+                    HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                    
+                    if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = false;
+                    else CombatSimulationScript.canPlayerMove2 = false;
                 }
             }
             else
@@ -479,23 +476,20 @@ public class EnemyAttackScript : MonoBehaviour
                     // If Iv is countering this ability
                     if (AttackScript.countered)
                     {
-                        if (DetermineEnemyHP())
-                        {
-                            // Execute low-health Enemy for double damage
-                            HealthManagerScript.ChangeHealth(attackingEnemy, executeDamage, burnRate);
-                        }
-                        else HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+                        // Deal damage to the attacking enemy instead
+                        HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+
+                        if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = true;
+                        else CombatSimulationScript.canPlayerMove2 = true;
                     }
                     else
                     {
-                        if (CombatManagerScript.netrixiHP <= HealthValues.netrixiHP * DamageValues.executeThreshold)
-                        {
-                            // Execute low-health Character for double damage
-                            HealthManagerScript.ChangeHealth("Netrixi", executeDamage, burnRate);
-                        }
-                        else HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                        // Deal damage to Netrixi
+                        HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                    
+                        if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = false;
+                        else CombatSimulationScript.canPlayerMove2 = false;
                     }
-                        
                 }
                 else
                 {
@@ -508,21 +502,19 @@ public class EnemyAttackScript : MonoBehaviour
                         // If Iv is countering this ability
                         if (AttackScript.countered)
                         {
-                            if (DetermineEnemyHP())
-                            {
-                                // Execute low-health Enemy for double damage
-                                HealthManagerScript.ChangeHealth(attackingEnemy, executeDamage, burnRate);
-                            }
-                            else HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+                            // Deal damage to the attacking enemy instead
+                            HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+
+                            if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = true;
+                            else CombatSimulationScript.canPlayerMove2 = true;
                         }
                         else
                         {
-                            if (CombatManagerScript.ivHP <= HealthValues.ivHP * DamageValues.executeThreshold)
-                            {
-                                // Execute low-health Character for double damage
-                                HealthManagerScript.ChangeHealth("Iv", executeDamage, burnRate);
-                            }
-                            else HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
+                            // Deal damage to Iv
+                            HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
+                    
+                            if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = false;
+                            else CombatSimulationScript.canPlayerMove2 = false;
                         }
                     }
                     else
@@ -531,26 +523,6 @@ public class EnemyAttackScript : MonoBehaviour
                         AttackScript.enemyTarget = "None";
                     }
                 }
-            }
-
-
-            bool DetermineEnemyHP()
-            {
-                if (attackingEnemy == "Enemy 1")
-                {
-                    if (CombatManagerScript.enemy1HP <= CombatManagerScript.enemy1StartingHP * DamageValues.executeThreshold) return true;
-                }
-                
-                if (attackingEnemy == "Enemy 2")
-                {
-                    if (CombatManagerScript.enemy2HP <= CombatManagerScript.enemy2StartingHP * DamageValues.executeThreshold) return true;
-                }
-
-                if (attackingEnemy == "Enemy 3")
-                {
-                    if (CombatManagerScript.enemy3HP <= CombatManagerScript.enemy3StartingHP * DamageValues.executeThreshold) return true;
-                }
-                return false;
             }
         }
     }
@@ -1333,44 +1305,34 @@ public class EnemyAttackScript : MonoBehaviour
         // If an Enemy will attack a certain location by Smiting it
         else if (enemyAttack == "Smites")
         {
-            int lowestCharacterHP = 500;
-            int targetCharacter = 0;
+            string targetCharacter = null;
 
-            // Determine which character has the lowest HP
-            if (CombatManagerScript.netrixiAlive)
+            if (CombatManagerScript.netrixiAlive) targetCharacter = "Netrixi";
+            else
             {
-                targetCharacter = 1;
-                lowestCharacterHP = CombatManagerScript.netrixiHP;
+                if (CombatManagerScript.folkvarAlive) targetCharacter = "Folkvar";
+                else
+                {
+                    if (CombatManagerScript.ivAlive) targetCharacter = "Iv";
+                }
             }
-            if (CombatManagerScript.folkvarAlive)
-                if (CombatManagerScript.folkvarHP < lowestCharacterHP)
-                {
-                    targetCharacter = 2;
-                    lowestCharacterHP = CombatManagerScript.folkvarHP;
-                }
-            if (CombatManagerScript.ivAlive)
-                if (CombatManagerScript.ivHP < lowestCharacterHP)
-                {
-                    targetCharacter = 3;
-                    lowestCharacterHP = CombatManagerScript.ivHP;
-                }
-            
+
             switch (targetCharacter)
             {
-                // Netrixi has the lowest HP
-                case 1:
+                // Netrixi will be targeted for the smite
+                case "Netrixi":
                     if (attackNumber == 1) EnemyManagerScript.attack1Location = CharacterManagerScript.netrixiPosition;
                     else EnemyManagerScript.attack2Location = CharacterManagerScript.netrixiPosition;
                     break;
                                 
-                // Folkvar has the lowest HP
-                case 2:
+                // Folkvar will be targeted for the smite
+                case "Folkvar":
                     if (attackNumber == 1) EnemyManagerScript.attack1Location = CharacterManagerScript.folkvarPosition;
                     else EnemyManagerScript.attack2Location = CharacterManagerScript.folkvarPosition;
                     break;
                                 
-                // Iv has the lowest HP
-                case 3:
+                // Iv will be targeted for the smite
+                case "Iv":
                     if (attackNumber == 1) EnemyManagerScript.attack1Location = CharacterManagerScript.ivPosition;
                     else EnemyManagerScript.attack2Location = CharacterManagerScript.ivPosition;
                     break;

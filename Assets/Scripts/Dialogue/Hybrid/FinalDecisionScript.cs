@@ -106,6 +106,9 @@ public class FinalDecisionScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
+                    HighlightChoices.S.HighlightChoice(1,1);
+                    
+                    SFXManager.S.PlaySFX(40);
                     refreshUI();
                 }
             }
@@ -115,6 +118,10 @@ public class FinalDecisionScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                HighlightChoices.S.HighlightChoice(1,3);
+                
+                SFXManager.S.PlaySFX(43);
+                
                 eraseUI();
                 GameManagerScript.NextScene(skipScene);
                 Epilogue.storyTicker = 1;
@@ -123,6 +130,10 @@ public class FinalDecisionScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.O))
             {
+                HighlightChoices.S.HighlightChoice(2,3);
+                
+                SFXManager.S.PlaySFX(44);
+                
                 eraseUI();
                 GameManagerScript.NextScene(skipScene);
                 Epilogue.storyTicker = 4;
@@ -130,6 +141,10 @@ public class FinalDecisionScript : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.I))
             {
+                HighlightChoices.S.HighlightChoice(3,3);
+                
+                SFXManager.S.PlaySFX(45);
+                
                 eraseUI();
                 GameManagerScript.NextScene(skipScene);
                 Epilogue.storyTicker = 7;

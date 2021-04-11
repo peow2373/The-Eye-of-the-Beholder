@@ -43,14 +43,14 @@ public class CharacterSelected : MonoBehaviour
                 
                     if (CombatManagerScript.netrixiAttacks)
                     {
-                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight) + (selectedLocation*combatHeight);
+                        float yLoc = DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight) + (selectedLocation*combatHeight);
                         
                         this.transform.localScale = new Vector3(selectedSize, selectedSize, selectedSize);
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                     else
                     {
-                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight);
+                        float yLoc = DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight);
                         
                         this.transform.localScale = new Vector3(deselectedSize + 0.5f, deselectedSize + 0.5f, deselectedSize);
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
@@ -81,14 +81,14 @@ public class CharacterSelected : MonoBehaviour
                 
                     if (CombatManagerScript.folkvarAttacks)
                     {
-                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight) + (selectedLocation*combatHeight);
+                        float yLoc = DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight) + (selectedLocation*combatHeight);
                         
                         this.transform.localScale = new Vector3(selectedSize, selectedSize, selectedSize);
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                     else
                     {
-                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight);
+                        float yLoc = DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight);
                         
                         this.transform.localScale = new Vector3(deselectedSize + 2f, deselectedSize + 2f, deselectedSize);
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
@@ -119,14 +119,14 @@ public class CharacterSelected : MonoBehaviour
                 
                     if (CombatManagerScript.ivAttacks)
                     {
-                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight) + (selectedLocation*combatHeight);
+                        float yLoc = DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight) + (selectedLocation*combatHeight);
                         
                         this.transform.localScale = selected;
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                     else
                     {
-                        float yLoc = CharacterMovement.DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight);
+                        float yLoc = DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight);
                         
                         this.transform.localScale = deselected;
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
@@ -142,5 +142,40 @@ public class CharacterSelected : MonoBehaviour
                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             }
         }
+    }
+    
+    
+    public float DetermineYLocation(int characterPosition)
+    {
+        switch (characterPosition)
+        {
+            case 1:
+            case 3:
+            case 5:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                return CharacterMovement.middleYLocation;
+                
+            case 6:
+            case 8:
+            case 10:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                return CharacterMovement.middleYLocation;
+            
+            case 2:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+                return CharacterMovement.upperYLocation;
+            case 9:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                return CharacterMovement.upperYLocation;
+
+            case 4:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 6;
+                return CharacterMovement.lowerYLocation;
+            case 7:
+                this.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                return CharacterMovement.lowerYLocation;
+        }
+
+        return CharacterMovement.middleYLocation;
     }
 }

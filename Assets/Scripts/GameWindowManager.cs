@@ -37,10 +37,10 @@ public class GameWindowManager : MonoBehaviour
     public static float dialoguePadding;
     public static float portraitSizeX;
     
-    public static float smallerDialoguePercent = 0.6f;
-    public static float smallerDialoguePadding = 0.03f;
-    public static float largerDialoguePercent = 0.7f;
-    public static float largerDialoguePadding = 0.035f;
+    public static float smallerDialoguePercent = 0.65f;
+    public static float smallerDialoguePadding = 0.025f;
+    public static float largerDialoguePercent = 0.65f;
+    public static float largerDialoguePadding = 0.025f;
 
     public GameObject hand, gridRow1, gridRow2, gridColumn1, gridColumn2;
     public static float gridRowPadding, gridColumnPadding;
@@ -66,6 +66,9 @@ public class GameWindowManager : MonoBehaviour
 
     public GameObject handAnimation1, handAnimation2, handAnimation3;
     private bool hand1Created, hand2Created, hand3Created;
+
+    public static int largerChoiceFont = 58;
+    public static int smallerChoiceFont = 48;
 
     // Start is called before the first frame update
     void Awake()
@@ -221,7 +224,9 @@ public class GameWindowManager : MonoBehaviour
         float sizeDiffX = webcamWidth*Screen.width - (4 * (Screen.width * optionXPadding));
         float sizeDiffY = webcamHeight*Screen.height - (4 * (Screen.height * optionYPadding));
         
-        webcamText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+        webcamText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+
+        //print(sizeDiffX + ", " + sizeDiffY);
         
         // Change scale of hand icon
         HandManagerScript.ChangeHandScale(hand, webcamWidth, cameraWidth);
@@ -367,27 +372,27 @@ public class GameWindowManager : MonoBehaviour
             float sizeDiffYLarge = (sizeDiffY * 2) - (2 * (Screen.height * optionYPadding));
             float sizeDiffYSmall = sizeDiffY - (2 * (Screen.height * optionYPadding));
             
-            if (option1Centered) option1Text.rectTransform.sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
-            else option1Text.rectTransform.sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
+            if (option1Centered) option1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
+            else option1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
             
-            if (option2Centered) option2Text.rectTransform.sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
-            else option2Text.rectTransform.sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
+            if (option2Centered) option2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
+            else option2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
             
-            if (option3Centered) option3Text.rectTransform.sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
-            else option3Text.rectTransform.sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
+            if (option3Centered) option3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
+            else option3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
             
-            option4Text.rectTransform.sizeDelta = new Vector2((webcamWidth*Screen.width) - (2 * (Screen.width * optionXPadding)), sizeDiffYSmall);
+            option4Text.GetComponent<RectTransform>().sizeDelta = new Vector2((webcamWidth*Screen.width) - (2 * (Screen.width * optionXPadding)), sizeDiffYSmall);
         }
         else
         {
-            if (option1Centered) option1Text.rectTransform.sizeDelta = new Vector2(sizeXCentered, sizeDiffY);
-            else option1Text.rectTransform.sizeDelta = new Vector2(sizeXLeft, sizeDiffY);
+            if (option1Centered) option1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffY);
+            else option1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffY);
             
-            if (option2Centered) option2Text.rectTransform.sizeDelta = new Vector2(sizeXCentered, sizeDiffY);
-            else option2Text.rectTransform.sizeDelta = new Vector2(sizeXLeft, sizeDiffY);
+            if (option2Centered) option2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffY);
+            else option2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffY);
             
-            if (option3Centered) option3Text.rectTransform.sizeDelta = new Vector2(sizeXCentered, sizeDiffY);
-            else option3Text.rectTransform.sizeDelta = new Vector2(sizeXLeft, sizeDiffY);
+            if (option3Centered) option3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffY);
+            else option3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffY);
         }
     }
 
@@ -520,7 +525,7 @@ public class GameWindowManager : MonoBehaviour
                 float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
-                dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             } 
             else if (ChangePortrait.whoIsTalking == 2)
             {
@@ -532,7 +537,7 @@ public class GameWindowManager : MonoBehaviour
                 float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
     
-                dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             }
             else
             {
@@ -541,10 +546,10 @@ public class GameWindowManager : MonoBehaviour
                 dialogueText.alignment = TextAnchor.MiddleCenter;
 
                 // Change textbox size
-                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - (margin * 2));
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - (margin * 4));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
-                dialogueText.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             }
         }
         else dialogueText.transform.position = new Vector3(offScreen, offScreen, 0);
@@ -571,6 +576,8 @@ public class GameWindowManager : MonoBehaviour
                     PositionPortrait(cameraWidth, cameraHeight);
                     
                     ChangeChoiceText.S.ChangeChoices(false, choices,1);
+                    
+                    choice1Text.fontSize = largerChoiceFont;
                     break;
             
                 case 2:
@@ -591,6 +598,8 @@ public class GameWindowManager : MonoBehaviour
                             PositionPortrait(cameraWidth, cameraHeight);
                             
                             ChangeChoiceText.S.ChangeChoices(true, choices,2);
+                            
+                            choice1Text.fontSize = smallerChoiceFont;
                         }
                         else
                         {
@@ -602,6 +611,8 @@ public class GameWindowManager : MonoBehaviour
                             PositionPortrait(cameraWidth, cameraHeight);
                             
                             ChangeChoiceText.S.ChangeChoices(false, choices,2);
+                            
+                            choice1Text.fontSize = largerChoiceFont;
                         }
                     }
                     else if (tempText == "Brute")
@@ -616,6 +627,8 @@ public class GameWindowManager : MonoBehaviour
                             PositionPortrait(cameraWidth, cameraHeight);
                             
                             ChangeChoiceText.S.ChangeChoices(true, choices,2);
+                            
+                            choice1Text.fontSize = smallerChoiceFont;
                         }
                         else
                         {
@@ -627,6 +640,8 @@ public class GameWindowManager : MonoBehaviour
                             PositionPortrait(cameraWidth, cameraHeight);
                             
                             ChangeChoiceText.S.ChangeChoices(false, choices,2);
+                            
+                            choice1Text.fontSize = largerChoiceFont;
                         }
                     }
                     else
@@ -639,6 +654,8 @@ public class GameWindowManager : MonoBehaviour
                         PositionPortrait(cameraWidth, cameraHeight);
                         
                         ChangeChoiceText.S.ChangeChoices(true, choices,2);
+                        
+                        choice1Text.fontSize = smallerChoiceFont;
                     }
                     break;
             
@@ -651,6 +668,8 @@ public class GameWindowManager : MonoBehaviour
                     PositionPortrait(cameraWidth, cameraHeight);
                     
                     ChangeChoiceText.S.ChangeChoices(false, choices,3);
+                    
+                    choice1Text.fontSize = largerChoiceFont;
                     break;
             }
         }
@@ -707,7 +726,7 @@ public class GameWindowManager : MonoBehaviour
                 sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
                 sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
-                choice1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                choice1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 break;
             
             case 2:
@@ -739,8 +758,8 @@ public class GameWindowManager : MonoBehaviour
                 sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
                 sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
-                choice1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
-                choice2Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                choice1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                choice2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 break;
             
             case 3:
@@ -775,9 +794,9 @@ public class GameWindowManager : MonoBehaviour
                 sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
                 sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
-                choice1Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
-                choice2Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
-                choice3Text.rectTransform.sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                choice1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                choice2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+                choice3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 break;
         }
 

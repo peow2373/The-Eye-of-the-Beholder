@@ -110,6 +110,9 @@ public class RoadScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
+                    HighlightChoices.S.HighlightChoice(1,1);
+                    
+                    SFXManager.S.PlaySFX(40);
                     refreshUI();
                 }
             }
@@ -122,6 +125,9 @@ public class RoadScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.V))
                 {
+                    HighlightChoices.S.HighlightChoice(1,1);
+                    
+                    SFXManager.S.PlaySFX(40);
                     refreshUI();
                 }
             }
@@ -140,8 +146,12 @@ public class RoadScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
                 {
+                    HighlightChoices.S.HighlightChoice(1,2);
+
                     if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                     {
+                        SFXManager.S.PlaySFX(42);
+                        
                         story.ChooseChoiceIndex(0);
                         refreshUI();
                         handInMiddleRight = false;
@@ -150,6 +160,8 @@ public class RoadScript : MonoBehaviour
                     {
                         if (MarkerManagerScript.palmMarker && didMarkerDisappear)
                         {
+                            SFXManager.S.PlaySFX(42);
+                            
                             story.ChooseChoiceIndex(0);
                             refreshUI();
                             handInMiddleRight = false;
@@ -164,8 +176,12 @@ public class RoadScript : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
                 {
+                    HighlightChoices.S.HighlightChoice(2,2);
+                    
                     if (MarkerManagerScript.pastLocation != MarkerManagerScript.currentLocation)
                     {
+                        SFXManager.S.PlaySFX(42);
+                        
                         story.ChooseChoiceIndex(1);
                         refreshUI();
                         skipScene = true;
@@ -175,6 +191,8 @@ public class RoadScript : MonoBehaviour
                     {
                         if (MarkerManagerScript.palmMarker && didMarkerDisappear)
                         {
+                            SFXManager.S.PlaySFX(42);
+                            
                             story.ChooseChoiceIndex(1);
                             refreshUI();
                             skipScene = true;
@@ -191,18 +209,30 @@ public class RoadScript : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Y))
             {
+                HighlightChoices.S.HighlightChoice(1,3);
+                
+                SFXManager.S.PlaySFX(43);
+                
                 story.ChooseChoiceIndex(0);
                 refreshUI();
             }
 
             if (Input.GetKeyDown(KeyCode.O))
             {
+                HighlightChoices.S.HighlightChoice(2,3);
+                
+                SFXManager.S.PlaySFX(44);
+                
                 story.ChooseChoiceIndex(1);
                 refreshUI();
             }
 
             if (Input.GetKeyDown(KeyCode.I))
             {
+                HighlightChoices.S.HighlightChoice(3,3);
+                
+                SFXManager.S.PlaySFX(45);
+                
                 story.ChooseChoiceIndex(2);
                 refreshUI();
 
