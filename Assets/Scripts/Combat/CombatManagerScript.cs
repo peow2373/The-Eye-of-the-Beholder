@@ -40,6 +40,9 @@ public class CombatManagerScript : MonoBehaviour
     public static int netrixiTarget1Location, netrixiTarget2Location;
     public static int folkvarTarget1Location, folkvarTarget2Location;
 
+    public GameObject netrixi, folkvar, iv;
+    public GameObject enemy1, enemy2, enemy3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -153,6 +156,11 @@ public class CombatManagerScript : MonoBehaviour
         canNetrixiAttack = true;
         canFolkvarAttack = true;
         canIvAttack = true;
+        
+        // Change enemy sprites
+        ChangeSprites.S.ChangeEnemyCharacter(EnemyManagerScript.enemy1, enemy1.GetComponent<SpriteRenderer>());
+        ChangeSprites.S.ChangeEnemyCharacter(EnemyManagerScript.enemy2, enemy2.GetComponent<SpriteRenderer>());
+        ChangeSprites.S.ChangeEnemyCharacter(EnemyManagerScript.enemy3, enemy3.GetComponent<SpriteRenderer>());
 
         // Reset target locations
         netrixiTarget1Location = 0;

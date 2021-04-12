@@ -178,25 +178,26 @@ public class ChangeCombatText : MonoBehaviour
             float currHeight = sr[i].sprite.bounds.extents.y * 2;
 
             float desiredHeight = windowHeight / 3;
+            float scaleFactor = desiredHeight / currHeight;
             
             if (currWidth != windowWidth)
             {
                 switch (i)
                 {
                     case 0:
-                        playerSprite1.transform.localScale = new Vector3(desiredHeight/currWidth, desiredHeight/currHeight, 1);
+                        playerSprite1.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
                         break;
                     
                     case 1:
-                        playerSprite2.transform.localScale = new Vector3(desiredHeight/currWidth, desiredHeight/currHeight, 1);
+                        playerSprite2.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
                         break;
                     
                     case 2:
-                        enemySprite1.transform.localScale = new Vector3(desiredHeight/currWidth, desiredHeight/currHeight, 1);
+                        enemySprite1.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
                         break;
                     
                     case 3:
-                        enemySprite2.transform.localScale = new Vector3(desiredHeight/currWidth, desiredHeight/currHeight, 1);
+                        enemySprite2.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
                         break;
                 }
             }

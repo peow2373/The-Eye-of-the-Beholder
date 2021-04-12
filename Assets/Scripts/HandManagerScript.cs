@@ -13,8 +13,8 @@ public class HandManagerScript : MonoBehaviour
     private float currentTime = 0, timer = 0.7f;
     private bool startTimer = true;
 
-    public static float scale = 1f;
-    
+    public static float handScale = 7;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -173,24 +173,24 @@ public class HandManagerScript : MonoBehaviour
     public static void ChangeHandScale(GameObject hand, float webcamWidth, float cameraWidth)
     {
         SpriteRenderer sr = hand.GetComponent<SpriteRenderer>();
-        float handScale = sr.sprite.bounds.extents.x * 2;
+        float currScale = sr.sprite.bounds.extents.x * 2;
         
         if (!MarkerManagerScript.wasLarger)
         {
             if (!MarkerManagerScript.wasSmaller)
             {
-                float scaleFactor = ((webcamWidth / 4) * cameraWidth) / handScale;
+                float scaleFactor = ((webcamWidth / handScale) * cameraWidth) / currScale;
                 hand.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
             }
             else
             {
-                float scaleFactor = ((webcamWidth / 4) * cameraWidth) / (handScale*2);
+                float scaleFactor = ((webcamWidth / handScale) * cameraWidth) / (currScale*2);
                 hand.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
             }
         }
         else
         {
-            float scaleFactor = ((webcamWidth / 4) * cameraWidth) / (handScale/2);
+            float scaleFactor = ((webcamWidth / handScale) * cameraWidth) / (currScale/2);
             hand.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
         }
     }

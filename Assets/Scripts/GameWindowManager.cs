@@ -149,18 +149,15 @@ public class GameWindowManager : MonoBehaviour
 
             if (CombatManagerScript.netrixiAttacks || CombatManagerScript.folkvarAttacks || CombatManagerScript.ivAttacks)
             {
-                if (CombatManagerScript.firstAttack != 0 && CombatManagerScript.secondAttack != 0)
-                {
-                    PositionOptions(cameraWidth, cameraHeight, 3);
-                }
-                else
-                {
-                    PositionOptions(cameraWidth, cameraHeight, 4);
-                }
+                PositionOptions(cameraWidth, cameraHeight, 4);
             }
             else
             {
-                PositionOptions(cameraWidth, cameraHeight, 3);
+                if (CombatManagerScript.hasRunSimulation)
+                {
+                    PositionOptions(cameraWidth, cameraHeight, 4);
+                }
+                else PositionOptions(cameraWidth, cameraHeight, 3);
             }
         }
         else

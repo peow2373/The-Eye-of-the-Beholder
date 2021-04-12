@@ -22,6 +22,7 @@ TagManager:
   - Resize
   - Option 4
   - Hand Animation
+  - Enemy 4
   layers:
   - Default
   - TransparentFX

@@ -52,7 +52,7 @@ public class NetrixiAttackScript : MonoBehaviour
             {
                 enemy1Transformed = false;
                 
-                // TODO: Play transformation animation
+                // TODO: Play de-transformation animation
                 sr1.sprite = enemy1Sprite;
                 CombatManagerScript.canEnemy1Attack = true;
             }
@@ -69,7 +69,7 @@ public class NetrixiAttackScript : MonoBehaviour
             {
                 enemy2Transformed = false;
 
-                // TODO: Play transformation animation
+                // TODO: Play de-transformation animation
                 sr2.sprite = enemy2Sprite;
                 CombatManagerScript.canEnemy2Attack = true;
             }
@@ -86,7 +86,7 @@ public class NetrixiAttackScript : MonoBehaviour
             {
                 enemy3Transformed = false;
                 
-                // TODO: Play transformation animation
+                // TODO: Play de-transformation animation
                 sr3.sprite = enemy3Sprite;
                 CombatManagerScript.canEnemy3Attack = true;
             }

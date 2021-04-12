@@ -567,7 +567,7 @@ public class ChangeChoiceText : MonoBehaviour
                         
                         if (!FolkvarCombatScript.folkvarCondition2[1])
                         {
-                            ChangeHandAnimation.animationName2 = "Q to W";
+                            ChangeHandAnimation.animationName2 = "A to W";
                         }
                         else
                         {
@@ -1047,11 +1047,15 @@ public class ChangeChoiceText : MonoBehaviour
                 
             option3[1].GetComponent<Text>().text = "";
             option3[1].GetComponent<Text>().color = Color.gray;
+            
+            option4[1].GetComponent<Text>().text = "";
+            option4[1].GetComponent<Text>().color = Color.gray;
 
 
             option1[0].GetComponent<SpriteRenderer>().color = nextChoice;
             option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
             option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            option4[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
             
             handAnimation1.SetActive(true);
             handAnimation2.SetActive(true);

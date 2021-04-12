@@ -55,8 +55,8 @@ public class FolkvarCombatScript : MonoBehaviour
 
 
             // Second attack
-            // If player moves their hand to the upper-right section
-            if (MarkerManagerScript.currentLocation == 1) folkvarCondition2[0] = true;
+            // If player moves their hand to the middle-right section
+            if (MarkerManagerScript.currentLocation == 4) folkvarCondition2[0] = true;
             
             if (folkvarCondition2[0])
             {

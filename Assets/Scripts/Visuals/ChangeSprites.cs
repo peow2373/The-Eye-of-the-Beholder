@@ -11,8 +11,8 @@ public class ChangeSprites : MonoBehaviour
 
     private SpriteRenderer sr1, sr2, sr3;
 
-    public Sprite netrixiHood, netrixiFace, netrixiFaceCompass, netrixiHoodCompass;
-    public Sprite folkvarHelmet, folkvarFace, folkvarFaceTwoWeapons, folkvarTwoWeapons;
+    public Sprite netrixiHood, netrixiHoodCompass;
+    public Sprite folkvarHelmet, folkvarTwoWeapons;
     public Sprite ivEyesClosed, ivEyesClosedAmulet, ivEyesOpenAmulet;
     
     public Sprite knightMelee, knightRanged, gatekeeper, royalGuard;

@@ -16,7 +16,7 @@ public class GameManagerScript : MonoBehaviour
 
     public static bool barkeeperMad = false;
 
-    private int randomIndex;
+    public static int chooseRandomKnight;
 
     public static bool inCombat = false;
     
@@ -26,8 +26,6 @@ public class GameManagerScript : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        
-        randomIndex = UnityEngine.Random.Range(0,2);
     }
 
     // Update is called once per frame
@@ -575,7 +573,7 @@ public class GameManagerScript : MonoBehaviour
             // Fighting Folkvar and his two Royal Knights
             case 4:
                 // Change the Royal Knight to Melee or Ranged randomly
-                if (randomIndex == 0)
+                if (chooseRandomKnight == 0)
                 {
                     EnemyManagerScript.enemy1 = "Folkvar";
                     EnemyManagerScript.enemy2 = "Royal Knight Melee";
@@ -584,7 +582,7 @@ public class GameManagerScript : MonoBehaviour
                     EnemyManagerScript.ChangeEnemyLocation( 7, 9, 0 );
                     HealthManagerScript.StartingHealth(HealthValues.folkvarHP, HealthValues.knightMeleeHP, 0);
                 }
-                else if (randomIndex == 1 || randomIndex == 2)
+                else if (chooseRandomKnight == 1 || chooseRandomKnight == 2)
                 {
                     EnemyManagerScript.enemy1 = "Folkvar";
                     EnemyManagerScript.enemy2 = "Royal Knight Ranged";
@@ -701,6 +699,8 @@ public class GameManagerScript : MonoBehaviour
         EnemyManagerScript.barkeeperMadNextRound = false;
         EnemyManagerScript.barkeeperMadNextAttack = false;
         AttackScript.chairsThrown = 0;
+
+        chooseRandomKnight = 0;
 
         ChangeChoiceText.S.ResetChoices(true);
         CharacterManagerScript.ResetVariables();

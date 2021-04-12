@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1094853608735789178}
   - component: {fileID: 1094853608735789179}
+  - component: {fileID: 8189168344153116855}
+  - component: {fileID: 6731781272217121271}
   m_Layer: 0
   m_Name: Folkvar
   m_TagString: Folkvar
@@ -72,7 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 20
-  m_Sprite: {fileID: 21300000, guid: 7a84bc3c0fbda4d4a9d01d87dc2f0d86, type: 3}
+  m_Sprite: {fileID: -5459087816249556687, guid: 743148acef493e943b348a2755b1be50,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -83,6 +86,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8189168344153116855
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094853608735789172}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85254c953e3d0fc47b5f3638953c19e2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6731781272217121271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094853608735789172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85de561d203fe91489c83d7a88f1048f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  netrixi: 0
+  folkvar: 1
+  iv: 0
+  enemy1: 0
+  enemy2: 0
+  enemy3: 0
+  enemy4: 0
 --- !u!1001 &4886022587491596448
 PrefabInstance:
   m_ObjectHideFlags: 0

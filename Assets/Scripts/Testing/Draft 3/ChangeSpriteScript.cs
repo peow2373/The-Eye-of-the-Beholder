@@ -31,9 +31,13 @@ public class ChangeSpriteScript : MonoBehaviour
     private float lowerPosition;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         sr = this.GetComponent<SpriteRenderer>();
+        
+        ChangeSprite(EnemyManagerScript.enemy1);
+        ChangeSprite(EnemyManagerScript.enemy2);
+        ChangeSprite(EnemyManagerScript.enemy3);
     }
 
     // Update is called once per frame
@@ -43,9 +47,21 @@ public class ChangeSpriteScript : MonoBehaviour
         middlePosition = CharacterMovement.middleYLocation;
         lowerPosition = CharacterMovement.lowerYLocation;
         
-        if (enemy1) if (CombatManagerScript.canEnemy1Attack) ChangeSprite(EnemyManagerScript.enemy1);
-        if (enemy2) if (CombatManagerScript.canEnemy2Attack) ChangeSprite(EnemyManagerScript.enemy2);
-        if (enemy3) if (CombatManagerScript.canEnemy3Attack) ChangeSprite(EnemyManagerScript.enemy3);
+        if (enemy1)
+            if (CombatManagerScript.canEnemy1Attack)
+            {
+                ChangeSprite(EnemyManagerScript.enemy1);
+            }
+        if (enemy2)
+            if (CombatManagerScript.canEnemy2Attack)
+            {
+                ChangeSprite(EnemyManagerScript.enemy2);
+            }
+        if (enemy3)
+            if (CombatManagerScript.canEnemy3Attack)
+            {
+                ChangeSprite(EnemyManagerScript.enemy3);
+            }
     }
     
     void ChangeSprite(string enemyName)
