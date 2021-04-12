@@ -1,8 +1,20 @@
 # 4/6/2021 Update
 Progress
+![image](https://user-images.githubusercontent.com/60019866/113742316-bdabb980-96bf-11eb-9e4d-97d47b031823.png)
 - Hand animations now restart whenever a change in Combat is detected
 - Added hands+grid overlay to Beholder software
 - Gave the Skull King another melee attack, and "Throw Bomb" now deals splash damage
+- Added background soundtracks to the game
+- Several user playtests. Some important findings were...
+  - need to debounce GO marker
+  - having a timed element to the game might incentivize growing players' skills
+  - doesn't know which characters are which
+  - Holy Smite spell is broke yo
+  - beginning dialogue is slow; might be helpful to have a keyboard command to skip through dialogue
+  - people don't understand/use the info given by "enemy's moves" to inform their next attacks
+- tutorial video, promo video, and tutorial scenes all scripted
+- damage values playtested and changed to speed up combat scenes
+- scripted tips for players that will show up in UI
 
 # 3/30/2021 Update
 Progress
