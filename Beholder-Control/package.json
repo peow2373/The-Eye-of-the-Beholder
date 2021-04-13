@@ -20,7 +20,7 @@
   "homepage": "https://github.com/project-beholder/beholder-control#readme",
   "dependencies": {
     "@nut-tree/nut-js": "^1.4.2",
-    "beholder-detection": "^1.1.12"
+    "beholder-detection": "^1.1.13"
   },
   "devDependencies": {
     "electron": "^8.5.3",
