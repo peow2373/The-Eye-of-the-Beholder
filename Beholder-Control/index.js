@@ -11,8 +11,8 @@ keyboard.config.autoDelayMs = 0;
 // keyboard.config.autoDelayMs = 0;
 
 // Delay after marker has been undetected before it reports that the marker is missing
-const BUTTON_TIMEOUT = 250;
-const BUTTON_LONG = 2000;
+const BUTTON_TIMEOUT = 400;
+const BUTTON_HAND = 250;
 
 // Marker detection variables
 let palm, netrixi, folkvar, iv, undo, go;
@@ -40,7 +40,7 @@ let deadzone = 5;
 let markerButton = [palm, netrixi, folkvar, iv, undo, go];
 let keyOutput = ['H', 'Y', 'O', 'I', 'U', 'V'];
 let wasMarkerPresent = [false, false, false, false, false, false];
-let buttonTimer = [BUTTON_LONG, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT];
+let buttonTimer = [BUTTON_HAND, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT, BUTTON_TIMEOUT];
 
 // Hand overlay
 let canvas, ctx;
@@ -60,7 +60,7 @@ let gridThickness = 0.25;
 // code written in here will be executed once when the page loads
 function init() {
     // Initialize beholder
-    Beholder.init('#beholder-root', { feed_params: { flip: true , contrast: 100 }, overlay_params: { present: false } }, [855, 787, 907, 357, 683, 84]);
+    Beholder.init('#beholder-root', { feed_params: { flip: true , contrast: 50, brightness: 50 }, overlay_params: { present: false } }, [855, 787, 907, 357, 683, 84]);
 
     // Change these values depending on what markers are being used
     markerButton[0] = Beholder.getMarker(855);
@@ -162,7 +162,10 @@ function update() {
         let keyInput = KeyCode(keyOutput[i]);
 
         if (markerButton[i].present) {
-            buttonTimer[i] = BUTTON_TIMEOUT;
+            
+            if (i == 0) buttonTimer[i] = BUTTON_HAND;
+            else buttonTimer[i] = BUTTON_TIMEOUT;
+            
             if (!wasMarkerPresent[i]) {
 
                 // If it is the Go marker 
