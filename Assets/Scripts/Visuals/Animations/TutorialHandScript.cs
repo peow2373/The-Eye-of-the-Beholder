@@ -81,7 +81,7 @@ public class TutorialHandScript : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(standardDelay*2);
+        yield return new WaitForSeconds(standardDelay*1.5f);
         
         // Flip Hand back animation
         for (int i = 0; i < (180 / rotationAmount); i++)
