@@ -1,3 +1,12 @@
+# 4/12/2021 Update
+- itch page: https://eyeofthebeholder.itch.io/the-eye-of-the-beholder
+![image](https://user-images.githubusercontent.com/60019866/114463698-07a20d00-9ba2-11eb-84c1-a98a71412cca.png)
+Progress
+- made itch page for game
+- added page turn and fight SFX
+- created intro scene
+- 
+
 # 4/6/2021 Update
 Progress
 ![image](https://user-images.githubusercontent.com/60019866/113742316-bdabb980-96bf-11eb-9e4d-97d47b031823.png)

@@ -26,6 +26,7 @@ function createWindow() {
     height: height,
     
     //frame: false, 
+    icon: __dirname + '/images/Electron Icon.ico',
 
     // Needed to include communication between render and main processes
     webPreferences: {
@@ -79,37 +80,28 @@ const { keyboard, Key } = require('@nut-tree/nut-js');
 keyboard.config.autoDelayMs = 0;
 
 
-
-
 // Key presses when a certain marker is present
 
 // Palm marker appears (H)
-ipcMain.on("H_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.H)});
-ipcMain.on("H_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.H)});
+ipcMain.on("H_KEY_DOWN", async (event,arg) => {keyboard.type(Key.H)});
 
 // Palm marker disappears (L)
-ipcMain.on("L_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.L)});
-ipcMain.on("L_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.L)});
+ipcMain.on("L_KEY_DOWN", async (event,arg) => {keyboard.type(Key.L)});
 
 // Netrixi marker (Y)
-ipcMain.on("Y_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.Y)});
-ipcMain.on("Y_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.Y)});
+ipcMain.on("Y_KEY_DOWN", async (event,arg) => {keyboard.type(Key.Y)});
 
 // Folkvar marker (O)
-ipcMain.on("O_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.O)});
-ipcMain.on("O_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.O)});
+ipcMain.on("O_KEY_DOWN", async (event,arg) => {keyboard.type(Key.O)});
 
 // Iv marker (I)
-ipcMain.on("I_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.I)});
-ipcMain.on("I_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.I)});
+ipcMain.on("I_KEY_DOWN", async (event,arg) => {keyboard.type(Key.I)});
 
 // Undo marker (U)
-ipcMain.on("U_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.U)});
-ipcMain.on("U_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.U)});
+ipcMain.on("U_KEY_DOWN", async (event,arg) => {keyboard.type(Key.U)});
 
 // Go marker (V)
-ipcMain.on("V_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.V)});
-ipcMain.on("V_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.V)});
+ipcMain.on("V_KEY_DOWN", async (event,arg) => {keyboard.type(Key.V)});
 
 
 
@@ -117,42 +109,33 @@ ipcMain.on("V_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.V)});
 // Key presses based on location of Palm marker
 
 // Top left (Q)
-ipcMain.on("1_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.Q)});
-ipcMain.on("1_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.Q)});
+ipcMain.on("1_KEY_DOWN", async (event,arg) => {keyboard.type(Key.Q)});
 
 // Top middle (W)
-ipcMain.on("2_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.W)});
-ipcMain.on("2_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.W)});
+ipcMain.on("2_KEY_DOWN", async (event,arg) => {keyboard.type(Key.W)});
 
 // Top right (E)
-ipcMain.on("3_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.E)});
-ipcMain.on("3_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.E)});
+ipcMain.on("3_KEY_DOWN", async (event,arg) => {keyboard.type(Key.E)});
 
 
 // Middle left (A)
-ipcMain.on("4_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.A)});
-ipcMain.on("4_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.A)});
+ipcMain.on("4_KEY_DOWN", async (event,arg) => {keyboard.type(Key.A)});
 
 // Middle middle (S)
-ipcMain.on("5_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.S)});
-ipcMain.on("5_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.S)});
+ipcMain.on("5_KEY_DOWN", async (event,arg) => {keyboard.type(Key.S)});
 
 // Middle right (D)
-ipcMain.on("6_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.D)});
-ipcMain.on("6_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.D)});
+ipcMain.on("6_KEY_DOWN", async (event,arg) => {keyboard.type(Key.D)});
 
 
 // Bottom left (Z)
-ipcMain.on("7_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.Z)});
-ipcMain.on("7_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.Z)});
+ipcMain.on("7_KEY_DOWN", async (event,arg) => {keyboard.type(Key.Z)});
 
 // Bottom middle (X)
-ipcMain.on("8_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.X)});
-ipcMain.on("8_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.X)});
+ipcMain.on("8_KEY_DOWN", async (event,arg) => {keyboard.type(Key.X)});
 
 // Bottom right (C)
-ipcMain.on("9_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.C)});
-ipcMain.on("9_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.C)});
+ipcMain.on("9_KEY_DOWN", async (event,arg) => {keyboard.type(Key.C)});
 
 
 
@@ -160,28 +143,22 @@ ipcMain.on("9_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.C)});
 // Key presses based on rotation of palm marker
 
 // Starting position rightHanded (K)
-ipcMain.on("K_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.K)});
-ipcMain.on("K_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.K)});
+ipcMain.on("K_KEY_DOWN", async (event,arg) => {keyboard.type(Key.K)});
 
 // Left (G)
-ipcMain.on("G_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.G)});
-ipcMain.on("G_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.G)});
+ipcMain.on("G_KEY_DOWN", async (event,arg) => {keyboard.type(Key.G)});
 
 // Middle (B)
-ipcMain.on("B_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.B)});
-ipcMain.on("B_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.B)});
+ipcMain.on("B_KEY_DOWN", async (event,arg) => {keyboard.type(Key.B)});
 
 // Right (T)
-ipcMain.on("T_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.T)});
-ipcMain.on("T_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.T)});
+ipcMain.on("T_KEY_DOWN", async (event,arg) => {keyboard.type(Key.T)});
 
 // End (R)
-ipcMain.on("R_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.R)});
-ipcMain.on("R_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.R)});
+ipcMain.on("R_KEY_DOWN", async (event,arg) => {keyboard.type(Key.R)});
 
 // Starting position leftHanded (J)
-ipcMain.on("J_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.J)});
-ipcMain.on("J_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.J)});
+ipcMain.on("J_KEY_DOWN", async (event,arg) => {keyboard.type(Key.J)});
 
 
 
@@ -189,13 +166,10 @@ ipcMain.on("J_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.J)});
 // Key presses based on depth of palm marker
 
 // Near (N)
-ipcMain.on("N_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.N)});
-ipcMain.on("N_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.N)});
+ipcMain.on("N_KEY_DOWN", async (event,arg) => {keyboard.type(Key.N)});
 
 // Middle (M)
-ipcMain.on("M_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.M)});
-ipcMain.on("M_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.M)});
+ipcMain.on("M_KEY_DOWN", async (event,arg) => {keyboard.type(Key.M)});
 
 // Far (F)
-ipcMain.on("F_KEY_DOWN", async (event,arg) => {keyboard.pressKey(Key.F)});
-ipcMain.on("F_KEY_UP", async (event,arg) => {keyboard.releaseKey(Key.F)});
+ipcMain.on("F_KEY_DOWN", async (event,arg) => {keyboard.type(Key.F)});
