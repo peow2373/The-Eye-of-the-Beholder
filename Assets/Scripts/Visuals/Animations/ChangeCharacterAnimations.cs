@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class ChangeCharacterAnimations : MonoBehaviour
 {
     private Animator animator;
-    private int oldIndex;
+    private int previousPlayer;
     private string previousEnemy;
 
     public static ChangeCharacterAnimations S1, S2, S3, S4, S5, S6;
@@ -14,6 +13,8 @@ public class ChangeCharacterAnimations : MonoBehaviour
     public bool netrixi, folkvar, iv, enemy1, enemy2, enemy3;
 
     public static float idleAnimationSpeed = 0.2f;
+
+    private string previousState;
     
     // Start is called before the first frame update
     void Start()
@@ -27,14 +28,8 @@ public class ChangeCharacterAnimations : MonoBehaviour
 
         animator = this.GetComponent<Animator>();
     }
+    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
-    
     public string DetermineStateName()
     {
         animator.SetFloat("Speed", idleAnimationSpeed);
@@ -46,16 +41,17 @@ public class ChangeCharacterAnimations : MonoBehaviour
     {
         if (characterName == "Netrixi" || characterName == "Folkvar" || characterName == "Iv")
         {
-            if (oldIndex != animationIndex) animator.Play(DetermineStateName());
+            if (previousPlayer != animationIndex || previousState != DetermineStateName()) animator.Play(DetermineStateName());
             ResetAnimations();
             
             animator.SetInteger("Index", animationIndex);
 
-            oldIndex = animationIndex;
+            previousPlayer = animationIndex;
+            previousState = DetermineStateName();
         }
         else
         {
-            if (previousEnemy != characterName) animator.Play(DetermineStateName());
+            if (previousEnemy != characterName || previousState != DetermineStateName()) animator.Play(DetermineStateName());
             ResetAnimations();
 
             if (enemy1)
@@ -93,6 +89,7 @@ public class ChangeCharacterAnimations : MonoBehaviour
             if (characterName == "Dog") animator.SetInteger(characterName, animationIndex);
 
             previousEnemy = characterName;
+            previousState = DetermineStateName();
         }
     }
 

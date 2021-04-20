@@ -13,8 +13,8 @@ public class HealthValues : MonoBehaviour
 
     // Extra Characters
     public static int pirateHP = 100;
-    public static int bruteHP = 300;
-    public static int barkeeperHP = 125;
+    public static int bruteHP = 250;
+    public static int barkeeperHP = 100;
 
     // Royal Knights
     public static int knightMeleeHP = 125;
@@ -28,6 +28,6 @@ public class HealthValues : MonoBehaviour
     public static int kazHP = 250;
 
     // Evil King
-    public static int skullKingHP = 400;
+    public static int skullKingHP = 300;
     public static int royalKingHP = 500;
 }

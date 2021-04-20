@@ -136,7 +136,7 @@ public class TavernAfterFightScript2 : MonoBehaviour
                 {
                     HighlightChoices.S.HighlightChoice(1,1);
                     
-                    SFXManager.S.PlaySFX(40);
+                    if ((string)story.currentChoices[0].text != "Fight") SFXManager.S.PlaySFX(40);
                     
                     story.ChooseChoiceIndex(0);
                     refreshUI();

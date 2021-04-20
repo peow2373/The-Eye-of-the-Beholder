@@ -220,15 +220,15 @@ public class CoroutineRunner : MonoBehaviour
         switch (character)
         {
             case "Netrixi": 
-                if (CombatManagerScript.netrixiHP < HealthValues.netrixiHP) CombatManagerScript.netrixiHP++;
+                CombatManagerScript.netrixiHP++;
                 break;
             
             case "Folkvar": 
-                if (CombatManagerScript.folkvarHP < HealthValues.folkvarHP) CombatManagerScript.folkvarHP++;
+                CombatManagerScript.folkvarHP++;
                 break;
             
             case "Iv": 
-                if (CombatManagerScript.ivHP < HealthValues.ivHP) CombatManagerScript.ivHP++;
+                CombatManagerScript.ivHP++;
                 break;
             
             

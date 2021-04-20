@@ -42,6 +42,11 @@ public class GameWindowManager : MonoBehaviour
     public static float largerDialoguePercent = 0.65f;
     public static float largerDialoguePadding = 0.025f;
 
+    public GameObject combatTips, tipLine;
+    public Text combatTipText;
+    public static float tipMarginX = 0.025f;
+    public static float tipMarginY = 0.025f;
+
     public GameObject hand, gridRow1, gridRow2, gridColumn1, gridColumn2;
     public static float gridRowPadding, gridColumnPadding;
 
@@ -62,7 +67,7 @@ public class GameWindowManager : MonoBehaviour
 
     public static bool choicesReset = false;
 
-    public static float offScreen = -1000;
+    public static float offScreen = 10000;
 
     public GameObject handAnimation1, handAnimation2, handAnimation3;
     private bool hand1Created, hand2Created, hand3Created;
@@ -471,6 +476,44 @@ public class GameWindowManager : MonoBehaviour
         dialogue.transform.position = new Vector3(xLocation, yLocation, 0);
         
         PositionPortrait(cameraWidth, cameraHeight);
+
+        // Position combat tips
+        if (GameManagerScript.inCombat)
+        {
+            // Determine the dimensions of the combat tip window
+            float tipWidth = (dialogueWidth/2) - (2 * tipMarginX);
+            float tipHeight = dialogueHeight - (2 * tipMarginY);
+            
+            combatTips.transform.localScale = new Vector3( tipWidth * cameraWidth, tipHeight * cameraHeight, 1);
+                
+            // Determine the location of the combat tip window
+            float xPos = -cameraWidth / 2 + ((dialogueWidth * cameraWidth) * 3 / 4);
+            
+            combatTips.transform.position = new Vector3(xPos, yLocation, 0);
+            
+
+            // Position combat tip text
+            combatTipText.transform.position = new Vector3((gameWindowSizeX/screenSizeX)*(Screen.width)*3/4, (Screen.height - (windowHeight*Screen.height))*7/18, 0);
+
+            // Change combat tip textbox size
+            float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width)/2) - (tipMarginX*4*Screen.width);
+            float sizeDiffY = ((Screen.height - (windowHeight*Screen.height))*2/3) - (tipMarginX*3*Screen.height);
+
+            combatTipText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
+            
+
+            // Determine the dimensions of the tip line
+            SpriteRenderer sr = tipLine.GetComponent<SpriteRenderer>();
+
+            float lineWidth = sr.sprite.bounds.extents.x * 2;
+            float scaleFactor = (tipWidth - (2 * tipMarginX)) * cameraWidth / lineWidth;
+                
+            tipLine.transform.localScale = new Vector3( scaleFactor, scaleFactor/2, 1);
+            
+            // Determine the location of the tip line
+            float yPos = (cameraHeight/2) - ((windowHeight)*cameraHeight) - ((dialogueHeight * cameraHeight)*2.5f/8);
+            tipLine.transform.position = new Vector3(xPos, yPos, 0);
+        }
     }
 
 

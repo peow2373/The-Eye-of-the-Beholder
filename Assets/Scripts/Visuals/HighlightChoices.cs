@@ -14,7 +14,7 @@ public class HighlightChoices : MonoBehaviour
 
     public static HighlightChoices S;
 
-    private float timeOutDelay = 0.15f;
+    private float timeOutDelay = 0.065f;
 
     private GameObject choice, option;
     

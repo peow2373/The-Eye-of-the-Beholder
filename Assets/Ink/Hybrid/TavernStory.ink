@@ -1,8 +1,8 @@
 Ahhh that's the stuff. The only thing that takes me back to my childhood like Beholderite does is a nice cold brew. #Netrixi
 
-Your mind seems so tainted by Beholderite. How can you still function? #Folkvar
+How are you so relaxed? We barely got out of there alive! #Folkvar
 
-You learn some things when you're alive for hundreds of years. #Netrixi
+You learn some things when you're alive for hundreds of years. I won't be able to save us next time though. #Netrixi
 
 Hmmm. Ok well we might need some extra help, and not just with the lad that stole our compass. #Folkvar 
 Whoever has that Beholderite probably has it guarded. Shall we ask someone in the tavern to assist us? #Folkvar

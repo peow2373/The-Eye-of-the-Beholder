@@ -27,6 +27,8 @@ public class ChangeChoiceText : MonoBehaviour
 
     public GameObject handAnimation1, handAnimation2, handAnimation3;
 
+    public static bool moveTipShown;
+
     public static bool justEnteredCombat = true;
 
     // Start is called before the first frame update
@@ -52,7 +54,7 @@ public class ChangeChoiceText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManagerScript.currentScene == 9)
+        if (GameManagerScript.currentScene == 9 || GameManagerScript.currentScene == 11)
         {
             madeChoice = false;
             talkingToBrute = false;
@@ -83,7 +85,7 @@ public class ChangeChoiceText : MonoBehaviour
                         ChangeHandAnimation.animationName1 = "Netrixi Marker";
                         handAnimation1.SetActive(true);
                         
-                        //if (MarkerManagerScript.netrixiMarker) if (Input.GetKeyDown(KeyCode.Y)) HighlightChoices.S.HighlightChoice(1,3);
+                        if (MarkerManagerScript.netrixiMarker) if (Input.GetKeyDown(KeyCode.Y)) SFXManager.S.PlaySFX(43);
                     }
                     else handAnimation1.SetActive(false);
 
@@ -96,7 +98,7 @@ public class ChangeChoiceText : MonoBehaviour
                         ChangeHandAnimation.animationName2 = "Folkvar Marker";
                         handAnimation2.SetActive(true);
                         
-                        //if (MarkerManagerScript.folkvarMarker) if (Input.GetKeyDown(KeyCode.O)) HighlightChoices.S.HighlightChoice(2,3);
+                        if (MarkerManagerScript.folkvarMarker) if (Input.GetKeyDown(KeyCode.O)) SFXManager.S.PlaySFX(44);
                     }
                     else handAnimation2.SetActive(false);
 
@@ -109,7 +111,7 @@ public class ChangeChoiceText : MonoBehaviour
                         ChangeHandAnimation.animationName3 = "Iv Marker";
                         handAnimation3.SetActive(true);
                         
-                        //if (MarkerManagerScript.ivMarker) if (Input.GetKeyDown(KeyCode.I)) HighlightChoices.S.HighlightChoice(3,3);
+                        if (MarkerManagerScript.ivMarker) if (Input.GetKeyDown(KeyCode.I)) SFXManager.S.PlaySFX(45);
                     }
                     else handAnimation3.SetActive(false);
                 }
@@ -484,31 +486,31 @@ public class ChangeChoiceText : MonoBehaviour
                 }
                 else
                 {
-                    option1[1].GetComponent<Text>().text = "Netrixi is unable to Attack";
-                    option1[1].GetComponent<Text>().color = Color.gray;
-                    originalOption1 = option1[1].GetComponent<Text>().text;
-
                     if (GameManagerScript.currentScene == 12)
                     {
                         // Gatekeeper scene
-                        option2[1].GetComponent<Text>().text = "She was scared\nby the Dog's Bark";
+                        option1[1].GetComponent<Text>().text = "Netrixi was scared\nby the Dog's Bark";
                     }
                     else
                     {
                         if (GameManagerScript.currentScene == 10)
                         {
                             // Tavern scene
-                            option2[1].GetComponent<Text>().text = "She is recovering\nfrom being Smashed";
+                            option1[1].GetComponent<Text>().text = "Netrixi is recovering\nfrom getting Smashed";
                         }
                         else
                         {
-                            option2[1].GetComponent<Text>().text = "She was dazed\nby the Bomb";
+                            option1[1].GetComponent<Text>().text = "Netrixi was dazed\nby the Bomb";
                         }
                     }
+                    option1[1].GetComponent<Text>().color = Color.gray;
+                    originalOption1 = option1[1].GetComponent<Text>().text;
+
+                    option2[1].GetComponent<Text>().text = "She is unable to Attack\nShe can only Move";
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
-                    option3[1].GetComponent<Text>().text = "She can only Move\nthis round";
+                    option3[1].GetComponent<Text>().text = "Choose another character to Attack";
                     option3[1].GetComponent<Text>().color = Color.gray;
                     originalOption3 = option3[1].GetComponent<Text>().text;
                     
@@ -628,31 +630,31 @@ public class ChangeChoiceText : MonoBehaviour
                 }
                 else
                 {
-                    option1[1].GetComponent<Text>().text = "Folkvar is unable to Attack";
-                    option1[1].GetComponent<Text>().color = Color.gray;
-                    originalOption1 = option1[1].GetComponent<Text>().text;
-                    
                     if (GameManagerScript.currentScene == 12)
                     {
                         // Gatekeeper scene
-                        option2[1].GetComponent<Text>().text = "He was scared\nby the Dog's Bark";
+                        option1[1].GetComponent<Text>().text = "Folkvar was scared\nby the Dog's Bark";
                     }
                     else
                     {
                         if (GameManagerScript.currentScene == 10)
                         {
                             // Tavern scene
-                            option2[1].GetComponent<Text>().text = "He is recovering\nfrom being Smashed";
+                            option1[1].GetComponent<Text>().text = "Folkvar is recovering\nfrom getting Smashed";
                         }
                         else
                         {
-                            option2[1].GetComponent<Text>().text = "He was dazed\nby the Bomb";
+                            option1[1].GetComponent<Text>().text = "Folkvar was dazed\nby the Bomb";
                         }
                     }
+                    option1[1].GetComponent<Text>().color = Color.gray;
+                    originalOption1 = option1[1].GetComponent<Text>().text;
+                    
+                    option2[1].GetComponent<Text>().text = "He is unable to Attack\nHe can only Move";
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
-                    option3[1].GetComponent<Text>().text = "He can only Move\nthis round";
+                    option3[1].GetComponent<Text>().text = "Choose another character to Attack";
                     option3[1].GetComponent<Text>().color = Color.gray;
                     originalOption3 = option3[1].GetComponent<Text>().text;
                     
@@ -721,7 +723,7 @@ public class ChangeChoiceText : MonoBehaviour
                     // Attack 2
                     if (attack1 != 8 && attack2 != 8)
                     {
-                        option2[1].GetComponent<Text>().text = "Heal Ally";
+                        option2[1].GetComponent<Text>().text = "Heal";
                         originalOption2 = option2[1].GetComponent<Text>().text;
                         
                         option2[0].GetComponent<SpriteRenderer>().color = color2;
@@ -799,31 +801,31 @@ public class ChangeChoiceText : MonoBehaviour
                 }
                 else
                 {
-                    option1[1].GetComponent<Text>().text = "Iv is unable to Attack";
-                    option1[1].GetComponent<Text>().color = Color.gray;
-                    originalOption1 = option1[1].GetComponent<Text>().text;
-                    
                     if (GameManagerScript.currentScene == 12)
                     {
                         // Gatekeeper scene
-                        option2[1].GetComponent<Text>().text = "She was scared\nby the Dog's Bark";
+                        option1[1].GetComponent<Text>().text = "Iv was scared\nby the Dog's Bark";
                     }
                     else
                     {
                         if (GameManagerScript.currentScene == 10)
                         {
                             // Tavern scene
-                            option2[1].GetComponent<Text>().text = "She is recovering\nfrom being Smashed";
+                            option1[1].GetComponent<Text>().text = "Iv is recovering\nfrom getting Smashed";
                         }
                         else
                         {
-                            option2[1].GetComponent<Text>().text = "She was dazed\nby the Bomb";
+                            option1[1].GetComponent<Text>().text = "Iv was dazed\nby the Bomb";
                         }
                     }
+                    option1[1].GetComponent<Text>().color = Color.gray;
+                    originalOption1 = option1[1].GetComponent<Text>().text;
+                    
+                    option2[1].GetComponent<Text>().text = "She is unable to Attack\nShe can only Move";
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
-                    option3[1].GetComponent<Text>().text = "She can only Move\nthis round";
+                    option3[1].GetComponent<Text>().text = "Choose another character to Attack";
                     option3[1].GetComponent<Text>().color = Color.gray;
                     originalOption3 = option3[1].GetComponent<Text>().text;
                     
@@ -854,7 +856,11 @@ public class ChangeChoiceText : MonoBehaviour
 
         if (MarkerManagerScript.goMarker)
         {
-            if (Input.GetKeyDown(KeyCode.V)) HighlightChoices.S.HighlightChoice(4,4);
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                HighlightChoices.S.HighlightChoice(4,4);
+                if (CombatManagerScript.firstAttack == 0 || CombatManagerScript.secondAttack == 0) SFXManager.S.PlaySFX(38);
+            }
         }
         
         // Change options for Netrixi
@@ -867,6 +873,12 @@ public class ChangeChoiceText : MonoBehaviour
                     if (!NetrixiCombatScript.netrixiCondition4[1])
                     {
                         ChangeText("Netrixi");
+
+                        if (TipScript.attackPlaying != 10 && !moveTipShown)
+                        {
+                            StartCoroutine(TipScript.S.DisplayAttackTip(10));
+                            moveTipShown = true;
+                        }
                     }
                 }
             }
@@ -880,6 +892,12 @@ public class ChangeChoiceText : MonoBehaviour
                 if (!FolkvarCombatScript.folkvarCondition4[1])
                 {
                     ChangeText("Folkvar");
+                    
+                    if (TipScript.attackPlaying != 10 && !moveTipShown)
+                    {
+                        StartCoroutine(TipScript.S.DisplayAttackTip(10));
+                        moveTipShown = true;
+                    }
                 }
             }
         }
@@ -894,10 +912,18 @@ public class ChangeChoiceText : MonoBehaviour
                     if (!IvCombatScript.ivCondition4[1])
                     {
                         ChangeText("Iv");
+                        
+                        if (TipScript.attackPlaying != 10 && !moveTipShown)
+                        {
+                            StartCoroutine(TipScript.S.DisplayAttackTip(10));
+                            moveTipShown = true;
+                        }
                     }
                 }
             }
         }
+
+        if (!NetrixiCombatScript.netrixiCondition4[0] && !FolkvarCombatScript.folkvarCondition4[0] && !IvCombatScript.ivCondition4[0]) moveTipShown = false;
 
         void ChangeText(string character)
         {

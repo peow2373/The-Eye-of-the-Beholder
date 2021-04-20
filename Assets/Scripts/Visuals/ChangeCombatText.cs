@@ -132,16 +132,10 @@ public class ChangeCombatText : MonoBehaviour
         // Position the attack display texts
         playerAttackText.transform.position = new Vector3(windowWidth/4, Screen.height - (windowHeight) - ((windowHeight/5)/2), 0);
         enemyAttackText.transform.position = new Vector3(windowWidth*3/4, Screen.height - (windowHeight) - ((windowHeight/5)/2), 0);
-        
+
         // Position the round number text
-        
-        // Top of screen
         roundNumber.transform.position = new Vector3(windowWidth/2, Screen.height - ((windowHeight/6)/2), 0);
-        
-        // Bottom of Screen
-        //roundNumber.transform.position = new Vector3(windowWidth/2, Screen.height - (windowHeight) - ((windowHeight*5/6)/2), 0);
-        
-        
+
         // Position player attacks
         playerAttack1.transform.position = new Vector3(windowWidth*2.5f/18, Screen.height - (windowHeight) - ((windowHeight*4/5)/2), 0);
         playerAttack2.transform.position = new Vector3(windowWidth*6.5f/18, Screen.height - (windowHeight) - ((windowHeight*4/5)/2), 0);
@@ -149,7 +143,7 @@ public class ChangeCombatText : MonoBehaviour
         // Position enemy attacks
         enemyAttack1.transform.position = new Vector3(windowWidth*11.5f/18, Screen.height - (windowHeight) - ((windowHeight*4/5)/2), 0);
         enemyAttack2.transform.position = new Vector3(windowWidth*15.5f/18, Screen.height - (windowHeight) - ((windowHeight*4/5)/2), 0);
-        
+
         ChangeSpriteLocations(windowWidth, windowHeight);
     }
     
@@ -499,7 +493,7 @@ public class ChangeCombatText : MonoBehaviour
                  else ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR2);
                  return "Grand Slam";
              
-             case "Royal King-Empowers His Team":
+             case "Royal King-Empowers Both Teams":
                  if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR1);
                  else ChangeSprites.S.ChangeEnemyCharacter("Royal King", enemySR2);
                  return "Empower";

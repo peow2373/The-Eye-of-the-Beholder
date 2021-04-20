@@ -132,9 +132,11 @@ public class CastleScript : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.V))
                 {
                     HighlightChoices.S.HighlightChoice(1,1);
+                    if (skipScene == false) SFXManager.S.PlaySFX(41);
+                    else SFXManager.S.PlaySFX(40);
                     
-                    SFXManager.S.PlaySFX(40);
                     refreshUI();
+
                     GameManagerScript.NextScene(skipScene);
                 }
             }

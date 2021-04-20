@@ -13,7 +13,7 @@ Well then I'll rip it out of your cold dead hands! #Kaz
 +   [Fight] -> END
 
 === Evade_Kaz_road ===
-OK! Please leave us alone now, thank you! #Folkvar
+Here you go! OK! Please leave us alone now, thank you! #Folkvar
 
 Really? Just like that? Alright, thanks losers. #Kaz
 

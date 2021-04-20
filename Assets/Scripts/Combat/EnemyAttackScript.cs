@@ -13,8 +13,6 @@ public class EnemyAttackScript : MonoBehaviour
     public static bool isBlocking = false;
     public static bool isEmpowering = false;
 
-    public static bool empoweringBothTeams = false;
-
     public static bool netrixiStunned, folkvarStunned, ivStunned;
     public static bool enemy1Stunned, enemy2Stunned, enemy3Stunned;
 
@@ -73,7 +71,7 @@ public class EnemyAttackScript : MonoBehaviour
                 if (!isEmpowering)
                 {
                     AttackScript.enemyDamageModifier = DamageValues.empowered3Damage;
-                    if (empoweringBothTeams) AttackScript.damageModifier = DamageValues.empowered3Damage;
+                    AttackScript.damageModifier = DamageValues.empowered3Damage;
                     
                     isEmpowering = true;
                     
@@ -97,7 +95,7 @@ public class EnemyAttackScript : MonoBehaviour
                 {
                     // Reset damage modifier
                     AttackScript.enemyDamageModifier = 1f;
-                    if (empoweringBothTeams) AttackScript.damageModifier = 1f;
+                    AttackScript.damageModifier = 1f;
                     
                     //print("Enemy is no longer empowering");
                 }
@@ -434,11 +432,11 @@ public class EnemyAttackScript : MonoBehaviour
         DetermineCharactersHit(attackNumber);
 
 
-        void DetermineCharactersHit(int attackNumber)
+        void DetermineCharactersHit(int number)
         {
             int attackLocation;
 
-            if (attackNumber == 1) attackLocation = EnemyManagerScript.attack1Location;
+            if (number == 1) attackLocation = EnemyManagerScript.attack1Location;
             else attackLocation = EnemyManagerScript.attack2Location;
 
             // If Folkvar is struck by the smite
@@ -453,7 +451,7 @@ public class EnemyAttackScript : MonoBehaviour
                     // Deal damage to the attacking enemy instead
                     HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
 
-                    if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = true;
+                    if (number == 1) CombatSimulationScript.canPlayerMove1 = true;
                     else CombatSimulationScript.canPlayerMove2 = true;
                 }
                 else
@@ -461,7 +459,7 @@ public class EnemyAttackScript : MonoBehaviour
                     // Deal damage to Folkvar
                     HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
                     
-                    if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = false;
+                    if (number == 1) CombatSimulationScript.canPlayerMove1 = false;
                     else CombatSimulationScript.canPlayerMove2 = false;
                 }
             }
@@ -479,7 +477,7 @@ public class EnemyAttackScript : MonoBehaviour
                         // Deal damage to the attacking enemy instead
                         HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
 
-                        if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = true;
+                        if (number == 1) CombatSimulationScript.canPlayerMove1 = true;
                         else CombatSimulationScript.canPlayerMove2 = true;
                     }
                     else
@@ -487,7 +485,7 @@ public class EnemyAttackScript : MonoBehaviour
                         // Deal damage to Netrixi
                         HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
                     
-                        if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = false;
+                        if (number == 1) CombatSimulationScript.canPlayerMove1 = false;
                         else CombatSimulationScript.canPlayerMove2 = false;
                     }
                 }
@@ -505,7 +503,7 @@ public class EnemyAttackScript : MonoBehaviour
                             // Deal damage to the attacking enemy instead
                             HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
 
-                            if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = true;
+                            if (number == 1) CombatSimulationScript.canPlayerMove1 = true;
                             else CombatSimulationScript.canPlayerMove2 = true;
                         }
                         else
@@ -513,7 +511,7 @@ public class EnemyAttackScript : MonoBehaviour
                             // Deal damage to Iv
                             HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
                     
-                            if (attackNumber == 1) CombatSimulationScript.canPlayerMove1 = false;
+                            if (number == 1) CombatSimulationScript.canPlayerMove1 = false;
                             else CombatSimulationScript.canPlayerMove2 = false;
                         }
                     }
@@ -533,11 +531,11 @@ public class EnemyAttackScript : MonoBehaviour
         DetermineCharactersHit(attackNumber);
         
         
-        void DetermineCharactersHit(int attackNumber)
+        void DetermineCharactersHit(int number)
         {
             int attackLocation;
 
-            if (attackNumber == 1) attackLocation = EnemyManagerScript.attack1Location;
+            if (number == 1) attackLocation = EnemyManagerScript.attack1Location;
             else attackLocation = EnemyManagerScript.attack2Location;
             
             // If Folkvar is standing on the target location
@@ -781,22 +779,10 @@ public class EnemyAttackScript : MonoBehaviour
     }
 
 
-    public static void EmpowerAttack(string attackingEnemy, bool bothTeams)
+    public static void EmpowerAttack(string attackingEnemy)
     {
-        if (bothTeams)
-        {
-            // TODO: Play Empower animation
-            AttackScript.enemyTarget = "Everyone";
-            
-            empoweringBothTeams = true;
-        }
-        else
-        {
-            // TODO: Play Empower animation
-            AttackScript.enemyTarget = "All Enemies";
-            
-            empoweringBothTeams = false;
-        }
+        // TODO: Play Empower animation
+        AttackScript.enemyTarget = "Everyone";
 
         isEmpowering = false;
         empowered = true;
@@ -824,11 +810,11 @@ public class EnemyAttackScript : MonoBehaviour
     {
         DetermineCharactersHit(attackNumber);
 
-        void DetermineCharactersHit(int attackNumber)
+        void DetermineCharactersHit(int number)
         {
             int attackLocation;
 
-            if (attackNumber == 1) attackLocation = EnemyManagerScript.attack1Location;
+            if (number == 1) attackLocation = EnemyManagerScript.attack1Location;
             else attackLocation = EnemyManagerScript.attack2Location;
 
             // If Folkvar is standing on the target location
@@ -993,127 +979,108 @@ public class EnemyAttackScript : MonoBehaviour
 
 
 
-    public static void SwingMaceAttack(int damageValue, float burnRate, int attackNumber, string attackingEnemy)
+    public static void SlamMaceAttack(int damageValue, float burnRate, int attackNumber, string attackingEnemy)
     {
-        DetermineCharactersHit(attackNumber);
-
-
-        void DetermineCharactersHit(int attackNumber)
-        {
-            int attackLocation1, attackLocation2;
+        int attackLocation1, attackLocation2;
 
             if (attackNumber == 1)
             {
-                    attackLocation1 = EnemyManagerScript.attack1Location;
-                    attackLocation2 = EnemyManagerScript.attack1Location2;
+                attackLocation1 = EnemyManagerScript.attack1Location;
+                attackLocation2 = EnemyManagerScript.attack1Location2;
             }
             else
             {
-                    attackLocation1 = EnemyManagerScript.attack2Location;
-                    attackLocation2 = EnemyManagerScript.attack2Location2;
+                attackLocation1 = EnemyManagerScript.attack2Location;
+                attackLocation2 = EnemyManagerScript.attack2Location2;
             }
 
-            // FIRST TARGET LOCATION
+            int netrixiPosition = CharacterManagerScript.netrixiPosition;
+            int folkvarPosition = CharacterManagerScript.folkvarPosition; 
+            int ivPosition = CharacterManagerScript.ivPosition;
 
-            // If Folkvar is standing on the first target location
-            if (CharacterManagerScript.folkvarPosition == attackLocation1)
+            // If Folkvar is standing on a target location
+            if (folkvarPosition == attackLocation1 || folkvarPosition == attackLocation2)
             {
-                // TODO: Play Swing Mace 1st animation
-                AttackScript.enemyTarget = "Folkvar";
-            
                 // If Iv is countering this ability
-                if (AttackScript.countered) 
-                    HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
-                else 
-                    HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                if (AttackScript.countered) HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+                else
+                {
+                    // If Netrixi is also standing on a target location
+                    if (netrixiPosition == attackLocation1 || netrixiPosition == attackLocation2)
+                    {
+                        // TODO: Play Swing Mace animation
+                        AttackScript.enemyTarget = "Netrixi + Folkvar";
+
+                        HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                        HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                    } 
+                    
+                    // If Iv is also standing on a target location
+                    else if (ivPosition == attackLocation1 || ivPosition == attackLocation2)
+                    {
+                        // TODO: Play Swing Mace animation
+                        AttackScript.enemyTarget = "Folkvar + Iv";
+
+                        HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                        HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
+                    } 
+                    
+                    // Only Folkvar is standing on a target location
+                    else
+                    {
+                        // TODO: Play Swing Mace animation
+                        AttackScript.enemyTarget = "Folkvar";
+
+                        HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
+                    } 
+                }
             }
             else
             {
-                // If Netrixi is standing on the first target location
-                if (CharacterManagerScript.netrixiPosition == attackLocation1)
+                // If Netrixi is standing on a target location
+                if (netrixiPosition == attackLocation1 || netrixiPosition == attackLocation2)
                 {
-                    // TODO: Play Swing Mace 1st animation
-                    AttackScript.enemyTarget = "Netrixi";
-            
                     // If Iv is countering this ability
-                    if (AttackScript.countered) 
-                        HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
-                    else 
-                        HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                    if (AttackScript.countered) HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+                    else
+                    {
+                        // If Iv is also standing on a target location
+                        if (ivPosition == attackLocation1 || ivPosition == attackLocation2)
+                        {
+                            // TODO: Play Swing Mace animation
+                            AttackScript.enemyTarget = "Netrixi + Iv";
+
+                            HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                            HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
+                        }
+                        
+                        // Only Netrixi is standing on a target location
+                        else
+                        {
+                            // TODO: Play Swing Mace animation
+                            AttackScript.enemyTarget = "Netrixi";
+
+                            HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
+                        } 
+                    }
                 }
                 else
                 {
-                    // If Iv is standing on the first target location
-                    if (CharacterManagerScript.ivPosition == attackLocation1)
+                    // If only Iv is standing on the a target location
+                    if (ivPosition == attackLocation1 || ivPosition == attackLocation2)
                     {
-                        // TODO: Play Swing Mace 1st animation
-                        AttackScript.enemyTarget = "Iv";
-            
                         // If Iv is countering this ability
-                        if (AttackScript.countered) 
-                            HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
-                        else 
+                        if (AttackScript.countered) HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
+                        else
+                        {
+                            // TODO: Play Swing Mace animation
+                            AttackScript.enemyTarget = "Iv";
+
                             HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
-                    }
-                    else
-                    {
-                        // TODO: Play Swing Mace 1st animation
-                        AttackScript.enemyTarget = "None";
+                        }
                     }
                 }
             }
-                
-                
-            // SECOND TARGET LOCATION
-                
-            // If Folkvar is standing on the second target location
-            if (CharacterManagerScript.folkvarPosition == attackLocation2)
-            {
-                // TODO: Play Swing Mace 2nd animation
-                AttackScript.enemyTarget = "Folkvar";
-            
-                // If Iv is countering this ability
-                if (AttackScript.countered) 
-                    HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
-                else 
-                    HealthManagerScript.ChangeHealth("Folkvar", damageValue, burnRate);
-            }
-            else
-            {
-                // If Netrixi is standing on the second target location
-                if (CharacterManagerScript.netrixiPosition == attackLocation2)
-                {
-                    // TODO: Play Swing Mace 2nd animation
-                    AttackScript.enemyTarget = "Netrixi";
-            
-                    // If Iv is countering this ability
-                    if (AttackScript.countered) 
-                        HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
-                    else 
-                        HealthManagerScript.ChangeHealth("Netrixi", damageValue, burnRate);
-                }
-                else
-                {
-                    // If Iv is standing on the second target location
-                    if (CharacterManagerScript.ivPosition == attackLocation2)
-                    {
-                        // TODO: Play Swing Mace 2nd animation
-                        AttackScript.enemyTarget = "Iv";
-            
-                        // If Iv is countering this ability
-                        if (AttackScript.countered) 
-                            HealthManagerScript.ChangeHealth(attackingEnemy, damageValue, burnRate);
-                        else 
-                            HealthManagerScript.ChangeHealth("Iv", damageValue, burnRate);
-                    }
-                    else
-                    {
-                        // TODO: Play Swing Mace 2nd animation
-                        AttackScript.enemyTarget = "None";
-                    }
-                }
-            }
-        }
     }
 
     
@@ -1245,8 +1212,15 @@ public class EnemyAttackScript : MonoBehaviour
                 {
                     if (randomNumber == EnemyManagerScript.attack1Location)
                     {
-                        randomNumber = UnityEngine.Random.Range(1,5);
-                        return ChooseNewRandomNumber(randomNumber);
+                        return CheckNumber(randomNumber);
+                        
+                        int CheckNumber(int number)
+                        {
+                            int newRandomNumber = UnityEngine.Random.Range(1,5);
+                            if (number != newRandomNumber) return newRandomNumber;
+                            
+                            return CheckNumber(number);
+                        }
                     }
                 }
                 
@@ -1269,7 +1243,7 @@ public class EnemyAttackScript : MonoBehaviour
 
 
         // If an Enemy will attack a certain location by Throwing a Bomb or a Dog Barks
-        else if (enemyAttack == "Throws Bomb" || enemyAttack == "Dog Barks" || enemyAttack == "Smashes")
+        else if (enemyAttack == "Throws Bomb" || enemyAttack == "Dog Barks" || enemyAttack == "Smashes" || enemyAttack == "Throws Chair")
         {
             List<int> possibleTargets = new List<int>();
 
@@ -1278,26 +1252,28 @@ public class EnemyAttackScript : MonoBehaviour
             if (CombatManagerScript.ivAlive) possibleTargets.Add(CharacterManagerScript.ivPosition);
 
             // Choose a random square to attack
-            int randomIndex = UnityEngine.Random.Range(0, (possibleTargets.Count));
-            randomIndex = ChooseNewRandomNumber(randomIndex);
+            int randomIndex = UnityEngine.Random.Range(1, (possibleTargets.Count));
+            if (attackNumber == 2) randomIndex = ChooseNewRandomNumber(randomIndex);
             
-            int ChooseNewRandomNumber(int randomNumber)
+            int ChooseNewRandomNumber(int number)
             {
-                if (attackNumber == 2)
+                if (possibleTargets[number-1] == EnemyManagerScript.attack1Location)
                 {
-                    if (possibleTargets[randomNumber] == EnemyManagerScript.attack1Location)
+                    if (number == 1) return 2;
+                    if (number == 2) return 1;
+                    if (number == 3)
                     {
-                        randomNumber = UnityEngine.Random.Range(0, (possibleTargets.Count));
-                        return ChooseNewRandomNumber(randomNumber);
+                        int randomNumber = UnityEngine.Random.Range(1, 2);
+                        return randomNumber;
                     }
                 }
 
-                return randomNumber;
+                return number;
             }
             
 
-            if (attackNumber == 1) EnemyManagerScript.attack1Location = possibleTargets[randomIndex];
-            else EnemyManagerScript.attack2Location = possibleTargets[randomIndex];
+            if (attackNumber == 1) EnemyManagerScript.attack1Location = possibleTargets[randomIndex-1];
+            else EnemyManagerScript.attack2Location = possibleTargets[randomIndex-1];
         }
         
         
@@ -1342,7 +1318,7 @@ public class EnemyAttackScript : MonoBehaviour
         
         
         // If an Enemy will attack a certain location by Throwing a Chair or a Knife
-        else if (enemyAttack == "Throws Knife" || enemyAttack == "Throws Chair" || enemyAttack == "Shoots Arrow")
+        else if (enemyAttack == "Throws Knife" || enemyAttack == "Shoots Arrow")
         {
             // If Iv is still alive
             if (CombatManagerScript.ivAlive)

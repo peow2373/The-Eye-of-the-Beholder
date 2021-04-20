@@ -1179,6 +1179,8 @@ MonoBehaviour:
   startRotatingLeft: {fileID: 21300000, guid: c71ef2dca51f25a409104f9fd104fbfd, type: 3}
   continueRotatingLeft: {fileID: 21300000, guid: 1df1027069d16b9489c250d933a0ac2f,
     type: 3}
+  handClosedRight: {fileID: 21300000, guid: bf39c0a26a4768e419db42cc28fad5c3, type: 3}
+  handClosedLeft: {fileID: 21300000, guid: 5efd9a5a543face4290470b68e33a542, type: 3}
 --- !u!1 &8377851202627165332
 GameObject:
   m_ObjectHideFlags: 0

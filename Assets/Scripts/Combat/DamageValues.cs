@@ -13,11 +13,11 @@ public class DamageValues : MonoBehaviour
     // MAIN CHARACTERS
     
     // Netrixi
-    public static float fireball = 25;                    // How much damage does the attack do?
+    public static float fireball = 20;                    // How much damage does the attack do?
     public static float fireballBurn = 0.025f;            // How long does the attack take to do 1 HP in damage?
     public static float fireballDelay;                    // How long before the next attack is started?
     
-    public static float lightning = 50;
+    public static float lightning = 65;
     public static float lightningBurn = standardBurn;
 
     public static int roundsTransformed = 2;
@@ -27,10 +27,10 @@ public class DamageValues : MonoBehaviour
     
     // Folkvar
     public static float swingSword = 60;
-    public static int critChance = 12;                    // Determines the likelihood of a critical strike
+    public static int critChance = 10;                    // Determines the likelihood of a critical strike
     public static float swingSwordBurn = standardBurn;
 
-    public static float smite = 25;
+    public static float smite = 10;
     public static float smiteBurn = 0.025f;
 
     public static float grandSlam = 85;
@@ -106,7 +106,7 @@ public class DamageValues : MonoBehaviour
     public static float swingMace = 120;
     public static float swingMaceBurn = standardBurn;
     
-    public static float slamWithMace = 00;
+    public static float slamWithMace = 80;
     public static float slamWithMaceBurn = standardBurn;
 
 

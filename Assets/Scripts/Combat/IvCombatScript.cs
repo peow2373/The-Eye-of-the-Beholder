@@ -158,13 +158,6 @@ public class IvCombatScript : MonoBehaviour
                     {
                         ivCondition4[1] = true;
                     }
-                    
-                    // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveIv(1, true) == 2)
-                    {
-                        print("Choose another direction to move in");
-                        ivCondition4[0] = false;
-                    }
                 }
                     
                 // If the player decides to move Iv to the right
@@ -173,13 +166,6 @@ public class IvCombatScript : MonoBehaviour
                     if (CharacterManagerScript.MoveIv(2, true) == 1)
                     {
                         ivCondition4[2] = true;
-                    }
-                    
-                    // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveIv(2, true) == 2)
-                    {
-                        print("Choose another direction to move in");
-                        ivCondition4[0] = false;
                     }
                 }
                 

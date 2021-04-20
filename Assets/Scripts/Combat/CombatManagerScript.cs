@@ -177,6 +177,8 @@ public class CombatManagerScript : MonoBehaviour
         
         // Reset character health
         HealthManagerScript.ResetVariables();
+
+        StartCoroutine(TipScript.S.DisplayCombatTip(true));
     }
 
     
@@ -237,6 +239,8 @@ public class CombatManagerScript : MonoBehaviour
                     isNetrixi = false; 
                 
                     print("Netrixi will attack with a spell");
+                    
+                    SFXManager.S.PlaySFX(43);
                 }
             }
         }
@@ -259,6 +263,8 @@ public class CombatManagerScript : MonoBehaviour
                     isFolkvar = false;
                 
                     print("Folkvar will attack with his mighty weapons");
+                    
+                    SFXManager.S.PlaySFX(44);
                 }
             }
         } 
@@ -281,6 +287,8 @@ public class CombatManagerScript : MonoBehaviour
                     isIv = false;
                 
                     print("Iv will block with her force powers");
+                    
+                    SFXManager.S.PlaySFX(45);
                 }
             }
         }
@@ -306,6 +314,8 @@ public class CombatManagerScript : MonoBehaviour
                             var runner = go.AddComponent<CombatSimulationScript>();
                             runner.StartCoroutine(runner.RunSimulation(firstAttack, secondAttack, EnemyManagerScript.firstAttack, EnemyManagerScript.secondAttack, go));
                             hasRunSimulation = true;
+                            
+                            SFXManager.S.PlaySFX(22);
                         }
                     }
                 }
@@ -349,6 +359,8 @@ public class CombatManagerScript : MonoBehaviour
                         folkvarTarget2Location = 0;
                     }
                 }
+                
+                SFXManager.S.PlaySFX(24);
             }
         }
     }
@@ -374,11 +386,19 @@ public class CombatManagerScript : MonoBehaviour
                 {
                     if (secondAttack == 0)
                     {
-                        if (firstAttack != 1) secondAttack = 1;
+                        if (firstAttack != 1)
+                        {
+                            secondAttack = 1;
+                            SFXManager.S.PlaySFX(23);
+                        }
                         else print("Can't choose the same move twice");
                     }
                 }
-                else firstAttack = 1;
+                else
+                {
+                    firstAttack = 1;
+                    SFXManager.S.PlaySFX(23);
+                }
 
 
                 NetrixiCombatScript.ResetNetrixiVariables();
@@ -398,6 +418,7 @@ public class CombatManagerScript : MonoBehaviour
                         {
                             target2Location = NetrixiCombatScript.netrixiRotation;
                             secondAttack = 2;
+                            SFXManager.S.PlaySFX(23);
                         }
                         else print("Can't choose the same move twice");
                     }
@@ -406,6 +427,7 @@ public class CombatManagerScript : MonoBehaviour
                 {
                     target1Location = NetrixiCombatScript.netrixiRotation;
                     firstAttack = 2;
+                    SFXManager.S.PlaySFX(23);
                 }
                 
 
@@ -422,11 +444,19 @@ public class CombatManagerScript : MonoBehaviour
                 {
                     if (secondAttack == 0)
                     {
-                        if (firstAttack != 3) secondAttack = 3;
+                        if (firstAttack != 3)
+                        {
+                            secondAttack = 3;
+                            SFXManager.S.PlaySFX(23);
+                        }
                         else print("Can't choose the same move twice");
                     }
                 }
-                else firstAttack = 3;
+                else
+                {
+                    firstAttack = 3;
+                    SFXManager.S.PlaySFX(23);
+                }
                 
 
                 NetrixiCombatScript.ResetNetrixiVariables();
@@ -445,9 +475,17 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Netrixi move in game 
                 if (firstAttack != 0)
                 {
-                    if (secondAttack == 0) secondAttack = 10;
+                    if (secondAttack == 0)
+                    {
+                        secondAttack = 10;
+                        SFXManager.S.PlaySFX(23);
+                    }
                 }
-                else firstAttack = 10;
+                else
+                {
+                    firstAttack = 10;
+                    SFXManager.S.PlaySFX(23);
+                }
             
                 NetrixiCombatScript.ResetNetrixiVariables();
             }
@@ -460,9 +498,17 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Netrixi move in game 
                 if (firstAttack != 0)
                 {
-                    if (secondAttack == 0) secondAttack = 11;
+                    if (secondAttack == 0)
+                    {
+                        secondAttack = 11;
+                        SFXManager.S.PlaySFX(23);
+                    }
                 }
-                else firstAttack = 11;
+                else
+                {
+                    firstAttack = 11;
+                    SFXManager.S.PlaySFX(23);
+                }
             
                 NetrixiCombatScript.ResetNetrixiVariables();
             }
@@ -490,11 +536,19 @@ public class CombatManagerScript : MonoBehaviour
                 {
                     if (secondAttack == 0)
                     {
-                        if (firstAttack != 4) secondAttack = 4;
+                        if (firstAttack != 4)
+                        {
+                            secondAttack = 4;
+                            SFXManager.S.PlaySFX(23);
+                        }
                         else print("Can't choose the same move twice");
                     }
                 }
-                else firstAttack = 4;
+                else
+                {
+                    firstAttack = 4;
+                    SFXManager.S.PlaySFX(23);
+                }
 
 
                 FolkvarCombatScript.ResetFolkvarVariables();
@@ -514,6 +568,7 @@ public class CombatManagerScript : MonoBehaviour
                         {
                             DetermineTargetEnemy(2);
                             secondAttack = 5;
+                            SFXManager.S.PlaySFX(23);
                         }
                         else print("Can't choose the same move twice");
                     }
@@ -522,6 +577,7 @@ public class CombatManagerScript : MonoBehaviour
                 {
                     DetermineTargetEnemy(1);
                     firstAttack = 5;
+                    SFXManager.S.PlaySFX(23);
                 }
 
                 void DetermineTargetEnemy(int attackNumber)
@@ -578,6 +634,7 @@ public class CombatManagerScript : MonoBehaviour
                             {
                                 DeterminGroupedEnemies(2);
                                 secondAttack = 6;
+                                SFXManager.S.PlaySFX(23);
                             }
                             else print("Can't choose the same move twice");
                         }
@@ -586,6 +643,7 @@ public class CombatManagerScript : MonoBehaviour
                     {
                         DeterminGroupedEnemies(1);
                         firstAttack = 6;
+                        SFXManager.S.PlaySFX(23);
                     }
                 
                     
@@ -655,9 +713,17 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Folkvar move in game 
                 if (firstAttack != 0)
                 {
-                    if (secondAttack == 0) secondAttack = 12;
+                    if (secondAttack == 0)
+                    {
+                        secondAttack = 12;
+                        SFXManager.S.PlaySFX(23);
+                    }
                 }
-                else firstAttack = 12;
+                else
+                {
+                    firstAttack = 12;
+                    SFXManager.S.PlaySFX(23);
+                }
             
                 FolkvarCombatScript.ResetFolkvarVariables();
             }
@@ -670,9 +736,17 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Folkvar move in game 
                 if (firstAttack != 0)
                 {
-                    if (secondAttack == 0) secondAttack = 13;
+                    if (secondAttack == 0)
+                    {
+                        secondAttack = 13;
+                        SFXManager.S.PlaySFX(23);
+                    }
                 }
-                else firstAttack = 13;
+                else
+                {
+                    firstAttack = 13;
+                    SFXManager.S.PlaySFX(23);
+                }
             
                 FolkvarCombatScript.ResetFolkvarVariables();
             }
@@ -700,11 +774,19 @@ public class CombatManagerScript : MonoBehaviour
                 {
                     if (secondAttack == 0)
                     {
-                        if (firstAttack != 7) secondAttack = 7;
+                        if (firstAttack != 7)
+                        {
+                            secondAttack = 7;
+                            SFXManager.S.PlaySFX(23);
+                        }
                         else print("Can't choose the same move twice");
                     }
                 }
-                else firstAttack = 7;
+                else
+                {
+                    firstAttack = 7;
+                    SFXManager.S.PlaySFX(23);
+                }
 
 
                 IvCombatScript.ResetIvVariables();
@@ -720,11 +802,19 @@ public class CombatManagerScript : MonoBehaviour
                 {
                     if (secondAttack == 0)
                     {
-                        if (firstAttack != 8) secondAttack = 8;
+                        if (firstAttack != 8)
+                        {
+                            secondAttack = 8;
+                            SFXManager.S.PlaySFX(23);
+                        }
                         else print("Can't choose the same move twice");
                     }
                 }
-                else firstAttack = 8;
+                else
+                {
+                    firstAttack = 8;
+                    SFXManager.S.PlaySFX(23);
+                }
                     
                 IvCombatScript.ResetIvVariables();
             }
@@ -745,6 +835,7 @@ public class CombatManagerScript : MonoBehaviour
                             {
                                 target2Location = IvCombatScript.targetLocation;
                                 secondAttack = 9;
+                                SFXManager.S.PlaySFX(23);
                             }
                             else print("Can't choose the same move twice");
                         }
@@ -753,6 +844,7 @@ public class CombatManagerScript : MonoBehaviour
                     {
                         target1Location = IvCombatScript.targetLocation;
                         firstAttack = 9;
+                        SFXManager.S.PlaySFX(23);
                     }
                     
                     IvCombatScript.ResetIvVariables();
@@ -778,11 +870,19 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Iv move in game 
                 if (firstAttack != 0)
                 {
-                    if (secondAttack == 0) secondAttack = 14;
+                    if (secondAttack == 0)
+                    {
+                        secondAttack = 14;
+                        SFXManager.S.PlaySFX(23);
+                    }
                 }
-                else firstAttack = 14;
+                else
+                {
+                    firstAttack = 14;
+                    SFXManager.S.PlaySFX(23);
+                }
             
-               IvCombatScript.ResetIvVariables();
+                IvCombatScript.ResetIvVariables();
             }
             
             // If Iv moves to the right
@@ -793,9 +893,17 @@ public class CombatManagerScript : MonoBehaviour
                 // Make Iv move in game 
                 if (firstAttack != 0)
                 {
-                    if (secondAttack == 0) secondAttack = 15;
+                    if (secondAttack == 0)
+                    {
+                        secondAttack = 15;
+                        SFXManager.S.PlaySFX(23);
+                    }
                 }
-                else firstAttack = 15;
+                else
+                {
+                    firstAttack = 15;
+                    SFXManager.S.PlaySFX(23);
+                }
             
                 IvCombatScript.ResetIvVariables();
             }

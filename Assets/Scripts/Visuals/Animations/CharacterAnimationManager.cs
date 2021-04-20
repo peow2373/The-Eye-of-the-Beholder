@@ -93,7 +93,7 @@ public class CharacterAnimationManager : MonoBehaviour
         hasChangedCombatSprite = true;
     }
 
-    private void DetermineAnimation(GameObject character, string name)
+    public void DetermineAnimation(GameObject character, string name)
     {
         SpriteRenderer sr = character.GetComponent<SpriteRenderer>();
         Sprite currSprite = sr.sprite;

@@ -128,7 +128,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy1Alive)
             {
-                float yLoc = DetermineYLocation(EnemyManagerScript.enemy1Position);
+                float yLoc = DetermineYLocation(EnemyManagerScript.enemy1Position) + DetermineYSize(ChangeHealth.sizeOfEnemy1);
                 
                 Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy1Position - 1], yLoc);
                 this.transform.position = loc;
@@ -143,7 +143,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy2Alive && EnemyManagerScript.enemy2 != "null")
             {
-                float yLoc = DetermineYLocation(EnemyManagerScript.enemy2Position);
+                float yLoc = DetermineYLocation(EnemyManagerScript.enemy2Position) + DetermineYSize(ChangeHealth.sizeOfEnemy2);
                 
                 Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy2Position - 1], yLoc);
                 this.transform.position = loc;
@@ -158,7 +158,7 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
             {
-                float yLoc = DetermineYLocation(EnemyManagerScript.enemy3Position);
+                float yLoc = DetermineYLocation(EnemyManagerScript.enemy3Position) + DetermineYSize(ChangeHealth.sizeOfEnemy3);
                 
                 Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy3Position - 1], yLoc);
                 this.transform.position = loc;
@@ -202,5 +202,31 @@ public class CharacterMovement : MonoBehaviour
         }
 
         return middleYLocation;
+    }
+
+    public float DetermineYSize(int size)
+    {
+        switch (size)
+        {
+            case 1:
+                return size1Offset;
+            
+            case 2:
+                return size2Offset;
+            
+            case 3:
+                return size3Offset;
+            
+            case 4:
+                return size4Offset;
+            
+            case 5:
+                return size5Offset;
+            
+            case 6:
+                return size6Offset;
+        }
+
+        return size2Offset;
     }
 }

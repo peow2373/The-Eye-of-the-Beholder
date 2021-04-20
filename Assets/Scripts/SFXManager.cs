@@ -37,6 +37,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip dyingSoldier2;
     public AudioClip dyingSoldier3;
     public AudioClip metalClash;
+    
     public AudioClip move;
     public AudioClip select;
     public AudioClip block;
@@ -55,10 +56,15 @@ public class SFXManager : MonoBehaviour
     
     public AudioClip paperFlip;
     public AudioClip swordClash;
-    public AudioClip leftOrRight;
     public AudioClip netrixiChosen;
     public AudioClip folkvarChosen;
     public AudioClip ivChosen;
+    public AudioClip handPositionClick;
+
+    public AudioClip chooseLeftRight;
+    public AudioClip attackChosen;
+    public AudioClip startFight;
+    public AudioClip undo;
 
     public static SFXManager S;
 
@@ -164,21 +170,19 @@ public class SFXManager : MonoBehaviour
 
                 break;
 
-            case 22:
-
-                break;
-
-            case 23:
-
-                break;
-
-            case 24:
-
-                break;
-
-            
-            
             // General Sounds
+            case 22:
+                Other.PlayOneShot(startFight, 1);
+                break;
+            
+            case 23:
+                Other.PlayOneShot(attackChosen, 2);
+                break;
+            
+            case 24:
+                Other.PlayOneShot(undo, 1);
+                break;
+            
             case 25:
                 Other.PlayOneShot(cellDoor, 1);
                 break;
@@ -235,32 +239,39 @@ public class SFXManager : MonoBehaviour
                 Other.PlayOneShot(move, 1);
                 break;
 
+            // Select option
             case 39:
                 Other.PlayOneShot(select, 1);
                 break;
 
+            // Next Dialogue
             case 40:
                 Other.PlayOneShot(paperFlip, 1);
                 break;
 
+            // Start Combat
             case 41:
                 Other.PlayOneShot(swordClash, 1);
                 break;
 
+            // Choose "Left or Right" option
             case 42:
-                Other.PlayOneShot(leftOrRight, 1);
+                Other.PlayOneShot(chooseLeftRight, 1);
                 break;
 
+            // Choose Netrixi
             case 43:
-                Other.PlayOneShot(netrixiChosen, 1);
+                Other.PlayOneShot(select, 1);
                 break;
 
+            // Choose Folkvar
             case 44:
-                Other.PlayOneShot(folkvarChosen, 1);
+                Other.PlayOneShot(select, 1);
                 break;
 
+            // Choose Iv
             case 45:
-                Other.PlayOneShot(ivChosen, 1);
+                Other.PlayOneShot(select, 1);
                 break;
 
             

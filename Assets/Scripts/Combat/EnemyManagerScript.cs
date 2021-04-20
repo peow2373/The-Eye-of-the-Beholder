@@ -58,8 +58,11 @@ public class EnemyManagerScript : MonoBehaviour
                 
                     CombatManagerScript.enemy2Alive = true;
                     CombatManagerScript.canEnemy2Attack = true;
-            
+
                     DetermineEnemyType(enemy2);
+                    
+                    GameObject barkeeper = GameObject.FindGameObjectWithTag("Enemy 2");
+                    CharacterAnimationManager.S.DetermineAnimation(barkeeper, "Enemy 2");
                     
                     enemy2Position = 9;
 
@@ -613,7 +616,7 @@ public class EnemyManagerScript : MonoBehaviour
                 availableMoves.Add("Royal King-Performs a Grand Slam");
                 availableMoves.Add("Royal King-Smites");
                 // Stage 2
-                availableMoves.Add("Royal King-Empowers His Team");
+                availableMoves.Add("Royal King-Empowers Both Teams");
                 availableMoves.Add("Royal King-Blocks");
                 // If an enemy can be healed and it is worth it to heal them
                 if (CombatManagerScript.enemy1HP <= CombatManagerScript.enemy1StartingHP - DamageValues.enemyCanHeal)

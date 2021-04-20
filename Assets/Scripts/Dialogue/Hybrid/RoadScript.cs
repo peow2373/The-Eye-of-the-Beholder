@@ -127,7 +127,7 @@ public class RoadScript : MonoBehaviour
                 {
                     HighlightChoices.S.HighlightChoice(1,1);
                     
-                    SFXManager.S.PlaySFX(40);
+                    if ((string)story.currentChoices[0].text != "Fight") SFXManager.S.PlaySFX(40);
                     refreshUI();
                 }
             }
@@ -266,6 +266,10 @@ public class RoadScript : MonoBehaviour
 
         else
         {
+            if (skipScene == false)
+            {
+                SFXManager.S.PlaySFX(41);
+            }
             GameManagerScript.NextScene(skipScene);
         }
 

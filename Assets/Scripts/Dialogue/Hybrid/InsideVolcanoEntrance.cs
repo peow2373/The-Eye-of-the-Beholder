@@ -128,9 +128,12 @@ public class InsideVolcanoEntrance : MonoBehaviour
                 {
                     HighlightChoices.S.HighlightChoice(1,1);
                     
-                    SFXManager.S.PlaySFX(40);
-                    refreshUI();
                     skipScene = false;
+                    if (skipScene == false) SFXManager.S.PlaySFX(41);
+                    else SFXManager.S.PlaySFX(40);
+                    
+                    refreshUI();
+                    
                     GameManagerScript.NextScene(skipScene);
                 }
             }

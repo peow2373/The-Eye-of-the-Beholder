@@ -113,14 +113,14 @@ public class CombatSimulationScript : MonoBehaviour
                 CombatManagerScript.canEnemy2Attack = true;
             
                 EnemyManagerScript.DetermineEnemyType(EnemyManagerScript.enemy2);
+                
+                GameObject barkeeper = GameObject.FindGameObjectWithTag("Enemy 2");
+                CharacterAnimationManager.S.DetermineAnimation(barkeeper, "Enemy 2");
                     
                 EnemyManagerScript.enemy2Position = 9;
 
-                EnemyManagerScript.secondAttack = "Barkeeper-Punches Tavern Brute";
-                enemySecondAttack = "Barkeeper-Punches Tavern Brute";
-
                 EnemyManagerScript.barkeeperMadNextAttack = false;
-                
+
                 yield return new WaitForSecondsRealtime(moveDelay);
             }
         }
@@ -239,7 +239,6 @@ public class CombatSimulationScript : MonoBehaviour
         //if (!CombatManagerScript.netrixiAlive && CombatManagerScript.folkvarAlive && !CombatManagerScript.ivAlive) CombatManagerScript.folkvarAttacks = true;
         //if (!CombatManagerScript.netrixiAlive && !CombatManagerScript.folkvarAlive && CombatManagerScript.ivAlive) CombatManagerScript.ivAttacks = true;
 
-        
         Destroy(runner);
     }
 
@@ -290,6 +289,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canPlayerMove1)
                     {
                         CharacterManagerScript.netrixiPosition = CharacterManagerScript.netrixi1st;
+                        SFXManager.S.PlaySFX(38);
                     }
 
                     playerAttacker1 = "Netrixi";
@@ -301,6 +301,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canPlayerMove2)
                     {
                         CharacterManagerScript.netrixiPosition = CharacterManagerScript.netrixi2nd;
+                        SFXManager.S.PlaySFX(38);
                     }
                     playerAttacker2 = "Netrixi";
                     CombatManagerScript.playerAttacking2 = true;
@@ -318,6 +319,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canPlayerMove1)
                     {
                         CharacterManagerScript.folkvarPosition = CharacterManagerScript.folkvar1st;
+                        SFXManager.S.PlaySFX(38);
                     }
                     
                     playerAttacker1 = "Folkvar";
@@ -329,6 +331,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canPlayerMove2)
                     {
                         CharacterManagerScript.folkvarPosition = CharacterManagerScript.folkvar2nd;
+                        SFXManager.S.PlaySFX(38);
                     }
                     
                     playerAttacker2 = "Folkvar";
@@ -347,6 +350,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canPlayerMove1)
                     {
                         CharacterManagerScript.ivPosition = CharacterManagerScript.iv1st;
+                        SFXManager.S.PlaySFX(38);
                     }
                     
                     playerAttacker1 = "Iv";
@@ -358,6 +362,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canPlayerMove2)
                     {
                         CharacterManagerScript.ivPosition = CharacterManagerScript.iv2nd;
+                        SFXManager.S.PlaySFX(38);
                     }
                     
                     playerAttacker2 = "Iv";
@@ -381,6 +386,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canEnemyMove1)
                     {
                         EnemyManagerScript.enemy1Position = EnemyManagerScript.enemy1First;
+                        SFXManager.S.PlaySFX(38);
                     }
                     
                     CombatManagerScript.enemyAttacking1 = true;
@@ -391,6 +397,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canEnemyMove2)
                     {
                         EnemyManagerScript.enemy1Position = EnemyManagerScript.enemy1Second;
+                        SFXManager.S.PlaySFX(38);
                     }
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
@@ -407,6 +414,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canEnemyMove1)
                     {
                         EnemyManagerScript.enemy2Position = EnemyManagerScript.enemy2First;
+                        SFXManager.S.PlaySFX(38);
                     }
                     CombatManagerScript.enemyAttacking1 = true;
                     didEnemyMove1 = true;
@@ -416,6 +424,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canEnemyMove2)
                     {
                         EnemyManagerScript.enemy2Position = EnemyManagerScript.enemy2Second;
+                        SFXManager.S.PlaySFX(38);
                     }
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;
@@ -432,6 +441,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canEnemyMove1)
                     {
                         EnemyManagerScript.enemy3Position = EnemyManagerScript.enemy3First;
+                        SFXManager.S.PlaySFX(38);
                     }
                     CombatManagerScript.enemyAttacking1 = true;
                     didEnemyMove1 = true;
@@ -441,6 +451,7 @@ public class CombatSimulationScript : MonoBehaviour
                     if (canEnemyMove2)
                     {
                         EnemyManagerScript.enemy3Position = EnemyManagerScript.enemy3Second;
+                        SFXManager.S.PlaySFX(38);
                     }
                     CombatManagerScript.enemyAttacking2 = true;
                     didEnemyMove2 = true;

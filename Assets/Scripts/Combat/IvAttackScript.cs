@@ -160,37 +160,30 @@ public class IvAttackScript : MonoBehaviour
             {
                 original = DamageValues.heal * AttackScript.damageModifier;
                 burnRate = DamageValues.healBurn;
-                int damageValue = (int) original;
+                int healValue = (int) original;
+                AttackScript.delayRate = (healValue * burnRate) + DamageValues.standardDelay;
 
                 int lowestHP = 500;
                 int targetCharacter = 0;
 
                 // Determine which character has the lowest HP;
                 if (CombatManagerScript.netrixiAlive)
-                {
-                    if (CombatManagerScript.netrixiHP < HealthValues.netrixiHP)
+                    if (CombatManagerScript.netrixiHP < lowestHP)
                     {
                         targetCharacter = 1;
-                        lowestHP = CombatManagerScript.netrixiHP;
+                        lowestHP = CombatManagerScript.netrixiHP; 
                     }
-                }
                 if (CombatManagerScript.folkvarAlive)
                     if (CombatManagerScript.folkvarHP < lowestHP)
                     {
-                        if (CombatManagerScript.folkvarHP < HealthValues.folkvarHP)
-                        {
-                            targetCharacter = 2;
-                            lowestHP = CombatManagerScript.folkvarHP;
-                        }
+                        targetCharacter = 2;
+                        lowestHP = CombatManagerScript.folkvarHP;
                     }
                 if (CombatManagerScript.ivAlive)
                     if (CombatManagerScript.ivHP < lowestHP)
                     {
-                        if (CombatManagerScript.ivHP < HealthValues.ivHP)
-                        {
-                            targetCharacter = 3;
-                            lowestHP = CombatManagerScript.ivHP;
-                        }
+                        targetCharacter = 3;
+                        lowestHP = CombatManagerScript.ivHP;
                     }
 
 
@@ -198,65 +191,29 @@ public class IvAttackScript : MonoBehaviour
                 {
                     // Netrixi
                     case 1:
-                        // If Netrixi is below her starting HP
-                        if (CombatManagerScript.netrixiHP < HealthValues.netrixiHP)
-                        {
-                            // TODO: Play Iv Heal animation
-                            playerTarget = 8;
-                            
-                            int temp = CalculateMissingHealth(CombatManagerScript.netrixiHP, HealthValues.netrixiHP, damageValue);
-                            AttackScript.delayRate = (temp * burnRate) + DamageValues.standardDelay;
-                            
-                            HealthManagerScript.ChangeHealth("Netrixi", -temp, burnRate);
-                            print("Heal Netrixi");
-                        }
-                        else
-                        {
-                            print("Netrixi is already at full health!");
-                            AttackScript.delayRate = DamageValues.standardDelay;
-                        }
+                        // TODO: Play Iv Heal animation
+                        playerTarget = 8;
+
+                        HealthManagerScript.ChangeHealth("Netrixi", -healValue, burnRate);
+                        print("Heal Netrixi");
                         break;
                     
                     // Folkvar
                     case 2:
-                        // If Folkvar is below his starting HP
-                        if (CombatManagerScript.folkvarHP < HealthValues.folkvarHP)
-                        {
-                            // TODO: Play Iv Heal animation
-                            playerTarget = 9;
-                            
-                            int temp = CalculateMissingHealth(CombatManagerScript.folkvarHP, HealthValues.folkvarHP, damageValue);
-                            AttackScript.delayRate = (temp * burnRate) + DamageValues.standardDelay;
-                            
-                            HealthManagerScript.ChangeHealth("Folkvar", -temp, burnRate);
-                            print("Heal Folkvar");
-                        }
-                        else
-                        {
-                            print("Folkvar is already at full health!");
-                            AttackScript.delayRate = DamageValues.standardDelay;
-                        }
+                        // TODO: Play Iv Heal animation
+                        playerTarget = 9;
+
+                        HealthManagerScript.ChangeHealth("Folkvar", -healValue, burnRate);
+                        print("Heal Folkvar");
                         break;
                     
                     // Iv
                     case 3:
-                        // If Iv is below her starting HP
-                        if (CombatManagerScript.ivHP < HealthValues.ivHP)
-                        {
-                            // TODO: Play Iv Heal animation
-                            playerTarget = 10;
-                            
-                            int temp = CalculateMissingHealth(CombatManagerScript.ivHP, HealthValues.ivHP, damageValue);
-                            AttackScript.delayRate = (temp * burnRate) + DamageValues.standardDelay;
+                        // TODO: Play Iv Heal animation
+                        playerTarget = 10;
 
-                            HealthManagerScript.ChangeHealth("Iv", -temp, burnRate);
-                            print("Heal Iv");
-                        }
-                        else
-                        {
-                            print("Iv is already at full health!");
-                            AttackScript.delayRate = DamageValues.standardDelay;
-                        }
+                        HealthManagerScript.ChangeHealth("Iv", -healValue, burnRate);
+                        print("Heal Iv");
                         break;
                 }
             }

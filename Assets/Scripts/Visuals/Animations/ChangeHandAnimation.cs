@@ -29,6 +29,7 @@ public class ChangeHandAnimation : MonoBehaviour
     public GameObject rotateIcons;
     public Sprite startRotatingRight, continueRotatingRight;
     public Sprite startRotatingLeft, continueRotatingLeft;
+    public Sprite handClosedRight, handClosedLeft;
 
     private Sprite frontHand, backHand;
 
@@ -210,7 +211,12 @@ public class ChangeHandAnimation : MonoBehaviour
                 if (GameManagerScript.rightHanded) flipHandSR.sprite = flipRight;
                 else flipHandSR.sprite = flipLeft;
                 
-                yield return new WaitForSeconds(standardDelay);
+                yield return new WaitForSeconds(standardDelay*3/4);
+                
+                if (GameManagerScript.rightHanded) handSR.sprite = handClosedRight;
+                else handSR.sprite = handClosedLeft;
+                
+                yield return new WaitForSeconds(standardDelay/4);
 
                 float rotateHand = hand.transform.eulerAngles.y;
 
@@ -520,12 +526,12 @@ public class ChangeHandAnimation : MonoBehaviour
                 float startingRotation;
                 
                 rotateTime = standardAnimationTime - waitBeforeFlippingHand - waitAfterFlippingHand - standardDelay;
-                timesRotated = 5;
+                timesRotated = 6;
 
                 if (GameManagerScript.rightHanded)
                 {
                     continueRotating = rotateHandRight;
-                    rotateDifference = 90 / (timesRotated);
+                    rotateDifference = 18;
                     rotateHandSR.sprite = continueRotatingRight;
                     startingRotation = 90;
                     
@@ -534,7 +540,7 @@ public class ChangeHandAnimation : MonoBehaviour
                 else
                 {
                     continueRotating = rotateHandLeft;
-                    rotateDifference = -90 / (timesRotated);
+                    rotateDifference = -18;
                     rotateHandSR.sprite = continueRotatingLeft;
                     startingRotation = -90;
                     
@@ -554,7 +560,9 @@ public class ChangeHandAnimation : MonoBehaviour
                 // Rotate Hand one way animation
                 for (int i = 0; i < timesRotated; i++)
                 {
-                    rotateHand -= rotateDifference;
+                    if (i >= timesRotated - 1) rotateHand -= rotateDifference;
+                    else if (i >= timesRotated - 3) rotateHand += rotateDifference;
+                    else rotateHand -= rotateDifference;
 
                     Vector3 rotation = new Vector3(hand.transform.eulerAngles.x, hand.transform.eulerAngles.y, rotateHand);
                     
@@ -564,12 +572,20 @@ public class ChangeHandAnimation : MonoBehaviour
                 
                 yield return new WaitForSeconds(waitBeforeFlippingHand*2/5);
                 
-                flipHand.SetActive(true);
-                if (GameManagerScript.rightHanded) flipHandSR.sprite = flipRight;
-                else flipHandSR.sprite = flipLeft;
+                if (GameManagerScript.rightHanded)
+                {
+                    flipHandSR.sprite = flipRight;
+                    handSR.sprite = handClosedRight;
+                }
+                else
+                {
+                    flipHandSR.sprite = flipLeft;
+                    handSR.sprite = handClosedLeft;
+                }
 
                 yield return new WaitForSeconds(waitBeforeFlippingHand*3/5);
 
+                flipHand.SetActive(true);
                 handSR.sprite = backHand;
                 continueRotating.SetActive(false);
                 
@@ -741,43 +757,6 @@ public class ChangeHandAnimation : MonoBehaviour
             
             
             // Folkvar Smite
-            case "Q to W":
-                ResetHand(true);
-                EnableGrids();
-                
-                waitAfterMove = 1.25f;
-                moveTime = standardAnimationTime - standardDelay - waitAfterMove;
-                timesMoved = 50;
-                
-                // Start at position 1
-                currLoc = new Vector3(xPos[0], yPos[0], 1);
-                hand.transform.position = currLoc;
-                
-                // End at position 2
-                destination = new Vector3(xPos[1], yPos[0], 1);
-
-                travelDistanceX = destination.x - currLoc.x;
-                travelDistanceY = destination.y - currLoc.y;
-                
-                yield return new WaitForSeconds(standardDelay);
-                
-                // Move Hand animation
-                for (int i = 0; i < timesMoved; i++)
-                {
-                    Vector3 loc = new Vector3(hand.transform.position.x + (travelDistanceX/timesMoved), hand.transform.position.y + (travelDistanceY/timesMoved), hand.transform.position.z);
-                    hand.transform.position = loc;
-
-                    yield return new WaitForSeconds(moveTime/timesMoved);
-                }
-                
-                yield return new WaitForSeconds(waitAfterMove);
-                
-                DisableGrids(true, true);
-                
-                yield return new WaitForSeconds(endDelay);
-                EndOfAnimation();
-                break;
-            
             case "W to X":
                 ResetHand(true);
                 EnableGrids();

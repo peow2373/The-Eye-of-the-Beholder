@@ -93,6 +93,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 1;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the top-middle corner
@@ -102,6 +104,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 2;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the top-right corner
@@ -111,6 +115,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 3;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the middle-left corner
@@ -120,6 +126,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 4;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the center corner
@@ -129,6 +137,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 5;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the middle-right corner
@@ -138,6 +148,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 6;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the bottom-left corner
@@ -147,6 +159,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 7;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the bottom-middle corner
@@ -156,6 +170,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 8;
+            
+            //SFXManager.S.PlaySFX(24);
         }
         
         // check to see if Palm marker is in the bottom-right corner
@@ -165,6 +181,8 @@ public class MarkerManagerScript : MonoBehaviour
             hand.transform.position = loc;
             pastLocation = currentLocation;
             currentLocation = 9;
+            
+            //SFXManager.S.PlaySFX(24);
         }
     }
 
@@ -182,6 +200,8 @@ public class MarkerManagerScript : MonoBehaviour
                     // put the hand into the starting position
                     hand.transform.rotation = Quaternion.Euler(0, 0, rotation[0]);
                     rotatingRight = true;
+                    
+                    SFXManager.S.PlaySFX(27);
                 }
             } 
         
@@ -194,17 +214,23 @@ public class MarkerManagerScript : MonoBehaviour
                     // put the hand into the starting position
                     hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[5]);
                     rotatingLeft = true;
+                    
+                    SFXManager.S.PlaySFX(27);
                 }
             }
             
             
         } else {
+            
+            if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.J)) SFXManager.S.PlaySFX(27);
           
             // check to see if Palm marker is in the second zone
             if (Input.GetKeyDown(KeyCode.G))
             {
                 if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[1]);
                 if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[6]);
+                
+                SFXManager.S.PlaySFX(27);
             }
             
             // check to see if Palm marker is in the third zone
@@ -212,6 +238,8 @@ public class MarkerManagerScript : MonoBehaviour
             {
                 if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[2]);
                 if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[7]);
+                
+                SFXManager.S.PlaySFX(27);
             }
             
             // check to see if Palm marker is in the fourth zone
@@ -219,6 +247,8 @@ public class MarkerManagerScript : MonoBehaviour
             {
                 if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[3]);
                 if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[8]);
+                
+                SFXManager.S.PlaySFX(27);
             }
             
             // check to see if Palm marker is in the fifth zone
@@ -226,6 +256,8 @@ public class MarkerManagerScript : MonoBehaviour
             {
                 if (rotatingRight) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[4]);
                 if (rotatingLeft) hand.transform.rotation = Quaternion.Euler(0 ,0 ,rotation[4]);
+                
+                SFXManager.S.PlaySFX(27);
             }
         }
         

@@ -190,13 +190,6 @@ public class NetrixiCombatScript : MonoBehaviour
                     {
                         netrixiCondition4[1] = true;
                     }
-                    
-                    // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveNetrixi(1, true) == 2)
-                    {
-                        print("Choose another direction to move in");
-                        netrixiCondition4[0] = false;
-                    }
                 }
                     
                 // If the player decides to move Netrixi to the right
@@ -205,13 +198,6 @@ public class NetrixiCombatScript : MonoBehaviour
                     if (CharacterManagerScript.MoveNetrixi(2, true) == 1)
                     {
                         netrixiCondition4[2] = true;
-                    }
-                    
-                    // If they cannot move in that direction
-                    if (CharacterManagerScript.MoveNetrixi(2, true) == 2)
-                    {
-                        print("Choose another direction to move in");
-                        netrixiCondition4[0] = false;
                     }
                 }
                 

@@ -94,6 +94,9 @@ public class HandAnimationManager : MonoBehaviour
                 restartAnimation = true;
             }
         }
+        
+        // If the Combat simulation is running
+        if (CombatManagerScript.hasRunSimulation) TipScript.S.Reset();
     }
 
     void CheckForChanges()
@@ -153,7 +156,7 @@ public class HandAnimationManager : MonoBehaviour
                         if (netrixiAttack1)
                         {
                             HighlightChoices.S.HighlightChoice(1,3);
-                            
+
                             netrixiAttack1 = false;
                             restartAnimation = true;
                         }
@@ -163,7 +166,8 @@ public class HandAnimationManager : MonoBehaviour
                         if (!netrixiAttack1)
                         {
                             HighlightChoices.S.HighlightChoice(1,3);
-                            
+                            if (TipScript.attackPlaying != 1) StartCoroutine(TipScript.S.DisplayAttackTip(1));
+
                             netrixiAttack1 = true;
                             restartAnimation = true;
                         }
@@ -174,7 +178,7 @@ public class HandAnimationManager : MonoBehaviour
                     if (netrixiAttack1)
                     {
                         HighlightChoices.S.HighlightChoice(1,3);
-                        
+
                         netrixiAttack1 = false;
                         restartAnimation = true;
                     }
@@ -188,7 +192,7 @@ public class HandAnimationManager : MonoBehaviour
                         if (netrixiAttack2)
                         {
                             HighlightChoices.S.HighlightChoice(2,3);
-                            
+
                             netrixiAttack2 = false;
                             restartAnimation = true;
                         }
@@ -198,7 +202,8 @@ public class HandAnimationManager : MonoBehaviour
                         if (!netrixiAttack2)
                         {
                             HighlightChoices.S.HighlightChoice(2,3);
-                            
+                            if (TipScript.attackPlaying != 2) StartCoroutine(TipScript.S.DisplayAttackTip(2));
+
                             netrixiAttack2 = true;
                             restartAnimation = true;
                         }
@@ -237,7 +242,7 @@ public class HandAnimationManager : MonoBehaviour
                                 if (!netrixiAttack3)
                                 {
                                     HighlightChoices.S.HighlightChoice(3,3);
-                                    
+
                                     netrixiAttack3 = true;
                                     restartAnimation = true;
                                 }
@@ -248,7 +253,7 @@ public class HandAnimationManager : MonoBehaviour
                             if (netrixiAttack3)
                             {
                                 HighlightChoices.S.HighlightChoice(3,3);
-                                
+
                                 netrixiAttack3 = false;
                                 restartAnimation = true;
                             }
@@ -259,6 +264,7 @@ public class HandAnimationManager : MonoBehaviour
                         if (!netrixiAttack3)
                         {
                             HighlightChoices.S.HighlightChoice(3,3);
+                            if (TipScript.attackPlaying != 3) StartCoroutine(TipScript.S.DisplayAttackTip(3));
                             
                             netrixiAttack3 = true;
                             restartAnimation = true;
@@ -300,6 +306,7 @@ public class HandAnimationManager : MonoBehaviour
                             if (!folkvarAttack1)
                             {
                                 HighlightChoices.S.HighlightChoice(1,3);
+                                if (TipScript.attackPlaying != 4) StartCoroutine(TipScript.S.DisplayAttackTip(4));
                                 
                                 folkvarAttack1 = true;
                                 restartAnimation = true;
@@ -337,7 +344,7 @@ public class HandAnimationManager : MonoBehaviour
                                 if (folkvarAttack2)
                                 {
                                     HighlightChoices.S.HighlightChoice(2,3);
-                                    
+
                                     folkvarAttack2 = false;
                                     restartAnimation = true;
                                 }
@@ -348,6 +355,7 @@ public class HandAnimationManager : MonoBehaviour
                             if (!folkvarAttack2)
                             {
                                 HighlightChoices.S.HighlightChoice(2,3);
+                                if (TipScript.attackPlaying != 5) StartCoroutine(TipScript.S.DisplayAttackTip(5));
                                 
                                 folkvarAttack2 = true;
                                 restartAnimation = true;
@@ -374,7 +382,10 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (!folkvarAttack3)
                                 {
-                                    HighlightChoices.S.HighlightChoice(3,3);
+                                    if (GameManagerScript.currentScene >= 18)
+                                    {
+                                        HighlightChoices.S.HighlightChoice(3,3);
+                                    }
                                     
                                     folkvarAttack3 = true;
                                     restartAnimation = true;
@@ -384,8 +395,11 @@ public class HandAnimationManager : MonoBehaviour
                             {
                                 if (folkvarAttack3)
                                 {
-                                    HighlightChoices.S.HighlightChoice(3,3);
-                                    
+                                    if (GameManagerScript.currentScene >= 18)
+                                    {
+                                        HighlightChoices.S.HighlightChoice(3,3);
+                                    }
+
                                     folkvarAttack3 = false;
                                     restartAnimation = true;
                                 }
@@ -395,7 +409,11 @@ public class HandAnimationManager : MonoBehaviour
                         {
                             if (!folkvarAttack3)
                             {
-                                HighlightChoices.S.HighlightChoice(3,3);
+                                if (GameManagerScript.currentScene >= 18)
+                                {
+                                    HighlightChoices.S.HighlightChoice(3,3);
+                                    if (TipScript.attackPlaying != 6) StartCoroutine(TipScript.S.DisplayAttackTip(6));
+                                }
                                 
                                 folkvarAttack3 = true;
                                 restartAnimation = true;
@@ -406,8 +424,11 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (folkvarAttack3)
                         {
-                            HighlightChoices.S.HighlightChoice(3,3);
-                            
+                            if (GameManagerScript.currentScene >= 18)
+                            {
+                                HighlightChoices.S.HighlightChoice(3,3);
+                            }
+
                             folkvarAttack3 = false;
                             restartAnimation = true;
                         }
@@ -438,6 +459,7 @@ public class HandAnimationManager : MonoBehaviour
                             if (!ivAttack1)
                             {
                                 HighlightChoices.S.HighlightChoice(1,3);
+                                if (TipScript.attackPlaying != 7) StartCoroutine(TipScript.S.DisplayAttackTip(7));
                                 
                                 ivAttack1 = true;
                                 restartAnimation = true;
@@ -477,7 +499,7 @@ public class HandAnimationManager : MonoBehaviour
                                     if (!ivAttack2)
                                     {
                                         HighlightChoices.S.HighlightChoice(2,3);
-                                        
+
                                         ivAttack2 = true;
                                         restartAnimation = true;
                                     }
@@ -488,7 +510,7 @@ public class HandAnimationManager : MonoBehaviour
                                 if (ivAttack2)
                                 {
                                     HighlightChoices.S.HighlightChoice(2,3);
-                                    
+
                                     ivAttack2 = false;
                                     restartAnimation = true;
                                 }
@@ -499,6 +521,7 @@ public class HandAnimationManager : MonoBehaviour
                             if (!ivAttack2)
                             {
                                 HighlightChoices.S.HighlightChoice(2,3);
+                                if (TipScript.attackPlaying != 8) StartCoroutine(TipScript.S.DisplayAttackTip(8));
                                 
                                 ivAttack2 = true;
                                 restartAnimation = true;
@@ -524,8 +547,11 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (ivAttack3)
                         {
-                            HighlightChoices.S.HighlightChoice(3,3);
-                            
+                            if (GameManagerScript.currentScene >= 18)
+                            {
+                                HighlightChoices.S.HighlightChoice(3,3);
+                            }
+
                             ivAttack3 = false;
                             restartAnimation = true;
                         }
@@ -534,8 +560,12 @@ public class HandAnimationManager : MonoBehaviour
                     {
                         if (!ivAttack3)
                         {
-                            HighlightChoices.S.HighlightChoice(3,3);
-                            
+                            if (GameManagerScript.currentScene >= 18)
+                            {
+                                HighlightChoices.S.HighlightChoice(3,3);
+                                if (TipScript.attackPlaying != 9) StartCoroutine(TipScript.S.DisplayAttackTip(9)); 
+                            }
+
                             ivAttack3 = true;
                             restartAnimation = true;
                         }
@@ -545,8 +575,11 @@ public class HandAnimationManager : MonoBehaviour
                 {
                     if (ivAttack3)
                     {
-                        HighlightChoices.S.HighlightChoice(3,3);
-                        
+                        if (GameManagerScript.currentScene >= 18)
+                        {
+                            HighlightChoices.S.HighlightChoice(3,3);
+                        }
+
                         ivAttack3 = false;
                         restartAnimation = true;
                     }

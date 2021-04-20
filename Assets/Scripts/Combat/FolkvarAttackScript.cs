@@ -41,10 +41,12 @@ public class FolkvarAttackScript : MonoBehaviour
                 original = DamageValues.swingSword * AttackScript.damageModifier;
                 burnRate = DamageValues.swingSwordBurn;
                 int damageValue = (int) original;
-                AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
 
                 // Chance of a Critical Strike
                 int randomValue = UnityEngine.Random.Range(0, DamageValues.critChance);
+                
+                if (randomValue < 1) AttackScript.delayRate = (damageValue * burnRate * 2) + DamageValues.standardDelay;
+                else AttackScript.delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
 
                 // Attack the first enemy
                 if (CombatManagerScript.enemy1Alive)
@@ -52,7 +54,7 @@ public class FolkvarAttackScript : MonoBehaviour
                     // TODO: Play Folkvar Swing Sword animation
                     playerTarget = 1;
                     
-                    if (randomValue <= 1)
+                    if (randomValue < 1)
                     {
                         // Critical strike
                         HealthManagerScript.ChangeHealth("Enemy 1", damageValue * 2, burnRate);
@@ -73,7 +75,7 @@ public class FolkvarAttackScript : MonoBehaviour
                         // TODO: Play Folkvar Swing Sword animation
                         playerTarget = 2;
                         
-                        if (randomValue <= 1)
+                        if (randomValue < 1)
                         {
                             // Critical strike
                             HealthManagerScript.ChangeHealth("Enemy 2", damageValue * 2, burnRate);
@@ -94,7 +96,7 @@ public class FolkvarAttackScript : MonoBehaviour
                             // TODO: Play Folkvar Swing Sword animation
                             playerTarget = 3;
                             
-                            if (randomValue <= 1)
+                            if (randomValue < 1)
                             {
                                 // Critical strike
                                 HealthManagerScript.ChangeHealth("Enemy 3", damageValue * 2, burnRate);

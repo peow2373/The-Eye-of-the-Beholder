@@ -98,7 +98,7 @@ public class MineScript : MonoBehaviour
             {
                 HighlightChoices.S.HighlightChoice(1,1);
                 
-                SFXManager.S.PlaySFX(40);
+                if (story.canContinue) SFXManager.S.PlaySFX(40);
                 refreshUI();
             }
         }
@@ -123,6 +123,7 @@ public class MineScript : MonoBehaviour
         else
         {
             skipScene = false;
+            SFXManager.S.PlaySFX(41);
             GameManagerScript.NextScene(skipScene);
         }
 

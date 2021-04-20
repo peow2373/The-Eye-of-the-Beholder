@@ -53,7 +53,7 @@ public class AttackScript : MonoBehaviour
         }
 
         // TODO: Determine how long the attack animation takes
-        CalculatePlayerAnimationTime(playerAttack);
+        CalculatePlayerAnimation(playerAttack, attackNumber);
         
         if (attackNumber == 1) CombatSimulationScript.attack1Delay = animationTime1 + delayRate;
         else CombatSimulationScript.attack2Delay = animationTime2 + delayRate;
@@ -108,7 +108,7 @@ public class AttackScript : MonoBehaviour
 
         
         // TODO: Determine how long the attack animation takes
-        CalculateEnemyAnimationTime(enemyAttack);
+        CalculateEnemyAnimation(enemyAttack, attackNumber);
 
         if (attackNumber == 1)
         {
@@ -123,7 +123,7 @@ public class AttackScript : MonoBehaviour
         
         
         
-        void DetermineAttack(string attack, int attackNumber)
+        void DetermineAttack(string attack, int number)
         {
             int damageValue;
             int temp;
@@ -132,7 +132,7 @@ public class AttackScript : MonoBehaviour
             int attackLocation1;
             int attackLocation2;
 
-            if (attackNumber == 1)
+            if (number == 1)
             {
                 attackLocation1 = EnemyManagerScript.attack1Location;
                 attackLocation2 = EnemyManagerScript.attack1Location2;
@@ -217,7 +217,7 @@ public class AttackScript : MonoBehaviour
                     }
                     else delayRate = DamageValues.standardDelay;
                     
-                    EnemyAttackScript.GrandSlamAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.GrandSlamAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
                 
                 case "Performs a Grand Slam":
@@ -232,7 +232,7 @@ public class AttackScript : MonoBehaviour
                     }
                     else delayRate = DamageValues.standardDelay;
                     
-                    EnemyAttackScript.GrandSlamAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.GrandSlamAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
                 
                 case "Punches You":
@@ -259,7 +259,7 @@ public class AttackScript : MonoBehaviour
                     damageValue = (int) (original * enemyDamageModifier);
                     delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
                     
-                    EnemyAttackScript.DogAttack(damageValue, burnRate, attackNumber, attackingEnemy, false);
+                    EnemyAttackScript.DogAttack(damageValue, burnRate, number, attackingEnemy, false);
                     break;
                 
                 case "Dog Bites":
@@ -268,7 +268,7 @@ public class AttackScript : MonoBehaviour
                     damageValue = (int) (original * enemyDamageModifier);
                     delayRate = (damageValue * burnRate) + DamageValues.standardDelay;
                     
-                    EnemyAttackScript.DogAttack(damageValue, burnRate, attackNumber, attackingEnemy, true);
+                    EnemyAttackScript.DogAttack(damageValue, burnRate, number, attackingEnemy, true);
                     break;
                 
                 case "Slams with Mace":
@@ -294,7 +294,7 @@ public class AttackScript : MonoBehaviour
                         else delayRate = DamageValues.standardDelay;
                     }
 
-                    EnemyAttackScript.SwingMaceAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.SlamMaceAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
 
                 
@@ -313,7 +313,7 @@ public class AttackScript : MonoBehaviour
                     }
                     else delayRate = DamageValues.standardDelay;
                 
-                    EnemyAttackScript.ThrowingAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.ThrowingAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
                 
                 case "Throws Knife":
@@ -328,7 +328,7 @@ public class AttackScript : MonoBehaviour
                     }
                     else delayRate = DamageValues.standardDelay;
 
-                    EnemyAttackScript.ThrowingAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.ThrowingAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
                 
                 case "Throws Chair":
@@ -345,7 +345,7 @@ public class AttackScript : MonoBehaviour
 
                     chairsThrown++;
                     
-                    EnemyAttackScript.ThrowingAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.ThrowingAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
 
                 case "Throws Bomb":
@@ -360,7 +360,7 @@ public class AttackScript : MonoBehaviour
                     }
                     else delayRate = DamageValues.standardDelay;
                     
-                    EnemyAttackScript.BombAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.BombAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
 
 
@@ -379,7 +379,7 @@ public class AttackScript : MonoBehaviour
                     }
                     else delayRate = DamageValues.standardDelay;
 
-                    EnemyAttackScript.SmiteAttack(damageValue, burnRate, attackNumber, attackingEnemy);
+                    EnemyAttackScript.SmiteAttack(damageValue, burnRate, number, attackingEnemy);
                     break;
                 
                 case "Heals Team":
@@ -403,33 +403,28 @@ public class AttackScript : MonoBehaviour
                 case "Blocks":
                     delayRate = 0f;
 
-                    if (attackNumber == 1) EnemyAttackScript.BlockAttack(attackingEnemy, CombatManagerScript.firstAttack);
+                    if (number == 1) EnemyAttackScript.BlockAttack(attackingEnemy, CombatManagerScript.firstAttack);
                     else EnemyAttackScript.BlockAttack(attackingEnemy, CombatManagerScript.secondAttack);
                     break;
 
                 case "Empowers Both Teams":
                     delayRate = DamageValues.standardDelay;
 
-                    EnemyAttackScript.EmpowerAttack(attackingEnemy, true);
-                    break;
-                
-                case "Empowers His Team":
-                    delayRate = DamageValues.standardDelay;
-
-                    EnemyAttackScript.EmpowerAttack(attackingEnemy, false);
+                    EnemyAttackScript.EmpowerAttack(attackingEnemy);
                     break;
             }
         }
     }
     
     
-    public static void CalculatePlayerAnimationTime(int playerAttack)
+    public static void CalculatePlayerAnimation(int playerAttack, int attackNumber)
     {
-        
+        //if (attackNumber == 1) print(CombatSimulationScript.playerAttack1Target);
+        //else print(CombatSimulationScript.playerAttack2Target);
     }
 
-    public static void CalculateEnemyAnimationTime(string enemyAttack)
+    public static void CalculateEnemyAnimation(string enemyAttack, int attackNumber)
     {
-        
+        //print(enemyTarget);
     }
 }
