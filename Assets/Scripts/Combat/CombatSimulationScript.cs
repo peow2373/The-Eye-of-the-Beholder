@@ -194,9 +194,9 @@ public class CombatSimulationScript : MonoBehaviour
         // Wait for attack animation to play
         yield return new WaitForSecondsRealtime(attack2Delay);
 
-
         
-        
+        // End of Simulation
+        yield return new WaitForSecondsRealtime(moveDelay/2);
 
         // Reset variables once simulation is finished
         CombatManagerScript.firstAttack = 0;

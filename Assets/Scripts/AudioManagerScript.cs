@@ -16,6 +16,11 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource chant;
     public AudioSource Moke;
     public AudioSource celestial;
+    public AudioSource mine;
+    public AudioSource mansion;
+    public AudioSource road;
+    public AudioSource tunnelExit;
+        
     public static int scene;
 
     public static AudioManagerScript S;
@@ -61,7 +66,7 @@ public class AudioManagerScript : MonoBehaviour
         if (scene == 3)
         {
             pirateCombat.Stop();
-            celestial.Play();
+            mansion.Play();
         }
 
         //Mansion Combat
@@ -79,19 +84,22 @@ public class AudioManagerScript : MonoBehaviour
         //Road Dialogue
         if (scene == 6)
         {
-
+            mansion.Stop();
+            road.Play();
         }
 
         //Road Combat
         if (scene == 7)
         {
-
+            road.Stop();
+            disciplesExciting.Play();
         }
 
         //Tavern Dialogue
         if (scene == 8)
         {
-
+            disciplesExciting.Stop();
+            celestial.Play();
         }
 
         //Tavern Dialogue
@@ -158,7 +166,7 @@ public class AudioManagerScript : MonoBehaviour
         if (scene == 18)
         {
             disciplesExciting.Stop();
-            celestial.Play();
+            tunnelExit.Play();
         }
 
         //omitted
@@ -182,7 +190,7 @@ public class AudioManagerScript : MonoBehaviour
         //Cavern Dialogue
         if (scene == 22)
         {
-            celestial.Stop();
+            tunnelExit.Stop();
             chant.Play();
         }
 
@@ -196,13 +204,13 @@ public class AudioManagerScript : MonoBehaviour
         if (scene == 24)
         {
             chant.Stop();
-            celestial.Play();
+            mine.Play();
         }
 
         //Mine Combat
         if (scene == 25)
         {
-            celestial.Stop();
+            mine.Stop();
             disciplesExciting.Play();
         }
 

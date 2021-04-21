@@ -41,8 +41,12 @@ public class TipScript : MonoBehaviour
     void Update()
     {
         // Reset the tips if they aren't supposed to be visible
-        if (!GameManagerScript.inCombat) Reset();
-        if (CombatManagerScript.hasRunSimulation) Reset();
+        if (!GameManagerScript.inCombat || CombatManagerScript.hasRunSimulation) {
+            Reset();
+            StopAllCoroutines();
+        }
+        
+        // Reset the attack tips if the Undo marker is shown
         if (MarkerManagerScript.goMarker) if (Input.GetKeyDown(KeyCode.U)) Reset();
 
         // Check to see if all the combat tips have been displayed
@@ -82,7 +86,7 @@ public class TipScript : MonoBehaviour
         // If it is a new round
         if (CombatManagerScript.roundNumber != oldRound)
         {
-            StartCoroutine(DisplayCombatTip(true));
+            if (!tipActivated && !attackTipActivated) StartCoroutine(DisplayCombatTip(true));
             TipScript.attackPlaying = 0;
         }
 
@@ -216,10 +220,13 @@ public class TipScript : MonoBehaviour
         "Move a character to dodge certain attacks*You cannot move two characters onto the same location",
     };
 
-    public IEnumerator DisplayAttackTip(int attackNumber)
+    public IEnumerator DisplayAttackTip(int attackNumber, bool endOtherCoroutines)
     {
-        StopCoroutine(DisplayCombatTip(true));
-        StopCoroutine(DisplayCombatTip(false));
+        if (endOtherCoroutines)
+        {
+            StopAllCoroutines();
+            StartCoroutine(DisplayAttackTip(attackNumber, false));
+        }
         
         string[] info = attackInfo[attackNumber - 1].Split(char.Parse("*"));
         
@@ -227,6 +234,7 @@ public class TipScript : MonoBehaviour
         {
             // Display attack tip
             attackTipActivated = true;
+            //tipActivated = false;
 
             tipBackground.SetActive(true);
             move1.enabled = false;
@@ -270,6 +278,7 @@ public class TipScript : MonoBehaviour
         
         enemyMoves.fontSize = 62;
         enemyMoves.text = "Enemy's Moves";
+        tipText.text = "";
         
         tipActivated = false;
         attackTipActivated = false;

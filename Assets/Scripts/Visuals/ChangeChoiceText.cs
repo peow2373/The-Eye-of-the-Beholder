@@ -876,7 +876,7 @@ public class ChangeChoiceText : MonoBehaviour
 
                         if (TipScript.attackPlaying != 10 && !moveTipShown)
                         {
-                            StartCoroutine(TipScript.S.DisplayAttackTip(10));
+                            StartCoroutine(TipScript.S.DisplayAttackTip(10, true));
                             moveTipShown = true;
                         }
                     }
@@ -895,7 +895,7 @@ public class ChangeChoiceText : MonoBehaviour
                     
                     if (TipScript.attackPlaying != 10 && !moveTipShown)
                     {
-                        StartCoroutine(TipScript.S.DisplayAttackTip(10));
+                        StartCoroutine(TipScript.S.DisplayAttackTip(10, true));
                         moveTipShown = true;
                     }
                 }
@@ -915,7 +915,7 @@ public class ChangeChoiceText : MonoBehaviour
                         
                         if (TipScript.attackPlaying != 10 && !moveTipShown)
                         {
-                            StartCoroutine(TipScript.S.DisplayAttackTip(10));
+                            StartCoroutine(TipScript.S.DisplayAttackTip(10, true));
                             moveTipShown = true;
                         }
                     }
