@@ -5,7 +5,6 @@ Progress
 - made itch page for game
 - added page turn and fight SFX
 - created intro scene
-- 
 
 # 4/6/2021 Update
 Progress
