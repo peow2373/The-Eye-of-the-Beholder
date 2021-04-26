@@ -51,10 +51,10 @@ public class ChangeHealth : MonoBehaviour
                 DetermineSize(2);
                 
                 Vector3 characterLoc = netrixi.transform.position;
-                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
+                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y - 0.5f)/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
 
                 netrixiHP.transform.position = hpLoc;
-                netrixiHP.text = "HP:" + CombatManagerScript.netrixiHP;
+                netrixiHP.text = "" + CombatManagerScript.netrixiHP;
             }
             else netrixiHP.transform.position = new Vector3(offScreen, offScreen, 0);
 
@@ -68,7 +68,7 @@ public class ChangeHealth : MonoBehaviour
                 Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
 
                 folkvarHP.transform.position = hpLoc;
-                folkvarHP.text = "HP:" + CombatManagerScript.folkvarHP;
+                folkvarHP.text = "" + CombatManagerScript.folkvarHP;
             }
             else folkvarHP.transform.position = new Vector3(offScreen, offScreen, 0);
 
@@ -82,7 +82,7 @@ public class ChangeHealth : MonoBehaviour
                 Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y - 1.25f)/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
 
                 ivHP.transform.position = hpLoc;
-                ivHP.text = "HP:" + CombatManagerScript.ivHP;
+                ivHP.text = "" + CombatManagerScript.ivHP;
             }
             else ivHP.transform.position = new Vector3(offScreen, offScreen, 0);
             
@@ -99,7 +99,7 @@ public class ChangeHealth : MonoBehaviour
                 Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
 
                 enemy1HP.transform.position = hpLoc;
-                enemy1HP.text = "HP:" + CombatManagerScript.enemy1HP;
+                enemy1HP.text = "" + CombatManagerScript.enemy1HP;
             }
             else enemy1HP.transform.position = new Vector3(offScreen, offScreen, 0);
 
@@ -113,7 +113,7 @@ public class ChangeHealth : MonoBehaviour
                 Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
 
                 enemy2HP.transform.position = hpLoc;
-                enemy2HP.text = "HP:" + CombatManagerScript.enemy2HP;
+                enemy2HP.text = "" + CombatManagerScript.enemy2HP;
             }
             else enemy2HP.transform.position = new Vector3(offScreen, offScreen, 0);
 
@@ -127,7 +127,7 @@ public class ChangeHealth : MonoBehaviour
                 Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
 
                 enemy3HP.transform.position = hpLoc;
-                enemy3HP.text = "HP:" + CombatManagerScript.enemy3HP;
+                enemy3HP.text = "" + CombatManagerScript.enemy3HP;
             }
             else enemy3HP.transform.position = new Vector3(offScreen, offScreen, 0);
         }

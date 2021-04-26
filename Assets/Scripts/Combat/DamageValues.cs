@@ -14,7 +14,7 @@ public class DamageValues : MonoBehaviour
     
     // Netrixi
     public static float fireball = 20;                    // How much damage does the attack do?
-    public static float fireballBurn = 0.025f;            // How long does the attack take to do 1 HP in damage?
+    public static float fireballBurn = 0.04f;             // How long does the attack take to do 1 HP in damage?
     public static float fireballDelay;                    // How long before the next attack is started?
     
     public static float lightning = 65;

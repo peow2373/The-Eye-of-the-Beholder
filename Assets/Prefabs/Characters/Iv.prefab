@@ -45,6 +45,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -123,7 +124,6 @@ MonoBehaviour:
   enemy1: 0
   enemy2: 0
   enemy3: 0
-  enemy4: 0
 --- !u!1001 &4228082270730237330
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,6 +131,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6779399188254559520}
     m_Modifications:
+    - target: {fileID: 4621666025675913749, guid: 366cca2cdc718844189bb76810716bfa,
+        type: 3}
+      propertyPath: parentCharacter
+      value: 
+      objectReference: {fileID: 6779399188254559522}
+    - target: {fileID: 5825590974801630973, guid: 366cca2cdc718844189bb76810716bfa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5825590974801630973, guid: 366cca2cdc718844189bb76810716bfa,
         type: 3}
       propertyPath: parentCharacter
@@ -154,7 +164,7 @@ PrefabInstance:
     - target: {fileID: 7893882350421399565, guid: 366cca2cdc718844189bb76810716bfa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -3.64
       objectReference: {fileID: 0}
     - target: {fileID: 7893882350421399565, guid: 366cca2cdc718844189bb76810716bfa,
         type: 3}
@@ -196,7 +206,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5825590974801630973, guid: 366cca2cdc718844189bb76810716bfa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 366cca2cdc718844189bb76810716bfa, type: 3}
 --- !u!4 &6278473353642077599 stripped
 Transform:

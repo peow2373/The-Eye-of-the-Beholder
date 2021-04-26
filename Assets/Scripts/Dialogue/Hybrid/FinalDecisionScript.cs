@@ -126,6 +126,7 @@ public class FinalDecisionScript : MonoBehaviour
                 GameManagerScript.NextScene(skipScene);
                 Epilogue.storyTicker = 1;
 
+                GameManagerScript.gameWinner = 1;
             }
 
             if (Input.GetKeyDown(KeyCode.O))
@@ -136,7 +137,9 @@ public class FinalDecisionScript : MonoBehaviour
                 
                 eraseUI();
                 GameManagerScript.NextScene(skipScene);
-                Epilogue.storyTicker = 4;
+                Epilogue.storyTicker = 5;
+                
+                GameManagerScript.gameWinner = 2;
             }
 
             if (Input.GetKeyDown(KeyCode.I))
@@ -147,7 +150,9 @@ public class FinalDecisionScript : MonoBehaviour
                 
                 eraseUI();
                 GameManagerScript.NextScene(skipScene);
-                Epilogue.storyTicker = 7;
+                Epilogue.storyTicker = 9;
+                
+                GameManagerScript.gameWinner = 3;
             }
         }
 

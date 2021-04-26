@@ -24,8 +24,8 @@ public class FolkvarAttackScript : MonoBehaviour
         if (!CombatManagerScript.folkvarAlive || !CombatManagerScript.canFolkvarAttack)
         {
             // Skip the attack
-            if (attackNumber == 1) CombatSimulationScript.attack1Delay = DamageValues.standardDelay;
-            else CombatSimulationScript.attack2Delay = DamageValues.standardDelay;
+            if (attackNumber == 1) CombatSimulationScript.attack1Delay = DamageValues.standardDelay/2;
+            else CombatSimulationScript.attack2Delay = DamageValues.standardDelay/2;
             return;
         }
         else

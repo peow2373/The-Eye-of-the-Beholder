@@ -217,7 +217,12 @@ public class CombatManagerScript : MonoBehaviour
             if (lose)
             {
                 // TODO: Play lost-battle animation
-                GameManagerScript.NextScene(false);
+                if (GameManagerScript.currentScene != 7)
+                {
+                    GameManagerScript.previousScene = GameManagerScript.currentScene;
+                    GameManagerScript.currentScene = 31;
+                }
+                else GameManagerScript.NextScene(false);
                 print("You Lose");
                 lose = false;
             }
@@ -362,6 +367,18 @@ public class CombatManagerScript : MonoBehaviour
                 
                 SFXManager.S.PlaySFX(24);
             }
+        }
+        
+        // Reset target locations if they are not chosen
+        if (firstAttack != 0)
+        {
+            if (firstAttack != 2) netrixiTarget1Location = 0;
+            if (firstAttack != 5) folkvarTarget1Location = 0;
+        }
+        if (secondAttack != 0)
+        {
+            if (secondAttack != 2) netrixiTarget2Location = 0;
+            if (secondAttack != 5) folkvarTarget2Location = 0;
         }
     }
     

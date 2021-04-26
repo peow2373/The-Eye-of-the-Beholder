@@ -217,7 +217,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0833d72b9ad006241b04e04d09c23d22,
+      objectReference: {fileID: 21300000, guid: a7bb2d7c2d3d9e44c99213658b9e7508,
         type: 3}
     - target: {fileID: 3128009888191488320, guid: f032c9112cc573b4fa42bef7f137f65e,
         type: 3}
@@ -619,10 +619,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2135289860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf0b63d3c9ce474fbf2cecceb325d43, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fbb2ef2630679e4b9160bf41f370846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkJSON: {fileID: 4900000, guid: 4dacf63bcfe47404dbbaa526540d5158, type: 3}
+  inkJSON: {fileID: 4900000, guid: d2e83cbbb5445de4ab9b6f5561d8284c, type: 3}
   textPrefab: {fileID: 1059471283448246295, guid: 225a6ffb0b70ba44690b76e62dc99050,
     type: 3}
   buttonPrefab: {fileID: 1042143596285617703, guid: 5a17050c6a9157a4e9aaf34b313f8664,

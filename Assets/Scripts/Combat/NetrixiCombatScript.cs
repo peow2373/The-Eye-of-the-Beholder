@@ -39,7 +39,10 @@ public class NetrixiCombatScript : MonoBehaviour
         {
             // First spell
             // If player pulls their hand back first
-            if (MarkerManagerScript.wasSmaller) netrixiCondition1[0] = true;
+            if (MarkerManagerScript.wasSmaller)
+            {
+                if (CombatManagerScript.firstAttack != 1) netrixiCondition1[0] = true;
+            }
 
             if (netrixiCondition1[0])
             {
@@ -50,24 +53,27 @@ public class NetrixiCombatScript : MonoBehaviour
 
             // Second spell
             // If player starts to rotate their hand first
-            if (GameManagerScript.rightHanded)
+            if (CombatManagerScript.firstAttack != 2)
             {
-                if (Input.GetKeyDown(KeyCode.K))
+                if (GameManagerScript.rightHanded)
                 {
-                    netrixiRotation = 1;
-                    netrixiCondition2[0] = true;
+                    if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        netrixiRotation = 1;
+                        netrixiCondition2[0] = true;
+                    }
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.J))
+                    {
+                        netrixiRotation = 1;
+                        netrixiCondition2[0] = true;
+                    }
                 }
             }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.J))
-                {
-                    netrixiRotation = 1;
-                    netrixiCondition2[0] = true;
-                }
-            }
-            
-            
+
+
             if (netrixiCondition2[0])
             {
                 // If player then rotates hand to desired location and locks in their choice
@@ -96,7 +102,10 @@ public class NetrixiCombatScript : MonoBehaviour
             if (GameManagerScript.rightHanded)
             {
                 // If player starts by placing their hand in the middle-right corner
-                if (MarkerManagerScript.currentLocation == 6) netrixiCondition3[0] = true;
+                if (MarkerManagerScript.currentLocation == 6)
+                {
+                    if (CombatManagerScript.firstAttack != 3) netrixiCondition3[0] = true;
+                }
 
                 if (netrixiCondition3[0] && !netrixiCondition3[1])
                 {
@@ -135,7 +144,10 @@ public class NetrixiCombatScript : MonoBehaviour
             else
             {
                 // If player starts by placing their hand in the middle-left corner
-                if (MarkerManagerScript.currentLocation == 4) netrixiCondition3[0] = true;
+                if (MarkerManagerScript.currentLocation == 4)
+                {
+                    if (CombatManagerScript.firstAttack != 3) netrixiCondition3[0] = true;
+                }
 
                 if (netrixiCondition3[0] && !netrixiCondition3[1])
                 {

@@ -8,10 +8,11 @@ public class CharacterMovement : MonoBehaviour
 
     public static float[] xPositions = new float[] { -50f, -40f, -30f, -20f, -10f, 10f, 20f, 30f, 40f, 50f };
     
-    public static float upperYPosition = -17f;
-    public static float middleYPosition = -19f;
-    public static float lowerYPosition = -21f;
-    
+    public static float upperYPosition = -18.5f;
+    public static float middleYPosition = -20.5f;
+    public static float lowerYPosition = -22.5f;
+
+    private SpriteRenderer sr;
     
     public static float selectedPosition = 20;
 
@@ -40,7 +41,7 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        sr = this.GetComponent<SpriteRenderer>();
     }
     
     public static void ChangeXLocations(float width, float xLocation)
@@ -72,11 +73,23 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!CombatManagerScript.netrixiAttacks)
                 {
-                    float yLoc = DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight);
+                    int location = CharacterManagerScript.netrixiPosition;
+                    float yLoc = DetermineYLocation(location) + (netrixiOffset*combatHeight);
                 
                     Vector3 loc = new Vector3( xLocations[CharacterManagerScript.netrixiPosition - 1], yLoc);
                     this.transform.position = loc;
+
+                    // If Netrixi is being targeted
+                    if (EnemyManagerScript.attack1Location == location || EnemyManagerScript.attack1Location2 == location ||
+                        EnemyManagerScript.attack2Location == location || EnemyManagerScript.attack2Location2 == location)
+                    {
+                        sr.color = Color.red;
+                    } 
+                    else if (!CombatManagerScript.canNetrixiAttack) sr.color = Color.gray;
+                    else sr.color = Color.white;
                 }
+                else if (!CombatManagerScript.canNetrixiAttack) sr.color = Color.gray;
+                else sr.color = Color.white;
             }
             else
             {
@@ -90,11 +103,23 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!CombatManagerScript.folkvarAttacks)
                 {
-                    float yLoc = DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight);
+                    int location = CharacterManagerScript.folkvarPosition;
+                    float yLoc = DetermineYLocation(location) + (folkvarOffset*combatHeight);
                 
                     Vector3 loc = new Vector3( xLocations[CharacterManagerScript.folkvarPosition - 1], yLoc);
                     this.transform.position = loc;
+                    
+                    // If Folkvar is being targeted
+                    if (EnemyManagerScript.attack1Location == location || EnemyManagerScript.attack1Location2 == location ||
+                        EnemyManagerScript.attack2Location == location || EnemyManagerScript.attack2Location2 == location)
+                    {
+                        sr.color = Color.red;
+                    } 
+                    else if (!CombatManagerScript.canFolkvarAttack) sr.color = Color.gray;
+                    else sr.color = Color.white;
                 }
+                else if (!CombatManagerScript.canFolkvarAttack) sr.color = Color.gray;
+                else sr.color = Color.white;
             }
             else
             {
@@ -108,11 +133,23 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (!CombatManagerScript.ivAttacks)
                 {
-                    float yLoc = DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight);
+                    int location = CharacterManagerScript.ivPosition;
+                    float yLoc = DetermineYLocation(location) + (ivOffset*combatHeight);
                 
                     Vector3 loc = new Vector3( xLocations[CharacterManagerScript.ivPosition - 1], yLoc);
                     this.transform.position = loc;
+                    
+                    // If Iv is being targeted
+                    if (EnemyManagerScript.attack1Location == location || EnemyManagerScript.attack1Location2 == location ||
+                        EnemyManagerScript.attack2Location == location || EnemyManagerScript.attack2Location2 == location)
+                    {
+                        sr.color = Color.red;
+                    } 
+                    else if (!CombatManagerScript.canIvAttack) sr.color = Color.gray;
+                    else sr.color = Color.white;
                 }
+                else if (!CombatManagerScript.canIvAttack) sr.color = Color.gray;
+                else sr.color = Color.white;
             }
             else
             {
@@ -128,10 +165,20 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy1Alive)
             {
-                float yLoc = DetermineYLocation(EnemyManagerScript.enemy1Position) + DetermineYSize(ChangeHealth.sizeOfEnemy1);
+                int location = EnemyManagerScript.enemy1Position;
+                float yLoc = DetermineYLocation(location) + DetermineYSize(ChangeHealth.sizeOfEnemy1);
                 
                 Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy1Position - 1], yLoc);
                 this.transform.position = loc;
+                
+                // If Enemy 1 is being targeted
+                if (CombatManagerScript.netrixiTarget1Location == location || CombatManagerScript.netrixiTarget2Location == location ||
+                    CombatManagerScript.folkvarTarget1Location == location || CombatManagerScript.folkvarTarget2Location == location)
+                {
+                    sr.color = Color.red;
+                }
+                else if (!CombatManagerScript.canEnemy1Attack && !NetrixiAttackScript.enemy1Transformed) sr.color = Color.gray;
+                else sr.color = Color.white;
             }
             else
             {
@@ -143,10 +190,20 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy2Alive && EnemyManagerScript.enemy2 != "null")
             {
-                float yLoc = DetermineYLocation(EnemyManagerScript.enemy2Position) + DetermineYSize(ChangeHealth.sizeOfEnemy2);
+                int location = EnemyManagerScript.enemy2Position;
+                float yLoc = DetermineYLocation(location) + DetermineYSize(ChangeHealth.sizeOfEnemy2);
                 
                 Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy2Position - 1], yLoc);
                 this.transform.position = loc;
+                
+                // If Enemy 2 is being targeted
+                if (CombatManagerScript.netrixiTarget1Location == location || CombatManagerScript.netrixiTarget2Location == location ||
+                    CombatManagerScript.folkvarTarget1Location == location || CombatManagerScript.folkvarTarget2Location == location)
+                {
+                    sr.color = Color.red;
+                } 
+                else if (!CombatManagerScript.canEnemy2Attack && !NetrixiAttackScript.enemy2Transformed) sr.color = Color.gray;
+                else sr.color = Color.white;
             }
             else
             {
@@ -158,10 +215,20 @@ public class CharacterMovement : MonoBehaviour
         {
             if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
             {
-                float yLoc = DetermineYLocation(EnemyManagerScript.enemy3Position) + DetermineYSize(ChangeHealth.sizeOfEnemy3);
+                int location = EnemyManagerScript.enemy3Position;
+                float yLoc = DetermineYLocation(location) + DetermineYSize(ChangeHealth.sizeOfEnemy3);
                 
                 Vector3 loc = new Vector3( xLocations[EnemyManagerScript.enemy3Position - 1], yLoc);
                 this.transform.position = loc;
+                
+                // If Enemy 3 is being targeted
+                if (CombatManagerScript.netrixiTarget1Location == location || CombatManagerScript.netrixiTarget2Location == location ||
+                    CombatManagerScript.folkvarTarget1Location == location || CombatManagerScript.folkvarTarget2Location == location)
+                {
+                    sr.color = Color.red;
+                } 
+                else if (!CombatManagerScript.canEnemy3Attack && !NetrixiAttackScript.enemy3Transformed) sr.color = Color.gray;
+                else sr.color = Color.white;
             }
             else
             {
@@ -177,27 +244,27 @@ public class CharacterMovement : MonoBehaviour
             case 1:
             case 3:
             case 5:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                sr.sortingOrder = 5;
                 return middleYLocation;
                 
             case 6:
             case 8:
             case 10:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                sr.sortingOrder = 2;
                 return middleYLocation;
             
             case 2:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+                sr.sortingOrder = 4;
                 return upperYLocation;
             case 9:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                sr.sortingOrder = 1;
                 return upperYLocation;
 
             case 4:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 6;
+                sr.sortingOrder = 6;
                 return lowerYLocation;
             case 7:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                sr.sortingOrder = 3;
                 return lowerYLocation;
         }
 

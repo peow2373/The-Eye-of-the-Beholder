@@ -319,6 +319,8 @@ public class MarkerManagerScript : MonoBehaviour
     {
         GameWindowManager.S.ArrangeScreen();
         HandManagerScript.ChangeHandLocation(hand);
+        
+        EnemyManagerScript.ClearMoves();
     }
 }
 

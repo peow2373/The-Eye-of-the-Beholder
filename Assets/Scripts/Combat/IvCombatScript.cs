@@ -38,7 +38,10 @@ public class IvCombatScript : MonoBehaviour
         {
             // First spell
             // If player pulls their hand back first
-            if (MarkerManagerScript.wasSmaller) ivCondition1[0] = true;
+            if (MarkerManagerScript.wasSmaller)
+            {
+                if (CombatManagerScript.firstAttack != 7) ivCondition1[0] = true;
+            }
 
             if (ivCondition1[0])
             {
@@ -52,7 +55,10 @@ public class IvCombatScript : MonoBehaviour
             if (GameManagerScript.rightHanded)
             {
                 // If player starts by placing their hand in the middle-right corner
-                if (MarkerManagerScript.currentLocation == 6) ivCondition2[0] = true;
+                if (MarkerManagerScript.currentLocation == 6)
+                {
+                    if (CombatManagerScript.firstAttack != 8) ivCondition2[0] = true;
+                }
 
                 if (ivCondition2[0] && !ivCondition2[1])
                 {
@@ -67,7 +73,10 @@ public class IvCombatScript : MonoBehaviour
             else
             {
                 // If player starts by placing their hand in the middle-left corner
-                if (MarkerManagerScript.currentLocation == 4) ivCondition2[0] = true;
+                if (MarkerManagerScript.currentLocation == 4)
+                {
+                    if (CombatManagerScript.firstAttack != 8) ivCondition2[0] = true;
+                }
 
                 if (ivCondition2[0] && !ivCondition2[1])
                 {
@@ -106,24 +115,27 @@ public class IvCombatScript : MonoBehaviour
 
             // Third spell
             // If player starts to rotate their hand first
-            if (GameManagerScript.rightHanded)
+            if (CombatManagerScript.firstAttack != 9)
             {
-                if (Input.GetKeyDown(KeyCode.K))
+                if (GameManagerScript.rightHanded)
                 {
-                    ivRotation = 1;
-                    ivCondition3[0] = true;
+                    if (Input.GetKeyDown(KeyCode.K))
+                    {
+                        ivRotation = 1;
+                        ivCondition3[0] = true;
+                    }
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.J))
+                    {
+                        ivRotation = 1;
+                        ivCondition3[0] = true;
+                    }
                 }
             }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.J))
-                {
-                    ivRotation = 1;
-                    ivCondition3[0] = true;
-                }
-            }
-            
-            
+
+
             if (ivCondition3[0])
             {
                 // If player then rotates hand to desired location and locks in their choice

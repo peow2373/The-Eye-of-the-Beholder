@@ -59,15 +59,20 @@ public class Epilogue : MonoBehaviour
 
             case 4:
 
-                text = "Folkvar takes the stone and uses it to bring order back to the Iron Region. His father's delusion fades, but the King still agrees to hand the crown over to his son. Folkvar eradicates all other Beholderite.";
+                GameManagerScript.endOfGame = true;
+
+                text = "THE END \n \n Thank you for playing!";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);
+
+                // Resize font 
+                storyText.fontSize += 10;
 
                 break;
 
             case 5:
 
-                text = "Iv returns her brother back to the monk community in the mountains, where he undergoes mental and physical rehabilitation with the support of his loved ones. Even still, something nags at his heart. He still feels the Beholderite stone in the sceptor.";
+                text = "Folkvar takes the stone and uses it to bring order back to the Iron Region. His father's delusion fades, but the King still agrees to hand the crown over to his son. Folkvar eradicates all other Beholderite.";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);
 
@@ -75,16 +80,15 @@ public class Epilogue : MonoBehaviour
 
             case 6:
 
-                text = "Netrixi returns home. She has seen the evil that Beholderite can draw people into - including herself. She needs to get away. She destroys her lab equipment, and leaves her home to wander.";
+                text = "Iv returns her brother back to the monk community in the mountains, where he undergoes mental and physical rehabilitation with the support of his loved ones. Even still, something nags at his heart. He still feels the Beholderite stone in the sceptor.";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);
-
 
                 break;
 
             case 7:
 
-                text = "Netrixi gives Beholderite to Iv, asking her to keep it safe with the enlightened monks. Netrixi goes back to her house and stares at the ceiling";
+                text = "Netrixi returns home. She has seen the evil that Beholderite can draw people into - including herself. She needs to get away. She destroys her lab equipment, and leaves her home to wander.";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);
 
@@ -92,13 +96,34 @@ public class Epilogue : MonoBehaviour
 
             case 8:
 
+                GameManagerScript.endOfGame = true;
+
+                text = "THE END \n \n Thank you for playing!";
+                storyText.text = text;
+                storyText.transform.SetParent(TextContainer.transform, false);
+
+                // Resize font 
+                storyText.fontSize += 10;
+
+                break;
+
+            case 9:
+
+                text = "Netrixi gives Beholderite to Iv, asking her to keep it safe with the enlightened monks. Netrixi goes back to her house and stares at the ceiling";
+                storyText.text = text;
+                storyText.transform.SetParent(TextContainer.transform, false);
+
+                break;
+
+            case 10:
+
                 text = "Iv takes the stone and keeps it in her mentally healthy community. Her brother is no longer entirely pure- he feels temptation";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);
 
                 break;
 
-            case 9:
+            case 11:
 
                 text = "Folkvar and his father return to the kingdom and his father remembers the his love for his Region. They begin to rebuild together";
                 storyText.text = text;
@@ -106,7 +131,7 @@ public class Epilogue : MonoBehaviour
 
                 break;
 
-            case 10:
+            case 12:
 
                 GameManagerScript.endOfGame = true;
                 
@@ -119,7 +144,7 @@ public class Epilogue : MonoBehaviour
 
                 break;
             
-            case 11:
+            case 13:
                 
                 GameManagerScript.NextScene(false);
                 break;
@@ -145,16 +170,27 @@ public class Epilogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (storyTicker == 4 || storyTicker == 8 || storyTicker == 12)
+        {
+            if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    HighlightChoices.S.HighlightChoice(1, 1);
+
+                    GameManagerScript.NextScene(false);
+
+                    SFXManager.S.PlaySFX(40);
+                    refreshUI();
+                }
+            }
+        }
+
         if (MarkerManagerScript.goMarker)
         {
             if (Input.GetKeyDown(KeyCode.V))
             {
                 storyTicker += 1;
-
-                if (storyTicker == 3 || storyTicker == 7 || storyTicker == 9)
-                {
-                    storyTicker = 10;
-                }
                 
                 HighlightChoices.S.HighlightChoice(1,1);
                 

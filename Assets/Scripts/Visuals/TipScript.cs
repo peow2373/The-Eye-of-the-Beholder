@@ -12,7 +12,7 @@ public class TipScript : MonoBehaviour
     public Text tipText;
 
     private float timeVisible = 6;
-    private float timeInvisible = 4;
+    private float timeInvisible = 5;
     private float showAttack = 5f;
 
     private string previousTip;
@@ -93,10 +93,10 @@ public class TipScript : MonoBehaviour
         oldRound = CombatManagerScript.roundNumber;
     }
     
-    private bool AllTipsUsed(bool trueOrFalse) {
+    private bool AllTipsUsed(bool unUsedTip) {
         for ( int i = 0; i < combatTipUsed.Length - 1; i++ )
         {
-            if ( combatTipUsed[i] == trueOrFalse ) return false; 
+            if ( combatTipUsed[i] == unUsedTip ) return false; 
         }
         return true;
     }
@@ -137,10 +137,12 @@ public class TipScript : MonoBehaviour
         
             line.SetActive(true);
             enemyMoves.fontSize = 56;
-            tipText.fontSize = 48;
+            tipText.fontSize = 50;
 
             int randomIndex = UnityEngine.Random.Range(0, combatTips.Count-1);
-            randomIndex = CheckTip(randomIndex);
+
+            if (AllTipsUsed(true)) randomIndex = 3;
+            else randomIndex = CheckTip(randomIndex);
         
             // Checks to see if a new random tip needs to be generated
             int CheckTip(int number)
@@ -214,7 +216,7 @@ public class TipScript : MonoBehaviour
         "Targets the center of the largest group of enemies*Deals " + DamageValues.grandSlam + " damage to target, " + (int) DamageValues.grandSlam/2 + " damage to nearby enemies",
         
         "Blocks " + DamageValues.blockedDamage*100 + "% of the next attack's damage*'Empower' then 'Block' to counter the next enemy attack instead",
-        "Increases the health of the weakest character by " + DamageValues.heal + " HP*Characters can be healed higher than their starting health",
+        "Heals the weakest character for " + DamageValues.heal + " health*Characters can be healed higher than their starting health",
         "Amplify the damage of both the player's and enemy's next attacks*Rotate your hand to choose how much to amplify the damage",
         
         "Move a character to dodge certain attacks*You cannot move two characters onto the same location",
@@ -243,7 +245,7 @@ public class TipScript : MonoBehaviour
         
             line.SetActive(true);
             enemyMoves.fontSize = 56;
-            tipText.fontSize = 46;
+            tipText.fontSize = 48;
 
             enemyMoves.text = attackName[attackNumber - 1];
             tipText.text = info[0];

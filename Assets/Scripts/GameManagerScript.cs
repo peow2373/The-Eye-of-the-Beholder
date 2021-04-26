@@ -22,10 +22,16 @@ public class GameManagerScript : MonoBehaviour
     
     public static bool endOfGame = false;
 
+    public static int gameWinner = 0;
+
+    public static GameManagerScript S;
+
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+
+        S = this;
     }
 
     // Update is called once per frame
@@ -79,6 +85,7 @@ public class GameManagerScript : MonoBehaviour
                 if (previousScene != 0)
                 {
                     SceneChangeAnimation();
+
                     SceneManager.LoadScene("InkIntro");
                     previousScene = 0;
 
@@ -545,6 +552,23 @@ public class GameManagerScript : MonoBehaviour
                     Reset();
                 }
                 break;
+
+            // Game Over
+            case 31:
+                if (previousScene != 31)
+                {
+                    if (inCombat)
+                    {
+                        SceneChangeAnimation();
+                        SceneManager.LoadScene("Game Over");
+
+                        AudioManagerScript.S.PlayAudio(currentScene);
+                        print("Game Over");
+
+                        inCombat = false;
+                    }
+                }
+                break;
         }
     }
     
@@ -554,9 +578,14 @@ public class GameManagerScript : MonoBehaviour
     void DetermineNextCombat()
     {
         // Determine if the character has joined the party yet
-        if (currentScene >= 2) netrixiInParty = true;
+        if (currentScene >= 1) netrixiInParty = true;
+        else netrixiInParty = false;
+        
         if (currentScene >= 7) folkvarInParty = true;
+        else folkvarInParty = false;
+        
         if (currentScene >= 12) ivInParty = true;
+        else ivInParty = false;
         
         switch (currentScene)
         {
@@ -691,6 +720,8 @@ public class GameManagerScript : MonoBehaviour
     {
         ChangeScene();
         
+        GameWindowManager.S.ArrangeScreen();
+        
         netrixiInParty = false;
         folkvarInParty = false;
         ivInParty = false;
@@ -701,6 +732,7 @@ public class GameManagerScript : MonoBehaviour
         AttackScript.chairsThrown = 0;
 
         chooseRandomKnight = 0;
+        gameWinner = 0;
 
         ChangeChoiceText.S.ResetChoices(true);
         CharacterManagerScript.ResetVariables();

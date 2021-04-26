@@ -24,18 +24,23 @@ public class AudioManagerScript : MonoBehaviour
     public static int scene;
 
     public static AudioManagerScript S;
+    
+    private AudioSource[] allAudioSources;
 
     // Start is called before the first frame update
     void Awake()
     {
         S = this;
         DontDestroyOnLoad(this.gameObject);
+
+        allAudioSources = FindObjectsOfType<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void StopAllAudio() {
+        for (int i = 0; i < allAudioSources.Length; i++) 
+        {
+            allAudioSources[i].Stop();
+        }
     }
 
     public void PlayAudio(int currentScene)
@@ -45,27 +50,28 @@ public class AudioManagerScript : MonoBehaviour
         //Intro
         if (scene == 0)
         {
+            StopAllAudio();
             inkIntro.Play();
         }
 
         //Pirate Dialogue
         if (scene == 1)
         {
-            inkIntro.Stop();
+            StopAllAudio();
             pirateDialogue.Play();
         }
 
         //Pirate Combat
         if (scene == 2)
         {
-            pirateDialogue.Stop();
+            StopAllAudio();
             pirateCombat.Play();
         }
 
         //Mansion Dialogue
         if (scene == 3)
         {
-            pirateCombat.Stop();
+            StopAllAudio();
             mansion.Play();
         }
 
@@ -75,30 +81,24 @@ public class AudioManagerScript : MonoBehaviour
 
         }
 
-        //Omitted
-        if (scene == 5)
-        {
-
-        }
-
         //Road Dialogue
         if (scene == 6)
         {
-            mansion.Stop();
+            StopAllAudio();
             road.Play();
         }
 
         //Road Combat
         if (scene == 7)
         {
-            road.Stop();
+            StopAllAudio();
             disciplesExciting.Play();
         }
 
         //Tavern Dialogue
         if (scene == 8)
         {
-            disciplesExciting.Stop();
+            StopAllAudio();
             celestial.Play();
         }
 
@@ -117,7 +117,7 @@ public class AudioManagerScript : MonoBehaviour
         //Dialogue GK
         if (scene == 11)
         {
-            celestial.Stop();
+            StopAllAudio();
             beneathCastleExciting.Play();
         }
 
@@ -130,67 +130,49 @@ public class AudioManagerScript : MonoBehaviour
         //Throne Room
         if (scene == 13)
         {
-            beneathCastleExciting.Stop();
+            StopAllAudio();
             celestial.Play();
         }
 
         //Tunnel Entrance Dialogue
         if (scene == 14)
         {
-            celestial.Stop();
+            StopAllAudio();
             avengeGS.Play();
         }
 
         //Tunnel Entrance Combat
         if (scene == 15)
         {
-            avengeGS.Stop();
+            StopAllAudio();
             celestial.Play();
         }
 
         //Kaz Dialogue
         if (scene == 16)
         {
-            celestial.Stop();
+            StopAllAudio();
             avengeGS.Play();
         }
 
         //Kaz Combat
         if (scene == 17)
         {
-            avengeGS.Stop();
+            StopAllAudio();
             disciplesExciting.Play();
         }
 
         //Volcano Entrance
         if (scene == 18)
         {
-            disciplesExciting.Stop();
+            StopAllAudio();
             tunnelExit.Play();
-        }
-
-        //omitted
-        if (scene == 19)
-        {
-
-        }
-
-        //omitted
-        if (scene == 20)
-        {
-
-        }
-
-        //omitted
-        if (scene == 21)
-        {
-
         }
 
         //Cavern Dialogue
         if (scene == 22)
         {
-            tunnelExit.Stop();
+            StopAllAudio();
             chant.Play();
         }
 
@@ -203,35 +185,35 @@ public class AudioManagerScript : MonoBehaviour
         //Mine Dialogue
         if (scene == 24)
         {
-            chant.Stop();
+            StopAllAudio();
             mine.Play();
         }
 
         //Mine Combat
         if (scene == 25)
         {
-            mine.Stop();
+            StopAllAudio();
             disciplesExciting.Play();
         }
 
         //Moke Dialogue
         if (scene == 26)
         {
-            disciplesExciting.Stop();
+            StopAllAudio();
             Moke.Play();
         }
 
         //Moke Combat
         if (scene == 27)
         {
-            Moke.Stop();
+            StopAllAudio();
             avengeExciting.Play();
         }
 
         //Final Decision
         if (scene == 28)
         {
-            avengeExciting.Stop();
+            StopAllAudio();
             celestial.Play();
         }
 

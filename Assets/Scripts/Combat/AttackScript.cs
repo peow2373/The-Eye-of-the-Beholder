@@ -65,7 +65,7 @@ public class AttackScript : MonoBehaviour
     {
         float original;
         float burnRate;
-        float delayRate = DamageValues.standardDelay;
+        float delayRate = DamageValues.standardDelay/2;
 
         switch (enemyNumber)
         {

@@ -695,6 +695,11 @@ public class EnemyManagerScript : MonoBehaviour
         enemy1Second = enemy1Position;
         enemy2Second = enemy2Position;
         enemy3Second = enemy3Position;
+
+        attack1Location = 0;
+        attack1Location2 = 0;
+        attack2Location = 0;
+        attack2Location2 = 0;
     }
     
     

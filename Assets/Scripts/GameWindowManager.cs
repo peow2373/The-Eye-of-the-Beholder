@@ -34,18 +34,17 @@ public class GameWindowManager : MonoBehaviour
 
     public GameObject portrait;
     public static float portraitYDimension, portraitYLocation;
-    public static float dialoguePadding;
+    public static float dialoguePadding = 0.025f;
     public static float portraitSizeX;
     
     public static float smallerDialoguePercent = 0.65f;
-    public static float smallerDialoguePadding = 0.025f;
     public static float largerDialoguePercent = 0.65f;
-    public static float largerDialoguePadding = 0.025f;
 
     public GameObject combatTips, tipLine;
     public Text combatTipText;
-    public static float tipMarginX = 0.025f;
-    public static float tipMarginY = 0.025f;
+    public static float tipMarginX = 0;
+    public static float tipMarginY = 0;
+    public static float tipInnerMargin = 0.02f;
 
     public GameObject hand, gridRow1, gridRow2, gridColumn1, gridColumn2;
     public static float gridRowPadding, gridColumnPadding;
@@ -84,7 +83,7 @@ public class GameWindowManager : MonoBehaviour
 
     void Start()
     {
-
+        choices = GameObject.FindGameObjectsWithTag("Dialogue Choice");
     }
 
     // Update is called once per frame
@@ -99,8 +98,8 @@ public class GameWindowManager : MonoBehaviour
         cameraWidth = cameraHeight * camera.aspect;
         
         // Determine the dimensions of the player portrait
-        portraitYDimension = (((screenSizeY - gameWindowSizeY) * smallerDialoguePercent) - (2*smallerDialoguePadding*screenSizeY));
-        portraitYLocation = (cameraHeight/2) - ((gameWindowSizeY/screenSizeY)*cameraHeight) - (((portraitYDimension/screenSizeY) * cameraHeight)/2) - (smallerDialoguePadding * cameraHeight);
+        portraitYDimension = (((screenSizeY - gameWindowSizeY) * smallerDialoguePercent) - (2*dialoguePadding*screenSizeY));
+        portraitYLocation = (cameraHeight/2) - ((gameWindowSizeY/screenSizeY)*cameraHeight) - (((portraitYDimension/screenSizeY) * cameraHeight)/2) - (dialoguePadding * cameraHeight);
 
         // Determine how many dialogue choices there are
         choices = GameObject.FindGameObjectsWithTag("Dialogue Choice");
@@ -183,6 +182,9 @@ public class GameWindowManager : MonoBehaviour
     public void ArrangeScreen()
     {
         Array.Clear(choices,0,choices.Length);
+        
+        gameWindowSizeX = screenSizeX - webcamSizeX;
+        gameWindowSizeY = (int) (gameWindowSizeX / 16) * 9;
 
         // Determine dimensions of the camera within the scene
         Camera camera = Camera.main;
@@ -207,11 +209,16 @@ public class GameWindowManager : MonoBehaviour
 
     void PositionWebcam(float cameraWidth, float cameraHeight)
     {
+        ResetLocalScale(webcam);
+        SpriteRenderer sr = webcam.GetComponent<SpriteRenderer>();
+        float currWidth = sr.bounds.extents.x * 2;
+        float currHeight = sr.bounds.extents.y * 2;
+        
         // Determine the dimensions of the webcam
         webcamWidth = webcamSizeX / screenSizeX;
         webcamHeight = webcamSizeY / screenSizeY;
         
-        webcam.transform.localScale = new Vector3(webcamWidth * cameraWidth, webcamHeight * cameraHeight, 1);
+        webcam.transform.localScale = new Vector3(webcamWidth * cameraWidth / currWidth, webcamHeight * cameraHeight / currHeight, 1);
 
         // Determine the location of the webcam
         float xLocation = (cameraWidth/2) - ((webcamWidth * cameraWidth)/2);
@@ -247,6 +254,14 @@ public class GameWindowManager : MonoBehaviour
 
     void PositionOptions(float cameraWidth, float cameraHeight, int optionNumber)
     {
+        ResetLocalScale(option1);
+        ResetLocalScale(option2);
+        ResetLocalScale(option3);
+        ResetLocalScale(option4);
+        SpriteRenderer sr = option1.GetComponent<SpriteRenderer>();
+        float currWidth = sr.bounds.extents.x * 2;
+        float currHeight = sr.bounds.extents.y * 2;
+        
         // Determine the dimensions of the option
         float optionWidth = webcamSizeX / screenSizeX;
         float optionHeight = ((screenSizeY - webcamSizeY) / screenSizeY);
@@ -254,18 +269,18 @@ public class GameWindowManager : MonoBehaviour
         switch (optionNumber)
         {
             case 3: 
-                option1.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
-                option2.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
-                option3.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight/3) * cameraHeight, 1);
+                option1.transform.localScale = new Vector3(optionWidth * cameraWidth / currWidth, (optionHeight/3) * cameraHeight / currHeight, 1);
+                option2.transform.localScale = new Vector3(optionWidth * cameraWidth / currWidth, (optionHeight/3) * cameraHeight / currHeight, 1);
+                option3.transform.localScale = new Vector3(optionWidth * cameraWidth / currWidth, (optionHeight/3) * cameraHeight / currHeight, 1);
 
                 ChangeHandAnimation.optionHeight = optionHeight / 3 * cameraHeight;
                 break;
                 
             case 4: 
-                option1.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*3/11) * cameraHeight, 1);
-                option2.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*3/11) * cameraHeight, 1);
-                option3.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*3/11) * cameraHeight, 1);
-                option4.transform.localScale = new Vector3(optionWidth * cameraWidth, (optionHeight*2/11) * cameraHeight, 1);
+                option1.transform.localScale = new Vector3(optionWidth * cameraWidth / currWidth, (optionHeight*3/11) * cameraHeight / currHeight, 1);
+                option2.transform.localScale = new Vector3(optionWidth * cameraWidth / currWidth, (optionHeight*3/11) * cameraHeight / currHeight, 1);
+                option3.transform.localScale = new Vector3(optionWidth * cameraWidth / currWidth, (optionHeight*3/11) * cameraHeight / currHeight, 1);
+                option4.transform.localScale = new Vector3(optionWidth * cameraWidth / currWidth, (optionHeight*2/11) * cameraHeight / currHeight, 1);
                 
                 ChangeHandAnimation.optionHeight = optionHeight*3/11 * cameraHeight;
                 break;
@@ -307,7 +322,7 @@ public class GameWindowManager : MonoBehaviour
         
         // Change the dimensions of the hand animations
         ChangeHandAnimation.optionWidth = (optionWidth * cameraWidth) / 3;
-        ChangeHandAnimation.optionXLocation = (cameraWidth / 2) - (((webcamWidth * cameraWidth) / 3) / 2);
+        ChangeHandAnimation.optionXLocation = (cameraWidth / 2) - (((webcamWidth * cameraWidth) * 11/ 30) / 2);
         ChangeHandAnimation.optionPadding = optionYPadding * cameraHeight;
 
         // Change the location of the hand animations
@@ -421,6 +436,9 @@ public class GameWindowManager : MonoBehaviour
         
         background.transform.position = new Vector3(xLocation, yLocation, 0);
         
+        if (GameManagerScript.currentScene == 0) background.SetActive(false);
+        else background.SetActive(true);
+        
         ChangeCombatWindow(windowWidth, windowHeight);
     }
 
@@ -462,12 +480,17 @@ public class GameWindowManager : MonoBehaviour
     {
         // Determine number of choices for the player
         DetermineChoices(cameraWidth, cameraHeight);
+        
+        ResetLocalScale(dialogue);
+        SpriteRenderer sr = dialogue.GetComponent<SpriteRenderer>();
+        float currWidth = sr.bounds.extents.x * 2;
+        float currHeight = sr.bounds.extents.y * 2;
 
         // Determine the dimensions of the dialogue window
         float dialogueWidth = windowWidth;
         float dialogueHeight = ((screenSizeY - gameWindowSizeY) * percentOfDialogueArea) / screenSizeY;
         
-        dialogue.transform.localScale = new Vector3(dialogueWidth * cameraWidth, dialogueHeight * cameraHeight, 1);
+        dialogue.transform.localScale = new Vector3(dialogueWidth * cameraWidth / currWidth, dialogueHeight * cameraHeight / currHeight, 1);
 
         // Determine the location of the dialogue window
         float xLocation = -cameraWidth/2 + ((dialogueWidth * cameraWidth)/2);
@@ -480,11 +503,16 @@ public class GameWindowManager : MonoBehaviour
         // Position combat tips
         if (GameManagerScript.inCombat)
         {
+            ResetLocalScale(combatTips);
+            SpriteRenderer sr2 = combatTips.GetComponent<SpriteRenderer>();
+            float currWidth1 = sr2.bounds.extents.x * 2;
+            float currHeight1 = sr2.bounds.extents.y * 2;
+            
             // Determine the dimensions of the combat tip window
             float tipWidth = (dialogueWidth/2) - (2 * tipMarginX);
             float tipHeight = dialogueHeight - (2 * tipMarginY);
             
-            combatTips.transform.localScale = new Vector3( tipWidth * cameraWidth, tipHeight * cameraHeight, 1);
+            combatTips.transform.localScale = new Vector3( tipWidth * cameraWidth / currWidth1, tipHeight * cameraHeight / currHeight1, 1);
                 
             // Determine the location of the combat tip window
             float xPos = -cameraWidth / 2 + ((dialogueWidth * cameraWidth) * 3 / 4);
@@ -496,17 +524,17 @@ public class GameWindowManager : MonoBehaviour
             combatTipText.transform.position = new Vector3((gameWindowSizeX/screenSizeX)*(Screen.width)*3/4, (Screen.height - (windowHeight*Screen.height))*7/18, 0);
 
             // Change combat tip textbox size
-            float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width)/2) - (tipMarginX*4*Screen.width);
-            float sizeDiffY = ((Screen.height - (windowHeight*Screen.height))*2/3) - (tipMarginX*3*Screen.height);
+            float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width)/2) - (tipInnerMargin*4*Screen.width);
+            float sizeDiffY = ((Screen.height - (windowHeight*Screen.height))*2/3) - (tipInnerMargin*3*Screen.height);
 
             combatTipText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             
 
             // Determine the dimensions of the tip line
-            SpriteRenderer sr = tipLine.GetComponent<SpriteRenderer>();
+            SpriteRenderer sr1 = tipLine.GetComponent<SpriteRenderer>();
 
-            float lineWidth = sr.sprite.bounds.extents.x * 2;
-            float scaleFactor = (tipWidth - (2 * tipMarginX)) * cameraWidth / lineWidth;
+            float lineWidth = sr1.sprite.bounds.extents.x * 2;
+            float scaleFactor = (tipWidth - (2 * tipInnerMargin)) * cameraWidth / lineWidth;
                 
             tipLine.transform.localScale = new Vector3( scaleFactor, scaleFactor/2, 1);
             
@@ -520,13 +548,18 @@ public class GameWindowManager : MonoBehaviour
     void PositionPortrait(float cameraWidth, float cameraHeight)
     {
         // Determine the dimensions of the portrait window
+        
+        ResetLocalScale(portrait);
+        SpriteRenderer sr = portrait.GetComponent<SpriteRenderer>();
+        float currWidth = sr.bounds.extents.x * 2;
+        float currHeight = sr.bounds.extents.y * 2;
 
         float portraitHeight =  portraitYDimension / screenSizeY;
         float portraitWidth = portraitYDimension / screenSizeX;
 
         portraitSizeX = portraitWidth * cameraWidth;
 
-        portrait.transform.localScale = new Vector3(portraitWidth * cameraWidth, portraitHeight * cameraHeight, 1);
+        portrait.transform.localScale = new Vector3(portraitWidth * cameraWidth / currWidth, portraitHeight * cameraHeight / currHeight, 1);
 
         // Determine the location of the portrait window
         float xLocation;
@@ -534,14 +567,14 @@ public class GameWindowManager : MonoBehaviour
         // Change the location of the portrait to the left side
         if (ChangePortrait.whoIsTalking == 1)
         {
-            xLocation = -cameraWidth/2 + ((portraitWidth * cameraWidth)/2) + (smallerDialoguePadding * cameraHeight);
+            xLocation = -cameraWidth/2 + ((portraitWidth * cameraWidth)/2) + (dialoguePadding * cameraHeight);
         }
         else
         {
             // Change the location of the portrait to the right side
             if (ChangePortrait.whoIsTalking == 2)
             {
-                xLocation = -cameraWidth/2 + ((gameWindowSizeX / screenSizeX) * cameraWidth) - ((portraitWidth * cameraWidth)/2) - (smallerDialoguePadding * cameraHeight);
+                xLocation = -cameraWidth/2 + ((gameWindowSizeX / screenSizeX) * cameraWidth) - ((portraitWidth * cameraWidth)/2) - (dialoguePadding * cameraHeight);
             }
             else xLocation = offScreen;
         }
@@ -558,11 +591,11 @@ public class GameWindowManager : MonoBehaviour
             if (ChangePortrait.whoIsTalking == 1)
             {
                 // The Player characters are speaking
-                dialogueText.transform.position = new Vector3((margin*2) + size + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3((margin*2.5f) + size + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.alignment = TextAnchor.MiddleLeft;
 
                 // Change textbox size
-                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3));
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
 
                 dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
@@ -570,11 +603,11 @@ public class GameWindowManager : MonoBehaviour
             else if (ChangePortrait.whoIsTalking == 2)
             {
                 // The Enemy characters are speaking
-                dialogueText.transform.position = new Vector3( margin + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3( (margin*2.5f) + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.alignment = TextAnchor.MiddleRight;
                 
                 // Change textbox size
-                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*3));
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5));
                 float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
     
                 dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
@@ -601,21 +634,31 @@ public class GameWindowManager : MonoBehaviour
         int curScene = GameManagerScript.currentScene;
         Button button;
 
-        // If the player is in a Combat Scene
-        if (!GameManagerScript.inCombat && choices != null)
+        // If the player is not in a Combat Scene
+        if (!GameManagerScript.inCombat)
         {
             switch (choices.Length)
             {
                 case 0:
+                    // Larger dialogue box
+                    percentOfDialogueArea = largerDialoguePercent;
+
+                    PositionChoices(cameraWidth, cameraHeight, 1);
+                    PositionPortrait(cameraWidth, cameraHeight);
+
+                    ChangeChoiceText.S.ChangeChoices(false, choices, 0);
+
+                    choice1Text.fontSize = largerChoiceFont;
+                    break;
+
                 case 1:
                     // Larger dialogue box
                     percentOfDialogueArea = largerDialoguePercent;
-                    dialoguePadding = largerDialoguePadding;
-                    
+
                     PositionChoices(cameraWidth, cameraHeight, 1);
                     PositionPortrait(cameraWidth, cameraHeight);
                     
-                    ChangeChoiceText.S.ChangeChoices(false, choices,1);
+                    ChangeChoiceText.S.ChangeChoices(false, choices, 1);
                     
                     choice1Text.fontSize = largerChoiceFont;
                     break;
@@ -632,12 +675,11 @@ public class GameWindowManager : MonoBehaviour
                         {
                             // Smaller dialogue box
                             percentOfDialogueArea = smallerDialoguePercent;
-                            dialoguePadding = smallerDialoguePadding;
-                    
+
                             PositionChoices(cameraWidth, cameraHeight, 2);
                             PositionPortrait(cameraWidth, cameraHeight);
                             
-                            ChangeChoiceText.S.ChangeChoices(true, choices,2);
+                            ChangeChoiceText.S.ChangeChoices(true, choices, 2);
                             
                             choice1Text.fontSize = smallerChoiceFont;
                         }
@@ -645,12 +687,11 @@ public class GameWindowManager : MonoBehaviour
                         {
                             // Larger dialogue box
                             percentOfDialogueArea = largerDialoguePercent;
-                            dialoguePadding = largerDialoguePadding;
-                    
+
                             PositionChoices(cameraWidth, cameraHeight, 1);
                             PositionPortrait(cameraWidth, cameraHeight);
                             
-                            ChangeChoiceText.S.ChangeChoices(false, choices,2);
+                            ChangeChoiceText.S.ChangeChoices(false, choices, 2);
                             
                             choice1Text.fontSize = largerChoiceFont;
                         }
@@ -661,12 +702,11 @@ public class GameWindowManager : MonoBehaviour
                         {
                             // Smaller dialogue box
                             percentOfDialogueArea = smallerDialoguePercent;
-                            dialoguePadding = smallerDialoguePadding;
-                    
+
                             PositionChoices(cameraWidth, cameraHeight, 2);
                             PositionPortrait(cameraWidth, cameraHeight);
                             
-                            ChangeChoiceText.S.ChangeChoices(true, choices,2);
+                            ChangeChoiceText.S.ChangeChoices(true, choices, 2);
                             
                             choice1Text.fontSize = smallerChoiceFont;
                         }
@@ -674,26 +714,36 @@ public class GameWindowManager : MonoBehaviour
                         {
                             // Larger dialogue box
                             percentOfDialogueArea = largerDialoguePercent;
-                            dialoguePadding = largerDialoguePadding;
-                    
+
                             PositionChoices(cameraWidth, cameraHeight, 1);
                             PositionPortrait(cameraWidth, cameraHeight);
                             
-                            ChangeChoiceText.S.ChangeChoices(false, choices,2);
+                            ChangeChoiceText.S.ChangeChoices(false, choices, 2);
                             
                             choice1Text.fontSize = largerChoiceFont;
                         }
+                    }
+                    else if (GameManagerScript.currentScene == 31) 
+                    {
+                        // Larger dialogue box
+                        percentOfDialogueArea = largerDialoguePercent;
+
+                        PositionChoices(cameraWidth, cameraHeight, 1);
+                        PositionPortrait(cameraWidth, cameraHeight);
+                            
+                        ChangeChoiceText.S.ChangeChoices(false, choices, 2);
+                            
+                        choice1Text.fontSize = largerChoiceFont;
                     }
                     else
                     {
                         // Smaller dialogue box
                         percentOfDialogueArea = smallerDialoguePercent;
-                        dialoguePadding = smallerDialoguePadding;
-                    
+
                         PositionChoices(cameraWidth, cameraHeight, 2);
                         PositionPortrait(cameraWidth, cameraHeight);
                         
-                        ChangeChoiceText.S.ChangeChoices(true, choices,2);
+                        ChangeChoiceText.S.ChangeChoices(true, choices, 2);
                         
                         choice1Text.fontSize = smallerChoiceFont;
                     }
@@ -702,12 +752,11 @@ public class GameWindowManager : MonoBehaviour
                 case 3:
                     // Larger dialogue box
                     percentOfDialogueArea = largerDialoguePercent;
-                    dialoguePadding = largerDialoguePadding;
-                    
+
                     PositionChoices(cameraWidth, cameraHeight, 1);
                     PositionPortrait(cameraWidth, cameraHeight);
                     
-                    ChangeChoiceText.S.ChangeChoices(false, choices,3);
+                    ChangeChoiceText.S.ChangeChoices(false, choices, 3);
                     
                     choice1Text.fontSize = largerChoiceFont;
                     break;
@@ -728,6 +777,13 @@ public class GameWindowManager : MonoBehaviour
         float xLocation, yLocation;
         float sizeDiffX, sizeDiffY;
         
+        ResetLocalScale(choice1);
+        ResetLocalScale(choice2);
+        ResetLocalScale(choice3);
+        SpriteRenderer sr = choice1.GetComponent<SpriteRenderer>();
+        float currWidth = sr.bounds.extents.x * 2;
+        float currHeight = sr.bounds.extents.y * 2;
+        
         switch (numberOfChoices)
         {
             case 0:
@@ -745,7 +801,7 @@ public class GameWindowManager : MonoBehaviour
                 choiceWidth = gameWindowSizeX / screenSizeX;
                 choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
                 
-                choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
+                choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth / currWidth, choiceHeight * cameraHeight / currHeight, 1);
                 
                 // Determine the location of the choice window
                 xLocation = -cameraWidth/2 + ((choiceWidth * cameraWidth)/2);
@@ -774,8 +830,8 @@ public class GameWindowManager : MonoBehaviour
                 choiceWidth = (gameWindowSizeX / screenSizeX)/2;
                 choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
                 
-                choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
-                choice2.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
+                choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth / currWidth, choiceHeight * cameraHeight / currHeight, 1);
+                choice2.transform.localScale = new Vector3(choiceWidth * cameraWidth / currWidth, choiceHeight * cameraHeight / currHeight, 1);
                 
                 // Determine the locations of the choice windows
                 yLocation = -cameraHeight/2 + ((choiceHeight * cameraHeight)/2);
@@ -807,9 +863,9 @@ public class GameWindowManager : MonoBehaviour
                 choiceWidth = (gameWindowSizeX / screenSizeX)/3;
                 choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
                 
-                choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
-                choice2.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
-                choice3.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
+                choice1.transform.localScale = new Vector3(choiceWidth * cameraWidth / currWidth, choiceHeight * cameraHeight / currHeight, 1);
+                choice2.transform.localScale = new Vector3(choiceWidth * cameraWidth / currWidth, choiceHeight * cameraHeight / currHeight, 1);
+                choice3.transform.localScale = new Vector3(choiceWidth * cameraWidth / currWidth, choiceHeight * cameraHeight / currHeight, 1);
                 
                 // Determine the locations of the choice windows
                 yLocation = -cameraHeight/2 + ((choiceHeight * cameraHeight)/2);
@@ -839,12 +895,17 @@ public class GameWindowManager : MonoBehaviour
                 choice3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 break;
         }
-
+        
+        ResetLocalScale(choiceBackground);
+        SpriteRenderer sr1 = choiceBackground.GetComponent<SpriteRenderer>();
+        float currWidth1 = sr1.bounds.extents.x * 2;
+        float currHeight1 = sr1.bounds.extents.y * 2;
+        
         // Determine the dimensions of the choice background
         choiceWidth = gameWindowSizeX / screenSizeX;
         choiceHeight = ((screenSizeY - gameWindowSizeY) * percentOfArea) / screenSizeY;
                 
-        choiceBackground.transform.localScale = new Vector3(choiceWidth * cameraWidth, choiceHeight * cameraHeight, 1);
+        choiceBackground.transform.localScale = new Vector3(choiceWidth * cameraWidth / currWidth1, choiceHeight * cameraHeight / currHeight1, 1);
                 
         // Determine the location of the choice background
         xLocation = -cameraWidth/2 + ((choiceWidth * cameraWidth)/2);
@@ -889,5 +950,12 @@ public class GameWindowManager : MonoBehaviour
         // Position grid columns
         gridColumn1.transform.position = new Vector3((cameraWidth/2) - ((containerWidth * cameraWidth * 1)/3), gridY);
         gridColumn2.transform.position = new Vector3((cameraWidth/2) - ((containerWidth * cameraWidth * 2)/3), gridY);
+    }
+
+
+    public void ResetLocalScale(GameObject toTransform)
+    {
+        Vector3 reset = new Vector3(1,1,1);
+        toTransform.transform.localScale = reset;
     }
 }

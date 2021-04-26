@@ -12,11 +12,15 @@ public class CharacterSelected : MonoBehaviour
     private static float deselectedSize = 9f;
     private static float selectedSize = deselectedSize + 4f;
 
+    private SpriteRenderer sr;
+
     // Start is called before the first frame update
     void Start()
     {
         selected = new Vector3(selectedSize, selectedSize, selectedSize);
         deselected = new Vector3(deselectedSize, deselectedSize, deselectedSize);
+
+        sr = this.GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -39,8 +43,6 @@ public class CharacterSelected : MonoBehaviour
                 // If Netrixi is alive
                 if (CombatManagerScript.netrixiAlive)
                 {
-                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                
                     if (CombatManagerScript.netrixiAttacks)
                     {
                         float yLoc = DetermineYLocation(CharacterManagerScript.netrixiPosition) + (netrixiOffset*combatHeight) + (selectedLocation*combatHeight);
@@ -56,14 +58,6 @@ public class CharacterSelected : MonoBehaviour
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                 }
-                else
-                {
-                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
-                }
-            }
-            else
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             }
         }
 
@@ -77,8 +71,6 @@ public class CharacterSelected : MonoBehaviour
                 // If Folkvar is alive
                 if (CombatManagerScript.folkvarAlive)
                 {
-                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                
                     if (CombatManagerScript.folkvarAttacks)
                     {
                         float yLoc = DetermineYLocation(CharacterManagerScript.folkvarPosition) + (folkvarOffset*combatHeight) + (selectedLocation*combatHeight);
@@ -94,14 +86,6 @@ public class CharacterSelected : MonoBehaviour
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                 }
-                else
-                {
-                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
-                }
-            }
-            else
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             }
         }
 
@@ -115,8 +99,6 @@ public class CharacterSelected : MonoBehaviour
                 // If Iv is alive
                 if (CombatManagerScript.ivAlive)
                 {
-                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-                
                     if (CombatManagerScript.ivAttacks)
                     {
                         float yLoc = DetermineYLocation(CharacterManagerScript.ivPosition) + (ivOffset*combatHeight) + (selectedLocation*combatHeight);
@@ -132,14 +114,6 @@ public class CharacterSelected : MonoBehaviour
                         this.transform.position = new Vector3( this.transform.position.x, yLoc, this.transform.position.z);
                     }
                 }
-                else
-                {
-                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
-                }
-            }
-            else
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
             }
         }
     }
@@ -152,27 +126,27 @@ public class CharacterSelected : MonoBehaviour
             case 1:
             case 3:
             case 5:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 5;
+                sr.sortingOrder = 5;
                 return CharacterMovement.middleYLocation;
                 
             case 6:
             case 8:
             case 10:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 2;
+                sr.sortingOrder = 2;
                 return CharacterMovement.middleYLocation;
             
             case 2:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 4;
+                sr.sortingOrder = 4;
                 return CharacterMovement.upperYLocation;
             case 9:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 1;
+                sr.sortingOrder = 1;
                 return CharacterMovement.upperYLocation;
 
             case 4:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 6;
+                sr.sortingOrder = 6;
                 return CharacterMovement.lowerYLocation;
             case 7:
-                this.GetComponent<SpriteRenderer>().sortingOrder = 3;
+                sr.sortingOrder = 3;
                 return CharacterMovement.lowerYLocation;
         }
 

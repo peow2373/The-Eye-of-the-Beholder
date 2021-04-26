@@ -34,7 +34,10 @@ public class FolkvarCombatScript : MonoBehaviour
         {
             // First attack
             // If player first puts their hand in the top-left corner
-            if (MarkerManagerScript.currentLocation == 1) folkvarCondition1[0] = true;
+            if (MarkerManagerScript.currentLocation == 1)
+            {
+                if (CombatManagerScript.firstAttack != 4) folkvarCondition1[0] = true;
+            }
 
             if (folkvarCondition1[0] && !folkvarCondition1[1])
             {
@@ -56,7 +59,10 @@ public class FolkvarCombatScript : MonoBehaviour
 
             // Second attack
             // If player moves their hand to the middle-right section
-            if (MarkerManagerScript.currentLocation == 4) folkvarCondition2[0] = true;
+            if (MarkerManagerScript.currentLocation == 4)
+            {
+                if (CombatManagerScript.firstAttack != 5) folkvarCondition2[0] = true;
+            }
             
             if (folkvarCondition2[0])
             {
@@ -92,101 +98,104 @@ public class FolkvarCombatScript : MonoBehaviour
 
             // Third attack
             // If player starts by placing their hand in the bottom-left corner
-            if (MarkerManagerScript.currentLocation == 7) folkvarCondition3[0] = true;
+            if (MarkerManagerScript.currentLocation == 7)
+            {
+                if (CombatManagerScript.firstAttack != 6) folkvarCondition3[0] = true;
+            }
 
-                if (folkvarCondition3[0] && !folkvarCondition3[1])
-                {
-                    Debug.Log("Point 1");
+            if (folkvarCondition3[0] && !folkvarCondition3[1])
+            {
+                Debug.Log("Point 1");
                     
-                    // If player then places their their hand in the top-middle corner
-                    if (Input.GetKeyDown(KeyCode.W)) folkvarCondition3[1] = true;
+                // If player then places their their hand in the top-middle corner
+                if (Input.GetKeyDown(KeyCode.W)) folkvarCondition3[1] = true;
 
-                    print(folkvarCondition1[1]);
+                print(folkvarCondition1[1]);
 
-                    // If player instead places their hand in any other corner
-                    if (!folkvarCondition3[1])
+                // If player instead places their hand in any other corner
+                if (!folkvarCondition3[1])
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
                     {
-                        if (Input.GetKeyDown(KeyCode.E))
-                        {
-                            folkvarCondition3[0] = false;
-                        } 
-                    }
+                        folkvarCondition3[0] = false;
+                    } 
                 }
+            }
                 
-                // If player has then placed hand in the top-middle corner
-                if (folkvarCondition3[1] && !folkvarCondition3[2])
-                {
-                    Debug.Log("Point 2");
+            // If player has then placed hand in the top-middle corner
+            if (folkvarCondition3[1] && !folkvarCondition3[2])
+            {
+                Debug.Log("Point 2");
                     
-                    // If player then places their their hand in the bottom-right corner
-                    if (Input.GetKeyDown(KeyCode.C))
-                    {
-                        Debug.Log("Point 3");
+                // If player then places their their hand in the bottom-right corner
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    Debug.Log("Point 3");
                         
-                        // The player has successfully made the pattern
-                        folkvarCondition3[2] = true;
-                    }
+                    // The player has successfully made the pattern
+                    folkvarCondition3[2] = true;
+                }
 
-                    // If player instead places their hand in any other corner
-                    if (!folkvarCondition3[2])
+                // If player instead places their hand in any other corner
+                if (!folkvarCondition3[2])
+                {
+                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
                     {
-                        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A))
-                        {
-                            folkvarCondition3[0] = false;
-                            folkvarCondition3[1] = false;
-                        }
+                        folkvarCondition3[0] = false;
+                        folkvarCondition3[1] = false;
                     }
                 }
+            }
                 
                 
                 
-                // Check to see if the player decided to move for their turn instead
-                if (MarkerManagerScript.goMarker)
-                {
-                    if (Input.GetKeyDown(KeyCode.V)) folkvarCondition4[0] = true;
-                }
+            // Check to see if the player decided to move for their turn instead
+            if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V)) folkvarCondition4[0] = true;
+            }
             
-                if (folkvarCondition4[0])
+            if (folkvarCondition4[0])
+            {
+                CharacterManagerScript.MoveFolkvar(1, false);
+                CharacterManagerScript.MoveFolkvar(2, false);
+                    
+                // If the player decides to move Folkvar to the left
+                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
                 {
-                    CharacterManagerScript.MoveFolkvar(1, false);
-                    CharacterManagerScript.MoveFolkvar(2, false);
-                    
-                    // If the player decides to move Folkvar to the left
-                    if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.Z))
+                    if (CharacterManagerScript.MoveFolkvar(1, true) == 1)
                     {
-                        if (CharacterManagerScript.MoveFolkvar(1, true) == 1)
-                        {
-                            folkvarCondition4[1] = true;
-                        }
+                        folkvarCondition4[1] = true;
                     }
-                    
-                    // If the player decides to move Folkvar to the right
-                    if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
-                    {
-                        if (CharacterManagerScript.MoveFolkvar(2, true) == 1)
-                        {
-                            folkvarCondition4[2] = true;
-                        }
-                    }
-                    
-                    // If the player decides to cancel their move instead
-                    if (canCancelMove)
-                    {
-                        if (MarkerManagerScript.goMarker)
-                        {
-                            if (Input.GetKeyDown(KeyCode.V)) folkvarCondition4[0] = false;
-                        }
-                    }
-
-                    canCancelMove = true;
                 }
-                else
+                    
+                // If the player decides to move Folkvar to the right
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.C))
                 {
-                    folkvarCondition4[1] = false;
-                    folkvarCondition4[2] = false;
-
-                    canCancelMove = false;
+                    if (CharacterManagerScript.MoveFolkvar(2, true) == 1)
+                    {
+                        folkvarCondition4[2] = true;
+                    }
                 }
+                    
+                // If the player decides to cancel their move instead
+                if (canCancelMove)
+                {
+                    if (MarkerManagerScript.goMarker)
+                    {
+                        if (Input.GetKeyDown(KeyCode.V)) folkvarCondition4[0] = false;
+                    }
+                }
+
+                canCancelMove = true;
+            }
+            else
+            {
+                folkvarCondition4[1] = false;
+                folkvarCondition4[2] = false;
+
+                canCancelMove = false;
+            }
 
 
 

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public class ChangeChoiceText : MonoBehaviour
 {
-    public static GameObject[] choice1, choice2, choice3, choice4;
-    public static GameObject[] option1, option2, option3, option4;
-    
     public static bool madeChoice = false;
 
     public static bool talkingToBrute, talkingToIv;
@@ -31,29 +28,19 @@ public class ChangeChoiceText : MonoBehaviour
 
     public static bool justEnteredCombat = true;
 
+    public GameObject[] choice1, choice2, choice3 = new GameObject[2];
+    public GameObject[] option1, option2, option3, option4 = new GameObject[2];
+
     // Start is called before the first frame update
     void Awake()
     {
         S = this;
-        
-        choice1 = GameObject.FindGameObjectsWithTag("Choice 1");
-        choice2 = GameObject.FindGameObjectsWithTag("Choice 2");
-        choice3 = GameObject.FindGameObjectsWithTag("Choice 3");
-
-        option1 = GameObject.FindGameObjectsWithTag("Option 1");
-        option2 = GameObject.FindGameObjectsWithTag("Option 2");
-        option3 = GameObject.FindGameObjectsWithTag("Option 3");
-        option4 = GameObject.FindGameObjectsWithTag("Option 4");
-
-        // Changing the color of the different choices
-        choice1[0].GetComponent<SpriteRenderer>().color = color1;
-        choice2[0].GetComponent<SpriteRenderer>().color = color2;
-        choice3[0].GetComponent<SpriteRenderer>().color = color3;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Reset certain variables
         if (GameManagerScript.currentScene == 9 || GameManagerScript.currentScene == 11)
         {
             madeChoice = false;
@@ -149,8 +136,8 @@ public class ChangeChoiceText : MonoBehaviour
     {
         // Reset how visible the text is
         option1[1].GetComponent<Text>().color = Color.white;
-        option2[1].GetComponent<Text>().color = Color.white;
-        option3[1].GetComponent<Text>().color = Color.white;
+        if (choices.Length >= 2) option2[1].GetComponent<Text>().color = Color.white;
+        if (choices.Length >= 3) option3[1].GetComponent<Text>().color = Color.white;
         
         int currentScene = GameManagerScript.currentScene;
 
@@ -158,6 +145,23 @@ public class ChangeChoiceText : MonoBehaviour
         switch (numberOfChoices)
         {
             case 0:
+                if (GameManagerScript.endOfGame)
+                {
+                    choice1[1].GetComponent<Text>().text = "Restart Game?";
+
+                    ChangeOptions(1, "Flip hand to\nRestart", "", "");
+                }
+                else
+                {
+                    choice1[1].GetComponent<Text>().text = "Next...";
+
+                    ChangeOptions(1, "Flip hand to\nContinue", "", "");
+                    choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+                }
+
+                ChangeHandAnimation.animationName1 = "Flip Hand";
+                break;
+
             case 1:
                 if (!GameManagerScript.endOfGame)
                 {
@@ -178,20 +182,11 @@ public class ChangeChoiceText : MonoBehaviour
                             choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
                         }
                     }
-                    else
-                    {
-                        choice1[1].GetComponent<Text>().text = "Next...";
-                        
-                        ChangeOptions(1, "Flip hand to\nContinue", "", "");
-                        choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
-                    }
                 }
                 else
                 {
                     choice1[1].GetComponent<Text>().text = "Restart Game?";
-                
                     ChangeOptions(1, "Flip hand to\nRestart", "", "");
-                    
                 }
                 
                 ChangeHandAnimation.animationName1 = "Flip Hand";
@@ -237,6 +232,15 @@ public class ChangeChoiceText : MonoBehaviour
                             ChangeHandAnimation.animationName1 = "Netrixi Marker";
                             ChangeHandAnimation.animationName2 = "Folkvar Marker";
                         }
+                    }
+                    else if (GameManagerScript.currentScene == 31)
+                    {
+                        choice1[1].GetComponent<Text>().text = "Try Again?";
+
+                        ChangeOptions(2, "Start from Checkpoint", "Restart Game", "");
+                        
+                        ChangeHandAnimation.animationName1 = "Flip Hand";
+                        ChangeHandAnimation.animationName2 = "Undo Marker";
                     }
                     else
                     {
@@ -310,8 +314,14 @@ public class ChangeChoiceText : MonoBehaviour
             
             case 2:
                 GameObject[] choices = GameObject.FindGameObjectsWithTag("Dialogue Choice");
-                Button button = choices[0].GetComponent<Button>();
-                string tempText = button.GetComponentInChildren<Text>().text;
+                Button button;
+                string tempText = "";
+                if (choices.Length > 0)
+                {
+                    button = choices[0].GetComponent<Button>();
+                    tempText = button.GetComponentInChildren<Text>().text;
+                }
+
 
                 // Determine if the player is choosing a character or responding to dialogue
                 if (tempText == "Netrixi")
@@ -332,6 +342,11 @@ public class ChangeChoiceText : MonoBehaviour
                         choice1[0].GetComponent<SpriteRenderer>().color = color1;
                         choice2[0].GetComponent<SpriteRenderer>().color = color2;
                     }
+                }
+                else if (GameManagerScript.currentScene == 31)
+                {
+                    option1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+                    option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
                 }
                 else
                 {
