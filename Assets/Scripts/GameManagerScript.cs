@@ -36,6 +36,11 @@ public class GameManagerScript : MonoBehaviour
 
     private float cameraWidth, cameraHeight;
 
+    void Awake()
+    {
+        Screen.fullScreen = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +105,8 @@ public class GameManagerScript : MonoBehaviour
             StartCoroutine(OpenCurtains(false));
         }
         
+        curtainsOpening = true;
+        
         // Disable canvas
         canvas.GetComponent<Canvas>().enabled = false;
         portrait.GetComponent<SpriteRenderer>().enabled = false;
@@ -109,10 +116,6 @@ public class GameManagerScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.01f);
         GameWindowManager.S.PositionCurtains();
-        
-        curtains.gameObject.SetActive(false);
-
-        curtainsOpening = true;
 
         // Assign variables
         float curtainWidth = leftSR.bounds.extents.x;
@@ -125,13 +128,15 @@ public class GameManagerScript : MonoBehaviour
 
         if (AudioManagerScript.waiting) yield return new WaitForSeconds(waitBeforeOpening);
         else yield return new WaitForSeconds(waitBeforeOpening/2);
-        
+
         if (currentScene != 0) AudioManagerScript.S.PlayAudio(currentScene);
-            
-        for (int i = 0; i <= 100; i++)
+
+        for (int i = 1; i <= 100; i++)
         {
             yield return new WaitForSeconds(delay);
-                
+            
+            if (i >= 2) curtains.gameObject.SetActive(false);
+
             float travelDistance = (cameraWidth / 2) / 100 * i;
                 
             leftCurtain.transform.position = new Vector3((-curtainWidth) - travelDistance, leftCurtain.transform.position.y, 0);
@@ -780,6 +785,8 @@ public class GameManagerScript : MonoBehaviour
 
         chooseRandomKnight = 0;
         gameWinner = 0;
+
+        ChangeBackground.startBackground = 0;
 
         ChangeChoiceText.S.ResetChoices(true);
         CharacterManagerScript.ResetVariables();

@@ -1,4 +1,4 @@
-You died! That's okay. Flip your hand to restart from your last checkpoint, or show the 'Undo' marker to restart the game.
+You died! That's okay. Flip your hand to try again, or show the 'Undo' marker to completely restart the game.
 
 
 +   [Checkpoint] --> END

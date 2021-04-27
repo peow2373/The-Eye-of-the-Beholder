@@ -5,9 +5,10 @@ using UnityEngine;
 public class ChangeBackground : MonoBehaviour
 {
     private SpriteRenderer sr;
+
+    public GameObject secondBackground;
     
-    public Sprite 
-        start,
+    public Sprite
         forrest,
         mansion, 
         road,
@@ -21,9 +22,23 @@ public class ChangeBackground : MonoBehaviour
         volcanoEntrance,
         volcanoHall,
         volcanoPrison,
+        volcanoPrisonClosed,
         volcanoPrisonOpened,
         volcano,
         epilogue;
+
+    public static int startBackground;
+
+    public Sprite
+        start,
+        startNoText,
+        start1,
+        start2,
+        start3,
+        start4,
+        start5,
+        start6,
+        start7;
     
     // Start is called before the first frame update
     void Start()
@@ -37,7 +52,16 @@ public class ChangeBackground : MonoBehaviour
         switch (GameManagerScript.currentScene)
         {
             case 0:
-                sr.sprite = start;
+                if (startBackground <= 1) sr.sprite = start;
+                else if (startBackground == 2) sr.sprite = startNoText;
+                
+                else if (startBackground == 3) sr.sprite = start1;
+                else if (startBackground == 4) sr.sprite = start2;
+                else if (startBackground == 5) sr.sprite = start3;
+                else if (startBackground == 6) sr.sprite = start4;
+                else if (startBackground == 7) sr.sprite = start5;
+                else if (startBackground == 8) sr.sprite = start6;
+                else sr.sprite = start7;
                 break;
             
             case 1:
@@ -58,6 +82,7 @@ public class ChangeBackground : MonoBehaviour
             case 8:
             case 9:
                 sr.sprite = tavernBar;
+                secondBackground.GetComponent<SpriteRenderer>().sprite = tavern;
                 break;
             
             case 10:
@@ -66,6 +91,7 @@ public class ChangeBackground : MonoBehaviour
             
             case 11:
                 sr.sprite = castleAlone;
+                secondBackground.GetComponent<SpriteRenderer>().sprite = castle;
                 break;
             
             case 12:
@@ -98,6 +124,7 @@ public class ChangeBackground : MonoBehaviour
             
             case 24:
                 sr.sprite = volcanoPrison;
+                secondBackground.GetComponent<SpriteRenderer>().sprite = volcanoPrisonClosed;
                 break;
             
             case 25:

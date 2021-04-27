@@ -22,7 +22,7 @@ public class GameWindowManager : MonoBehaviour
     
     public GameObject option1, option2, option3, option4;
     public Image option1Text, option2Text, option3Text, option4Text;
-    public static float optionXPadding = 0.0125f, optionYPadding = 0.0125f;
+    public static float optionYPadding = 0.0125f;
     public static bool option1Centered, option2Centered, option3Centered;
 
     public GameObject background;
@@ -42,8 +42,6 @@ public class GameWindowManager : MonoBehaviour
 
     public GameObject combatTips, tipLine;
     public Image combatTipText;
-    public static float tipMarginX = 0;
-    public static float tipMarginY = 0;
     public static float tipInnerMargin = 0.02f;
 
     public GameObject hand, gridRow1, gridRow2, gridColumn1, gridColumn2;
@@ -54,8 +52,7 @@ public class GameWindowManager : MonoBehaviour
     public GameObject choiceBackground;
     
     private GameObject[] choices;
-    public static float choiceXPadding = 0.0125f, choiceYPadding = 0.0125f;
-    
+
     public static string speakerName;
 
     public static bool metBrute = true;
@@ -256,8 +253,8 @@ public class GameWindowManager : MonoBehaviour
         webcamText.transform.position = new Vector3(Screen.width - (webcamWidth*Screen.width/2), Screen.height - (webcamHeight*Screen.height/2), 0);
         
         // Change webcam text box size
-        float sizeDiffX = webcamWidth*Screen.width - (4 * (Screen.width * optionXPadding));
-        float sizeDiffY = webcamHeight*Screen.height - (4 * (Screen.height * optionYPadding));
+        float sizeDiffX = webcamWidth*Screen.width;
+        float sizeDiffY = webcamHeight*Screen.height;
         
         webcamText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
 
@@ -370,8 +367,8 @@ public class GameWindowManager : MonoBehaviour
         float xCentered = Screen.width - ((webcamWidth*Screen.width)/2);
         float yHeight = (Screen.height - (webcamHeight*Screen.height));
         
-        float sizeXLeft = (webcamWidth*Screen.width*2/3) - (2 * (Screen.width * optionXPadding));
-        float sizeXCentered = (webcamWidth*Screen.width) - (2 * (Screen.width * optionXPadding));
+        float sizeXLeft = (webcamWidth*Screen.width*2/3);
+        float sizeXCentered = (webcamWidth*Screen.width);
         float sizeDiffY = (Screen.height - (webcamHeight*Screen.height));
 
         switch (optionNumber)
@@ -388,8 +385,7 @@ public class GameWindowManager : MonoBehaviour
                 
                 
                 sizeDiffY /= 3;
-                sizeDiffY -= 2 * (Screen.height * optionYPadding);
-                
+
                 option4Text.transform.position = new Vector3(offScreen, offScreen, 0);
                 break;
             
@@ -412,8 +408,8 @@ public class GameWindowManager : MonoBehaviour
         // Change option textbox sizes
         if (optionNumber == 4)
         {
-            float sizeDiffYLarge = (sizeDiffY * 2) - (2 * (Screen.height * optionYPadding));
-            float sizeDiffYSmall = sizeDiffY - (2 * (Screen.height * optionYPadding));
+            float sizeDiffYLarge = (sizeDiffY * 2);
+            float sizeDiffYSmall = sizeDiffY;
             
             if (option1Centered) option1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
             else option1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
@@ -424,7 +420,7 @@ public class GameWindowManager : MonoBehaviour
             if (option3Centered) option3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXCentered, sizeDiffYLarge);
             else option3Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeXLeft, sizeDiffYLarge);
             
-            option4Text.GetComponent<RectTransform>().sizeDelta = new Vector2((webcamWidth*Screen.width) - (2 * (Screen.width * optionXPadding)), sizeDiffYSmall);
+            option4Text.GetComponent<RectTransform>().sizeDelta = new Vector2((webcamWidth*Screen.width), sizeDiffYSmall);
         }
         else
         {
@@ -448,7 +444,7 @@ public class GameWindowManager : MonoBehaviour
         // Determine the dimensions of the game window
         windowWidth = gameWindowSizeX / screenSizeX;
         windowHeight = gameWindowSizeY / screenSizeY;
-        
+
         SpriteRenderer sr = background.GetComponent<SpriteRenderer>();
 
         float currWidth = sr.sprite.bounds.extents.x * 2;
@@ -536,8 +532,8 @@ public class GameWindowManager : MonoBehaviour
             float currHeight1 = sr2.bounds.extents.y * 2;
             
             // Determine the dimensions of the combat tip window
-            float tipWidth = (dialogueWidth/2) - (2 * tipMarginX);
-            float tipHeight = dialogueHeight - (2 * tipMarginY);
+            float tipWidth = (dialogueWidth/2);
+            float tipHeight = dialogueHeight;
             
             combatTips.transform.localScale = new Vector3( tipWidth * cameraWidth / currWidth1, tipHeight * cameraHeight / currHeight1, 1);
                 
@@ -551,8 +547,8 @@ public class GameWindowManager : MonoBehaviour
             combatTipText.transform.position = new Vector3((gameWindowSizeX/screenSizeX)*(Screen.width)*3/4, (Screen.height - (windowHeight*Screen.height))*7/18, 0);
 
             // Change combat tip textbox size
-            float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width)/2) - (tipInnerMargin*4*Screen.width);
-            float sizeDiffY = ((Screen.height - (windowHeight*Screen.height))*2/3) - (tipInnerMargin*3*Screen.height);
+            float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width)/2) - ((2*tipInnerMargin * cameraWidth) / cameraWidth * Screen.width);
+            float sizeDiffY = ((Screen.height - (windowHeight*Screen.height))*2/3);
 
             combatTipText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             
@@ -614,30 +610,34 @@ public class GameWindowManager : MonoBehaviour
         // Change dialogue text location
         if (!GameManagerScript.inCombat)
         {
-            float size = portraitHeight * Screen.height;
-            float margin = (dialoguePadding * Screen.height);
+            float size = portraitWidth * Screen.width;
+            float margin = (dialoguePadding * cameraHeight) / cameraWidth * Screen.width;
 
             if (ChangePortrait.whoIsTalking == 1)
             {
                 // The Player characters are speaking
-                dialogueText.transform.position = new Vector3((margin*2.5f) + size + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3(size + margin + (((gameWindowSizeX/screenSizeX*Screen.width) - size - margin)/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleLeft;
+                dialogueText.GetComponent<VerticalLayoutGroup>().padding.left = 15;
+                dialogueText.GetComponent<VerticalLayoutGroup>().padding.right = 45;
 
                 // Change textbox size
-                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5));
-                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*2));
+                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea);
 
                 dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             } 
             else if (ChangePortrait.whoIsTalking == 2)
             {
                 // The Enemy characters are speaking
-                dialogueText.transform.position = new Vector3( (margin*2.5f) + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
+                dialogueText.transform.position = new Vector3( (((gameWindowSizeX/screenSizeX*Screen.width) - size - margin)/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleRight;
-                
+                dialogueText.GetComponent<VerticalLayoutGroup>().padding.left = 45;
+                dialogueText.GetComponent<VerticalLayoutGroup>().padding.right = 15;
+
                 // Change textbox size
-                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5));
-                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*2));
+                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea);
     
                 dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             }
@@ -646,10 +646,12 @@ public class GameWindowManager : MonoBehaviour
                 // No characters are speaking
                 dialogueText.transform.position = new Vector3((windowWidth*Screen.width)/2, Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
                 dialogueText.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleCenter;
+                dialogueText.GetComponent<VerticalLayoutGroup>().padding.left = 30;
+                dialogueText.GetComponent<VerticalLayoutGroup>().padding.right = 30;
 
                 // Change textbox size
-                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - (margin * 4));
-                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea) - (margin * 2);
+                float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - (margin*2));
+                float sizeDiffY = ((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea);
 
                 dialogueText.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
             }
@@ -675,7 +677,7 @@ public class GameWindowManager : MonoBehaviour
                     PositionChoices(cameraWidth, cameraHeight, 1);
                     PositionPortrait(cameraWidth, cameraHeight);
 
-                    ChangeChoiceText.S.ChangeChoices(false, choices, 0);
+                    if (GameManagerScript.currentScene != 0) ChangeChoiceText.S.ChangeChoices(false, choices, 0);
 
                     choice1Text.GetComponentInChildren<Text>().fontSize = largerChoiceFont;
                     break;
@@ -847,9 +849,7 @@ public class GameWindowManager : MonoBehaviour
                 
                 // Change choice text box sizes
                 sizeDiffX = Screen.width - (webcamWidth*Screen.width);
-                sizeDiffX -= 2 * (Screen.width * choiceXPadding);
                 sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
-                sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
                 choice1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 break;
@@ -879,9 +879,7 @@ public class GameWindowManager : MonoBehaviour
                 
                 // Change choice text box sizes
                 sizeDiffX = (Screen.width - (webcamWidth*Screen.width)) / 2;
-                sizeDiffX -= 2 * (Screen.width * choiceXPadding);
                 sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
-                sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
                 choice1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 choice2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
@@ -915,9 +913,7 @@ public class GameWindowManager : MonoBehaviour
                 
                 // Change choice textbox sizes
                 sizeDiffX = (Screen.width - (webcamWidth*Screen.width)) / 3;
-                sizeDiffX -= 2 * (Screen.width * choiceXPadding);
                 sizeDiffY = (Screen.height - (windowHeight*Screen.height)) * percentOfArea;
-                sizeDiffY -= 2 * (Screen.height * choiceYPadding);
 
                 choice1Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);
                 choice2Text.GetComponent<RectTransform>().sizeDelta = new Vector2(sizeDiffX, sizeDiffY);

@@ -20,7 +20,7 @@ public class ChangeChoiceText : MonoBehaviour
 
     public bool canConfirmAttacks = false;
 
-    public static string attackSelected = "Choose another move\nor character";
+    public static string attackSelected = "Choose another move or character";
 
     public GameObject handAnimation1, handAnimation2, handAnimation3;
 
@@ -132,6 +132,7 @@ public class ChangeChoiceText : MonoBehaviour
         }
 
         CheckForVictory();
+        CheckForTutorial();
     }
 
     public void ChangeChoices(bool displayDialogueResponses, GameObject[] choices, int numberOfChoices)
@@ -305,7 +306,7 @@ public class ChangeChoiceText : MonoBehaviour
             case 1:
                 if (GameManagerScript.inCombat) option1[0].GetComponent<SpriteRenderer>().color = color1;
                 else option1[0].GetComponent<SpriteRenderer>().color = nextChoice;
-                
+
                 option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
                 option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
                 
@@ -513,7 +514,7 @@ public class ChangeChoiceText : MonoBehaviour
                         if (GameManagerScript.currentScene == 10)
                         {
                             // Tavern scene
-                            option1[1].GetComponent<Text>().text = "Netrixi is recovering\nfrom getting Smashed";
+                            option1[1].GetComponent<Text>().text = "Netrixi just got\nSmashed";
                         }
                         else
                         {
@@ -523,7 +524,7 @@ public class ChangeChoiceText : MonoBehaviour
                     option1[1].GetComponent<Text>().color = Color.gray;
                     originalOption1 = option1[1].GetComponent<Text>().text;
 
-                    option2[1].GetComponent<Text>().text = "She is unable to Attack\nShe can only Move";
+                    option2[1].GetComponent<Text>().text = "She cannot Attack\nbut she can Move";
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
@@ -657,7 +658,7 @@ public class ChangeChoiceText : MonoBehaviour
                         if (GameManagerScript.currentScene == 10)
                         {
                             // Tavern scene
-                            option1[1].GetComponent<Text>().text = "Folkvar is recovering\nfrom getting Smashed";
+                            option1[1].GetComponent<Text>().text = "Folkvar just got\nSmashed";
                         }
                         else
                         {
@@ -667,7 +668,7 @@ public class ChangeChoiceText : MonoBehaviour
                     option1[1].GetComponent<Text>().color = Color.gray;
                     originalOption1 = option1[1].GetComponent<Text>().text;
                     
-                    option2[1].GetComponent<Text>().text = "He is unable to Attack\nHe can only Move";
+                    option2[1].GetComponent<Text>().text = "He cannot Attack\nbut he can Move";
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
@@ -828,7 +829,7 @@ public class ChangeChoiceText : MonoBehaviour
                         if (GameManagerScript.currentScene == 10)
                         {
                             // Tavern scene
-                            option1[1].GetComponent<Text>().text = "Iv is recovering\nfrom getting Smashed";
+                            option1[1].GetComponent<Text>().text = "Iv just got\nSmashed";
                         }
                         else
                         {
@@ -838,7 +839,7 @@ public class ChangeChoiceText : MonoBehaviour
                     option1[1].GetComponent<Text>().color = Color.gray;
                     originalOption1 = option1[1].GetComponent<Text>().text;
                     
-                    option2[1].GetComponent<Text>().text = "She is unable to Attack\nShe can only Move";
+                    option2[1].GetComponent<Text>().text = "She cannot Attack\nbut she can Move";
                     option2[1].GetComponent<Text>().color = Color.gray;
                     originalOption2 = option2[1].GetComponent<Text>().text;
                     
@@ -1225,6 +1226,93 @@ public class ChangeChoiceText : MonoBehaviour
                     CombatManagerScript.moveOnFromVictory = true;
                 }
             }
+        }
+    }
+    
+    
+    void CheckForTutorial()
+    {
+        if (GameManagerScript.currentScene == 0)
+        {
+            ChangeOptions(2, "Flip hand to\nContinue", "Skip the Introduction", "");
+            
+            choice1[1].GetComponent<Text>().text = "Continue?";
+            choice1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+
+            option3[1].GetComponent<Text>().text = "";
+            option3[1].GetComponent<Text>().color = Color.gray;
+            
+            option4[1].GetComponent<Text>().text = "";
+            option4[1].GetComponent<Text>().color = Color.gray;
+                
+            option1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+            option2[0].GetComponent<SpriteRenderer>().color = secondChoice;
+            option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            option4[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+                
+            handAnimation1.SetActive(true);
+            handAnimation2.SetActive(true);
+            handAnimation3.SetActive(false);
+                
+            GameWindowManager.option1Centered = false;
+            GameWindowManager.option2Centered = false;
+            
+            ChangeHandAnimation.animationName1 = "Flip Hand";
+            ChangeHandAnimation.animationName2 = "Undo Marker";
+            
+            DetermineTutorial();
+        }
+    }
+
+    void DetermineTutorial()
+    {
+        switch (IntroScript.storyProgression)
+        {
+            case 0:
+                option1[1].GetComponent<Text>().text = "Show 'Palm' marker";
+                ChangeHandAnimation.animationName1 = "Palm Marker";
+                break;
+            
+            case 1:
+                option1[1].GetComponent<Text>().text = "Flip hand to\nContinue";
+                ChangeHandAnimation.animationName1 = "Flip Hand";
+                break;
+            
+            case 2:
+                option1[1].GetComponent<Text>().text = "Change Location";
+                ChangeHandAnimation.animationName1 = "Move Right";
+                break;
+            
+            case 3:
+                option1[1].GetComponent<Text>().text = "Change Depth";
+                ChangeHandAnimation.animationName1 = "Far to Near";
+                break;
+            
+            case 4:
+                option1[1].GetComponent<Text>().text = "Start\nRotation";
+                ChangeHandAnimation.animationName1 = "Start Rotating";
+                break;
+            
+            case 5:
+                option1[1].GetComponent<Text>().text = "Continue\nRotation";
+                ChangeHandAnimation.animationName1 = "Continue Rotating";
+                break;
+            
+            case 6:
+                option1[1].GetComponent<Text>().text = "Complete\nRotation";
+                ChangeHandAnimation.animationName1 = "Flip Hand";
+                break;
+            
+            case 7:
+                option1[1].GetComponent<Text>().text = "Flip hand to\nSkip ahead";
+                ChangeHandAnimation.animationName1 = "Flip Hand";
+                break;
+            
+            case 8:
+                choice1[1].GetComponent<Text>().text = "Enter the Iron Region";
+                option1[1].GetComponent<Text>().text = "Flip hand to\nContinue";
+                ChangeHandAnimation.animationName1 = "Flip Hand";
+                break;
         }
     }
 

@@ -15,7 +15,7 @@ public class ChangeHandAnimation : MonoBehaviour
     public Sprite rightHandedFlipped, leftHandedFlipped;
 
     public GameObject marker;
-    public Sprite netrixiMarker, folkvarMarker, ivMarker, undoMarker;
+    public Sprite netrixiMarker, folkvarMarker, ivMarker, undoMarker, palmMarker;
 
     public GameObject handIcons, flipHand;
     public Sprite flipRight, flipLeft;
@@ -167,6 +167,14 @@ public class ChangeHandAnimation : MonoBehaviour
         switch (animationName)
         {
             // Choose a certain marker to show
+            case "Palm Marker":
+                markerSR.sprite = palmMarker;
+                markerSR.enabled = true;
+                
+                ResetHand(true);
+                EndOfAnimation();
+                break;
+            
             case "Netrixi Marker":
                 markerSR.sprite = netrixiMarker;
                 markerSR.enabled = true;

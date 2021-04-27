@@ -22,6 +22,14 @@ public class IntroScript : MonoBehaviour
 
     bool skipScene = false;
 
+    public static int storyProgression;
+    
+    public static bool[] locations = new bool[9];
+
+    public static bool wasSmall, wasMedium, wasLarge;
+
+    private bool waiting;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,14 +98,121 @@ public class IntroScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (MarkerManagerScript.goMarker)
+        switch (storyProgression)
         {
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                HighlightChoices.S.HighlightChoice(1,1);
+            // Show Palm Marker
+            case 0:
+                if (MarkerManagerScript.palmMarker)
+                {
+                    HighlightChoices.S.HighlightChoice(1,1);
                 
-                SFXManager.S.PlaySFX(40);
+                    if (!GameManagerScript.curtainsOpening) SFXManager.S.PlaySFX(42);
+                    refreshUI();
+
+                    storyProgression++;
+                }
+                break;
+            
+            // Flip Hand
+            case 1:
+                if (MarkerManagerScript.goMarker)
+                {
+                    if (Input.GetKeyDown(KeyCode.V))
+                    {
+                        if (!TutorialHandScript.logoLoading)
+                        {
+                            if (!waiting) StartCoroutine(WaitBeforeMovingOn());
+                        }
+                    }
+                }
+                break;
+            
+            // Location
+            case 2:
+                if (locations[0] && locations[1] && locations[2] && locations[3] && locations[4] && locations[5] && locations[6] && locations[7] && locations[8])
+                {
+                    if (!waiting) StartCoroutine(WaitBeforeMovingOn());
+                }
+                break;
+            
+            // Depth
+            case 3:
+                if (wasSmall && wasMedium && wasLarge) 
+                {
+                    if (!waiting) StartCoroutine(WaitBeforeMovingOn());
+                }
+                break;
+            
+            // Start Rotation
+            case 4:
+                if (Input.GetKeyDown(KeyCode.K)) 
+                {
+                    HighlightChoices.S.HighlightChoice(1,1);
+                    
+                    refreshUI();
+                        
+                    storyProgression++;
+                }
+                break;
+            
+            // Continue Rotation
+            case 5:
+                if (Input.GetKeyDown(KeyCode.T))
+                {
+                    storyProgression++;
+                    
+                    refreshUI();
+                }
+                break;
+
+            // Start Story
+            case 6:
+                if (TutorialHandScript.storyStarted)
+                {
+                    storyProgression++;
+                    
+                    refreshUI();
+                }
+                break;
+            
+            // End Story
+            case 7:
+                if (TutorialHandScript.doneWithStory)
+                {
+                    storyProgression++;
+                    
+                    refreshUI();
+                }
+                break;
+            
+            // New Scene
+            case 8:
+                if (MarkerManagerScript.goMarker)
+                {
+                    if (Input.GetKeyDown(KeyCode.V)) 
+                    {
+                        HighlightChoices.S.HighlightChoice(1,1);
+                
+                        SFXManager.S.PlaySFX(41);
+                        refreshUI();
+                    }
+                }
+                break;
+        }
+
+        
+        
+        // Exit the scene at any time
+        if (MarkerManagerScript.undoMarker)
+        {
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                GameManagerScript.NextScene(false);
+                
+                HighlightChoices.S.HighlightChoice(2,2);
+                
+                SFXManager.S.PlaySFX(41);
+                
                 refreshUI();
             }
         }
@@ -106,7 +221,6 @@ public class IntroScript : MonoBehaviour
         {
             goMarkerToContinue.enabled = false;
         }
-
     }
 
     string loadStoryChunk()
@@ -126,5 +240,20 @@ public class IntroScript : MonoBehaviour
         }
 
         return text;
+    }
+
+    IEnumerator WaitBeforeMovingOn()
+    {
+        waiting = true;
+        SFXManager.S.PlaySFX(42);
+        HighlightChoices.S.HighlightChoice(1,1);
+
+        yield return new WaitForSeconds(0.5f);
+
+        refreshUI();
+                        
+        storyProgression++;
+
+        waiting = false;
     }
 }

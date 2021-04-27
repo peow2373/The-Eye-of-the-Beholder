@@ -135,7 +135,7 @@ public class Epilogue : MonoBehaviour
 
                 GameManagerScript.endOfGame = true;
                 
-                text = "THE END \n \n Thank you for playing!";
+                text = "THE END\nThank you for playing!";
                 storyText.text = text;
                 storyText.transform.SetParent(TextContainer.transform, false);
 
