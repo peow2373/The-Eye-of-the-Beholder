@@ -1,3 +1,15 @@
+# 4/26/2021 Update
+- Fixed the WebGL build for the game!!!!!!
+- Added hand animations to the options UI, showing players what hand motion to do to perform a certain move
+- Added combat tips that display occasionally, obstructing the "Enemy's Moves", but giving the player valuable advice. There are 10 combat tips total
+- Added attack tips that give the player more information about a certain attack, telling them what damage it does and how to target certain spells
+- Added a tutorial calibration scene that shows players how to operate the "Hand" controller
+- Fixed holy smite! Wow, it's a useful spell now. It will disable the next enemy attack/movement, and it cannot be dodged
+- Added many more SFX to help alert the player when they have made a choice
+- Added a small highlight that lights up an option for a second, alerting a player that option has been chosen
+- Added "Epilogue" and "Game Over" scenes, so it is now possible to win and lose the game
+- Combat scene now alerts the player when a character is being targeted by a dodge-able attack
+
 # 4/12/2021 Update
 - itch page: https://eyeofthebeholder.itch.io/the-eye-of-the-beholder
 ![image](https://user-images.githubusercontent.com/60019866/114463698-07a20d00-9ba2-11eb-84c1-a98a71412cca.png)
