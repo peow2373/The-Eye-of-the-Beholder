@@ -1052,7 +1052,7 @@ public class CombatManagerScript : MonoBehaviour
 
     IEnumerator Victory()
     {
-        yield return new WaitForSeconds(1.25f);
+        yield return new WaitForSeconds(0.85f);
         
         victory.SetActive(true);
         victorious = true;

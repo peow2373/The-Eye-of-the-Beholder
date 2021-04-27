@@ -17,18 +17,18 @@ public class GameWindowManager : MonoBehaviour
     public static float windowWidth, windowHeight;
 
     public GameObject webcam;
-    public Text webcamText;
+    public Image webcamText;
     public static float webcamWidth, webcamHeight;
     
     public GameObject option1, option2, option3, option4;
-    public Text option1Text, option2Text, option3Text, option4Text;
+    public Image option1Text, option2Text, option3Text, option4Text;
     public static float optionXPadding = 0.0125f, optionYPadding = 0.0125f;
     public static bool option1Centered, option2Centered, option3Centered;
 
     public GameObject background;
 
     public GameObject dialogue;
-    public Text dialogueText;
+    public Image dialogueText;
     private string currentDialogue;
     public static float percentOfDialogueArea = 1;
 
@@ -41,7 +41,7 @@ public class GameWindowManager : MonoBehaviour
     public static float largerDialoguePercent = 0.65f;
 
     public GameObject combatTips, tipLine;
-    public Text combatTipText;
+    public Image combatTipText;
     public static float tipMarginX = 0;
     public static float tipMarginY = 0;
     public static float tipInnerMargin = 0.02f;
@@ -50,7 +50,7 @@ public class GameWindowManager : MonoBehaviour
     public static float gridRowPadding, gridColumnPadding;
 
     public GameObject choice1, choice2, choice3;
-    public Text choice1Text, choice2Text, choice3Text;
+    public Image choice1Text, choice2Text, choice3Text;
     public GameObject choiceBackground;
     
     private GameObject[] choices;
@@ -74,7 +74,7 @@ public class GameWindowManager : MonoBehaviour
     public static int largerChoiceFont = 58;
     public static int smallerChoiceFont = 48;
 
-    public GameObject leftCurtain, rightCurtain;
+    public GameObject leftCurtain, rightCurtain, curtains;
 
     // Start is called before the first frame update
     void Awake()
@@ -117,21 +117,21 @@ public class GameWindowManager : MonoBehaviour
             {
                 spokenWords = splitArray[1];
             
-                if (dialogueText.text != spokenWords)
+                if (dialogueText.GetComponentInChildren<Text>().text != spokenWords)
                 {
                     // Determine location of the player portrait
                     PositionPortrait(cameraWidth, cameraHeight);
                 }
-                dialogueText.text = spokenWords;
+                dialogueText.GetComponentInChildren<Text>().text = spokenWords;
             }
             else
             {
-                if (dialogueText.text != unSplitDialogue)
+                if (dialogueText.GetComponentInChildren<Text>().text != unSplitDialogue)
                 {
                     // Determine location of the player portrait
                     PositionPortrait(cameraWidth, cameraHeight);
                 }
-                dialogueText.text = unSplitDialogue;
+                dialogueText.GetComponentInChildren<Text>().text = unSplitDialogue;
             }
         }
 
@@ -222,6 +222,14 @@ public class GameWindowManager : MonoBehaviour
 
         leftCurtain.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
         rightCurtain.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+        
+        // Resize curtains to match the screen
+        curtains.transform.localScale = new Vector3(1, 1, 1);
+        SpriteRenderer curtainSR = curtains.GetComponent<SpriteRenderer>();
+
+        float curtainWidth = curtainSR.bounds.extents.x * 2;
+
+        curtains.transform.localScale = new Vector3(cameraWidth / curtainWidth, cameraHeight / curtainHeight, 1);
     }
 
 
@@ -613,7 +621,7 @@ public class GameWindowManager : MonoBehaviour
             {
                 // The Player characters are speaking
                 dialogueText.transform.position = new Vector3((margin*2.5f) + size + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
-                dialogueText.alignment = TextAnchor.MiddleLeft;
+                dialogueText.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleLeft;
 
                 // Change textbox size
                 float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5));
@@ -625,7 +633,7 @@ public class GameWindowManager : MonoBehaviour
             {
                 // The Enemy characters are speaking
                 dialogueText.transform.position = new Vector3( (margin*2.5f) + (((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5))/2), Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
-                dialogueText.alignment = TextAnchor.MiddleRight;
+                dialogueText.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleRight;
                 
                 // Change textbox size
                 float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - size - (margin*5));
@@ -637,7 +645,7 @@ public class GameWindowManager : MonoBehaviour
             {
                 // No characters are speaking
                 dialogueText.transform.position = new Vector3((windowWidth*Screen.width)/2, Screen.height - (windowHeight*Screen.height) - (((Screen.height - (windowHeight*Screen.height)) * percentOfDialogueArea)/2), 0);
-                dialogueText.alignment = TextAnchor.MiddleCenter;
+                dialogueText.GetComponentInChildren<Text>().alignment = TextAnchor.MiddleCenter;
 
                 // Change textbox size
                 float sizeDiffX = ((gameWindowSizeX/screenSizeX*Screen.width) - (margin * 4));
@@ -669,7 +677,7 @@ public class GameWindowManager : MonoBehaviour
 
                     ChangeChoiceText.S.ChangeChoices(false, choices, 0);
 
-                    choice1Text.fontSize = largerChoiceFont;
+                    choice1Text.GetComponentInChildren<Text>().fontSize = largerChoiceFont;
                     break;
 
                 case 1:
@@ -681,7 +689,7 @@ public class GameWindowManager : MonoBehaviour
                     
                     ChangeChoiceText.S.ChangeChoices(false, choices, 1);
                     
-                    choice1Text.fontSize = largerChoiceFont;
+                    choice1Text.GetComponentInChildren<Text>().fontSize = largerChoiceFont;
                     break;
             
                 case 2:
@@ -702,7 +710,7 @@ public class GameWindowManager : MonoBehaviour
                             
                             ChangeChoiceText.S.ChangeChoices(true, choices, 2);
                             
-                            choice1Text.fontSize = smallerChoiceFont;
+                            choice1Text.GetComponentInChildren<Text>().fontSize = smallerChoiceFont;
                         }
                         else
                         {
@@ -714,7 +722,7 @@ public class GameWindowManager : MonoBehaviour
                             
                             ChangeChoiceText.S.ChangeChoices(false, choices, 2);
                             
-                            choice1Text.fontSize = largerChoiceFont;
+                            choice1Text.GetComponentInChildren<Text>().fontSize = largerChoiceFont;
                         }
                     }
                     else if (tempText == "Brute")
@@ -729,7 +737,7 @@ public class GameWindowManager : MonoBehaviour
                             
                             ChangeChoiceText.S.ChangeChoices(true, choices, 2);
                             
-                            choice1Text.fontSize = smallerChoiceFont;
+                            choice1Text.GetComponentInChildren<Text>().fontSize = smallerChoiceFont;
                         }
                         else
                         {
@@ -741,7 +749,7 @@ public class GameWindowManager : MonoBehaviour
                             
                             ChangeChoiceText.S.ChangeChoices(false, choices, 2);
                             
-                            choice1Text.fontSize = largerChoiceFont;
+                            choice1Text.GetComponentInChildren<Text>().fontSize = largerChoiceFont;
                         }
                     }
                     else if (GameManagerScript.currentScene == 31) 
@@ -754,7 +762,7 @@ public class GameWindowManager : MonoBehaviour
                             
                         ChangeChoiceText.S.ChangeChoices(false, choices, 2);
                             
-                        choice1Text.fontSize = largerChoiceFont;
+                        choice1Text.GetComponentInChildren<Text>().fontSize = largerChoiceFont;
                     }
                     else
                     {
@@ -766,7 +774,7 @@ public class GameWindowManager : MonoBehaviour
                         
                         ChangeChoiceText.S.ChangeChoices(true, choices, 2);
                         
-                        choice1Text.fontSize = smallerChoiceFont;
+                        choice1Text.GetComponentInChildren<Text>().fontSize = smallerChoiceFont;
                     }
                     break;
             
@@ -779,7 +787,7 @@ public class GameWindowManager : MonoBehaviour
                     
                     ChangeChoiceText.S.ChangeChoices(false, choices, 3);
                     
-                    choice1Text.fontSize = largerChoiceFont;
+                    choice1Text.GetComponentInChildren<Text>().fontSize = largerChoiceFont;
                     break;
             }
         }

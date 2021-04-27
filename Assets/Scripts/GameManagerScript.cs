@@ -28,7 +28,7 @@ public class GameManagerScript : MonoBehaviour
 
     public static bool curtainsOpening;
     
-    public GameObject leftCurtain, rightCurtain;
+    public GameObject leftCurtain, rightCurtain, curtains;
     public GameObject canvas;
     public GameObject portrait, portraitBG;
 
@@ -92,13 +92,6 @@ public class GameManagerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) Screen.fullScreen = !Screen.fullScreen;
     }
 
-
-    public void SceneChangeAnimation()
-    {
-        // TODO: Play scene change animation
-        StartCoroutine(OpenCurtains(true));
-    }
-
     IEnumerator OpenCurtains(bool stopOthers)
     {
         if (stopOthers)
@@ -112,9 +105,12 @@ public class GameManagerScript : MonoBehaviour
         portrait.GetComponent<SpriteRenderer>().enabled = false;
         portraitBG.GetComponent<SpriteRenderer>().enabled = false;
 
-        
-        yield return new WaitForSeconds(0.001f);
+        curtains.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.01f);
         GameWindowManager.S.PositionCurtains();
+        
+        curtains.gameObject.SetActive(false);
 
         curtainsOpening = true;
 
@@ -162,7 +158,7 @@ public class GameManagerScript : MonoBehaviour
             case 0:
                 if (previousScene != 0)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkIntro");
                     previousScene = 0;
 
@@ -180,7 +176,7 @@ public class GameManagerScript : MonoBehaviour
             case 1:
                 if (previousScene != 1)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkNetrixiPirate");
                     previousScene = 1;
 
@@ -195,7 +191,7 @@ public class GameManagerScript : MonoBehaviour
             case 2:
                 if (previousScene != 2)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     
                     previousScene = 2;
@@ -212,7 +208,7 @@ public class GameManagerScript : MonoBehaviour
             case 3:
                 if (previousScene != 3)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkNetrixiMansion");
                     previousScene = 3;
                     
@@ -226,7 +222,7 @@ public class GameManagerScript : MonoBehaviour
             case 4:
                 if (previousScene != 4)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 4;
 
@@ -251,7 +247,7 @@ public class GameManagerScript : MonoBehaviour
             case 6:
                 if (previousScene != 6)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkRoad");
                     previousScene = 6;
 
@@ -265,7 +261,7 @@ public class GameManagerScript : MonoBehaviour
             case 7:
                 if (previousScene != 7)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 7;
  
@@ -281,7 +277,7 @@ public class GameManagerScript : MonoBehaviour
             case 8:
                 if (previousScene != 8)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkTavern");
                     previousScene = 8;
 
@@ -295,7 +291,7 @@ public class GameManagerScript : MonoBehaviour
             case 9:
                 if (previousScene != 9)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkTavernAfterFight");
                     previousScene = 9;
        
@@ -309,7 +305,7 @@ public class GameManagerScript : MonoBehaviour
             case 10:
                 if (previousScene != 10)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 10;
 
@@ -325,7 +321,7 @@ public class GameManagerScript : MonoBehaviour
             case 11:
                 if (previousScene != 11)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkCastle");
                     previousScene = 11;
          
@@ -339,7 +335,7 @@ public class GameManagerScript : MonoBehaviour
             case 12:
                 if (previousScene != 12)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 12;
   
@@ -355,7 +351,7 @@ public class GameManagerScript : MonoBehaviour
             case 13:
                 if (previousScene != 13)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkThrone");
                     previousScene = 13;
     
@@ -371,7 +367,7 @@ public class GameManagerScript : MonoBehaviour
             case 14:
                 if (previousScene != 14)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkTunnelEntrance");
                     previousScene = 14;
 
@@ -385,7 +381,7 @@ public class GameManagerScript : MonoBehaviour
             case 15:
                 if (previousScene != 15)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 15;
 
@@ -401,7 +397,7 @@ public class GameManagerScript : MonoBehaviour
             case 16:
                 if (previousScene != 16)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkKazBoss");
                     previousScene = 16;
 
@@ -415,7 +411,7 @@ public class GameManagerScript : MonoBehaviour
             case 17:
                 if (previousScene != 17)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 17;
   
@@ -431,7 +427,7 @@ public class GameManagerScript : MonoBehaviour
             case 18:
                 if (previousScene != 18)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkTunnelExit");
                     previousScene = 18;
 
@@ -477,7 +473,7 @@ public class GameManagerScript : MonoBehaviour
             case 22:
                 if (previousScene != 22)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkInsideVolcano");
                     previousScene = 22;
 
@@ -491,7 +487,7 @@ public class GameManagerScript : MonoBehaviour
             case 23:
                 if (previousScene != 23)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 23;
 
@@ -507,7 +503,7 @@ public class GameManagerScript : MonoBehaviour
             case 24:
                 if (previousScene != 24)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkMine");
                     previousScene = 24;
 
@@ -521,7 +517,7 @@ public class GameManagerScript : MonoBehaviour
             case 25:
                 if (previousScene != 25)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 25;
    
@@ -535,7 +531,7 @@ public class GameManagerScript : MonoBehaviour
             case 26:
                 if (previousScene != 26)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkMoke");
                     previousScene = 26;
                     
@@ -549,7 +545,7 @@ public class GameManagerScript : MonoBehaviour
             case 27:
                 if (previousScene != 27)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene(combatScene);
                     previousScene = 27;
 
@@ -563,7 +559,7 @@ public class GameManagerScript : MonoBehaviour
             case 28:
                 if (previousScene != 28)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkFinalDecision");
                     previousScene = 28;
 
@@ -579,7 +575,7 @@ public class GameManagerScript : MonoBehaviour
             case 29:
                 if (previousScene != 29)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkEpilogue");
                     previousScene = 29;
 
@@ -593,7 +589,7 @@ public class GameManagerScript : MonoBehaviour
             case 30:
                 if (previousScene != 30)
                 {
-                    SceneChangeAnimation();
+                    StartCoroutine(OpenCurtains(true));
                     SceneManager.LoadScene("InkIntro");
 
                     currentScene = 0;
@@ -611,7 +607,7 @@ public class GameManagerScript : MonoBehaviour
                 {
                     if (inCombat)
                     {
-                        SceneChangeAnimation();
+                        StartCoroutine(OpenCurtains(true));
                         SceneManager.LoadScene("Game Over");
 
                         print("Game Over");

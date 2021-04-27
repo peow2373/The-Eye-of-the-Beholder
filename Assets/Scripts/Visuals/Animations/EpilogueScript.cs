@@ -34,7 +34,7 @@ public class EpilogueScript : MonoBehaviour
         float pause = 0.35f;
         float moveDelay = 0.025f;
         float waitBeforeStart = 2f;
-        float startingHeight = 10f;
+        float startingHeight = 11f;
         
         stick.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         this.transform.position = new Vector3(0, startingHeight, 0);
@@ -54,16 +54,18 @@ public class EpilogueScript : MonoBehaviour
 
         yield return new WaitForSeconds(waitBeforeStart);
 
+        float iterations = 190f;
+
         // Increase size of character
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i <= iterations; i++)
         {
-            float move = (float) (startingHeight - 1) / 200;
+            float move = (float) (startingHeight - 1) / iterations;
             
             this.gameObject.transform.position = new Vector3(transform.position.x, startingHeight - (move * i), 1);
             
             yield return new WaitForSeconds(moveDelay);
 
-            if (i == 199)
+            if (i == iterations)
             {
                 yield return new WaitForSeconds(pause);
 

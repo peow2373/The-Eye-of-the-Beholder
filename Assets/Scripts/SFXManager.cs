@@ -163,11 +163,11 @@ public class SFXManager : MonoBehaviour
 
                 break;
 
-            // General Sounds
             case 20:
 
                 break;
             
+            // General Sounds
             case 21:
                 Other.PlayOneShot(victory, 1.25f);
                 break;

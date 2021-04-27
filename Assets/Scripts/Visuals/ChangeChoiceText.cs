@@ -873,13 +873,16 @@ public class ChangeChoiceText : MonoBehaviour
 
         if (!NetrixiCombatScript.netrixiCondition2[0] && !IvCombatScript.ivCondition3[0])
         {
-            // Highlight option and play SFX
-            if (MarkerManagerScript.goMarker)
+            if (CombatManagerScript.firstAttack == 0 || CombatManagerScript.secondAttack == 0)
             {
-                if (Input.GetKeyDown(KeyCode.V))
+                // Highlight option and play SFX
+                if (MarkerManagerScript.goMarker)
                 {
-                    HighlightChoices.S.HighlightChoice(4,4);
-                    SFXManager.S.PlaySFX(38);
+                    if (Input.GetKeyDown(KeyCode.V))
+                    {
+                        HighlightChoices.S.HighlightChoice(4,4);
+                        SFXManager.S.PlaySFX(38);
+                    }
                 }
             }
         }
