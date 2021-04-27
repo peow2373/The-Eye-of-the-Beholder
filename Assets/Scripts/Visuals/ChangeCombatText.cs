@@ -124,6 +124,8 @@ public class ChangeCombatText : MonoBehaviour
             if (CombatManagerScript.enemyAttacking2) enemyAttack2.color = Color.gray;
             else enemyAttack2.color = Color.white;
         }
+
+        CheckForVictory();
     }
 
 
@@ -635,6 +637,43 @@ public class ChangeCombatText : MonoBehaviour
                 if (attackNumber == 1) ChangeSprites.S.ChangeEnemyCharacter(enemyName, enemySR1);
                 else ChangeSprites.S.ChangeEnemyCharacter(enemyName, enemySR2);
                 break;
+        }
+    }
+
+
+    void CheckForVictory()
+    {
+        if (CombatManagerScript.victorious || GameManagerScript.curtainsOpening)
+        {
+            roundNumber.gameObject.SetActive(false);
+            
+            playerAttack1.gameObject.SetActive(false);
+            playerAttack2.gameObject.SetActive(false);
+            
+            enemyAttack1.gameObject.SetActive(false);
+            enemyAttack2.gameObject.SetActive(false);
+            
+            playerSprite1.SetActive(false);
+            playerSprite2.SetActive(false);
+            
+            enemySprite1.SetActive(false);
+            enemySprite2.SetActive(false);
+        }
+        else
+        {
+            roundNumber.gameObject.SetActive(true);
+            
+            playerAttack1.gameObject.SetActive(true);
+            playerAttack2.gameObject.SetActive(true);
+            
+            enemyAttack1.gameObject.SetActive(true);
+            enemyAttack2.gameObject.SetActive(true);
+            
+            playerSprite1.SetActive(true);
+            playerSprite2.SetActive(true);
+            
+            enemySprite1.SetActive(true);
+            enemySprite2.SetActive(true);
         }
     }
 }

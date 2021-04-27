@@ -97,6 +97,18 @@ public class HandAnimationManager : MonoBehaviour
         
         // If the Combat simulation is running
         if (CombatManagerScript.hasRunSimulation) TipScript.S.Reset();
+        
+        // If the scene change animation is playing
+        if (GameManagerScript.curtainsOpening)
+        {
+            ChangeChoiceText.S.handAnimation1.SetActive(false);
+            ChangeChoiceText.S.handAnimation2.SetActive(false);
+            ChangeChoiceText.S.handAnimation3.SetActive(false);
+
+            animation1Playing = false;
+            animation2Playing = false;
+            animation3Playing = false;
+        }
     }
 
     void CheckForChanges()

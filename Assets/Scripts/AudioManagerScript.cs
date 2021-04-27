@@ -20,12 +20,16 @@ public class AudioManagerScript : MonoBehaviour
     public AudioSource mansion;
     public AudioSource road;
     public AudioSource tunnelExit;
+    public AudioSource tavern;
+    public AudioSource tavernFight;
         
     public static int scene;
 
     public static AudioManagerScript S;
     
-    private AudioSource[] allAudioSources;
+    public static AudioSource[] allAudioSources;
+
+    public static bool waiting;
 
     // Start is called before the first frame update
     void Awake()
@@ -34,13 +38,31 @@ public class AudioManagerScript : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         allAudioSources = FindObjectsOfType<AudioSource>();
+        StopAllAudio();
     }
 
-    void StopAllAudio() {
+    public static void StopAllAudio() {
         for (int i = 0; i < allAudioSources.Length; i++) 
         {
             allAudioSources[i].Stop();
         }
+    }
+
+    IEnumerator WaitAtStart()
+    {
+        waiting = true;
+        yield return new WaitForSeconds(2f);
+
+        if (GameManagerScript.currentScene == 0)
+        {
+            inkIntro.Play();
+            TutorialHandScript.startTutorial = true;
+        }
+    }
+
+    void Start()
+    {
+        StartCoroutine(WaitAtStart());
     }
 
     public void PlayAudio(int currentScene)
@@ -51,8 +73,9 @@ public class AudioManagerScript : MonoBehaviour
         if (scene == 0)
         {
             StopAllAudio();
-            inkIntro.Play();
+            StartCoroutine(WaitAtStart());
         }
+        else waiting = false;
 
         //Pirate Dialogue
         if (scene == 1)
@@ -99,19 +122,21 @@ public class AudioManagerScript : MonoBehaviour
         if (scene == 8)
         {
             StopAllAudio();
-            celestial.Play();
+            tavern.Play();
         }
 
         //Tavern Dialogue
         if (scene == 9)
         {
-
+            StopAllAudio();
+            tavern.Play();
         }
 
         //Tavern Combat
         if (scene == 10)
         {
-
+            StopAllAudio();
+            tavernFight.Play();
         }
 
         //Dialogue GK

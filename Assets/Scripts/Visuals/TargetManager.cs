@@ -67,16 +67,17 @@ public class TargetManager : MonoBehaviour
                 }
                 
             }
-        }
-        if (CombatManagerScript.secondAttack != 0)
-        {
-            if (target2Created)
+            
+            if (CombatManagerScript.secondAttack != 0)
             {
-                if (CombatManagerScript.secondAttack == 2) StartCoroutine(SendDownwards(target2, 2));
-                else
+                if (target2Created)
                 {
-                    Destroy(target2);
-                    target2Created = false;
+                    if (CombatManagerScript.secondAttack == 2) StartCoroutine(SendDownwards(target2, 2));
+                    else
+                    {
+                        Destroy(target2);
+                        target2Created = false;
+                    }
                 }
             }
         }
@@ -117,17 +118,20 @@ public class TargetManager : MonoBehaviour
         {
             if (CombatManagerScript.netrixiTarget1Location == positionNumber)
             {
-                if (!target1Created)
+                if (CombatManagerScript.firstAttack == 0 || CombatManagerScript.secondAttack == 0)
                 {
-                    Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
-                    target1 = Instantiate(target, loc, quaternion.identity);
+                    if (!target1Created)
+                    {
+                        Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
+                        target1 = Instantiate(target, loc, quaternion.identity);
 
-                    target1Created = true;
-                }
-                else
-                {
-                    Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
-                    target1.transform.position = loc;
+                        target1Created = true;
+                    }
+                    else
+                    {
+                        Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
+                        target1.transform.position = loc;
+                    } 
                 }
             }
         }
@@ -135,17 +139,20 @@ public class TargetManager : MonoBehaviour
         {
             if (CombatManagerScript.netrixiTarget2Location == positionNumber)
             {
-                if (!target2Created)
+                if (CombatManagerScript.firstAttack == 0 || CombatManagerScript.secondAttack == 0)
                 {
-                    Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
-                    target2 = Instantiate(target, loc, quaternion.identity);
+                    if (!target2Created)
+                    {
+                        Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
+                        target2 = Instantiate(target, loc, quaternion.identity);
 
-                    target2Created = true;
-                }
-                else
-                {
-                    Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
-                    target2.transform.position = loc;
+                        target2Created = true;
+                    }
+                    else
+                    {
+                        Vector3 loc = new Vector3(positions[i].transform.position.x, positions[i].transform.position.y + targetHeight, 0);
+                        target2.transform.position = loc;
+                    }
                 }
             }
         }
@@ -153,8 +160,11 @@ public class TargetManager : MonoBehaviour
 
     IEnumerator SendDownwards(GameObject thisTarget, int targetNumber)
     {
+        if (targetNumber == 1) target1Created = false;
+        else target2Created = false;
+
         Vector3 start = thisTarget.transform.position;
-        float wait = 0.002f;
+        float wait = 0.0015f;
 
         for (int i = 0; i < 100; i++)
         {
@@ -166,7 +176,5 @@ public class TargetManager : MonoBehaviour
         }
 
         Destroy(thisTarget);
-        if (targetNumber == 1) target1Created = false;
-        if (targetNumber == 2) target2Created = false;
     }
 }

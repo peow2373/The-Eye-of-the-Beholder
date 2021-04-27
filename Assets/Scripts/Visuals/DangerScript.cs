@@ -39,7 +39,7 @@ public class DangerScript : MonoBehaviour
         
         if (!startedAnimation)
         {
-            StartCoroutine(DisplayDanger(true));
+            StartCoroutine(DisplayDanger());
             startedAnimation = true;
         }
         
@@ -54,11 +54,11 @@ public class DangerScript : MonoBehaviour
         if (startScene != GameManagerScript.currentScene) Destroy(this.gameObject);
     }
 
-    IEnumerator DisplayDanger(bool skipWait)
+    IEnumerator DisplayDanger()
     {
         sr.enabled = false;
 
-        if (!skipWait) yield return new WaitForSeconds(timeOff);
+        yield return new WaitForSeconds(timeOff);
 
         sr.enabled = true;
         yield return new WaitForSeconds(timeVisible);
@@ -76,7 +76,7 @@ public class DangerScript : MonoBehaviour
         yield return new WaitForSeconds(timeVisible);
         
         sr.enabled = false;
-        StartCoroutine(DisplayDanger(false));
+        StartCoroutine(DisplayDanger());
     }
 
     void DetermineDangerHeight()
@@ -90,7 +90,7 @@ public class DangerScript : MonoBehaviour
         if (folkvar)
         {
             if (CombatManagerScript.folkvarAttacks) dangerHeight = TargetManager.dangerHeight;
-            else dangerHeight = 24;
+            else dangerHeight = 25;
         }
         
         if (iv)

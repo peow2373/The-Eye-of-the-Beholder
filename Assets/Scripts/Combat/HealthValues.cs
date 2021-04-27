@@ -28,6 +28,6 @@ public class HealthValues : MonoBehaviour
     public static int kazHP = 250;
 
     // Evil King
-    public static int skullKingHP = 300;
+    public static int skullKingHP = 250;
     public static int royalKingHP = 500;
 }

@@ -26,12 +26,28 @@ public class GameManagerScript : MonoBehaviour
 
     public static GameManagerScript S;
 
+    public static bool curtainsOpening;
+    
+    public GameObject leftCurtain, rightCurtain;
+    public GameObject canvas;
+    public GameObject portrait, portraitBG;
+
+    private SpriteRenderer leftSR, rightSR;
+
+    private float cameraWidth, cameraHeight;
+
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
 
         S = this;
+        
+        leftSR = leftCurtain.GetComponent<SpriteRenderer>();
+        rightSR = rightCurtain.GetComponent<SpriteRenderer>();
+
+        currentScene = 0;
+        previousScene = -1;
     }
 
     // Update is called once per frame
@@ -49,17 +65,24 @@ public class GameManagerScript : MonoBehaviour
             else currentScene++;
         }
 
-        // Change the scene
-        Scene scene = SceneManager.GetActiveScene();
-        if (scene.name == "StartGame")
-        {
-            currentScene = 0;
-            SceneManager.LoadScene("InkIntro");
-        }
-
         DetermineNextCombat();
 
         ChangeScene();
+        
+        
+        // Determine dimensions of the camera within the scene
+        Camera camera = Camera.main;
+        cameraHeight = 2f * camera.orthographicSize;
+        cameraWidth = cameraHeight * camera.aspect;
+        
+        // Determine the curtains locations
+        if (!curtainsOpening)
+        {
+            float curtainWidth = leftSR.bounds.extents.x;
+
+            leftCurtain.transform.position = new Vector3((-cameraWidth/2) - curtainWidth, leftCurtain.transform.position.y, 0);
+            rightCurtain.transform.position = new Vector3((cameraWidth/2) + curtainWidth, rightCurtain.transform.position.y, 0);
+        }
     }
 
 
@@ -70,9 +93,64 @@ public class GameManagerScript : MonoBehaviour
     }
 
 
-    void SceneChangeAnimation()
+    public void SceneChangeAnimation()
     {
         // TODO: Play scene change animation
+        StartCoroutine(OpenCurtains(true));
+    }
+
+    IEnumerator OpenCurtains(bool stopOthers)
+    {
+        if (stopOthers)
+        {
+            StopAllCoroutines();
+            StartCoroutine(OpenCurtains(false));
+        }
+        
+        // Disable canvas
+        canvas.GetComponent<Canvas>().enabled = false;
+        portrait.GetComponent<SpriteRenderer>().enabled = false;
+        portraitBG.GetComponent<SpriteRenderer>().enabled = false;
+
+        
+        yield return new WaitForSeconds(0.001f);
+        GameWindowManager.S.PositionCurtains();
+
+        curtainsOpening = true;
+
+        // Assign variables
+        float curtainWidth = leftSR.bounds.extents.x;
+        float waitBeforeOpening = 2f;
+        float delay = 0.02f;
+
+        // Curtain starting location
+        leftCurtain.transform.position = new Vector3(-curtainWidth, leftCurtain.transform.position.y, 0);
+        rightCurtain.transform.position = new Vector3(curtainWidth, rightCurtain.transform.position.y, 0);
+
+        if (AudioManagerScript.waiting) yield return new WaitForSeconds(waitBeforeOpening);
+        else yield return new WaitForSeconds(waitBeforeOpening/2);
+        
+        if (currentScene != 0) AudioManagerScript.S.PlayAudio(currentScene);
+            
+        for (int i = 0; i <= 100; i++)
+        {
+            yield return new WaitForSeconds(delay);
+                
+            float travelDistance = (cameraWidth / 2) / 100 * i;
+                
+            leftCurtain.transform.position = new Vector3((-curtainWidth) - travelDistance, leftCurtain.transform.position.y, 0);
+            rightCurtain.transform.position = new Vector3((curtainWidth) + travelDistance, rightCurtain.transform.position.y, 0);
+        }
+
+        if (GameManagerScript.currentScene == 0 || GameManagerScript.currentScene == 29) yield return new WaitForSeconds(4f);
+        else yield return new WaitForSeconds(waitBeforeOpening/4);
+        
+        // Re-enable canvas
+        canvas.GetComponent<Canvas>().enabled = true;
+        portrait.GetComponent<SpriteRenderer>().enabled = true;
+        portraitBG.GetComponent<SpriteRenderer>().enabled = true;
+        
+        curtainsOpening = false;
     }
     
 
@@ -85,7 +163,6 @@ public class GameManagerScript : MonoBehaviour
                 if (previousScene != 0)
                 {
                     SceneChangeAnimation();
-
                     SceneManager.LoadScene("InkIntro");
                     previousScene = 0;
 
@@ -106,8 +183,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkNetrixiPirate");
                     previousScene = 1;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue with Pirate");
                     
                     inCombat = false;
@@ -121,9 +197,9 @@ public class GameManagerScript : MonoBehaviour
                 {
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
+                    
                     previousScene = 2;
                     
-                    AudioManagerScript.S.PlayAudio(currentScene);
                     print("Combat with Pirate");
                     
                     inCombat = true;
@@ -140,7 +216,6 @@ public class GameManagerScript : MonoBehaviour
                     SceneManager.LoadScene("InkNetrixiMansion");
                     previousScene = 3;
                     
-                    AudioManagerScript.S.PlayAudio(currentScene);
                     print("Dialogue with Folkvar");
                     
                     inCombat = false;
@@ -154,8 +229,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 4;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Combat with Folkvar");
                     
                     inCombat = true;
@@ -180,8 +254,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkRoad");
                     previousScene = 6;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue with Kaz");
                     
                     inCombat = false;
@@ -195,8 +268,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 7;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+ 
                     print("Combat with Kaz");
                     
                     inCombat = true;
@@ -212,8 +284,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkTavern");
                     previousScene = 8;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue with people in Tavern before fight");
                     
                     inCombat = false;
@@ -227,8 +298,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkTavernAfterFight");
                     previousScene = 9;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+       
                     print("Dialogue with people in Tavern after fight");
                     
                     inCombat = false;
@@ -242,8 +312,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 10;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Combat with Tavern Brute");
                     
                     inCombat = true;
@@ -259,8 +328,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkCastle");
                     previousScene = 11;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+         
                     print("Dialogue with Gatekeeper");
                     
                     inCombat = false;
@@ -274,8 +342,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 12;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+  
                     print("Combat with Gatekeeper");
                     
                     inCombat = true;
@@ -291,8 +358,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkThrone");
                     previousScene = 13;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+    
                     print("Dialogue with the Royal King");
                     
                     inCombat = false;
@@ -308,8 +374,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkTunnelEntrance");
                     previousScene = 14;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue with Skull Grunts");
                     
                     inCombat = false;
@@ -323,8 +388,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 15;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Combat with Skull Grunts");
                     
                     inCombat = true;
@@ -340,8 +404,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkKazBoss");
                     previousScene = 16;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue with Kaz");
                     
                     inCombat = false;
@@ -355,8 +418,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 17;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+  
                     print("Combat with Kaz");
                     
                     inCombat = true;
@@ -372,8 +434,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkTunnelExit");
                     previousScene = 18;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue between Netrixi, Folkvar, Iv");
                     
                     inCombat = false;
@@ -419,8 +480,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkInsideVolcano");
                     previousScene = 22;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue with Royal Guards");
                     
                     inCombat = false;
@@ -434,8 +494,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 23;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Combat with Royal Guards");
                     
                     inCombat = true;
@@ -451,8 +510,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkMine");
                     previousScene = 24;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue between Iv and Bo");
                     
                     inCombat = false;
@@ -466,8 +524,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 25;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+   
                     print("Combat with Skull King");
                     
                     inCombat = true;
@@ -482,7 +539,6 @@ public class GameManagerScript : MonoBehaviour
                     SceneManager.LoadScene("InkMoke");
                     previousScene = 26;
                     
-                    AudioManagerScript.S.PlayAudio(currentScene);
                     print("Dialogue with Royal King");
                     
                     inCombat = false;
@@ -496,8 +552,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene(combatScene);
                     previousScene = 27;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Combat with Royal King");
                     
                     inCombat = true;
@@ -511,8 +566,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkFinalDecision");
                     previousScene = 28;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Dialogue after defeating the Royal King");
                     
                     inCombat = false;
@@ -528,8 +582,7 @@ public class GameManagerScript : MonoBehaviour
                     SceneChangeAnimation();
                     SceneManager.LoadScene("InkEpilogue");
                     previousScene = 29;
-                    
-                    AudioManagerScript.S.PlayAudio(currentScene);
+
                     print("Epilogue");
                     
                     inCombat = false;
@@ -546,7 +599,6 @@ public class GameManagerScript : MonoBehaviour
                     currentScene = 0;
                     previousScene = 30;
 
-                    AudioManagerScript.S.PlayAudio(currentScene);
                     print("Restarting Game");
                     
                     Reset();
@@ -562,7 +614,6 @@ public class GameManagerScript : MonoBehaviour
                         SceneChangeAnimation();
                         SceneManager.LoadScene("Game Over");
 
-                        AudioManagerScript.S.PlayAudio(currentScene);
                         print("Game Over");
 
                         inCombat = false;

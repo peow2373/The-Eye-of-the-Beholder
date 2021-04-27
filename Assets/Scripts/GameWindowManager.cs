@@ -74,6 +74,8 @@ public class GameWindowManager : MonoBehaviour
     public static int largerChoiceFont = 58;
     public static int smallerChoiceFont = 48;
 
+    public GameObject leftCurtain, rightCurtain;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -168,28 +170,26 @@ public class GameWindowManager : MonoBehaviour
         {
             choicesReset = false;
 
-            // Check to see if the dialogue has changed
-            PositionDialogue(cameraWidth, cameraHeight);
-
             option4Text.transform.position = new Vector3(offScreen, offScreen, 0);
 
             option1Centered = false;
             option2Centered = false;
             option3Centered = false;
+            
+            ArrangeScreen();
+            
+            PositionCurtains();
         }
     }
 
     public void ArrangeScreen()
     {
         Array.Clear(choices,0,choices.Length);
-        
-        gameWindowSizeX = screenSizeX - webcamSizeX;
-        gameWindowSizeY = (int) (gameWindowSizeX / 16) * 9;
 
         // Determine dimensions of the camera within the scene
         Camera camera = Camera.main;
-        float cameraHeight = 2f * camera.orthographicSize;
-        float cameraWidth = cameraHeight * camera.aspect;
+        cameraHeight = 2f * camera.orthographicSize;
+        cameraWidth = cameraHeight * camera.aspect;
 
         // Define the margins for the grid rows and columns
         gridRowPadding = (cameraWidth * 0.025f);
@@ -204,6 +204,24 @@ public class GameWindowManager : MonoBehaviour
         
         choices = GameObject.FindGameObjectsWithTag("Dialogue Choice");
         PositionDialogue(cameraWidth, cameraHeight);
+    }
+
+    public void PositionCurtains()
+    {
+        // Determine dimensions of the camera within the scene
+        Camera camera = Camera.main;
+        cameraHeight = 2f * camera.orthographicSize;
+
+        // Determine the dimensions of the curtains
+        leftCurtain.transform.localScale = new Vector3(1,1,1);
+        rightCurtain.transform.localScale = new Vector3(1,1,1);
+        
+        SpriteRenderer sr1 = leftCurtain.GetComponent<SpriteRenderer>();
+        float curtainHeight = sr1.bounds.extents.y * 2;
+        float scaleFactor = cameraHeight / curtainHeight;
+
+        leftCurtain.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
+        rightCurtain.transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
     }
 
 
@@ -416,11 +434,14 @@ public class GameWindowManager : MonoBehaviour
 
     void ChangeGameWindow(float cameraWidth, float cameraHeight)
     {
-        SpriteRenderer sr = background.GetComponent<SpriteRenderer>();
-        
+        gameWindowSizeX = screenSizeX - webcamSizeX;
+        gameWindowSizeY = (int) (gameWindowSizeX / 16) * 9;
+
         // Determine the dimensions of the game window
         windowWidth = gameWindowSizeX / screenSizeX;
         windowHeight = gameWindowSizeY / screenSizeY;
+        
+        SpriteRenderer sr = background.GetComponent<SpriteRenderer>();
 
         float currWidth = sr.sprite.bounds.extents.x * 2;
         float currHeight = sr.sprite.bounds.extents.y * 2;
@@ -435,10 +456,8 @@ public class GameWindowManager : MonoBehaviour
         float yLocation = cameraHeight/2 - (windowHeight * cameraHeight)/2;
         
         background.transform.position = new Vector3(xLocation, yLocation, 0);
-        
-        if (GameManagerScript.currentScene == 0) background.SetActive(false);
-        else background.SetActive(true);
-        
+
+        // Determine combat dimensions
         ChangeCombatWindow(windowWidth, windowHeight);
     }
 
@@ -559,7 +578,9 @@ public class GameWindowManager : MonoBehaviour
 
         portraitSizeX = portraitWidth * cameraWidth;
 
-        portrait.transform.localScale = new Vector3(portraitWidth * cameraWidth / currWidth, portraitHeight * cameraHeight / currHeight, 1);
+        float scaleDifference = portraitWidth * cameraWidth / currWidth;
+
+        portrait.transform.localScale = new Vector3(scaleDifference, scaleDifference, 1);
 
         // Determine the location of the portrait window
         float xLocation;

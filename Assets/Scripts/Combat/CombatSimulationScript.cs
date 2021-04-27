@@ -22,8 +22,12 @@ public class CombatSimulationScript : MonoBehaviour
     public static bool canPlayerMove1 = true, canPlayerMove2 = true;
     public static bool canEnemyMove1 = true, canEnemyMove2 = true;
 
+    public static GameObject theRunner;
+
     public IEnumerator RunSimulation(int playerFirstAttack, int playerSecondAttack, string enemyFirstAttack, string enemySecondAttack, GameObject runner)
     {
+        theRunner = runner;
+        
         CombatManagerScript.netrixiAttacks = false;
         CombatManagerScript.folkvarAttacks = false;
         CombatManagerScript.ivAttacks = false;
@@ -240,6 +244,25 @@ public class CombatSimulationScript : MonoBehaviour
         //if (!CombatManagerScript.netrixiAlive && !CombatManagerScript.folkvarAlive && CombatManagerScript.ivAlive) CombatManagerScript.ivAttacks = true;
 
         Destroy(runner);
+    }
+    
+    // Check to see if combat was won
+    void Update()
+    {
+        if (CombatManagerScript.victorious)
+        {
+            StopAllCoroutines();
+            if (theRunner != null) Destroy(theRunner);
+            CombatManagerScript.hasRunSimulation = false;
+            
+            CombatManagerScript.target1Location = 0;
+            CombatManagerScript.target2Location = 0;
+
+            EnemyManagerScript.attack1Location = 0;
+            EnemyManagerScript.attack1Location2 = 0;
+            EnemyManagerScript.attack2Location = 0;
+            EnemyManagerScript.attack2Location2 = 0;
+        }
     }
 
 

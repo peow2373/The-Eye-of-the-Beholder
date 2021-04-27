@@ -12,7 +12,9 @@ public class ChangeHealth : MonoBehaviour
     public Text enemy1HP, enemy2HP, enemy3HP;
 
     private float offScreen = GameWindowManager.offScreen;
-    private static float percentOfHeight;
+
+    public static float netrixiHeight = 6.5f, folkvarHeight = 8.5f, ivHeight = 6f;
+    public static float enemy1Height, enemy2Height, enemy3Height;
 
     public static int sizeOfEnemy1, sizeOfEnemy2, sizeOfEnemy3;
     
@@ -42,16 +44,14 @@ public class ChangeHealth : MonoBehaviour
             Camera camera = Camera.main;
             float cameraHeight = 2f * camera.orthographicSize;
             float cameraWidth = cameraHeight * camera.aspect;
-
-
+            
+            
             // If Netrixi is still alive
             if (CombatManagerScript.netrixiAlive)
             {
                 // Determines how tall Netrixi is
-                DetermineSize(2);
-                
                 Vector3 characterLoc = netrixi.transform.position;
-                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y - 0.5f)/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
+                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y + netrixiHeight)/cameraHeight*Screen.height), 0);
 
                 netrixiHP.transform.position = hpLoc;
                 netrixiHP.text = "" + CombatManagerScript.netrixiHP;
@@ -62,10 +62,8 @@ public class ChangeHealth : MonoBehaviour
             if (CombatManagerScript.folkvarAlive)
             {
                 // Determines how tall Folkvar is
-                DetermineSize(3);
-                
                 Vector3 characterLoc = folkvar.transform.position;
-                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
+                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y + folkvarHeight)/cameraHeight*Screen.height), 0);
 
                 folkvarHP.transform.position = hpLoc;
                 folkvarHP.text = "" + CombatManagerScript.folkvarHP;
@@ -76,10 +74,8 @@ public class ChangeHealth : MonoBehaviour
             if (CombatManagerScript.ivAlive)
             {
                 // Determines how tall Iv is
-                DetermineSize(1);
-
                 Vector3 characterLoc = iv.transform.position;
-                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y - 1.25f)/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
+                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y + ivHeight)/cameraHeight*Screen.height), 0);
 
                 ivHP.transform.position = hpLoc;
                 ivHP.text = "" + CombatManagerScript.ivHP;
@@ -93,10 +89,10 @@ public class ChangeHealth : MonoBehaviour
             if (CombatManagerScript.enemy1Alive)
             {
                 // Determines how tall Enemy 1 is
-                DetermineSize(sizeOfEnemy1);
+                DetermineSize(sizeOfEnemy1, 1);
                 
                 Vector3 characterLoc = enemy1.transform.position;
-                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
+                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y + enemy1Height)/cameraHeight*Screen.height), 0);
 
                 enemy1HP.transform.position = hpLoc;
                 enemy1HP.text = "" + CombatManagerScript.enemy1HP;
@@ -107,10 +103,10 @@ public class ChangeHealth : MonoBehaviour
             if (CombatManagerScript.enemy2Alive && EnemyManagerScript.enemy2 != "null")
             {
                 // Determines how tall Enemy 2 is
-                DetermineSize(sizeOfEnemy2);
+                DetermineSize(sizeOfEnemy2, 2);
                 
                 Vector3 characterLoc = enemy2.transform.position;
-                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
+                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y + enemy2Height)/cameraHeight*Screen.height), 0);
 
                 enemy2HP.transform.position = hpLoc;
                 enemy2HP.text = "" + CombatManagerScript.enemy2HP;
@@ -121,45 +117,77 @@ public class ChangeHealth : MonoBehaviour
             if (CombatManagerScript.enemy3Alive && EnemyManagerScript.enemy3 != "null")
             {
                 // Determines how tall Enemy 3 is
-                DetermineSize(sizeOfEnemy3);
+                DetermineSize(sizeOfEnemy3, 3);
                 
                 Vector3 characterLoc = enemy3.transform.position;
-                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + (characterLoc.y/cameraHeight*Screen.height) + (percentOfHeight*cameraHeight), 0);
+                Vector3 hpLoc = new Vector3((Screen.width/2) + characterLoc.x/cameraWidth*Screen.width, (Screen.height/2) + ((characterLoc.y + enemy3Height)/cameraHeight*Screen.height), 0);
 
                 enemy3HP.transform.position = hpLoc;
                 enemy3HP.text = "" + CombatManagerScript.enemy3HP;
             }
             else enemy3HP.transform.position = new Vector3(offScreen, offScreen, 0);
         }
+
+        CheckForSceneChange();
     }
 
-    private static void DetermineSize(int sizeOfEnemy)
+    private static void DetermineSize(int sizeOfEnemy, int enemyNumber)
     {
+        float height = 0f;
+        
         switch (sizeOfEnemy)
         {
             case 1:
-                percentOfHeight = 1.5f;
+                height = 6.5f;
                 break;
             
             case 2:
-                percentOfHeight = 1.5f;
+                height = 6.5f;
                 break;
             
             case 3:
-                percentOfHeight = 1.65f;
+                height = 8f;
                 break;
             
             case 4:
-                percentOfHeight = 1.75f;
+                height = 8.5f;
                 break;
             
             case 5:
-                percentOfHeight = 1.95f;
+                height = 9.5f;
                 break;
             
             case 6:
-                percentOfHeight = 1.8f;
+                height = 9f;
                 break;
+        }
+
+        if (enemyNumber == 1) enemy1Height = height;
+        if (enemyNumber == 2) enemy2Height = height;
+        if (enemyNumber == 3) enemy3Height = height;
+    }
+
+    private void CheckForSceneChange()
+    {
+        if (GameManagerScript.curtainsOpening)
+        {
+            netrixiHP.gameObject.SetActive(false);
+            folkvarHP.gameObject.SetActive(false);
+            ivHP.gameObject.SetActive(false);
+            
+            enemy1HP.gameObject.SetActive(false);
+            enemy2HP.gameObject.SetActive(false);
+            enemy3HP.gameObject.SetActive(false);
+        }
+        else
+        {
+            netrixiHP.gameObject.SetActive(true);
+            folkvarHP.gameObject.SetActive(true);
+            ivHP.gameObject.SetActive(true);
+            
+            enemy1HP.gameObject.SetActive(true);
+            enemy2HP.gameObject.SetActive(true);
+            enemy3HP.gameObject.SetActive(true);
         }
     }
 }

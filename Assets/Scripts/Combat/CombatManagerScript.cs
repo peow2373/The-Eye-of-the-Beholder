@@ -43,6 +43,10 @@ public class CombatManagerScript : MonoBehaviour
     public GameObject netrixi, folkvar, iv;
     public GameObject enemy1, enemy2, enemy3;
 
+    public GameObject victory;
+    public static bool victorious;
+    public static bool moveOnFromVictory;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -179,6 +183,7 @@ public class CombatManagerScript : MonoBehaviour
         HealthManagerScript.ResetVariables();
 
         StartCoroutine(TipScript.S.DisplayCombatTip(true));
+        victorious = false;
     }
 
     
@@ -197,20 +202,10 @@ public class CombatManagerScript : MonoBehaviour
         
         if (win)
         {
-            if (GameManagerScript.currentScene == 10)
-            {
-                // TODO: Play won-battle animation
-                GameManagerScript.currentScene = 9;
-                print("You won!...that battle");
-                win = false;
-            }
-            else
-            {
-                // TODO: Play won-battle animation
-                GameManagerScript.NextScene(false);
-                print("You won!...that battle");
-                win = false;
-            }
+            // TODO: Play won-battle animation
+            print("You won!...that battle");
+            StartCoroutine(Victory());
+            win = false;
         }
         else
         {
@@ -228,8 +223,25 @@ public class CombatManagerScript : MonoBehaviour
             }
         }
 
-        
-        
+        // If in the Victory scene
+        if (victorious)
+        {
+            CombatManagerScript.netrixiAttacks = false;
+            CombatManagerScript.folkvarAttacks = false;
+            CombatManagerScript.ivAttacks = false;
+            
+            if (moveOnFromVictory)
+            {
+                if (GameManagerScript.currentScene == 10) GameManagerScript.currentScene = 9;
+                else GameManagerScript.NextScene(false);
+                
+                moveOnFromVictory = false;
+                victorious = false;
+            }
+        }
+
+
+
         // If the Netrixi marker is visible
         if (MarkerManagerScript.netrixiMarker)
         {
@@ -1036,5 +1048,15 @@ public class CombatManagerScript : MonoBehaviour
         {
             lose = false;
         }
+    }
+
+    IEnumerator Victory()
+    {
+        yield return new WaitForSeconds(1.25f);
+        
+        victory.SetActive(true);
+        victorious = true;
+        
+        SFXManager.S.PlaySFX(21);
     }
 }

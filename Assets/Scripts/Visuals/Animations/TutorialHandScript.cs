@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,9 @@ public class TutorialHandScript : MonoBehaviour
     public AudioClip inkIntroSong;
 
     private bool handIsFlipping;
-    
+
+    public static bool startTutorial = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +36,6 @@ public class TutorialHandScript : MonoBehaviour
         sr.enabled = false;
         
         logoText.SetActive(false);
-
-        StartCoroutine(StartTutorial());
     }
 
     // Update is called once per frame
@@ -48,6 +49,12 @@ public class TutorialHandScript : MonoBehaviour
                 counter++;
                 if (!handIsFlipping) StartCoroutine(FlipHand());
             }
+        }
+
+        if (startTutorial)
+        {
+            StartCoroutine(StartTutorial());
+            startTutorial = false;
         }
     }
 
@@ -105,6 +112,12 @@ public class TutorialHandScript : MonoBehaviour
 
     private IEnumerator StartTutorial()
     {
+        if (AudioManagerScript.waiting)
+        {
+            yield return new WaitForSeconds(1f);
+            AudioManagerScript.waiting = false;
+        }
+        
         logoText.SetActive(true);
         logoText.transform.localScale = new Vector3(smallestSize, smallestSize, smallestSize);
 
@@ -122,7 +135,7 @@ public class TutorialHandScript : MonoBehaviour
         sr.enabled = true;
         logoText.GetComponent<SpriteRenderer>().sprite = logoNoHand;
         
-        yield return new WaitForSeconds(animationDelay * 34);
+        yield return new WaitForSeconds(animationDelay * 20);
 
         sr.sprite = closedHand;
         
@@ -137,7 +150,7 @@ public class TutorialHandScript : MonoBehaviour
         logoText.transform.localScale = new Vector3(smallestSize, smallestSize, smallestSize);
         logoText.GetComponent<SpriteRenderer>().sprite = logoHand;
         
-        yield return new WaitForSeconds(animationDelay*75);
+        yield return new WaitForSeconds(animationDelay*80);
 
         StartCoroutine(StartTutorial());
     }

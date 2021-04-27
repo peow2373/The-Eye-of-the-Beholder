@@ -75,13 +75,19 @@ public class EnemyManagerScript : MonoBehaviour
         // Determine enemy choices for their first attack
         if (firstAttack == "null")
         {
-            DetermineEnemyChoice(1);
+            if (CombatManagerScript.enemy1Alive || CombatManagerScript.enemy2Alive || CombatManagerScript.enemy3Alive)
+            {
+                DetermineEnemyChoice(1);
+            }
         }
         else
         {
             if (secondAttack == "null")
             {
-                DetermineEnemyChoice(2);
+                if (CombatManagerScript.enemy1Alive || CombatManagerScript.enemy2Alive || CombatManagerScript.enemy3Alive)
+                {
+                    DetermineEnemyChoice(2);
+                }
             }
         }
 

@@ -65,6 +65,7 @@ public class SFXManager : MonoBehaviour
     public AudioClip attackChosen;
     public AudioClip startFight;
     public AudioClip undo;
+    public AudioClip victory;
 
     public static SFXManager S;
 
@@ -162,15 +163,15 @@ public class SFXManager : MonoBehaviour
 
                 break;
 
+            // General Sounds
             case 20:
 
                 break;
-
+            
             case 21:
-
+                Other.PlayOneShot(victory, 1.25f);
                 break;
-
-            // General Sounds
+            
             case 22:
                 Other.PlayOneShot(startFight, 1);
                 break;
@@ -192,7 +193,7 @@ public class SFXManager : MonoBehaviour
                 break;
 
             case 27:
-                Other.PlayOneShot(dial, 1);
+                Other.PlayOneShot(dial, 0.65f);
                 break;
 
             case 28:

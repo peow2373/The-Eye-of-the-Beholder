@@ -13,7 +13,7 @@ public class HandManagerScript : MonoBehaviour
     private float currentTime = 0, timer = 0.7f;
     private bool startTimer = true;
 
-    public static float handScale = 7;
+    public static float handScale = 10;
 
     // Start is called before the first frame update
     void Start()

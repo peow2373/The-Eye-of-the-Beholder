@@ -130,6 +130,8 @@ public class ChangeChoiceText : MonoBehaviour
 
             justEnteredCombat = true;
         }
+
+        CheckForVictory();
     }
 
     public void ChangeChoices(bool displayDialogueResponses, GameObject[] choices, int numberOfChoices)
@@ -869,15 +871,19 @@ public class ChangeChoiceText : MonoBehaviour
         option4[1].GetComponent<Text>().color = Color.white;
         option4[0].GetComponent<SpriteRenderer>().color = nextChoice;
 
-        if (MarkerManagerScript.goMarker)
+        if (!NetrixiCombatScript.netrixiCondition2[0] && !IvCombatScript.ivCondition3[0])
         {
-            if (Input.GetKeyDown(KeyCode.V))
+            // Highlight option and play SFX
+            if (MarkerManagerScript.goMarker)
             {
-                HighlightChoices.S.HighlightChoice(4,4);
-                if (CombatManagerScript.firstAttack == 0 || CombatManagerScript.secondAttack == 0) SFXManager.S.PlaySFX(38);
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    HighlightChoices.S.HighlightChoice(4,4);
+                    SFXManager.S.PlaySFX(38);
+                }
             }
         }
-        
+
         // Change options for Netrixi
         if (option == "Netrixi")
         {
@@ -1176,6 +1182,46 @@ public class ChangeChoiceText : MonoBehaviour
             handAnimation1.SetActive(false);
             handAnimation2.SetActive(false);
             handAnimation3.SetActive(false);
+        }
+    }
+
+
+    void CheckForVictory()
+    {
+        if (CombatManagerScript.victorious)
+        {
+            option1[1].GetComponent<Text>().text = "Flip hand to\nContinue";
+            option1[1].GetComponent<Text>().color = Color.white;
+                
+            option2[1].GetComponent<Text>().text = "";
+            option2[1].GetComponent<Text>().color = Color.gray;
+                
+            option3[1].GetComponent<Text>().text = "";
+            option3[1].GetComponent<Text>().color = Color.gray;
+            
+            option4[1].GetComponent<Text>().text = "";
+            option4[1].GetComponent<Text>().color = Color.gray;
+                
+            option1[0].GetComponent<SpriteRenderer>().color = nextChoice;
+            option2[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            option3[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+            option4[0].GetComponent<SpriteRenderer>().color = inActiveDecision;
+                
+            handAnimation1.SetActive(true);
+            handAnimation2.SetActive(false);
+            handAnimation3.SetActive(false);
+                
+            GameWindowManager.option1Centered = false;
+            ChangeHandAnimation.animationName1 = "Flip Hand";
+                
+            if (MarkerManagerScript.goMarker)
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    HighlightChoices.S.HighlightChoice(1,1);
+                    CombatManagerScript.moveOnFromVictory = true;
+                }
+            }
         }
     }
 

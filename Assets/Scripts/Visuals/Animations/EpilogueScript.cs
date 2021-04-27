@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class EpilogueScript : MonoBehaviour
@@ -34,7 +33,8 @@ public class EpilogueScript : MonoBehaviour
     {
         float pause = 0.35f;
         float moveDelay = 0.025f;
-        float startingHeight = 7.5f;
+        float waitBeforeStart = 2f;
+        float startingHeight = 10f;
         
         stick.gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         this.transform.position = new Vector3(0, startingHeight, 0);
@@ -52,18 +52,18 @@ public class EpilogueScript : MonoBehaviour
                 break;
         }
 
-        yield return new WaitForSeconds(moveDelay);
+        yield return new WaitForSeconds(waitBeforeStart);
 
         // Increase size of character
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 200; i++)
         {
-            float move = (float) (startingHeight - 1) / 100;
+            float move = (float) (startingHeight - 1) / 200;
             
             this.gameObject.transform.position = new Vector3(transform.position.x, startingHeight - (move * i), 1);
             
             yield return new WaitForSeconds(moveDelay);
 
-            if (i == 99)
+            if (i == 199)
             {
                 yield return new WaitForSeconds(pause);
 

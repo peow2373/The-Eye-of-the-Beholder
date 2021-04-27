@@ -41,7 +41,7 @@ public class TipScript : MonoBehaviour
     void Update()
     {
         // Reset the tips if they aren't supposed to be visible
-        if (!GameManagerScript.inCombat || CombatManagerScript.hasRunSimulation) {
+        if (!GameManagerScript.inCombat || CombatManagerScript.hasRunSimulation || CombatManagerScript.victorious) {
             Reset();
             StopAllCoroutines();
         }
@@ -123,7 +123,7 @@ public class TipScript : MonoBehaviour
     {
         attackPlaying = 0;
         
-        if (waitBeforeDisplay) yield return new WaitForSeconds(timeInvisible);
+        if (waitBeforeDisplay) yield return new WaitForSeconds(timeInvisible*2);
 
         if (!attackTipActivated && !tipActivated && !CombatManagerScript.hasRunSimulation)
         {
@@ -167,7 +167,7 @@ public class TipScript : MonoBehaviour
 
         yield return new WaitForSeconds(timeInvisible);
 
-        if (!attackTipActivated && !CombatManagerScript.hasRunSimulation) StartCoroutine(DisplayCombatTip(false));
+        if (!attackTipActivated && !CombatManagerScript.hasRunSimulation && !CombatManagerScript.victorious) StartCoroutine(DisplayCombatTip(false));
     }
 
     string DetermineTip(int index, bool forreal)
@@ -262,7 +262,7 @@ public class TipScript : MonoBehaviour
         if (attackPlaying == attackNumber)
         {
             Reset();
-            if (!CombatManagerScript.hasRunSimulation) StartCoroutine(DisplayCombatTip(true));
+            if (!CombatManagerScript.hasRunSimulation && !CombatManagerScript.victorious) StartCoroutine(DisplayCombatTip(true));
         }
     }
 
