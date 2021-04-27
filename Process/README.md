@@ -1,4 +1,5 @@
 # 4/26/2021 Update
+- Added a tutorial scene that guides the players on how to use the Hand controller
 - Fixed the WebGL build for the game!!!!!!
 - Added hand animations to the options UI, showing players what hand motion to do to perform a certain move
 - Added combat tips that display occasionally, obstructing the "Enemy's Moves", but giving the player valuable advice. There are 10 combat tips total
