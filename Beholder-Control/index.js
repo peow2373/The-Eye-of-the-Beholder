@@ -25,7 +25,7 @@ let xLattice1 = 0, xLattice2 = 220, xLattice3 = 420, xLattice4 = 640;
 let yLattice1 = 0, yLattice2 = 170, yLattice3 = 310, yLattice4 = 480;
 
 // Detection for rotations of markerButton1
-let startPoint = 1.5, endPoint = 0;
+let startPoint = 1.5, endPoint = 0, endOffset = 0.25;
 let secondZone = (startPoint - endPoint) * (3/4), thirdZone = (startPoint - endPoint) * (2/4), fourthZone = (startPoint - endPoint) * (1/4);
 
 let rotatingRight = false, rotatingLeft = false;
@@ -450,7 +450,8 @@ function MarkerRotation() {
     // RIGHT HANDED
 
     // if the player starts by facing the Palm marker to the Left
-    if (markerRotation >= startPoint +deadZoneDivided) {
+    if ((markerRotation >= startPoint -deadZoneDivided && markerRotation <= startPoint + endOffset)
+    || (markerRotation >= -startPoint -deadZoneDivided && markerRotation <= -startPoint + endOffset)) {
         if (pastRotation !== -1) {
             ipcRenderer.send('K_KEY_DOWN');
             pastRotation = -1;
@@ -462,7 +463,8 @@ function MarkerRotation() {
     }
 
     // is the marker then rotated to the second zone?
-    if (markerRotation < startPoint -deadZoneDivided && markerRotation >= secondZone +deadZoneDivided) {
+    if ((markerRotation < startPoint -deadZoneDivided && markerRotation >= secondZone +deadZoneDivided)
+    || (markerRotation < -startPoint -deadZoneDivided && markerRotation >= -startPoint -fourthZone +deadZoneDivided)) {
         if (pastRotation !== 2) {
             pastRotation = 2;
             if (rotatingRight) {
@@ -473,7 +475,8 @@ function MarkerRotation() {
     }
 
     // is the marker then rotated to the third zone?
-    if (markerRotation < secondZone -deadZoneDivided && markerRotation >= thirdZone +deadZoneDivided) {
+    if ((markerRotation < secondZone -deadZoneDivided && markerRotation >= thirdZone +deadZoneDivided)
+    || (markerRotation < -startPoint -fourthZone -deadZoneDivided && markerRotation >= -startPoint -thirdZone +deadZoneDivided)) {
         if (pastRotation !== 3) {
             pastRotation = 3;
             if (rotatingRight) {
@@ -484,7 +487,8 @@ function MarkerRotation() {
     }
 
     // is the marker then rotated to the fourth zone?
-    if (markerRotation < thirdZone -deadZoneDivided && markerRotation >= fourthZone +deadZoneDivided) {
+    if ((markerRotation < thirdZone -deadZoneDivided && markerRotation >= fourthZone +deadZoneDivided)
+    || (markerRotation < -startPoint -thirdZone -deadZoneDivided && markerRotation >= -startPoint -secondZone +deadZoneDivided)){
         if (pastRotation !== 4) {
             pastRotation = 4;
             if (rotatingRight) {
@@ -495,7 +499,8 @@ function MarkerRotation() {
     }
 
     // is the marker then rotated to the fifth zone?
-    if (markerRotation < fourthZone -deadZoneDivided && markerRotation >= endPoint +deadZoneDivided) {
+    if ((markerRotation < fourthZone -deadZoneDivided && markerRotation >= endPoint - endOffset)
+    || (markerRotation < -startPoint -secondZone -deadZoneDivided && markerRotation >= -startPoint -startPoint - endOffset)) {
         if (pastRotation !== 5) {
             pastRotation = 5;
             if (rotatingRight) {
@@ -515,50 +520,6 @@ function MarkerRotation() {
 
             rotatingRight = false;
             rotatingLeft = true;
-            return;
-        }
-    }
-
-    // is the marker then rotated to the second zone?
-    if (markerRotation > (-startPoint) +deadZoneDivided && markerRotation <= (-secondZone) -deadZoneDivided) {
-        if (pastRotation !== -4) {
-            pastRotation = -4;
-            if (rotatingLeft) {
-                ipcRenderer.send('G_KEY_DOWN');
-            }
-            return;
-        }
-    }
-
-    // is the marker then rotated to the third zone?
-    if (markerRotation > (-secondZone) +deadZoneDivided && markerRotation <= (-thirdZone) -deadZoneDivided) {
-        if (pastRotation !== -5) {
-            pastRotation = -5;
-            if (rotatingLeft) {
-                ipcRenderer.send('B_KEY_DOWN');
-            }
-            return;
-        }
-    }
-
-    // is the marker then rotated to the fourth zone?
-    if (markerRotation > (-thirdZone) +deadZoneDivided && markerRotation <= (-fourthZone) -deadZoneDivided) {
-        if (pastRotation !== -6) {
-            pastRotation = -6;
-            if (rotatingLeft) {
-                ipcRenderer.send('T_KEY_DOWN');
-            }
-            return;
-        }
-    }
-
-    // is the marker then rotated to the fifth zone?
-    if (markerRotation > (-fourthZone) +deadZoneDivided && markerRotation <= endPoint -deadZoneDivided) {
-        if (pastRotation !== -7) {
-            pastRotation = -7;
-            if (rotatingLeft) {
-                ipcRenderer.send('R_KEY_DOWN');
-            }
             return;
         }
     }
